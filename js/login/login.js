@@ -30,8 +30,9 @@ function loginGo() {
         ajaxGo('admin/login/login');
         if(requestCode !== 0){
             layer.msg(requestMessage);
+        }else {
+            window.location.replace("http://" + window.top.location.host +'/'+ requestData.data.url+'.html');
         }
-        window.location.replace("http://" + window.top.location.host +'/'+ requestData.data.url+'.html');
     }
 }
 
