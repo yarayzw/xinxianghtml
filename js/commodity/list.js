@@ -80,8 +80,8 @@ function initTable() {
                 }
             },
             {
-                field: 'memo',
-                title: '内容简介',
+                field: 'url',
+                title: '域名',
                 align: 'center'
             },
 
@@ -90,11 +90,11 @@ function initTable() {
                 title: '操作',
                 align: 'center',
                 formatter: function(value,row,index){
-                    var d='<a href="#" mce_href="#" data_url="'+row.url+'/exhibition/commodity/commodity.html?id='+row.id+'"  onclick="copyUrl(this)" >复制</a> ';
+                    var d='<a href="#" mce_href="#" data_id="'+row.id+'" data_name="'+row.name+'" data_title="'+row.title+'" data_url="'+row.url+'" onclick="editCommodity(this)" >编辑</a> ';
                     var e='<a href="#" mce_href="#" " data_url="'+row.url+'/exhibition/commodity/commodity.html?id='+row.id+'"  onclick="preview(this)" >预览</a> ';
                     var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="del(this)" >删除</a>';
 
-                    return e+f;
+                    return d+e+f;
                 }
             }
         ]
@@ -115,7 +115,7 @@ function fac_search() {
 function addCommodity() {
     layer.open({
         type: 1,
-        title: '编辑',
+        title: '添加',
         shadeClose: true,
         shade: 0.8,
         area: ['90%', '90%'],
@@ -128,6 +128,50 @@ function addCommodity() {
                 ,btn: ['确定', '取消']
                 ,yes: function(index){
                     addCommodityGo();
+                    if(requestCode === 0){
+                        fac_search();
+                        layer.close(index);
+                        layer.closeAll();
+                        layer.msg(requestMessage);
+                    }else {
+                        layer.msg(requestMessage);
+                    }
+                }
+            });
+
+
+        }
+//            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
+    });
+
+}
+
+//编辑
+function editCommodity(obj) {
+    // 'name' : $("input[name='name']").val(),
+    //     'title': $("input[name='title']").val(),
+    //     'head_img' : head_img,
+    //     'qr_img' : qr_img,
+    //     'comment' : content,
+    //     'url' : $("input[name='url']").val(),
+    $("input[name='name']").val($(obj).attr('data_name'));
+    $("input[name='title']").val($(obj).attr('data_title'));
+    $("input[name='url']").val($(obj).attr('data_url'));
+    layer.open({
+        type: 1,
+        title: '编辑',
+        shadeClose: true,
+        shade: 0.8,
+        area: ['90%', '90%'],
+        content: $('#add'),
+        btn: ['确定', '取消'], // 按钮
+        yes: function(index, layero){
+
+            layer.msg('确定修改？', {
+                time: 0 //不自动关闭
+                ,btn: ['确定', '取消']
+                ,yes: function(index){
+                    editCommodityGo($(obj).attr('data_id'));
                     if(requestCode === 0){
                         fac_search();
                         layer.close(index);

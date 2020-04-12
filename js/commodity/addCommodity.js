@@ -107,3 +107,32 @@ function addCommodityGo() {
     ajaxGo('admin/commodity/addCommodity')
 
 }
+
+//修改落地页数据
+function editCommodityGo(id) {
+
+    let head_img=[];
+    $("*[name='head_img']").each(function(index,el){
+        head_img[index] = $(el).attr('data_name')
+    });
+
+    let qr_img=[];
+    $("*[name='qr_img']").each(function(index,el){
+        qr_img[index] = $(el).attr('data_name')
+    });
+
+    //富文本值
+    var content = $(".simditor-body").html();
+
+    requestData.data = {
+        'id' : id,
+        'name' : $("input[name='name']").val(),
+        'title': $("input[name='title']").val(),
+        'head_img' : head_img,
+        'qr_img' : qr_img,
+        'comment' : content,
+        'url' : $("input[name='url']").val(),
+    }
+    ajaxGo('admin/commodity/editCommodity')
+
+}
