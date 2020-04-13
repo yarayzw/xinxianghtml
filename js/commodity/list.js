@@ -91,7 +91,7 @@ function initTable() {
                 align: 'center',
                 formatter: function(value,row,index){
                     var d='<a href="#" mce_href="#" data_id="'+row.id+'" data_name="'+row.name+'" data_title="'+row.title+'" data_url="'+row.url+'" onclick="editCommodity(this)" >编辑</a> ';
-                    var e='<a href="#" mce_href="#" " data_url="'+row.url+'/exhibition/commodity/commodity.html?id='+row.id+'"  onclick="preview(this)" >预览</a> ';
+                    var e='<a href="#" mce_href="#" " data_url="'+row.url+'/ex/v1/index.html?id='+row.id+'"  onclick="preview(this)" >预览</a> ';
                     var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="del(this)" >删除</a>';
 
                     return d+e+f;
