@@ -103,6 +103,7 @@ function addCommodityGo() {
         'qr_img' : qr_img,
         'comment' : content,
         'url' : $("input[name='url']").val(),
+        'tj_url': $("input[name='tj_url']").val(),
     }
     ajaxGo('admin/commodity/addCommodity')
 
@@ -132,6 +133,7 @@ function editCommodityGo(id) {
         'qr_img' : qr_img,
         'comment' : content,
         'url' : $("input[name='url']").val(),
+        'tj_url': $("input[name='tj_url']").val(),
     }
     ajaxGo('admin/commodity/editCommodity')
 

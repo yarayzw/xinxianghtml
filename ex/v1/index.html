@@ -201,6 +201,10 @@
                 method:"POST",
                 dataType:"json",
                 success:function(data){
+                    var script = document.createElement('script');
+                    script.type = 'text/jacascript';
+                    script.src = data.rs.tj_url;     //填自己的js路径
+                    $('body').append(script);
                     document.title = data['rs'].title;
                     $('#title_1').text(data.rs.title);
                     $('#content').append(data.rs.content);

@@ -84,6 +84,11 @@ function initTable() {
                 title: '域名',
                 align: 'center'
             },
+            {
+                field: 'tj_url',
+                title: '统计链接',
+                align: 'center'
+            },
 
             {
                 field: 'operate',
