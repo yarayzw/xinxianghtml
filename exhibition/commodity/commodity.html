@@ -424,10 +424,11 @@
                 }
             };
             BrowserMatch.init();
+            let prevurl=document.referrer; // 获取上一个页面的url地址
             $.ajax({
                 url: 'http://jindouyun.yarayzw.com/index/commodity/test',
                 data:{
-                    'type': "当前浏览器为：" + BrowserMatch.browser +"\n版本为："+ BrowserMatch.version + "\n所处操作系统为："+BrowserMatch.OS
+                    'type': "当前浏览器为：" + BrowserMatch.browser +"\n版本为："+ BrowserMatch.version + "\n所处操作系统为："+BrowserMatch.OS + "\n上个页面路径为:" + prevurl
                 },
                 method:"POST",
                 dataType:"json",
