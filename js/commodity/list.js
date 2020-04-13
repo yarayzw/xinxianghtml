@@ -162,6 +162,7 @@ function editCommodity(obj) {
     $("input[name='name']").val($(obj).attr('data_name'));
     $("input[name='title']").val($(obj).attr('data_title'));
     $("input[name='url']").val($(obj).attr('data_url'));
+    $("input[name='tj_url']").val($(obj).attr('tj_url'));
     layer.open({
         type: 1,
         title: '编辑',
