@@ -14,7 +14,24 @@
     <link rel="stylesheet" type="text/css" href="../css/plugins/webuploader/webuploader.css">
     <link rel="stylesheet" type="text/css" href="../css/demo/webuploader-demo.min.css">
 </head>
+<style>
+    /**字符串过长 转化为 。。。**/
+    table{
+        table-layout:fixed;/* 只有定义了表格的布局算法为fixed，下面td的定义才能起作用。 */
+    }
+    td{
+        max-width: 58px;
+        overflow: hidden;
+        text-overflow:ellipsis;
+        white-space: nowrap;
+    }
 
+    table td:hover {
+
+        overflow: auto;
+        white-space: pre-wrap;
+    }
+</style>
 <body>
 <div class="ibox float-e-margins">
     <div class="ibox-content">

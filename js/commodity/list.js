@@ -48,6 +48,10 @@ function initTable() {
             return param;
         },
         onLoadSuccess: function(data){  //加载成功时执行
+            $('.bootstrap-table tr td').each(function () {
+                $(this).attr("title", $(this).text());
+                $(this).css("cursor", 'pointer');
+            });
 //                    if(data.total==0){
 //                        layer.msg('暂无设备数据！');
 //                        $("#userFaciTable").bootstrapTable('hideRow');
@@ -64,11 +68,13 @@ function initTable() {
                 title: 'ID',
                 field: 'facilities_id',
                 align: 'center',
-                valign: 'middle'
+                valign: 'middle',
+                width : '5%',
             },
             {
                 field: 'name',
                 title: '网页名称',
+                width : '10%',
                 align: 'center'
             },
             {
@@ -87,15 +93,19 @@ function initTable() {
             {
                 field: 'tj_url',
                 title: '统计链接',
-                align: 'center'
+                align: 'center',
+                formatter: function(value,row,index){
+                    return '<xmp>' + value +'</xmp>';
+                }
             },
 
             {
                 field: 'operate',
                 title: '操作',
+                width : '10%',
                 align: 'center',
                 formatter: function(value,row,index){
-                    var d='<a href="#" mce_href="#" data_id="'+row.id+'" data_name="'+row.name+'" data_title="'+row.title+'" data_url="'+row.url+'" onclick="editCommodity(this)" >编辑</a> ';
+                    var d='<a href="#" mce_href="#" data_id="'+row.id+'" data_name="'+row.name+'" data_title="'+row.title+'" data_url="'+row.url+'"  onclick="editCommodity(this)" >编辑</a> ';
                     var e='<a href="#" mce_href="#" " data_url="'+row.url+'/ex/v1/index.html?id='+row.id+'"  onclick="preview(this)" >预览</a> ';
                     var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="del(this)" >删除</a>';
 
@@ -162,7 +172,7 @@ function editCommodity(obj) {
     $("input[name='name']").val($(obj).attr('data_name'));
     $("input[name='title']").val($(obj).attr('data_title'));
     $("input[name='url']").val($(obj).attr('data_url'));
-    $("input[name='tj_url']").val($(obj).attr('tj_url'));
+    $("input[name='tj_url']").val($(obj).attr('data_tj_url'));
     layer.open({
         type: 1,
         title: '编辑',
