@@ -21,31 +21,34 @@ function initTable() {
         responseHandler:function(data){
             //远程数据加载之前,处理程序响应数据格式,对象包含的参数: 我们可以对返回的数据格式进行处理
             //在ajax后我们可以在这里进行一些事件的处理
-            requestCode = data.code;
-            requestMessage = data.message;
-            requestData = {
-                "head": {
-                    "token": data.token,
-                    "time": (new Date()).getTime(),
-                    "version": "1.2.0",
-                    "recode": "",
-                },
-                "data": data.data
-            };
+            // requestCode = data.code;
+            // requestMessage = data.message;
+            // requestData = {
+            //     "head": {
+            //         "token": data.token,
+            //         "time": (new Date()).getTime(),
+            //         "version": "1.2.0",
+            //         "recode": "",
+            //     },
+            //     "data": data.data
+            // };
             return data.data;
         },
         queryParamsType : "undefined",
+        // method: 'post',
         queryParams: function queryParams(params) {   //设置查询参数
-            var param = {
+            params = {
                 //这里是在ajax发送请求的时候设置一些参数 params有什么东西，自己看看源码就知道了
                 pageNumber: params.pageNumber,
                 pageSize: params.pageSize,
                 sortName: params.sortName,
                 sortOrder: params.sortOrder,
                 // id : {$_GET['id']},
+                head : {'token' : getCookie('token')},
                 name : $('#name').val(),
             };
-            return param;
+
+            return params;
         },
         onLoadSuccess: function(data){  //加载成功时执行
             $('.bootstrap-table tr td').each(function () {
@@ -107,6 +110,9 @@ function initTable() {
                 formatter: function(value,row,index){
                     var d='<a href="#" mce_href="#" data_id="'+row.id+'" data_name="'+row.name+'" data_title="'+row.title+'" data_url="'+row.url+'"  onclick="editCommodity(this)" >编辑</a> ';
                     var e='<a href="#" mce_href="#" " data_url="'+row.url+'/ex/v1/index.html?id='+row.id+'"  onclick="preview(this)" >预览</a> ';
+                    if(row.view){
+                         e='<a href="#" mce_href="#" " data_url="'+row.url+'/ex/v1/'+row.view+'.html?id='+row.id+'"  onclick="preview(this)" >预览</a> ';
+                    }
                     var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="del(this)" >删除</a>';
 
                     return d+e+f;
