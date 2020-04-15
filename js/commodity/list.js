@@ -1,7 +1,21 @@
+$(document).ready(function () {
+    //调用函数，初始化表格
+    setMaterial();
+    initTable();
+});
 
-var $commodityTable = $('#commodityTable');
+function setMaterial() {
+    ajaxGo('admin/material/getListToSelect')
+    requestData.data.forEach((item,index,array)=>{
+        //执行代码
+        var html = "<option value='"+item.id+"'>"+item.name+"</option>";
+        $('#material').append(html);
+
+    });
+    $('#material').selectpicker('refresh');
+}
 function initTable() {
-    var $commodityTable = $('#commodityTable');
+
     $('#commodityTable').bootstrapTable('destroy');
     $("#commodityTable").bootstrapTable({
         url: __ROOT__ + 'admin/commodity/getList', //获取数据的Servlet地址
@@ -69,7 +83,7 @@ function initTable() {
         columns: [
             {
                 title: 'ID',
-                field: 'facilities_id',
+                field: 'id',
                 align: 'center',
                 valign: 'middle',
                 width : '5%',
@@ -81,8 +95,8 @@ function initTable() {
                 align: 'center'
             },
             {
-                field: 'title',
-                title: '网页标题',
+                field: 'material_name',
+                title: '素材名称',
                 formatter: function(value,row,index){
 
                     return value;
@@ -122,11 +136,7 @@ function initTable() {
     });
 }
 
-$(document).ready(function () {
-    console.log(2222)
-    //调用函数，初始化表格
-    initTable();
-});
+
 //搜索
 function fac_search() {
     $('#commodityTable').bootstrapTable('refresh');
@@ -169,12 +179,6 @@ function addCommodity() {
 
 //编辑
 function editCommodity(obj) {
-    // 'name' : $("input[name='name']").val(),
-    //     'title': $("input[name='title']").val(),
-    //     'head_img' : head_img,
-    //     'qr_img' : qr_img,
-    //     'comment' : content,
-    //     'url' : $("input[name='url']").val(),
     $("input[name='name']").val($(obj).attr('data_name'));
     $("input[name='title']").val($(obj).attr('data_title'));
     $("input[name='url']").val($(obj).attr('data_url'));
@@ -188,7 +192,6 @@ function editCommodity(obj) {
         content: $('#add'),
         btn: ['确定', '取消'], // 按钮
         yes: function(index, layero){
-
             layer.msg('确定修改？', {
                 time: 0 //不自动关闭
                 ,btn: ['确定', '取消']
