@@ -1,7 +1,7 @@
 
 // 公共配置
 
-const __ROOT__ = 'http://127.0.0.1:8085/';
+const __ROOT__ = 'http://jindouyun.yarayzw.com/';
 const __IMG__ = 'http://jindouyun-yara.oss-cn-beijing.aliyuncs.com';
 
 var requestData = {};
