@@ -116,7 +116,7 @@ $(document).ready(function () {
 });
 //搜索
 function fac_search() {
-    $('#commodityTable').bootstrapTable('refresh');
+    $('#materialTable').bootstrapTable('refresh');
 }
 
 //添加
