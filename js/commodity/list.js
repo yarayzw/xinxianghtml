@@ -103,6 +103,11 @@ function initTable() {
                 }
             },
             {
+                field: 'title',
+                title: '标题',
+                align: 'center'
+            },
+            {
                 field: 'url',
                 title: '域名',
                 align: 'center'
@@ -183,6 +188,7 @@ function editCommodity(obj) {
     $("input[name='title']").val($(obj).attr('data_title'));
     $("input[name='url']").val($(obj).attr('data_url'));
     $("input[name='tj_url']").val($(obj).attr('data_tj_url'));
+
     layer.open({
         type: 1,
         title: '编辑',
