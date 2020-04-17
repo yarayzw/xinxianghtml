@@ -134,7 +134,7 @@ function initTable() {
                 align: 'center'
             },
             {
-                field: 'view',
+                field: 'views',
                 title: '模版',
                 width : '10%',
                 align: 'center'
