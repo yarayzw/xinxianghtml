@@ -109,7 +109,7 @@ function initTable() {
 
 //搜索
 function fac_search() {
-    $('#commodityTable').bootstrapTable('refresh');
+    $('#commodityBindPlatformTable').bootstrapTable('refresh');
 }
 
 //添加
