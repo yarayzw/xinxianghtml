@@ -95,7 +95,7 @@ function initTable() {
                 width : '10%',
                 align: 'center',
                 formatter: function(value,row,index){
-                    var d='<a href="#"  data_qr_img="'+row.qr_img+'"  onclick="previewImg(this)" >编辑</a> ';
+                    var d='<a href="#"  data_qr_img="'+row.qr_img+'"  onclick="previewImg(this)" >查看</a> ';
                     return d;
                 }
             },
@@ -159,9 +159,9 @@ function addBind() {
 //编辑
 function editBind(obj) {
 
-    let qr_img =$(obj).attr('data_qr_img');
     $('#upload-list').empty();
-    console.log(qr_img);
+    let qr_img =$(obj).attr('data_qr_img').split('@@@');
+
     qr_img.forEach((item,index,array)=>{
         //执行代码
         var html = '<div style="float: left;padding-right: 10px"  onclick="delImg(this)" ><img name="qr_img" data_name="'+item+'" src="'+item+'"></div>';
@@ -201,8 +201,8 @@ function editBind(obj) {
 
 //预览图片
 function previewImg(obj) {
-    let qr_img =$(obj).attr('data_qr_img');
     $('#imgs').empty();
+    let qr_img =$(obj).attr('data_qr_img').split('@@@');
 
     qr_img.forEach((item,index,array)=>{
         //执行代码
