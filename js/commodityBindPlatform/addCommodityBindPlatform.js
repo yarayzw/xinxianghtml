@@ -40,7 +40,7 @@ function addCommodityBindPlatformGo() {
     requestData.data = {
         'qr_img' : qr_img,
         'commodity_id':  $("#commodity_id").selectpicker('val'),
-        'platform_id':  $("#platform").selectpicker('val'),
+        'platform_id':  $("#platform_id").selectpicker('val'),
     }
     ajaxGo('admin/commodity_bind_platform/addCommodityBindPlatform')
 
@@ -57,7 +57,7 @@ function editCommodityBindGo(id) {
     requestData.data = {
         'qr_img' : qr_img,
         'commodity_id':  $("#commodity_id").selectpicker('val'),
-        'platform_id':  $("#platform").selectpicker('val'),
+        'platform_id':  $("#platform_id").selectpicker('val'),
     }
     ajaxGo('admin/commodity_bind_platform/editCommodityBindPlatform')
 
