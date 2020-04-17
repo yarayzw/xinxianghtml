@@ -89,6 +89,16 @@ function initTable() {
                 width : '10%',
                 align: 'center'
             },
+            {
+                field: 'qr_img',
+                title: '二维码',
+                width : '10%',
+                align: 'center',
+                formatter: function(value,row,index){
+                    var d='<a href="#"  data_qr_img="'+row.qr_img+'"  onclick="previewImg(this)" >编辑</a> ';
+                    return d;
+                }
+            },
 
             {
                 field: 'operate',
@@ -151,7 +161,7 @@ function editBind(obj) {
 
     let qr_img =$(obj).attr('data_qr_img');
     $('#upload-list').empty();
-
+    console.log(qr_img);
     qr_img.forEach((item,index,array)=>{
         //执行代码
         var html = '<div style="float: left;padding-right: 10px"  onclick="delImg(this)" ><img name="qr_img" data_name="'+item+'" src="'+item+'"></div>';
@@ -192,7 +202,7 @@ function editBind(obj) {
 //预览图片
 function previewImg(obj) {
     let qr_img =$(obj).attr('data_qr_img');
-    $('#upload-list').empty();
+    $('#imgs').empty();
 
     qr_img.forEach((item,index,array)=>{
         //执行代码
