@@ -113,7 +113,7 @@ function fac_search() {
 }
 
 //添加
-function addbind() {
+function addBind() {
     layer.open({
         type: 1,
         title: '添加',
