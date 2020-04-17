@@ -3,9 +3,9 @@ $(document).ready(function () {
     initTable();
 });
 function initTable() {
-    $('#viewTable').bootstrapTable('destroy');
-    $("#viewTable").bootstrapTable({
-        url: __ROOT__ + 'admin/view/getList', //获取数据的Servlet地址
+    $('#platformTable').bootstrapTable('destroy');
+    $("#platformTable").bootstrapTable({
+        url: __ROOT__ + 'admin/Platform/getList', //获取数据的Servlet地址
         striped: true,  //表格显示条纹
         pagination: true, //启动分页
         sortName: 'id',
@@ -20,19 +20,6 @@ function initTable() {
         //设置为undefined可以获取pageNumber，pageSize，searchText，sortName，sortOrder
         //设置为limit可以获取limit, offset, search, sort, order
         responseHandler:function(data){
-            //远程数据加载之前,处理程序响应数据格式,对象包含的参数: 我们可以对返回的数据格式进行处理
-            //在ajax后我们可以在这里进行一些事件的处理
-            // requestCode = data.code;
-            // requestMessage = data.message;
-            // requestData = {
-            //     "head": {
-            //         "token": data.token,
-            //         "time": (new Date()).getTime(),
-            //         "version": "1.2.0",
-            //         "recode": "",
-            //     },
-            //     "data": data.data
-            // };
             return data.data;
         },
         queryParamsType : "undefined",
@@ -70,16 +57,9 @@ function initTable() {
             },
             {
                 field: 'name',
-                title: '模版名称',
+                title: '平台名称',
                 width : '10%',
                 align: 'center'
-            },
-            {
-                field: 'url',
-                title: '路径',
-                formatter: function(value,row,index){
-                    return value;
-                }
             },
 
             {
@@ -88,7 +68,7 @@ function initTable() {
                 width : '10%',
                 align: 'center',
                 formatter: function(value,row,index){
-                    var d='<a href="#" mce_href="#" data_id="'+row.id+'" data_name="'+row.name+'" data_url="'+row.url+'"   onclick="editView(this)" >编辑</a> ';
+                    var d='<a href="#" mce_href="#" data_id="'+row.id+'" data_name="'+row.name+'"   onclick="editPlatform(this)" >编辑</a> ';
                     var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="del(this)" >删除</a>';
 
                     return d+f;
@@ -101,11 +81,11 @@ function initTable() {
 
 //搜索
 function fac_search() {
-    $('#viewTable').bootstrapTable('refresh');
+    $('#platformTable').bootstrapTable('refresh');
 }
 
 //添加
-function addView() {
+function addPlatform() {
     layer.open({
         type: 1,
         title: '添加',
@@ -120,7 +100,7 @@ function addView() {
                 time: 0 //不自动关闭
                 ,btn: ['确定', '取消']
                 ,yes: function(index){
-                    addViewGo();
+                    addPlatformGo();
                     if(requestCode === 0){
                         fac_search();
                         layer.close(index);
@@ -140,9 +120,8 @@ function addView() {
 }
 
 //编辑
-function editView(obj) {
+function editPlatform(obj) {
     $("input[name='name']").val($(obj).attr('data_name'));
-    $("input[name='url']").val($(obj).attr('data_url'));
 
     layer.open({
         type: 1,
@@ -157,7 +136,7 @@ function editView(obj) {
                 time: 0 //不自动关闭
                 ,btn: ['确定', '取消']
                 ,yes: function(index){
-                    editViewGo($(obj).attr('data_id'));
+                    editPlatformGo($(obj).attr('data_id'));
                     if(requestCode === 0){
                         fac_search();
                         layer.close(index);
@@ -186,7 +165,7 @@ function del(obj) {
             requestData.data = {
                 'id' : $(obj).attr('data_id')
             };
-            ajaxGo('admin/view/delView');
+            ajaxGo('admin/platform/delPlatform');
             if(requestCode === 0){
                 fac_search();
                 layer.msg('删除成功!');
