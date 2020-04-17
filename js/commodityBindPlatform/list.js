@@ -26,7 +26,7 @@ function initTable() {
 
     $('#commodityBindPlatformTable').bootstrapTable('destroy');
     $("#commodityBindPlatformTable").bootstrapTable({
-        url: __ROOT__ + 'admin/commodity/getList', //获取数据的Servlet地址
+        url: __ROOT__ + 'admin/commodityBindPlatform/getList', //获取数据的Servlet地址
         striped: true,  //表格显示条纹
         pagination: true, //启动分页
         sortName: 'id',
