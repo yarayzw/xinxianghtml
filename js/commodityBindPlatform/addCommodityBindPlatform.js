@@ -42,7 +42,7 @@ function addCommodityBindPlatformGo() {
         'commodity_id':  $("#commodity_id").selectpicker('val'),
         'platform_id':  $("#platform").selectpicker('val'),
     }
-    ajaxGo('admin/commodityBindPlatform/addCommodityBindPlatform')
+    ajaxGo('admin/commodity_bind_platform/addCommodityBindPlatform')
 
 }
 
@@ -59,6 +59,6 @@ function editCommodityBindGo(id) {
         'commodity_id':  $("#commodity_id").selectpicker('val'),
         'platform_id':  $("#platform").selectpicker('val'),
     }
-    ajaxGo('admin/commodityBindPlatform/editCommodityBindPlatform')
+    ajaxGo('admin/commodity_bind_platform/editCommodityBindPlatform')
 
 }

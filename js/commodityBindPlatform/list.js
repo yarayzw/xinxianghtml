@@ -26,7 +26,7 @@ function initTable() {
 
     $('#commodityBindPlatformTable').bootstrapTable('destroy');
     $("#commodityBindPlatformTable").bootstrapTable({
-        url: __ROOT__ + 'admin/commodityBindPlatform/getList', //获取数据的Servlet地址
+        url: __ROOT__ + 'admin/commodity_bind_platform/getList', //获取数据的Servlet地址
         striped: true,  //表格显示条纹
         pagination: true, //启动分页
         sortName: 'id',
@@ -222,7 +222,7 @@ function del(obj) {
             requestData.data = {
                 'id' : $(obj).attr('data_id')
             };
-            ajaxGo('admin/commodityBindPlatform/delCommodityBindPlatform');
+            ajaxGo('admin/commodity_bind_platform/delCommodityBindPlatform');
             if(requestCode === 0){
                 fac_search();
                 layer.msg('删除成功!');
