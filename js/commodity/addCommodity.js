@@ -82,6 +82,8 @@ function addCommodityGo() {
         'material_id':  $("#material").selectpicker('val'),
         'head_img': head_img,
         'title' : $("input[name='title']").val(),
+        'view_id':  $("#view").selectpicker('val'),
+        'platform_id':  $("#platform").selectpicker('val'),
     }
     ajaxGo('admin/commodity/addCommodity')
 
@@ -112,6 +114,8 @@ function editCommodityGo(id) {
         'material_id':  $("#material").selectpicker('val'),
         'head': head_img,
         'title' : $("input[name='title']").val(),
+        'view_id':  $("#view").selectpicker('val'),
+        'platform_id':  $("#platform").selectpicker('val'),
     }
     ajaxGo('admin/commodity/editCommodity')
 

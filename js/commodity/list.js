@@ -10,9 +10,24 @@ function setMaterial() {
         //执行代码
         var html = "<option value='"+item.id+"'>"+item.name+"</option>";
         $('#material').append(html);
-
     });
     $('#material').selectpicker('refresh');
+
+    ajaxGo('admin/view/getListToSelect')
+    requestData.data.forEach((item,index,array)=>{
+        //执行代码
+        var html = "<option value='"+item.id+"'>"+item.name+"</option>";
+        $('#view').append(html);
+    });
+    $('#view').selectpicker('refresh');
+
+    ajaxGo('admin/platform/getListToSelect')
+    requestData.data.forEach((item,index,array)=>{
+        //执行代码
+        var html = "<option value='"+item.id+"'>"+item.name+"</option>";
+        $('#platform').append(html);
+    });
+    $('#platform').selectpicker('refresh');
 }
 function initTable() {
 
@@ -95,6 +110,12 @@ function initTable() {
                 align: 'center'
             },
             {
+                field: 'platform',
+                title: '平台',
+                width : '10%',
+                align: 'center'
+            },
+            {
                 field: 'material_name',
                 title: '素材名称',
                 formatter: function(value,row,index){
@@ -113,6 +134,12 @@ function initTable() {
                 align: 'center'
             },
             {
+                field: 'view',
+                title: '模版',
+                width : '10%',
+                align: 'center'
+            },
+            {
                 field: 'tj_url',
                 title: '统计链接',
                 align: 'center',
@@ -128,9 +155,9 @@ function initTable() {
                 align: 'center',
                 formatter: function(value,row,index){
                     var d='<a href="#" mce_href="#" data_id="'+row.id+'" data_name="'+row.name+'" data_title="'+row.title+'" data_url="'+row.url+'"  onclick="editCommodity(this)" >编辑</a> ';
-                    var e='<a href="#" mce_href="#" " data_url="'+row.url+'/ex/v1/index.html?id='+row.id+'"  onclick="preview(this)" >预览</a> ';
+                    var e='<a href="#" mce_href="#" " data_url="'+row.url+row.views+'index.html?id='+row.id+'"  onclick="preview(this)" >预览</a> ';
                     if(row.view){
-                         e='<a href="#" mce_href="#" " data_url="'+row.url+'/ex/v1/'+row.view+'.html?id='+row.id+'&name='+row.name+'"  onclick="preview(this)" >预览</a> ';
+                         e='<a href="#" mce_href="#" " data_url="'+row.url+row.views+row.view+'.html?id='+row.id+'&name='+row.name+'"  onclick="preview(this)" >预览</a> ';
                     }
                     var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="del(this)" >删除</a>';
 
@@ -158,7 +185,6 @@ function addCommodity() {
         content: $('#add'),
         btn: ['确定', '取消'], // 按钮
         yes: function(index, layero){
-
             layer.msg('确定添加？', {
                 time: 0 //不自动关闭
                 ,btn: ['确定', '取消']
@@ -184,10 +210,34 @@ function addCommodity() {
 
 //编辑
 function editCommodity(obj) {
-    $("input[name='name']").val($(obj).attr('data_name'));
-    $("input[name='title']").val($(obj).attr('data_title'));
-    $("input[name='url']").val($(obj).attr('data_url'));
-    $("input[name='tj_url']").val($(obj).attr('data_tj_url'));
+    requestData.data = {
+        'id' : $(obj).attr('data_id')
+    }
+    ajaxGo('admin/commodity/getCommodityInfo');
+
+
+    $("input[name='name']").val(requestData.data.name);
+    $("input[name='title']").val(requestData.data.title);
+    $("input[name='url']").val(requestData.data.url);
+    $("input[name='tj_url']").val(requestData.data.tj_url);
+
+    let head_img =requestData.data.head_img.split('@@@');
+    $('#upload-list-head').empty();
+
+    head_img.forEach((item,index,array)=>{
+        //执行代码
+        var html = '<div style="float: left;padding-right: 10px"  onclick="delImg(this)" ><img name="head_img" data_name="'+item+'" src="'+item+'"></div>';
+        $('#upload-list-head').append(html);
+    });
+
+    let qr_img =requestData.data.head_img.split('@@@');
+    $('#upload-list').empty();
+
+    qr_img.forEach((item,index,array)=>{
+        //执行代码
+        var html = '<div style="float: left;padding-right: 10px"  onclick="delImg(this)" ><img name="qr_img" data_name="'+item+'" src="'+item+'"></div>';
+        $('#upload-list').append(html);
+    });
 
     layer.open({
         type: 1,
@@ -213,8 +263,6 @@ function editCommodity(obj) {
                     }
                 }
             });
-
-
         }
 //            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
     });
@@ -240,15 +288,22 @@ function preview(obj) {
 
 //删除
 function del(obj) {
-    requestData.data = {
-        'id' : $(obj).attr('data_id')
-    };
-    ajaxGo('admin/commodity/delCommodity');
-    if(requestCode === 0){
-        fac_search();
-        layer.msg('删除成功!');
-    }else {
-        layer.msg(requestMessage);
-    }
+    layer.msg('确定删除？', {
+        time: 0 //不自动关闭
+        ,btn: ['确定', '取消']
+        ,yes: function(index){
+            requestData.data = {
+                'id' : $(obj).attr('data_id')
+            };
+            ajaxGo('admin/commodity/delCommodity');
+            if(requestCode === 0){
+                fac_search();
+                layer.msg('删除成功!');
+            }else {
+                layer.msg(requestMessage);
+            }
+        }
+    });
+
 
 }
