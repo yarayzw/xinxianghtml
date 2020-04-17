@@ -5,34 +5,27 @@ $(document).ready(function () {
 });
 
 function setMaterial() {
-    ajaxGo('admin/material/getListToSelect')
+    ajaxGo('admin/commodity/getListToSelect')
     requestData.data.forEach((item,index,array)=>{
         //执行代码
         var html = "<option value='"+item.id+"'>"+item.name+"</option>";
-        $('#material').append(html);
+        $('#commodity_id').append(html);
     });
-    $('#material').selectpicker('refresh');
+    $('#commodity_id').selectpicker('refresh');
 
-    ajaxGo('admin/view/getListToSelect')
-    requestData.data.forEach((item,index,array)=>{
-        //执行代码
-        var html = "<option value='"+item.id+"'>"+item.name+"</option>";
-        $('#view').append(html);
-    });
-    $('#view').selectpicker('refresh');
 
     ajaxGo('admin/platform/getListToSelect')
     requestData.data.forEach((item,index,array)=>{
         //执行代码
         var html = "<option value='"+item.id+"'>"+item.name+"</option>";
-        $('#platform').append(html);
+        $('#platform_id').append(html);
     });
-    $('#platform').selectpicker('refresh');
+    $('#platform_id').selectpicker('refresh');
 }
 function initTable() {
 
-    $('#commodityTable').bootstrapTable('destroy');
-    $("#commodityTable").bootstrapTable({
+    $('#commodityBindPlatformTable').bootstrapTable('destroy');
+    $("#commodityBindPlatformTable").bootstrapTable({
         url: __ROOT__ + 'admin/commodity/getList', //获取数据的Servlet地址
         striped: true,  //表格显示条纹
         pagination: true, //启动分页
@@ -48,19 +41,6 @@ function initTable() {
         //设置为undefined可以获取pageNumber，pageSize，searchText，sortName，sortOrder
         //设置为limit可以获取limit, offset, search, sort, order
         responseHandler:function(data){
-            //远程数据加载之前,处理程序响应数据格式,对象包含的参数: 我们可以对返回的数据格式进行处理
-            //在ajax后我们可以在这里进行一些事件的处理
-            // requestCode = data.code;
-            // requestMessage = data.message;
-            // requestData = {
-            //     "head": {
-            //         "token": data.token,
-            //         "time": (new Date()).getTime(),
-            //         "version": "1.2.0",
-            //         "recode": "",
-            //     },
-            //     "data": data.data
-            // };
             return data.data;
         },
         queryParamsType : "undefined",
@@ -84,12 +64,6 @@ function initTable() {
                 $(this).attr("title", $(this).text());
                 $(this).css("cursor", 'pointer');
             });
-//                    if(data.total==0){
-//                        layer.msg('暂无设备数据！');
-//                        $("#userFaciTable").bootstrapTable('hideRow');
-//                        $("#userFaciTable").bootstrapTable('refresh');
-//                    }
-            //            alert("加载成功"+data);
 
         },
         onLoadError: function(){  //加载失败时执行
@@ -104,48 +78,16 @@ function initTable() {
                 width : '5%',
             },
             {
-                field: 'name',
-                title: '网页名称',
+                field: 'commodity_name',
+                title: '资讯名称',
                 width : '10%',
                 align: 'center'
             },
             {
-                field: 'platform',
+                field: 'platform_name',
                 title: '平台',
                 width : '10%',
                 align: 'center'
-            },
-            {
-                field: 'material_name',
-                title: '素材名称',
-                formatter: function(value,row,index){
-
-                    return value;
-                }
-            },
-            {
-                field: 'title',
-                title: '标题',
-                align: 'center'
-            },
-            {
-                field: 'url',
-                title: '域名',
-                align: 'center'
-            },
-            {
-                field: 'view',
-                title: '模版',
-                width : '10%',
-                align: 'center'
-            },
-            {
-                field: 'tj_url',
-                title: '统计链接',
-                align: 'center',
-                formatter: function(value,row,index){
-                    return '<xmp>' + value +'</xmp>';
-                }
             },
 
             {
@@ -154,14 +96,10 @@ function initTable() {
                 width : '10%',
                 align: 'center',
                 formatter: function(value,row,index){
-                    var d='<a href="#" mce_href="#" data_id="'+row.id+'" data_name="'+row.name+'" data_title="'+row.title+'" data_url="'+row.url+'"  onclick="editCommodity(this)" >编辑</a> ';
-                    var e='<a href="#" mce_href="#" " data_url="'+row.url+row.views+'index.html?id='+row.id+'"  onclick="preview(this)" >预览</a> ';
-                    if(row.view){
-                         e='<a href="#" mce_href="#" " data_url="'+row.url+row.views+row.view+'.html?id='+row.id+'&name='+row.name+'"  onclick="preview(this)" >预览</a> ';
-                    }
+                    var d='<a href="#" mce_href="#" data_id="'+row.id+'" data_commodity_name="'+row.commodity_name+'" data_pl_name="'+row.pl_name+'" data_qr_img="'+row.qr_img+'"  onclick="editBind(this)" >编辑</a> ';
                     var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="del(this)" >删除</a>';
 
-                    return d+e+f;
+                    return d+f;
                 }
             }
         ]
@@ -175,7 +113,7 @@ function fac_search() {
 }
 
 //添加
-function addCommodity() {
+function addbind() {
     layer.open({
         type: 1,
         title: '添加',
@@ -189,7 +127,7 @@ function addCommodity() {
                 time: 0 //不自动关闭
                 ,btn: ['确定', '取消']
                 ,yes: function(index){
-                    addCommodityGo();
+                    addCommodityBindPlatformGo();
                     if(requestCode === 0){
                         fac_search();
                         layer.close(index);
@@ -209,28 +147,9 @@ function addCommodity() {
 }
 
 //编辑
-function editCommodity(obj) {
-    requestData.data = {
-        'id' : $(obj).attr('data_id')
-    }
-    ajaxGo('admin/commodity/getCommodityInfo');
+function editBind(obj) {
 
-
-    $("input[name='name']").val(requestData.data.name);
-    $("input[name='title']").val(requestData.data.title);
-    $("input[name='url']").val(requestData.data.url);
-    $("input[name='tj_url']").val(requestData.data.tj_url);
-
-    let head_img =requestData.data.head_img.split('@@@');
-    $('#upload-list-head').empty();
-
-    head_img.forEach((item,index,array)=>{
-        //执行代码
-        var html = '<div style="float: left;padding-right: 10px"  onclick="delImg(this)" ><img name="head_img" data_name="'+item+'" src="'+item+'"></div>';
-        $('#upload-list-head').append(html);
-    });
-
-    let qr_img =requestData.data.head_img.split('@@@');
+    let qr_img =$(obj).attr('data_qr_img');
     $('#upload-list').empty();
 
     qr_img.forEach((item,index,array)=>{
@@ -238,10 +157,6 @@ function editCommodity(obj) {
         var html = '<div style="float: left;padding-right: 10px"  onclick="delImg(this)" ><img name="qr_img" data_name="'+item+'" src="'+item+'"></div>';
         $('#upload-list').append(html);
     });
-
-    $('#platform').selectpicker('val',(requestData.data.platform_id));
-    $('#material').selectpicker('val',(requestData.data.material_id));
-    $('#view').selectpicker('val',(requestData.data.view_id));
 
     layer.open({
         type: 1,
@@ -256,7 +171,7 @@ function editCommodity(obj) {
                 time: 0 //不自动关闭
                 ,btn: ['确定', '取消']
                 ,yes: function(index){
-                    editCommodityGo($(obj).attr('data_id'));
+                    editCommodityBindGo($(obj).attr('data_id'));
                     if(requestCode === 0){
                         fac_search();
                         layer.close(index);
@@ -273,21 +188,29 @@ function editCommodity(obj) {
 
 }
 
-//复制链接
-function copyUrl(obj) {
-    let text = $(obj).attr('data_url');
-    console.log(text);
 
-    var input = document.getElementById("copyText");
-    input.value = text; // 修改文本框的内容
-    input.select(); // 选中文本
-    document.execCommand("copy"); // 执行浏览器复制命令
-    layer.msg('复制成功');
-}
+//预览图片
+function previewImg(obj) {
+    let qr_img =$(obj).attr('data_qr_img');
+    $('#upload-list').empty();
 
-//预览页面
-function preview(obj) {
-    window.open($(obj).attr('data_url'), '_blank').location;
+    qr_img.forEach((item,index,array)=>{
+        //执行代码
+        var html = '<img style="padding-right: 10px" data_name="'+item+'" src="'+item+'">';
+        $('#imgs').append(html);
+    });
+    layer.open({
+        type: 1,
+        title: '预览图片',
+        shadeClose: true,
+        shade: 0.8,
+        area: ['90%', '90%'],
+        content: $('#imgs'),
+        btn: ['确定', '取消'], // 按钮
+        yes: function(index, layero){
+            layer.closeAll();
+        }
+    });
 }
 
 //删除
@@ -299,7 +222,7 @@ function del(obj) {
             requestData.data = {
                 'id' : $(obj).attr('data_id')
             };
-            ajaxGo('admin/commodity/delCommodity');
+            ajaxGo('admin/commodityBindPlatform/delCommodityBindPlatform');
             if(requestCode === 0){
                 fac_search();
                 layer.msg('删除成功!');
