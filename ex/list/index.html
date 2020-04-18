@@ -110,6 +110,7 @@
 
     </div>
     <script type="text/javascript" src="../../js/jquery.min.js"></script>
+    <script type="text/javascript" src="./refresh.js"></script>
     <script>
         $(document).ready(function () {
             $.ajax({
@@ -151,6 +152,78 @@
                 }
             });
         });
+
+        //--------------上拉加载更多---------------
+        //获取滚动条当前的位置
+        function getScrollTop() {
+            var scrollTop = 0;
+            if (document.documentElement && document.documentElement.scrollTop) {
+                scrollTop = document.documentElement.scrollTop;
+            } else if (document.body) {
+                scrollTop = document.body.scrollTop;
+            }
+            return scrollTop;
+        }
+
+        //获取当前可视范围的高度
+        function getClientHeight() {
+            var clientHeight = 0;
+            if (document.body.clientHeight && document.documentElement.clientHeight) {
+                clientHeight = Math.min(document.body.clientHeight, document.documentElement.clientHeight);
+            } else {
+                clientHeight = Math.max(document.body.clientHeight, document.documentElement.clientHeight);
+            }
+            return clientHeight;
+        }
+
+        //获取文档完整的高度
+        function getScrollHeight() {
+            return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+        }
+
+        //滚动事件触发
+        window.onscroll = function () {
+            if (getScrollTop() + getClientHeight() === getScrollHeight()) {
+                $.ajax({
+                    // url: 'http://jindouyun.yarayzw.com/index/commodity/getInfoById',
+                    // url: 'http://zixunadmin.yarayzw.com/index/commodity/getInfoById',
+                    url: 'http://zixunadmin.yarayzw.com/index/commodity/getInfoList',
+                    data: {
+                    },
+                    method: "POST",
+                    dataType: "json",
+                    async: false,
+                    success: function (data) {
+                        data.forEach((item,index,array)=>{
+                            var html = ' <li class="ad-container" id="list_1_1"><a class="bui-box addsp clickdsp inviewdsp" href="http://'+window.location.host+item.views+'/index.html?id='+item.id+'"\n' +
+                                '                                                              target="_blank">\n' +
+                                '                        <div class="big-mode">\n' +
+                                '                            <div class="title-box link">\n' +
+                                '                                '+item.title+'\n' +
+                                '                            </div>\n' +
+                                '                            <div class="bui-box img-wrap">\n' +
+                                '                                <img src="'+item.head_img+'"\n' +
+                                '                                     class="lazy-load-img"/>\n' +
+                                '                            </div>\n' +
+                                '                            <div class="bui-box footer-bar">\n' +
+                                '                                <div class="bui-left footer-bar-left">\n' +
+                                '                                    <span class="footer-bar-action tag tag-style-default">热点</span>\n' +
+                                '                                    <span class="footer-bar-action source">主编推荐</span>\n' +
+                                '                                    <span class="footer-bar-action">&nbsp;&nbsp;&nbsp;&nbsp;'+item.create_at+'</span>\n' +
+                                '                                </div>\n' +
+                                '                            </div>\n' +
+                                '                        </div>\n' +
+                                '                    </a></li>';
+                            $('#data-list').append(html);
+                        });
+
+
+                    },
+                    error: function () {
+                    }
+                });
+            }
+        };
     </script>
 
 </body>
