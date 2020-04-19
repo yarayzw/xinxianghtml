@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="password">
+    卡密:<input type="text" id="password_go">
+    <button id="getShop" onclick="getShop()">提交</button>
+</div>
+<div id="info" style="display: none">
+    商品名称: <select name="shop" id="shop"></select>
+    收货人:<input type="text" id="user_info">
+    收货电话:<input type="text" id="mobile">
+    收货地址:<input type="text" id="address">
+    <button  onclick="go()">提交</button>
+
+</div>
+
+<script type="text/javascript" src="../../js/jquery.min.js"></script>
+<script>
+    function getShop() {
+        $.ajax({
+            url: 'http://niubiadmin.yarayzw.com/index/niubi/getShop',
+            data:{
+                id: $('#password_go').val()
+            },
+            method:"POST",
+            dataType:"json",
+            success:function(data){
+                $.each(data,function(index,value){
+                    let html = "<option value='"+index.id+"'>"+index.title+"</option>";
+                    $('#shop').append(html)
+                });
+            },
+            error:function(){
+            }
+        });
+    }
+
+    function go() {
+        $.ajax({
+            url: 'http://niubiadmin.yarayzw.com/index/niubi/go',
+            data:{
+                password_go: $('#password_go').val(),
+                shop: $('#shop').val(),
+                user_info: $('#user_info').val(),
+                mobile: $('#mobile').val(),
+                address: $('#address').val(),
+            },
+            method:"POST",
+            dataType:"json",
+            success:function(data){
+                $.each(data,function(index,value){
+                    let html = "<option value='"+index.id+"'>"+index.title+"</option>";
+                    $('#shop').append(html)
+                });
+            },
+            error:function(){
+            }
+        });
+    }
+</script>
+</body>
+</html>
