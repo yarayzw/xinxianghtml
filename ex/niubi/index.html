@@ -52,10 +52,7 @@
             method:"POST",
             dataType:"json",
             success:function(data){
-                $.each(data,function(index,value){
-                    let html = "<option value='"+index.id+"'>"+index.title+"</option>";
-                    $('#shop').append(html)
-                });
+                alert(data)
             },
             error:function(){
             }
