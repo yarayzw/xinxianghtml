@@ -81,7 +81,7 @@ function initTable() {
             {
                 field: 'password',
                 title: '卡密',
-                width : '10%',
+                width : '30%',
                 align: 'center'
             },
             {

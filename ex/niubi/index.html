@@ -30,8 +30,12 @@
             dataType:"json",
             success:function(data){
                 $.each(data,function(index,value){
-                    let html = "<option value='"+index.id+"'>"+index.title+"</option>";
+                    console.log(value);
+                    let html = "<option value='"+value.id+"'>"+value.title+"</option>";
                     $('#shop').append(html)
+                    $('#password').hide()
+                    $('#info').show()
+
                 });
             },
             error:function(){
@@ -52,6 +56,8 @@
             method:"POST",
             dataType:"json",
             success:function(data){
+                $('#info').show()
+
                 alert(data)
             },
             error:function(){
