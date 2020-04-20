@@ -146,6 +146,18 @@ function initTable() {
                 }
             },
             {
+                field: 'type',
+                title: '类别',
+                align: 'center',
+                formatter: function(value,row,index){
+                    if(value === 1){
+                        return '推广';
+                    }else {
+                        return '列表';
+                    }
+                }
+            },
+            {
                 field: 'tj_url',
                 title: '统计链接',
                 align: 'center',
