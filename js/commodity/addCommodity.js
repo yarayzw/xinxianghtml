@@ -84,7 +84,7 @@ function addCommodityGo() {
         'title' : $("input[name='title']").val(),
         'view_id':  $("#view").selectpicker('val'),
         'platform_id':  $("#platform").selectpicker('val'),
-        'type':  $("input[name='type']").val(),
+        'type':  $("input[name='type']:checked").val(),
     }
     ajaxGo('admin/commodity/addCommodity')
 
@@ -117,7 +117,7 @@ function editCommodityGo(id) {
         'title' : $("input[name='title']").val(),
         'view_id':  $("#view").selectpicker('val'),
         'platform_id':  $("#platform").selectpicker('val'),
-        'type':  $("input[name='type']").val(),
+        'type':  $("input[name='type']:checked").val(),
     }
     ajaxGo('admin/commodity/editCommodity')
 
