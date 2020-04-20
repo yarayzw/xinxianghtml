@@ -18,8 +18,10 @@ function setMaterial() {
         //执行代码
         var html = "<option value='"+item.id+"'>"+item.name+"</option>";
         $('#view').append(html);
+        $('#view_update').append(html);
     });
     $('#view').selectpicker('refresh');
+    $('#view_update').selectpicker('refresh');
 
     ajaxGo('admin/platform/getListToSelect')
     requestData.data.forEach((item,index,array)=>{
@@ -137,7 +139,11 @@ function initTable() {
                 field: 'views',
                 title: '模版',
                 width : '10%',
-                align: 'center'
+                align: 'center',
+                formatter: function(value,row,index){
+                    var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="updateView(this)" >'+value+'</a>';
+                    return f;
+                }
             },
             {
                 field: 'tj_url',
@@ -220,6 +226,11 @@ function editCommodity(obj) {
     $("input[name='title']").val(requestData.data.title);
     $("input[name='url']").val(requestData.data.url);
     $("input[name='tj_url']").val(requestData.data.tj_url);
+    if(requestData.data.type === 1){
+        $('type_1').attr('checked','checked');
+    }else {
+        $('type_2').attr('checked','checked');
+    }
 
     let head_img =requestData.data.head_img.split('@@@');
     $('#upload-list-head').empty();
@@ -273,17 +284,6 @@ function editCommodity(obj) {
 
 }
 
-//复制链接
-function copyUrl(obj) {
-    let text = $(obj).attr('data_url');
-    console.log(text);
-
-    var input = document.getElementById("copyText");
-    input.value = text; // 修改文本框的内容
-    input.select(); // 选中文本
-    document.execCommand("copy"); // 执行浏览器复制命令
-    layer.msg('复制成功');
-}
 
 //预览页面
 function preview(obj) {
@@ -308,6 +308,35 @@ function del(obj) {
             }
         }
     });
+}
 
+function updateView(obj) {
 
+    layer.open({
+        type: 1,
+        title: '编辑',
+        shadeClose: true,
+        shade: 0.8,
+        area: ['90%', '90%'],
+        content: $('#updateView'),
+        btn: ['确定', '取消'], // 按钮
+        yes: function(index, layero){
+            layer.msg('确定修改？', {
+                time: 0 //不自动关闭
+                ,btn: ['确定', '取消']
+                ,yes: function(index){
+                    updateViewGo($(obj).attr('data_id'));
+                    if(requestCode === 0){
+                        fac_search();
+                        layer.close(index);
+                        layer.closeAll();
+                        layer.msg(requestMessage);
+                    }else {
+                        layer.msg(requestMessage);
+                    }
+                }
+            });
+        }
+//            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
+    });
 }

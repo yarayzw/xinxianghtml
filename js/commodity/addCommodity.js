@@ -84,6 +84,7 @@ function addCommodityGo() {
         'title' : $("input[name='title']").val(),
         'view_id':  $("#view").selectpicker('val'),
         'platform_id':  $("#platform").selectpicker('val'),
+        'type':  $("#type").val(),
     }
     ajaxGo('admin/commodity/addCommodity')
 
@@ -116,7 +117,17 @@ function editCommodityGo(id) {
         'title' : $("input[name='title']").val(),
         'view_id':  $("#view").selectpicker('val'),
         'platform_id':  $("#platform").selectpicker('val'),
+        'type':  $("#type").val(),
     }
     ajaxGo('admin/commodity/editCommodity')
 
+}
+
+//修改落地页模版
+function updateViewGo(id) {
+    requestData.data = {
+        'id' : id,
+        'view_id':  $("#view_update").selectpicker('val'),
+    }
+    ajaxGo('admin/commodity/updateView')
 }
