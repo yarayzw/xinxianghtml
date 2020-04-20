@@ -112,7 +112,7 @@ function initTable() {
                 align: 'center'
             },
             {
-                field: 'platform',
+                field: 'platform_name',
                 title: '平台',
                 width : '10%',
                 align: 'center'
