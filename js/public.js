@@ -26,6 +26,9 @@ function ajaxGo(url,msg = '请求错误' ,async = false) {
         async: async,
         success:function(data){
             requestCode = data.code;
+            if(requestCode === 10010){
+                window.location.replace("http://html.yara.com/login");
+            }
             requestMessage = data.message;
             requestData = {
                 "head": {
