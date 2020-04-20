@@ -113,7 +113,7 @@ function editCommodityGo(id) {
         'url' : $("input[name='url']").val(),
         'tj_url': $("input[name='tj_url']").val(),
         'material_id':  $("#material").selectpicker('val'),
-        'head': head_img,
+        'head_img': head_img,
         'title' : $("input[name='title']").val(),
         'view_id':  $("#view").selectpicker('val'),
         'platform_id':  $("#platform").selectpicker('val'),
