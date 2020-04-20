@@ -127,7 +127,7 @@ function initTable() {
                 width : '10%',
                 align: 'center',
                 formatter: function(value,row,index){
-                    var d='<a href="#" mce_href="#" data_id="'+row.id+'" data_name="'+row.name+'" data_title="'+row.title+'" data_url="'+row.url+'"  onclick="editCommodity(this)" >编辑</a> ';
+                    var d='<a href="#" mce_href="#" data_id="'+row.id+'" data_name="'+row.name+'" data_title="'+row.title+'" data_url="'+row.url+'" data_qr_code = "'+row.qr_code+'"  onclick="editCommodity(this)" >编辑</a> ';
                     var e='<a href="#" mce_href="#" " data_url="'+row.url+'/ex/v1/index.html?id='+row.id+'"  onclick="preview(this)" >预览</a> ';
                     if(row.view){
                          e='<a href="#" mce_href="#" " data_url="'+row.url+'/ex/v1/'+row.view+'.html?id='+row.id+'&name='+row.name+'"  onclick="preview(this)" >预览</a> ';
@@ -188,6 +188,15 @@ function editCommodity(obj) {
     $("input[name='title']").val($(obj).attr('data_title'));
     $("input[name='url']").val($(obj).attr('data_url'));
     $("input[name='tj_url']").val($(obj).attr('data_tj_url'));
+
+    let qr_code = val($(obj).attr('qr_code'));
+    $('#upload-list').empty();
+
+    qr_code.forEach((item,index,array)=>{
+        //执行代码
+        var html = '<div style="float: left;padding-right: 10px;padding-bottom: 10px"  onclick="delImg(this)" ><img name="qr_img" data_name="'+item+'" src="'+item+'"></div>';
+        $('#upload-list').append(html);
+    });
 
     layer.open({
         type: 1,
