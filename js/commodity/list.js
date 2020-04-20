@@ -190,7 +190,7 @@ function editCommodity(obj) {
     $("input[name='tj_url']").val($(obj).attr('data_tj_url'));
 
     let qr_code = $(obj).attr('data_qr_code');
-    qr_code =requestData.data.qr_code.split('@@@');
+    qr_code = qr_code.split('@@@');
     $('#upload-list').empty();
 
     qr_code.forEach((item,index,array)=>{
