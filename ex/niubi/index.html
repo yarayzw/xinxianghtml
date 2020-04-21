@@ -15,23 +15,41 @@
         background:url("./146.png") no-repeat;
         background-size: 100%;
     }
+    select {
+        width: 70px;
+        height: 37px;
+        text-align: center;
+        text-align-last: center;
+    }
 </style>
 <body >
-<div id="password" style="width:100%;padding-top: 75%;text-align:center">
+<div id="password" style="width:100%;padding-top: 75%;text-align:center;height: 13%">
     <input type="text" style="width: 80%;height: 70px;font-size: 3rem;border-radius:16px;text-align:center;color: #8c8c8c" placeholder="请输入兑换码，区分大小写" id="password_go">
 </div>
-<div id="info" style="display: none">
-    商品名称: <select name="shop" id="shop"></select>
-    收货人:<input type="text" id="user_info">
-    收货电话:<input type="text" id="mobile">
-    收货地址:<input type="text" id="address">
-    <button  onclick="go()">提交</button>
+<div id="info" style="display:none;width:100%;padding-top: 60%;text-align:center;height: 21.35%">
+    <select name="shop" id="shop" style="margin-bottom: 2%;width: 80%;height: 70px;font-size: 3rem;border-radius:16px;text-align:center;color: #8c8c8c">
+        <option  value="-1">请选择商品</option>
+    </select>
+    <input type="text" id="user_info" placeholder="收货人" style="margin-bottom: 2%;width: 80%;height: 70px;font-size: 3rem;border-radius:16px;text-align:center;color: #8c8c8c">
+    <input type="text" id="mobile" placeholder="收货电话" style="margin-bottom: 2%;width: 80%;height: 70px;font-size: 3rem;border-radius:16px;text-align:center;color: #8c8c8c">
+    <input type="text" id="address" placeholder="收货地址" style="margin-bottom: 2%;width: 80%;height: 70px;font-size: 3rem;border-radius:16px;text-align:center;color: #8c8c8c">
+<!--    <button  onclick="go()">提交</button>-->
+</div>
+<div onclick="getShop()" id="one_div" style="width: 60%;height: 7%;margin: 55% auto 0 auto;">
 
+</div>
+
+<div onclick="go()" id="two_div" style="display:none;width: 60%;height: 7%;margin: 55% auto 0 auto;">
 </div>
 
 <script type="text/javascript" src="../../js/jquery.min.js"></script>
+<script src="../../js/layer/layer.js"></script>
+
 <script>
     function getShop() {
+        if($('#password_go').val() === ''){
+            layer.msg('<div style="padding-top: 13%"><span style="font-size: 3rem;text-align:center;">请填写兑换码</span></div>',{ area:['50%', '10%']})
+        }
         $.ajax({
             url: 'http://niubiadmin.yarayzw.com/index/niubi/getShop',
             data:{
@@ -40,14 +58,19 @@
             method:"POST",
             dataType:"json",
             success:function(data){
-                $.each(data,function(index,value){
-                    console.log(value);
-                    let html = "<option value='"+value.id+"'>"+value.title+"</option>";
-                    $('#shop').append(html)
-                    $('#password').hide()
-                    $('#info').show()
-
-                });
+                if(data){
+                    $.each(data,function(index,value){
+                        console.log(value);
+                        let html = "<option value='"+value.id+"'>"+value.title+"</option>";
+                        $('#shop').append(html)
+                        $('#password').hide()
+                        $('#info').show()
+                        $('#one_div').hide()
+                        $('#two_div').show()
+                    });
+                }else {
+                    layer.msg('<div style="padding-top: 13%"><span style="font-size: 3rem;text-align:center;">兑换码无效</span></div>',{ area:['50%', '10%']})
+                }
             },
             error:function(){
             }
@@ -67,9 +90,10 @@
             method:"POST",
             dataType:"json",
             success:function(data){
-                $('#info').show()
-
-                alert(data)
+                if(data.code === 0){
+                    layer.msg('<div style="padding-top: 13%"><span style="font-size: 3rem;text-align:center;">下单成功</span></div>',{ area:['50%', '10%']})
+                }
+                layer.msg('<div style="padding-top: 13%"><span style="font-size: 3rem;text-align:center;">该兑换码已使用</span></div>',{ area:['50%', '10%']})
             },
             error:function(){
             }
