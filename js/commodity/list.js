@@ -253,7 +253,7 @@ function editCommodity(obj) {
         $('#upload-list-head').append(html);
     });
 
-    let qr_img =requestData.data.head_img.split('@@@');
+    let qr_img =requestData.data.qr_img.split('@@@');
     $('#upload-list').empty();
 
     qr_img.forEach((item,index,array)=>{
