@@ -77,6 +77,7 @@ function initTable() {
                 // id : {$_GET['id']},
                 head : {'token' : getCookie('token')},
                 name : $('#name').val(),
+                search_id : $('#search_id').val()
             };
 
             return params;
