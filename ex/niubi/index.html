@@ -92,8 +92,9 @@
             success:function(data){
                 if(data.code === 0){
                     layer.msg('<div style="padding-top: 13%"><span style="font-size: 3rem;text-align:center;">下单成功</span></div>',{ area:['50%', '10%']})
+                }else {
+                    layer.msg('<div style="padding-top: 13%"><span style="font-size: 3rem;text-align:center;">该兑换码已使用</span></div>',{ area:['50%', '10%']})
                 }
-                layer.msg('<div style="padding-top: 13%"><span style="font-size: 3rem;text-align:center;">该兑换码已使用</span></div>',{ area:['50%', '10%']})
             },
             error:function(){
             }
