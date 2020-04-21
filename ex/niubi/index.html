@@ -58,9 +58,8 @@
             method:"POST",
             dataType:"json",
             success:function(data){
-                if(data){
-                    $.each(data,function(index,value){
-                        console.log(value);
+                if(data.code === 0){
+                    $.each(data.rs,function(index,value){
                         let html = "<option value='"+value.id+"'>"+value.title+"</option>";
                         $('#shop').append(html)
                         $('#password').hide()
