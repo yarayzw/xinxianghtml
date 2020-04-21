@@ -249,16 +249,16 @@ function editCommodity(obj) {
 
     head_img.forEach((item,index,array)=>{
         //执行代码
-        var html = '<div style="float: left;padding-right: 10px"  onclick="delImg(this)" ><img name="head_img" data_name="'+item+'" src="'+item+'"></div>';
+        var html = '<div style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"  onclick="delImg(this)" ><img name="head_img" data_name="'+item+'" src="'+item+'"></div>';
         $('#upload-list-head').append(html);
     });
 
-    let qr_img =requestData.data.qr_img.split('@@@');
+    let qr_img =requestData.data.qr_code.split('@@@');
     $('#upload-list').empty();
 
     qr_img.forEach((item,index,array)=>{
         //执行代码
-        var html = '<div style="float: left;padding-right: 10px"  onclick="delImg(this)" ><img name="qr_img" data_name="'+item+'" src="'+item+'"></div>';
+        var html = '<div style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"  onclick="delImg(this)" ><img name="qr_img" data_name="'+item+'" src="'+item+'"></div>';
         $('#upload-list').append(html);
     });
 

@@ -20,7 +20,7 @@ setTimeout(function(){
         fileVal:'upload', // [默认值：'file'] 设置文件上传域的name。
     });
     uploader.on('uploadSuccess', function(file, response) {
-        var html = '<div  onclick="delImg(this)" ><img name="qr_img" data_name="'+__IMG__+ response.path[0]+'" src="'+__IMG__+ response.path[0]+'"></div>';
+        var html = '<div  onclick="delImg(this)" style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"><img name="qr_img" data_name="'+__IMG__+ response.path[0]+'" src="'+__IMG__+ response.path[0]+'"></div>';
         $('#upload-list').append(html);
     });
 },3000);
@@ -48,7 +48,7 @@ var uploader_head =  WebUploader.create(
 );
 
 uploader_head.on("uploadSuccess", function(file, response) {
-    var html = '<div  onclick="delImg(this)" ><img name="head_img" data_name="'+__IMG__+ response.path[0]+'" src="'+__IMG__+ response.path[0]+'"></div>';
+    var html = '<div  onclick="delImg(this)" style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"><img name="head_img" data_name="'+__IMG__+ response.path[0]+'" src="'+__IMG__+ response.path[0]+'"></div>';
     $('#upload-list-head').append(html);
 });
 
