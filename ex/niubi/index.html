@@ -36,11 +36,12 @@
     <input type="text" id="address" placeholder="收货地址" style="margin-bottom: 2%;width: 80%;height: 70px;font-size: 3rem;border-radius:16px;text-align:center;color: #8c8c8c">
 <!--    <button  onclick="go()">提交</button>-->
 </div>
-<div onclick="getShop()" id="one_div" style="width: 60%;height: 7%;margin: 55% auto 0 auto;">
+<div onclick="getShop()" id="one_div" style="width: 60%;height: 10%;margin: 57% 30% 0 18%;background: url('14.png');background-size:100% 100%;
+">
 
 </div>
 
-<div onclick="go()" id="two_div" style="display:none;width: 60%;height: 7%;margin: 55% auto 0 auto;">
+<div onclick="go()" id="two_div" style="display:none;width: 60%;height: 10%;margin: 57% auto 0 auto;background: url('14.png');background-size:100% 100%;">
 </div>
 
 <script type="text/javascript" src="../../js/jquery.min.js"></script>
@@ -50,6 +51,7 @@
     function getShop() {
         if($('#password_go').val() === ''){
             layer.msg('<div style="padding-top: 13%"><span style="font-size: 3rem;text-align:center;">请填写兑换码</span></div>',{ area:['50%', '10%']})
+            return false;
         }
         $.ajax({
             url: 'http://niubiadmin.yarayzw.com/index/niubi/getShop',
