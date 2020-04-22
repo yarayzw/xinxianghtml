@@ -113,6 +113,21 @@
     <script type="text/javascript" src="./refresh.js"></script>
     <script type="text/javascript" src="https://s4.cnzz.com/z_stat.php?id=1278836227&web_id=1278836227"></script>
     <script>
+        // 取得cookie
+        function getCookie(name) {
+            var nameEQ = name + '='
+            var ca = document.cookie.split(';') // 把cookie分割成组
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i] // 取得字符串
+                while (c.charAt(0) == ' ') { // 判断一下字符串有没有前导空格
+                    c = c.substring(1, c.length) // 有的话，从第二位开始取
+                }
+                if (c.indexOf(nameEQ) == 0) { // 如果含有我们要的name
+                    return unescape(c.substring(nameEQ.length, c.length)) // 解码并截取我们要值
+                }
+            }
+            return false
+        }
         $(document).ready(function () {
             $.ajax({
                 // url: 'http://jindouyun.yarayzw.com/index/commodity/getInfoById',
@@ -125,7 +140,7 @@
                 async: false,
                 success: function (data) {
                  data.forEach((item,index,array)=>{
-                  var html = ' <li class="ad-container" id="list_1_1"><a class="bui-box addsp clickdsp inviewdsp" href="http://'+window.location.host+'/ex/ex'+'/index.html?id='+item.id+'"\n' +
+                  var html = ' <li class="ad-container" id="list_1_1"><a class="bui-box addsp clickdsp inviewdsp" href="http://'+window.location.host+'/ex/ex'+'/index.html?id='+item.id+'&platform_id='+getCookie('plat_form')+'"\n' +
                           '                                                              target="_blank">\n' +
                           '                        <div class="big-mode">\n' +
                           '                            <div class="title-box link">\n' +
