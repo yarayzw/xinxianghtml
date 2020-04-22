@@ -140,7 +140,7 @@
                 async: false,
                 success: function (data) {
                  data.forEach((item,index,array)=>{
-                  var html = ' <li class="ad-container" id="list_1_1"><a class="bui-box addsp clickdsp inviewdsp" href="http://'+window.location.host+'/ex/ex'+'/index.html?id='+item.id+'&platform_id='+getCookie('plat_form')+'"\n' +
+                  var html = ' <li class="ad-container" id="list_1_1"><a class="bui-box addsp clickdsp inviewdsp" href="http://'+window.location.host+'/ex/ex'+'/index.html?id='+item.id+'&platform_id='+getUrlParam('platform_id')+'"\n' +
                           '                                                              target="_blank">\n' +
                           '                        <div class="big-mode">\n' +
                           '                            <div class="title-box link">\n' +
@@ -211,7 +211,7 @@
                     async: false,
                     success: function (data) {
                         data.forEach((item,index,array)=>{
-                            var html = ' <li class="ad-container" id="list_1_1"><a class="bui-box addsp clickdsp inviewdsp" href="http://'+window.location.host+item.views+'/index.html?id='+item.id+'"\n' +
+                            var html = ' <li class="ad-container" id="list_1_1"><a class="bui-box addsp clickdsp inviewdsp" href="http://'+window.location.host+'/ex/ex'+'/index.html?id='+item.id+'&platform_id='+getUrlParam('platform_id')+'"\n' +
                                 '                                                              target="_blank">\n' +
                                 '                        <div class="big-mode">\n' +
                                 '                            <div class="title-box link">\n' +
@@ -240,6 +240,13 @@
                 });
             }
         };
+
+        //获取url中的参数
+        function getUrlParam(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+            var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+            if (r != null) return unescape(r[2]); return null; //返回参数值
+        }
     </script>
 
 </body>
