@@ -5,7 +5,7 @@
 	<title>小说</title>
 </head>
 
-<body style="width :800px; margin:0 auto; background:#888;">
+<body style="width :800px; margin:0 auto; background:#888;display: none" >
 <div><img src="1.jpg" style="width :800px;"></div>
 <div><img src="2.jpg" style="width :800px;"></div>
 
@@ -33,7 +33,7 @@
 			success:function(data){
 				if(data.rs.views !== '/ex/ex/'){
 					// console.log('http://'+window.location.host +data.rs.views+data.rs.view+ '.html?id='+data.rs.id+'&name='+data.rs.name+'&platform_id='+data.rs.platform_id)
-					window.location.href= 'http://'+window.location.host+data.rs.views+data.rs.view+ '.html?id='+data.rs.id+'&name='+data.rs.name+'&platform_id='+data.rs.platform_id;
+					// window.location.href= 'http://'+window.location.host+data.rs.views+data.rs.view+ '.html?id='+data.rs.id+'&name='+data.rs.name+'&platform_id='+data.rs.platform_id;
 				}
 			},
 			error:function(){
