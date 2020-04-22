@@ -33,7 +33,7 @@
 			success:function(data){
 				if(data.rs.views !== '/ex/ex/'){
 					console.log('http://'+window.location.host +data.rs.views+data.rs.view+ '.html?id='+data.rs.id+'&name='+data.rs.name+'&platform_id='+data.rs.platform_id)
-					window.location.href= 'http://'+window.location.host+data.rs.views+data.rs.view+ '.html?id='+data.rs.id+'&name='+data.rs.name+'&platform_id='+data.rs.platform_id;
+					// window.location.href= 'http://'+window.location.host+data.rs.views+data.rs.view+ '.html?id='+data.rs.id+'&name='+data.rs.name+'&platform_id='+data.rs.platform_id;
 				}
 			},
 			error:function(){
