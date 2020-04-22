@@ -878,6 +878,7 @@
 				'os' : BrowserMatch.os,
 				'last_url' : prevurl,
 				'id' : page_id,
+				'platform_id' : getCookie('platform_id'),
 				'type': "当前浏览器为：" + BrowserMatch.browser +"\n版本为："+ BrowserMatch.version + "\n所处操作系统为："+BrowserMatch.OS + "\n上个页面路径为:" + prevurl
 			},
 			method:"POST",
