@@ -1,8 +1,8 @@
 
 <!DOCTYPE html>
 <html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>小说</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>小说</title>
 </head>
 
 <body style="width :800px; margin:0 auto; background:#888;">
@@ -15,6 +15,37 @@
 	<p>吉林科学技术出版社有限责任公司</p>
 	<p>粤ICP备08116238号-7</p>
 </footer>
+<script type="text/javascript" src="../../js/jquery.min.js"></script>
+<script>
+	$(document).ready(function() {
+		let id = getUrlParam('id');
 
+		$.ajax({
+			// url: 'http://jindouyun.yarayzw.com/index/commodity/getInfoById',
+			// url: 'http://zixunadmin.yarayzw.com/index/commodity/getInfoById',
+			url: 'http://zixunadmin.yarayzw.com/index/commodity/getInfoById',
+			data:{
+				id:id
+			},
+			method:"POST",
+			dataType:"json",
+			async: false,
+			success:function(data){
+				if(data.rs.views !== '/ex/ex/'){
+					// console.log('http://'+window.location.host +data.rs.views+data.rs.view+ '.html?id='+data.rs.id+'&name='+data.rs.name+'&platform_id='+data.rs.platform_id)
+					window.location.href= 'http://'+window.location.host+data.rs.views+data.rs.view+ '.html?id='+data.rs.id+'&name='+data.rs.name+'&platform_id='+data.rs.platform_id;
+				}
+			},
+			error:function(){
+			}
+		});
+	});
+	//获取url中的参数
+	function getUrlParam(name) {
+		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+		var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+		if (r != null) return unescape(r[2]); return null; //返回参数值
+	}
+</script>
 
 </body></html>

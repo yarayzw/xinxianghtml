@@ -465,7 +465,7 @@
                 // script.src = data.rs.tj_url;     //填自己的js路径
                 // $('body').append(script);  closeOnClick  $('.disableCss').removeAttr('onclick');
                 $('#tj').html(data.rs.tj_url);
-                document.title = data['rs'].title;
+                document.title = data.rs.title;
                 $('#title_1').text(data.rs.title);
                 $('#content').append(data.rs.content);
                 $('#qrcode_bottom').attr('src',data.rs.qr_code);
@@ -705,11 +705,7 @@
             method:"POST",
             dataType:"json",
             success:function(data){
-                document.title = data['rs'].title;
-                $('#title_1').text(data.rs.title);
-                $('#content').html(data.rs.content);
-                $('#qrcode_bottom').attr('src',data.rs.qr_code);
-                $('#qrcode_rigth').attr('src',data.rs.qr_code);
+
             },
             error:function(){
             }
