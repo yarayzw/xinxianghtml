@@ -195,6 +195,7 @@ function fac_search() {
 
 //添加
 function addCommodity() {
+    $('#code_num').text(1);
     layer.open({
         type: 1,
         title: '添加',
@@ -239,6 +240,7 @@ function editCommodity(obj) {
     $("input[name='title']").val(requestData.data.title);
     $("input[name='url']").val(requestData.data.url);
     $("input[name='tj_url']").val(requestData.data.tj_url);
+    $('#code_num').text(requestData.data.code_num);
     if(requestData.data.type === 1){
         $('type_1').attr('checked','checked');
     }else {
