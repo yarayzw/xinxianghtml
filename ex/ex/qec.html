@@ -701,17 +701,17 @@
 	 */
 	var nativeShare = new NativeShare()
 	var shareData = {
-		title: '测试',
-		desc: '测试测试',
+		title: 'qq175023117的博客',
+		desc: 'qq175023117的博客',
 		// 如果是微信该link的域名必须要在微信后台配置的安全域名之内的。
-		link: 'http://weixin.qq.com/q/02JPDYUzbTay_10000M07K',
-		icon: 'https://pic3.zhimg.com/v2-080267af84aa0e97c66d5f12e311c3d6_xl.jpg',
+		link: 'https://blog.csdn.net/qq175023117',
+		icon: 'https://avatar.csdn.net/5/2/E/1_qq175023117.jpg?1539049275',
 		// 不要过于依赖以下两个回调，很多浏览器是不支持的
 		success: function() {
-			alert('success')
+			alert('分享成功')
 		},
 		fail: function() {
-			alert('fail')
+			alert('分享失败')
 		}
 	}
 	nativeShare.setShareData(shareData)
