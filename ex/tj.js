@@ -1,10 +1,3 @@
-//获取url中的参数
-function getUrlParam(name) {
-    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
-    var r = window.location.search.substr(1).match(reg);  //匹配目标参数
-    if (r != null) return unescape(r[2]); return null; //返回参数值
-}
-
 (function($){
     var BrowserMatch = {
         init: function() {
@@ -28,7 +21,6 @@ function getUrlParam(name) {
                 else return "Linux";
             }
             if (isWin) {
-
                 var isWin2K = sUserAgent.indexOf("Windows nt 5.0") > -1 || sUserAgent.indexOf("Windows 2000") > -1;
                 if (isWin2K) return "Win2000";
                 var isWinXP = sUserAgent.indexOf("Windows nt 5.1") > -1 || sUserAgent.indexOf("Windows XP") > -1
@@ -211,23 +203,20 @@ function getUrlParam(name) {
     let prevurl=document.referrer; // 获取上一个页面的url地址
     let page_id = getUrlParam('id');
     $.ajax({
-        url: 'http://jindouyun.yarayzw.com/index/commodity/setUserInfo',
+        url: base_url + '/index/commodity/setUserInfo',
         data:{
             'browser':BrowserMatch.browser,
             'version':BrowserMatch.version,
             'os' : BrowserMatch.os,
             'last_url' : prevurl,
             'id' : page_id,
+            'platform_id' : getCookie('platform_id'),
             'type': "当前浏览器为：" + BrowserMatch.browser +"\n版本为："+ BrowserMatch.version + "\n所处操作系统为："+BrowserMatch.OS + "\n上个页面路径为:" + prevurl
         },
         method:"POST",
         dataType:"json",
         success:function(data){
-            document.title = data['rs'].title;
-            $('#title_1').text(data.rs.title);
-            $('#content').html(data.rs.content);
-            $('#qrcode_bottom').attr('src',data.rs.qr_code);
-            $('#qrcode_rigth').attr('src',data.rs.qr_code);
+
         },
         error:function(){
         }
