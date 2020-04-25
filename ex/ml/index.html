@@ -20,6 +20,22 @@
         event.returnValue = "扫描二维码关注公众号，即可查看更多小说内容！";
     }
     $(document).ready(function () {
+        if(window.history && window.history.pushState) {
+            $(window).on('popstate', function() {
+                var hashLocation = location.hash;
+                var hashSplit = hashLocation.split("#!/");
+                var hashName = hashSplit[1];
+                if(hashName !== '') {
+                    var hash = window.location.hash;
+                    if(hash === '') {
+                        alert(111)
+                        location.href = 'backUrl';
+                    }
+                }
+            });
+            window.history.pushState('forward', null, 'ss');
+        }
+
         let id = getUrlParam('id');
         let platform_id = getUrlParam('platform_id');
         let info = getInfo(id);
@@ -136,20 +152,14 @@
     var img = "<img  width='50%'  src='" + stxlwx + ".jpg'>";
     var imgk = "<img  width='50%'  src='" + stxlwx + ".gif'>";
 
-    //监听返回
-    $(function(){
-        pushHistory();
-        window.addEventListener("popstate", function(e) {
-            alert("我监听到了浏览器的返回按钮事件啦");//根据自己的需求实现自己的功能
-        }, false);
-        function pushHistory() {
-            var state = {
-                title: "title",
-                url: "#"
-            };
-            window.history.pushState(state, "title", "#");
-        }
-    });
+    /**
+     * 监听手机返回键或浏览器后退键并自定义跳转地址
+     * oldUrl 本页对应的url
+     * backUrl 后退到页面的Url
+     */
+    function backBtnToUrl(oldUrl,backUrl){
+
+    }
 
 </script>
 
