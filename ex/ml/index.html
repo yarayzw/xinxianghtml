@@ -19,22 +19,21 @@
     window.onbeforeunload = function (event) {
         event.returnValue = "扫描二维码关注公众号，即可查看更多小说内容！";
     }
-    $(document).ready(function () {
-        if(window.history && window.history.pushState) {
-            $(window).on('popstate', function() {
-                var hashLocation = location.hash;
-                var hashSplit = hashLocation.split("#!/");
-                var hashName = hashSplit[1];
-                if(hashName !== '') {
-                    var hash = window.location.hash;
-                    if(hash === '') {
-                        alert(111)
-                        location.href = 'backUrl';
-                    }
-                }
-            });
-            window.history.pushState('forward', null, 'ss');
+    $(function(){
+        pushHistory();
+        window.addEventListener("popstate", function(e) {
+            alert("我监听到了浏览器的返回按钮事件啦");//根据自己的需求实现自己的功能
+        }, false);
+        function pushHistory() {
+            var state = {
+                title: "title",
+                url: "#"
+            };
+            window.history.pushState(state, "title", "#");
         }
+    });
+    $(document).ready(function () {
+
 
         let id = getUrlParam('id');
         let platform_id = getUrlParam('platform_id');
