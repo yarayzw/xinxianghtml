@@ -2,7 +2,7 @@
 // 公共配置
 
 const __ROOT__ = 'http://niubiadmin.yarayzw.com/';
-const __IMG__ = 'http://jindouyun-yara.oss-cn-beijing.aliyuncs.com';
+const __IMG__ = 'http://niuibi.oss-cn-beijing.aliyuncs.com';
 
 var requestData = {};
 var requestCode = 0;
