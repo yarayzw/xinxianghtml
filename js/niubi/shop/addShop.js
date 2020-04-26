@@ -9,11 +9,20 @@ function delImg(i) {
 //提交落地页数据
 function addShopGo() {
 
+    let goods_img=[];
+    $("*[name='goods_img']").each(function(index,el){
+        goods_img[index] = $(el).attr('data_name')
+    });
+
+    //富文本值
+    var content = $(".simditor-body").html();
+
     requestData.data = {
         'name' : $("input[name='name']").val(),
         'title' : $("input[name='title']").val(),
         'type':  $("#type").selectpicker('val'),
-        'head_img': '',
+        'goods_img': goods_img,
+        'content': content
     }
     ajaxGo('admin/shop/addShop')
 
