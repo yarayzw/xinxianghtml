@@ -5,6 +5,7 @@ function addViewGo() {
     requestData.data = {
         'name' : $("input[name='name']").val(),
         'url' : $("input[name='url']").val(),
+        'type':  $("input[name='type']:checked").val(),
     }
     ajaxGo('admin/View/addView')
 
@@ -16,6 +17,7 @@ function editViewGo(id) {
         'id' : id,
         'name' : $("input[name='name']").val(),
         'url' : $("input[name='url']").val(),
+        'type':  $("input[name='type']:checked").val(),
     }
     ajaxGo('admin/View/editView')
 

@@ -81,6 +81,17 @@ function initTable() {
                     return value;
                 }
             },
+            {
+                field: 'type',
+                title: '路径',
+                formatter: function(value,row,index){
+                    if(value === 1){
+                        return 'pc端';
+                    }else {
+                        return '移动端';
+                    }
+                }
+            },
 
             {
                 field: 'operate',
@@ -88,7 +99,7 @@ function initTable() {
                 width : '10%',
                 align: 'center',
                 formatter: function(value,row,index){
-                    var d='<a href="#" mce_href="#" data_id="'+row.id+'" data_name="'+row.name+'" data_url="'+row.url+'"   onclick="editView(this)" >编辑</a> ';
+                    var d='<a href="#" mce_href="#" data_id="'+row.id+'" data_name="'+row.name+'" data_url="'+row.url+'" data_type="'+row.type+'"   onclick="editView(this)" >编辑</a> ';
                     var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="del(this)" >删除</a>';
 
                     return d+f;
@@ -143,6 +154,11 @@ function addView() {
 function editView(obj) {
     $("input[name='name']").val($(obj).attr('data_name'));
     $("input[name='url']").val($(obj).attr('data_url'));
+    if($(obj).attr('data_type') === 1){
+        $('type_1').attr('checked','checked');
+    }else {
+        $('type_2').attr('checked','checked');
+    }
 
     layer.open({
         type: 1,

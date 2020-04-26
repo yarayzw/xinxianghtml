@@ -121,7 +121,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">模版 :</label>
+                        <label class="col-sm-3 control-label">pc模版 :</label>
                         <div class="col-sm-8">
                             <select id="view" class="selectpicker" data-live-search="true">
 
@@ -188,8 +188,30 @@
                             <span>今日使用第 <span style="color: red" id="code_num">1</span> 张二维码</span>
                         </div>
                     </div>
+                    <hr>
+                    <div class="form-group" style="text-align: center;padding: 0 auto">
+                       移动端数据
+                    </div>
+                    <div class="form-group" >
+                        <label class="col-sm-3 control-label">公众号名称 :</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="we_chat_name" value=""  />
+                        </div>
+                    </div>
+                    <div class="form-group" >
+                        <label class="col-sm-3 control-label">公众号关注链接 :</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="we_chat_url" value=""  />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">移动端模版 :</label>
+                        <div class="col-sm-8">
+                            <select id="mobile_view" class="selectpicker" data-live-search="true">
 
-
+                            </select>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
@@ -198,9 +220,20 @@
 <input type="text" id="copyText" style="display: none">
 <div class="row" id="updateView" style="display: none">
     <div class="form-group">
-        <label class="col-sm-3 control-label">模版 :</label>
+        <label class="col-sm-3 control-label">pc模版 :</label>
         <div class="col-sm-8">
             <select id="view_update" class="selectpicker" data-live-search="true">
+
+            </select>
+        </div>
+    </div>
+</div>
+
+<div class="row" id="updateViewMobile" style="display: none">
+    <div class="form-group">
+        <label class="col-sm-3 control-label">移动模版 :</label>
+        <div class="col-sm-8">
+            <select id="mobile_view_update" class="selectpicker" data-live-search="true">
 
             </select>
         </div>

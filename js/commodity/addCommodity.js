@@ -85,6 +85,9 @@ function addCommodityGo() {
         'view_id':  $("#view").selectpicker('val'),
         'platform_id':  $("#platform").selectpicker('val'),
         'type':  $("input[name='type']:checked").val(),
+        'wechat_name' : $("input[name='we_chat_name']").val(),
+        'wechat_url' : $("input[name='we_chat_url']").val(),
+        'mobile_view_id':  $("#mobile_view").selectpicker('val'),
     }
     ajaxGo('admin/commodity/addCommodity')
 
@@ -118,6 +121,9 @@ function editCommodityGo(id) {
         'view_id':  $("#view").selectpicker('val'),
         'platform_id':  $("#platform").selectpicker('val'),
         'type':  $("input[name='type']:checked").val(),
+        'wechat_name' : $("input[name='we_chat_name']").val(),
+        'wechat_url' : $("input[name='we_chat_url']").val(),
+        'mobile_view_id':  $("#mobile_view").selectpicker('val'),
     }
     ajaxGo('admin/commodity/editCommodity')
 
@@ -130,4 +136,12 @@ function updateViewGo(id) {
         'view_id':  $("#view_update").selectpicker('val'),
     }
     ajaxGo('admin/commodity/updateView')
+}
+
+function updateViewMobileGo(id) {
+    requestData.data = {
+        'id' : id,
+        'mobile_view_id':  $("#mobile_view_update").selectpicker('val'),
+    }
+    ajaxGo('admin/commodity/updateViewMobile')
 }

@@ -13,6 +13,10 @@ function setMaterial() {
     });
     $('#material').selectpicker('refresh');
 
+    //pc模版
+    requestData.data = {
+        'type' : 1
+    }
     ajaxGo('admin/view/getListToSelect')
     requestData.data.forEach((item,index,array)=>{
         //执行代码
@@ -22,6 +26,20 @@ function setMaterial() {
     });
     $('#view').selectpicker('refresh');
     $('#view_update').selectpicker('refresh');
+
+    //移动模版
+    requestData.data = {
+        'type' : 2
+    }
+    ajaxGo('admin/view/getListToSelect')
+    requestData.data.forEach((item,index,array)=>{
+        //执行代码
+        var html = "<option value='"+item.id+"'>"+item.name+"</option>";
+        $('#mobile_view').append(html);
+        $('#mobile_view_update').append(html);
+    });
+    $('#mobile_view').selectpicker('refresh');
+    $('#mobile_view_update').selectpicker('refresh');
 
     ajaxGo('admin/platform/getListToSelect')
     requestData.data.forEach((item,index,array)=>{
@@ -138,11 +156,21 @@ function initTable() {
             },
             {
                 field: 'view_name',
-                title: '模版',
+                title: 'pc模版',
                 width : '10%',
                 align: 'center',
                 formatter: function(value,row,index){
                     var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="updateView(this)" >'+value+'</a>';
+                    return f;
+                }
+            },
+            {
+                field: 'mobile_view_name',
+                title: '移动模版',
+                width : '10%',
+                align: 'center',
+                formatter: function(value,row,index){
+                    var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="updateViewMobile(this)" >'+value+'</a>';
                     return f;
                 }
             },
@@ -249,7 +277,6 @@ function editCommodity(obj) {
 
     let head_img =requestData.data.head_img.split('@@@');
     $('#upload-list-head').empty();
-
     head_img.forEach((item,index,array)=>{
         //执行代码
         var html = '<div style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"  onclick="delImg(this)" ><img name="head_img" data_name="'+item+'" src="'+item+'"></div>';
@@ -258,7 +285,6 @@ function editCommodity(obj) {
 
     let qr_img =requestData.data.qr_code.split('@@@');
     $('#upload-list').empty();
-
     qr_img.forEach((item,index,array)=>{
         //执行代码
         var html = '<div style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"  onclick="delImg(this)" ><img name="qr_img" data_name="'+item+'" src="'+item+'"></div>';
@@ -268,6 +294,10 @@ function editCommodity(obj) {
     $('#platform').selectpicker('val',(requestData.data.platform_id));
     $('#material').selectpicker('val',(requestData.data.material_id));
     $('#view').selectpicker('val',(requestData.data.view_id));
+    //移动端数据渲染
+    $('#mobile_view').selectpicker('val',(requestData.data.mobile_view_id));
+    $("input[name='we_chat_name']").val(requestData.data.wechat_name);
+    $("input[name='we_chat_url']").val(requestData.data.wechat_url);
 
     layer.open({
         type: 1,
@@ -341,6 +371,37 @@ function updateView(obj) {
                 ,btn: ['确定', '取消']
                 ,yes: function(index){
                     updateViewGo($(obj).attr('data_id'));
+                    if(requestCode === 0){
+                        fac_search();
+                        layer.close(index);
+                        layer.closeAll();
+                        layer.msg(requestMessage);
+                    }else {
+                        layer.msg(requestMessage);
+                    }
+                }
+            });
+        }
+//            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
+    });
+}
+
+function updateViewMobile(obj) {
+
+    layer.open({
+        type: 1,
+        title: '编辑',
+        shadeClose: true,
+        shade: 0.8,
+        area: ['90%', '90%'],
+        content: $('#updateViewMobile'),
+        btn: ['确定', '取消'], // 按钮
+        yes: function(index, layero){
+            layer.msg('确定修改？', {
+                time: 0 //不自动关闭
+                ,btn: ['确定', '取消']
+                ,yes: function(index){
+                    updateViewMobileGo($(obj).attr('data_id'));
                     if(requestCode === 0){
                         fac_search();
                         layer.close(index);
