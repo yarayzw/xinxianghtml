@@ -136,7 +136,6 @@
     function wechat_go(command){
         try {
             nativeShare.call(command)
-            alert(1)
 
         } catch (err) {
             $('#special').hide();
@@ -406,7 +405,7 @@
             </div>
 
             <div id="special" style="">
-
+                <br>
                 <button id="wechat_go" onclick="wechat_go('wechatTimeline')" data-clipboard-target="#fixspan" class="pa copy_btn3 code-btn ifengLookori">
                     点此阅读下一章
                 </button>
