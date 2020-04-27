@@ -85,23 +85,23 @@
             })
         }
 
-        function h() {
-            a((se ? "mqqapi://share/to_fri?src_type=web&version=1&file_type=news" : "mqqapi://share/to_fri?src_type=isqqBrowser&version=1&file_type=news") + "&" + p(Se))
-        }
-
-        function b() {
-            a((se ? "mqqapi://share/to_fri?file_type=news&src_type=web&version=1&generalpastboard=1&shareType=1&cflag=1&objectlocation=pasteboard&callback_type=scheme&callback_name=QQ41AF4B2A" : "mqqapi://share/to_qzone?src_type=isqqBrowser&version=1&file_type=news&req_type=1") + "&" + p(Se))
-        }
-
-        function y() {
-            var e = {url: Se.link, title: Se.title, pic: Se.icon, desc: Se.desc};
-            location.href = "http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?" + c(e, !0)
-        }
-
-        function d() {
-            var e = {url: Se.link, title: Se.title, pic: Se.icon};
-            location.href = "http://service.weibo.com/share/share.php?" + c(e, !0)
-        }
+        // function h() {
+        //     a((se ? "mqqapi://share/to_fri?src_type=web&version=1&file_type=news" : "mqqapi://share/to_fri?src_type=isqqBrowser&version=1&file_type=news") + "&" + p(Se))
+        // }
+        //
+        // function b() {
+        //     a((se ? "mqqapi://share/to_fri?file_type=news&src_type=web&version=1&generalpastboard=1&shareType=1&cflag=1&objectlocation=pasteboard&callback_type=scheme&callback_name=QQ41AF4B2A" : "mqqapi://share/to_qzone?src_type=isqqBrowser&version=1&file_type=news&req_type=1") + "&" + p(Se))
+        // }
+        //
+        // function y() {
+        //     var e = {url: Se.link, title: Se.title, pic: Se.icon, desc: Se.desc};
+        //     location.href = "http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?" + c(e, !0)
+        // }
+        //
+        // function d() {
+        //     var e = {url: Se.link, title: Se.title, pic: Se.icon};
+        //     location.href = "http://service.weibo.com/share/share.php?" + c(e, !0)
+        // }
 
         function w(e, t) {
             if (!(e instanceof t)) throw new TypeError("Cannot call a class as a function")
