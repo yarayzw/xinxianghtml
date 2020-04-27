@@ -991,6 +991,6 @@
             return y
         });
         var wt = void 0;
-        wt = Ne, window.NativeShare = wt, t.default = wt
+        wt = he ? Ve : be && se ? rt : be && pe ? ct : ye ? ft : de ? De : we && se ? Ne : we && pe ? Be : ve && pe ? Ie : ve && se ? Le : ge && se ? He : me && se ? ht : me && pe ? dt : et, window.NativeShare = wt, t.default = wt
     }])
 });
