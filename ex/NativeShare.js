@@ -981,8 +981,16 @@
             return ct
         }), n.d(t, "QZone", function () {
             return ft
+        }), n.d(t, "shareToQQ", function () {
+            return h
+        }), n.d(t, "shareToQZone", function () {
+            return b
+        }), n.d(t, "shareToWeibo4Web", function () {
+            return d
+        }), n.d(t, "shareToQZone4Web", function () {
+            return y
         });
         var wt = void 0;
-        wt = he ? Ve : be && se ? rt : be && pe ? ct : ye ? ft : de ? De : we && se ? Ne : we && pe ? Be : ve && pe ? Ie : ve && se ? Le : ge && se ? He : me && se ? ht : me && pe ? dt : et, window.NativeShare = wt, t.default = wt
+        wt = Ne, window.NativeShare = wt, t.default = wt
     }])
 });
