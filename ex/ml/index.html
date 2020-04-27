@@ -212,11 +212,14 @@
                 var rTrident = /(trident)\/([\w.]+)/;
                 var rEdge = /(chrome)\/([\w.]+)/;//IE
 
+                var rUC = /(uc)\/([\w.]+)/;//UC
+                var rBaiduBoxApp = /(baiduboxapp)\/([\w.]+)/;//UC
+
+
                 var rFirefox = /(firefox)\/([\w.]+)/;  //火狐
                 var rOpera = /(opera).+version\/([\w.]+)/;  //旧Opera
                 var rNewOpera = /(opr)\/(.+)/;  //新Opera 基于谷歌
                 var rChrome = /(chrome)\/([\w.]+)/; //谷歌
-                var rUC = /(uc)\/([\w.]+)/;//UC
                 var rMaxthon = /(maxthon)\/([\w.]+)/;//遨游
                 var r2345 = /(2345)\/([\w.]+)/;//2345
                 var rQQ = /(qq)\/([\w.]+)/;//QQ
@@ -225,9 +228,12 @@
                 var rXiaomi = /xiaomi\/([\w.]+).*(safari)/; //小米
 
                 var ua = navigator.userAgent.toLowerCase();
-                alert(ua)
                 var matchBS, matchBS2;
-
+                //IE最新版
+                matchBS = rBaiduBoxApp.exec(ua);
+                if ((matchBS != null) && (!(window.attachEvent))) {
+                   alert('in')
+                }
                 //IE 低版
                 matchBS = rMsie.exec(ua);
                 if (matchBS != null) {
