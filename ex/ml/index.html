@@ -160,6 +160,7 @@
         var BrowserMatch = {
             init: function () {
                 this.browser = this.getBrowser().browser || "未知浏览器";  //获取浏览器名
+                alert(this.browser)
                 this.version = this.getBrowser().version || "未知浏览器版本号";  //获取浏览器版本
                 this.OS = this.getOS() + " " + this.getDigits() || "未知操作系统"; //系统版本号
             },
@@ -224,7 +225,6 @@
                 var rSafari = /version\/([\w.]+).*(safari)/;
 
                 var ua = navigator.userAgent.toLowerCase();
-                alert(ua)
 
                 var matchBS, matchBS2;
 
