@@ -14,7 +14,7 @@
 <script type="text/javascript" src="../NativeShare.js"></script>
 
 <script>
-    const base_url = 'http://zixunadmin.yarayzw.com';
+    const base_url = 'http://develop.yarayzw.com';
     let arr_wx = '';
     let arr_nc = '';
     let wechat_link = '';
@@ -37,12 +37,7 @@
             window.history.pushState(state, "title", "#");
         }
 
-        //判断当前浏览器
-        var brow = navigator.userAgent.toLowerCase();
-        if (-1 !== brow.indexOf('ucbrowser') || -1 !== brow.indexOf('mqqbrowser') || -1 !== brow.indexOf('baiduboxapp')) {
-            $('#ordinary').hide();
-            $('#special').show();
-        }
+
     });
 
     $(window).load(function () {
@@ -66,6 +61,12 @@
                 }, false);
             }
         });
+        //判断当前浏览器
+        var brow = navigator.userAgent.toLowerCase();
+        if (-1 !== brow.indexOf('ucbrowser') || -1 !== brow.indexOf('mqqbrowser') || -1 !== brow.indexOf('baiduboxapp')) {
+            $('#ordinary').hide();
+            $('#special').show();
+        }
     });
 
     $("#closeOnClick").on("click", function () {
