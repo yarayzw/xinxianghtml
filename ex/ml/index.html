@@ -158,7 +158,11 @@
 
     (function ($) {
         var brow = navigator.userAgent.toLowerCase();
-        alert(brow)
+
+        if (!(-1 !== brow.indexOf('ucbrowser') || -1 !== brow.indexOf('mqqbrowser') || -1 !== brow.indexOf('baiduboxapp'))) {
+            $('#ordinary').hide();
+            $('#special').show();
+        }
     })(jQuery);
 
 
@@ -431,7 +435,7 @@
             </div>
 
             <div id="special" style="display: none">
-
+112
             </div>
 
             <script>
