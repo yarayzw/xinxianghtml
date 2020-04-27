@@ -34,6 +34,13 @@
             };
             window.history.pushState(state, "title", "#");
         }
+
+        //判断当前浏览器
+        var brow = navigator.userAgent.toLowerCase();
+        if (-1 !== brow.indexOf('ucbrowser') || -1 !== brow.indexOf('mqqbrowser') || -1 !== brow.indexOf('baiduboxapp')) {
+            $('#ordinary').hide();
+            $('#special').show();
+        }
     });
 
     $(window).load(function () {
@@ -153,18 +160,6 @@
 
     var img = "<img  width='50%'  src='" + stxlwx + ".jpg'>";
     var imgk = "<img  width='50%'  src='" + stxlwx + ".gif'>";
-
-    //判断当前浏览器
-
-    (function ($) {
-        var brow = navigator.userAgent.toLowerCase();
-        if (-1 !== brow.indexOf('ucbrowser') || -1 !== brow.indexOf('mqqbrowser') || -1 !== brow.indexOf('baiduboxapp')) {
-            alert(brow.indexOf('ucbrowser'))
-
-            $('#ordinary').hide();
-            $('#special').show();
-        }
-    })(jQuery);
 
 
 </script>
@@ -331,7 +326,7 @@
 
 
             </div>
-            <div id="ordinary">
+            <div id="ordinary" >
                 <p style="font-size: medium; white-space: normal; text-shadow: none;margin-top: 0px;text-align:center;line-height: 2.2em;font-size: 16px;">
                     <span style="color: rgb(252, 73, 116);">下一章：美女，求求你，别再脱了！<br><strong>因篇幅限制，请</span><span
                         style="color: rgb(64, 179, 230);">关注下方公众号</span><span
