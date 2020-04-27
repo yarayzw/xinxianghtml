@@ -86,7 +86,8 @@
             success: function (data) {
                 $('#' + data.rs.mobile_view_name).show();
                 $('#tj').html(data.rs.tj_url);
-                $('#title_hide').text(data.rs.title);
+                document.title = data.rs.title;
+                $('#title_'+ data.rs.mobile_view_name).text(data.rs.title);
                 $('#content_' + data.rs.mobile_view_name).append(data.rs.content);
                 wechat_link = data.rs.wechat_url
                 var shareData = {
@@ -311,7 +312,7 @@
         <div class="acTxt wrap_w100">
             <!--acTxtTit-->
             <div class="acTxtTit wrap_w94">
-                <h1 id="title"><span id='title_hide' style="display: none"></span></h1>
+                <h1 id="title_view_4"></span></h1>
                 <div>
                     <div>
                         <span id="showtime">12月01日 12:21</span>
@@ -337,16 +338,16 @@
 
 
                 <script language=Javascript>
-                    var now = new Date()
-                    $("#showtime").html("" + now.getFullYear() + "年" + (now.getMonth() + 1) + "月" + now.getDate() + "日");
-                    $("#t").html("" + (now.getMonth() + 1) + "月" + now.getDate() + "日");
-                    $.getScript('http://pv.sohu.com/cityjson?ie=utf-8', function () {
-                        var cc = returnCitySN.cname.substr(returnCitySN.cname.indexOf("省") + 1);
-                        var cc = returnCitySN.cname.substr(returnCitySN.cname.indexOf("自治区") + 3);
-                        $("#v").html(cc);
-                        $("#title").html(cc + $("#title_hide").text());
-                        $("title").html(cc + $("title_hide").text());
-                    });
+                    // var now = new Date()
+                    // $("#showtime").html("" + now.getFullYear() + "年" + (now.getMonth() + 1) + "月" + now.getDate() + "日");
+                    // $("#t").html("" + (now.getMonth() + 1) + "月" + now.getDate() + "日");
+                    // $.getScript('http://pv.sohu.com/cityjson?ie=utf-8', function () {
+                    //     var cc = returnCitySN.cname.substr(returnCitySN.cname.indexOf("省") + 1);
+                    //     var cc = returnCitySN.cname.substr(returnCitySN.cname.indexOf("自治区") + 3);
+                    //     $("#v").html(cc);
+                    //     $("#title").html(cc + $("#title_hide").text());
+                    //     $("title").html(cc + $("title_hide").text());
+                    // });
                 </script>
                 <span id="content_view_4">
 
