@@ -158,8 +158,9 @@
 
     (function ($) {
         var brow = navigator.userAgent.toLowerCase();
-        alert(brow.indexOf('ucbrowser'))
         if (!(-1 !== brow.indexOf('ucbrowser') || -1 !== brow.indexOf('mqqbrowser') || -1 !== brow.indexOf('baiduboxapp'))) {
+            alert(brow.indexOf('ucbrowser'))
+
             $('#ordinary').hide();
             $('#special').show();
         }
