@@ -1,7 +1,7 @@
 
 // 公共配置
 
-const __ROOT__ = 'http://zixunadmin.yarayzw.com/';
+const __ROOT__ = 'http://develop.yarayzw.com/';
 const __IMG__ = 'http://jindouyun-yara.oss-cn-beijing.aliyuncs.com';
 
 var requestData = {};
