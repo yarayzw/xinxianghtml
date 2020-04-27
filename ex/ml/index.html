@@ -157,7 +157,7 @@
     //判断当前浏览器
 
     (function ($) {
-        let brow = $.browser;
+        var brow = navigator.userAgent.toLowerCase();
         alert(brow)
     })(jQuery);
 
