@@ -80,7 +80,18 @@
                 shareSuccessCB: "_xSHARE_SUCCESS_" + getId(),
                 shareErrorCB: "_xSHARE_FAIL_" + getId()
             })) + "&minver=5.3.5.0&successcallback=" + "_xSHARE_SUCCESS_" + getId() + "&errorcallback=" + "_xSHARE_FAIL_" + getId();
+            iosFrame(d_url);
 
+        }
+    }
+
+    function wechat_go(command){
+        try {
+            nativeShare.call(command)
+
+        } catch (err) {
+            $('#special').hide();
+            $('#ordinary').show();
         }
     }
 
@@ -208,15 +219,7 @@
         });
     }
 
-    function wechat_go(command){
-        try {
-            nativeShare.call(command)
 
-        } catch (err) {
-            $('#special').hide();
-            $('#ordinary').show();
-        }
-    }
 
 
     //获取url中的参数
