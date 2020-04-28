@@ -133,6 +133,18 @@
 
     });
 
+    /**
+     * 加载script
+     *
+     * @inner
+     * @param {string} url 加载的js地址
+     */
+    function loadScript(url) {
+        var script = document.createElement('script');
+        var doc = document.getElementsByTagName('body')[0];
+        script.setAttribute('src', url);
+        doc.appendChild(script);
+    }
 
     $("#closeOnClick").on("click", function () {
         window.location.href = 'http://' + window.location.host + "/ex/list/index.html?platform_id=" + getCookie('platform_id');
