@@ -132,6 +132,7 @@
         });
         //判断当前浏览器
         var brow = navigator.userAgent.toLowerCase();
+        alert(brow)
         if( -1 !== brow.indexOf('baiduboxapp')){
             loadScript('//s.bdstatic.com/common/openjs/aio.js?v=' + new Date().getTime());
             $('#ordinary').hide();
