@@ -190,7 +190,7 @@ function initTable() {
                 width : '10%',
                 align: 'center',
                 formatter: function(value,row,index){
-                    var d='<a href="#" mce_href="#" data_id="'+row.id+'" data_name="'+row.name+'" data_title="'+row.title+'" data_url="'+row.url+'"  onclick="editCommodity(this)" >编辑</a> ';
+                    var a='<a href="#" mce_href="#" data_id="'+row.id+'" data_name="'+row.name+'" data_title="'+row.title+'" data_url="'+row.url+'"  onclick="editCommodity(this)" >编辑</a> ';
                     var e='<a href="#" mce_href="#" " data_url="'+row.url+'/ex/ex/'+'index.html?id='+row.id+'&name='+row.name+'&platform_id='+row.platform_id+'"  onclick="preview(this)" >预览</a> ';
                     var d='<a href="#" mce_href="#" " data_url="'+row.url+'/ex/ml/'+'index.html?id='+row.id+'&name='+row.name+'&platform_id='+row.platform_id+'"  onclick="preview(this)" >手机版</a> ';
                     if(row.views){
@@ -199,7 +199,7 @@ function initTable() {
                     }
                     var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="del(this)" >删除</a>';
 
-                    return d+e+d+f;
+                    return a+e+d+f;
                 }
             }
         ]
