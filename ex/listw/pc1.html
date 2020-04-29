@@ -1,0 +1,362 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pc1</title>
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <style>
+        /* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+        html,
+        body,
+        div,
+        span,
+        applet,
+        object,
+        iframe,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        p,
+        blockquote,
+        pre,
+        a,
+        abbr,
+        acronym,
+        address,
+        big,
+        cite,
+        code,
+        del,
+        dfn,
+        em,
+        img,
+        ins,
+        kbd,
+        q,
+        s,
+        samp,
+        small,
+        strike,
+        strong,
+        sub,
+        sup,
+        tt,
+        var,
+        b,
+        u,
+        i,
+        center,
+        dl,
+        dt,
+        dd,
+        ol,
+        ul,
+        li,
+        fieldset,
+        form,
+        label,
+        legend,
+        table,
+        caption,
+        tbody,
+        tfoot,
+        thead,
+        tr,
+        th,
+        td,
+        article,
+        aside,
+        canvas,
+        details,
+        embed,
+        figure,
+        figcaption,
+        footer,
+        header,
+        hgroup,
+        menu,
+        nav,
+        output,
+        ruby,
+        section,
+        summary,
+        time,
+        mark,
+        audio,
+        video {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 14px;
+            font: inherit;
+            vertical-align: baseline;
+        }
+
+        /* HTML5 display-role reset for older browsers */
+        article,
+        aside,
+        details,
+        figcaption,
+        figure,
+        footer,
+        header,
+        hgroup,
+        menu,
+        nav,
+        section {
+            display: block;
+        }
+
+        body {
+            line-height: 1;
+        }
+
+        ol,
+        ul {
+            list-style: none;
+        }
+
+        blockquote,
+        q {
+            quotes: none;
+        }
+
+        blockquote:before,
+        blockquote:after,
+        q:before,
+        q:after {
+            content: '';
+            content: none;
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        a {
+            text-decoration: none;
+            color: #444
+        }
+
+        a img {
+            vertical-align: top;
+        }
+    </style>
+    <style>
+        #header {
+            background-color: #1f1f1f;
+            height: 45px;
+            line-height: 45px;
+        }
+
+        #header .inner {
+            width: 1240px;
+            margin: 0 auto;
+            height: 45px;
+            position: relative;
+            z-index: 1;
+            color: #a8b8c5;
+        }
+
+        #header ul {
+            margin-left: 140px;
+        }
+
+        #header li {
+            float: left;
+            margin-right: 24px;
+        }
+
+        #header a {
+            color: #a8b8c5;
+            text-decoration: none;
+        }
+
+        #header a:hover {
+            text-decoration: underline;
+        }
+
+        #header .right {
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+
+        #body {
+            width: 1240px;
+            margin: 0 auto;
+        }
+
+        #ex {
+            float: left;
+            width: 120px;
+            text-align: center;
+            position: fixed;
+            top: 0;
+            font-size: 18px;
+        }
+
+        #ex ul {
+            margin-top: 5px;
+            background-color: #eee;
+            padding: 10px 0;
+            border-radius:5px;
+        }
+
+        #ex i {
+            color: #dadada;
+            margin-right: 4px;
+            font-size: 20px;
+            margin-right: 10px;
+        }
+
+        #ex li {
+            height: 42px;
+            line-height: 42px;
+        }
+
+        #ex li a {
+            color: #2c2c2c
+        }
+
+        #ex li a:hover,
+        #ex li a:hover i {
+            color: #e44235;
+        }
+
+        #ex li a:hover span {
+            border-bottom: 2px solid #ed4040;
+        }
+
+        #main {
+            width: 750px;
+            float: left;
+            margin-top: 15px;
+            margin-left: 136px;
+        }
+
+        #sub {
+            float: right;
+            width: 336px;
+            margin-top: 15px;
+        }
+
+        .noread {
+            height: 32px;
+            font-size: 14px;
+            text-align: center;
+            display: block;
+            line-height: 32px;
+            background-color: #82b5f7;
+            color: #fff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="header">
+        <div class="inner">
+
+            <ul>
+                <li>
+                    <a href="###">
+                        首页
+                    </a>
+                </li>
+                <li>
+                    <a href="###">
+                        搞笑
+                    </a>
+                </li>
+                <li>
+                    <a href="###">
+                        资讯
+                    </a>
+                </li>
+                <li>
+                    <a href="###">
+                        娱乐
+                    </a>
+                </li>
+                <li>
+                    <a href="###">
+                        <i class="fa fa-list"></i>
+                    </a>
+                </li>
+            </ul>
+            <div class="right">
+                <a href="###">登录</a>/
+                <a href="###">注册</a>
+            </div>
+        </div>
+    </div>
+    <div id="body">
+        <div id="ex">
+            <img src="./img/logo.gif" alt="" class="logo">
+            <ul>
+                <li class="active"><a href="###" style="font-weight: bold;color:#e44235;"><i class="fa fa-thumbs-o-up"
+                            style="color:#e44235;"></i><span
+                            style="color:#e44235;border-bottom: 2px solid #ed4040;">推荐</span></a></li>
+                <li><a href="###"><i class="fa fa-smile-o"></i><span>搞笑</span></a></li>
+                <li><a href="###"><i class="fa fa-star-o"></i><span>娱乐</span></a></li>
+                <li><a href="###"><i class="fa fa-rocket"></i><span>军事</span></a></li>
+                <li><a href="###"><i class="fa fa-user-o"></i><span>美女</span></a></li>
+                <li><a href="###"><i class="fa fa-book"></i><span>博览</span></a></li>
+                <li><a href="###"><i class="fa fa-history"></i><span>历史</span></a></li>
+                <li><a href="###"><i class="fa fa-shopping-cart"></i><span>时尚</span></a></li>
+                <li><a href="###"><i class="fa fa-soccer-ball-o"></i><span>体育</span></a></li>
+                <li><a href="###"><i class="fa fa-car"></i><span>汽车</span></a></li>
+                <li><a href="###"><i class="fa fa-globe"></i><span>自然</span></a></li>
+                <li><a href="###"><i class="fa fa-cube"></i><span>科技</span></a></li>
+                <li><a href="###"><i class="fa fa-gamepad"></i><span>游戏</span></a></li>
+                <li><a href="###"><i class="fa fa-cutlery"></i><span>家居</span></a></li>
+            </ul>
+        </div>
+        <div id="main">
+
+
+        </div>
+        <div id="sub">
+            <div class="top" id="rightFix">
+
+                <div style="width:336px;">
+                    <div style="margin:12px 0 7px">
+                        <span
+                            style="display: inline-block; height:18px;width:4px;background-color: #e44235;margin-right:5px;vertical-align: middle;"></span><span>阅读</span><span
+                            style="color: #e44235;">排行</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="./js/pc1.js?v=1.3"></script>
+
+<script>
+    $(function () {
+        var fix = $("#rightFix");
+        var _fix = $("#fix");
+        var top = fix.position().top;
+        $(window).on('scroll', function () {
+            var scrollTop = $(window).scrollTop();
+            if (scrollTop >= top) {
+                fix.css({ position: 'fixed', top: 0 })
+            } else {
+                fix.css({ position: 'static' })
+            }
+        })
+    })
+</script>
+
+</html>

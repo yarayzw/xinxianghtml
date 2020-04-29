@@ -251,6 +251,7 @@ function editCommodity(obj) {
     $("input[name='title']").val(requestData.data.title);
     $("input[name='url']").val(requestData.data.url);
     $("input[name='tj_url']").val(requestData.data.tj_url);
+    $("input[name='page_num']").val(requestData.data.page_num);
     $('#code_num').text(requestData.data.code_num);
 
 
@@ -270,7 +271,22 @@ function editCommodity(obj) {
         $('#upload-list').append(html);
     });
 
-    $('#platform').selectpicker('val',(requestData.data.platform_id));
+    let thumbnail_small =requestData.data.thumbnail_small.split('@@@');
+    $('#thumbnail_small_div').empty();
+    thumbnail_small.forEach((item,index,array)=>{
+        //执行代码
+        var html = '<div style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"  onclick="delImg(this)" ><img name="thumbnail_small" data_name="'+item+'" src="'+item+'"></div>';
+        $('#thumbnail_small_div').append(html);
+    });
+
+    let thumbnail_big =requestData.data.thumbnail_big.split('@@@');
+    $('#thumbnail_big_div').empty();
+    thumbnail_big.forEach((item,index,array)=>{
+        //执行代码
+        var html = '<div style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"  onclick="delImg(this)" ><img name="thumbnail_big" data_name="'+item+'" src="'+item+'"></div>';
+        $('#thumbnail_big_div').append(html);
+    });
+
     $('#material').selectpicker('val',(requestData.data.material_id));
     $('#view').selectpicker('val',(requestData.data.view_id));
     //移动端数据渲染

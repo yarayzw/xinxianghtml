@@ -119,6 +119,15 @@ function addCommodityGo() {
         head_img[index] = $(el).attr('data_name')
     });
 
+    let thumbnail_small=[];
+    $("*[name='thumbnail_small']").each(function(index,el){
+        thumbnail_small[index] = $(el).attr('data_name')
+    });
+
+    let thumbnail_big=[];
+    $("*[name='thumbnail_big']").each(function(index,el){
+        thumbnail_big[index] = $(el).attr('data_name')
+    });
     //富文本值
     var content = $(".simditor-body").html();
 
@@ -136,6 +145,9 @@ function addCommodityGo() {
         'wechat_name' : $("input[name='we_chat_name']").val(),
         'wechat_url' : $("input[name='we_chat_url']").val(),
         'mobile_view_id':  $("#mobile_view").selectpicker('val'),
+        'page_num' : $('#page_num').val(),
+        'thumbnail_big': thumbnail_big,
+        'thumbnail_small' : thumbnail_small
     }
     ajaxGo('admin/commodity/addCommodity')
 
@@ -152,6 +164,17 @@ function editCommodityGo(id) {
     let head_img=[];
     $("*[name='head_img']").each(function(index,el){
         head_img[index] = $(el).attr('data_name')
+    });
+
+
+    let thumbnail_small=[];
+    $("*[name='thumbnail_small']").each(function(index,el){
+        thumbnail_small[index] = $(el).attr('data_name')
+    });
+
+    let thumbnail_big=[];
+    $("*[name='thumbnail_big']").each(function(index,el){
+        thumbnail_big[index] = $(el).attr('data_name')
     });
 
     //富文本值
@@ -172,6 +195,9 @@ function editCommodityGo(id) {
         'wechat_name' : $("input[name='we_chat_name']").val(),
         'wechat_url' : $("input[name='we_chat_url']").val(),
         'mobile_view_id':  $("#mobile_view").selectpicker('val'),
+        'page_num' : $('#page_num').val(),
+        'thumbnail_big': thumbnail_big,
+        'thumbnail_small' : thumbnail_small
     }
     ajaxGo('admin/commodity/editCommodity')
 
