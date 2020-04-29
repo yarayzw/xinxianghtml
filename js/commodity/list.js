@@ -199,7 +199,7 @@ function initTable() {
                     }
                     var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="del(this)" >删除</a>';
 
-                    return d+e+f;
+                    return d+e+d+f;
                 }
             }
         ]
