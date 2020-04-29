@@ -41,13 +41,7 @@ function setMaterial() {
     $('#mobile_view').selectpicker('refresh');
     $('#mobile_view_update').selectpicker('refresh');
 
-    ajaxGo('admin/platform/getListToSelect')
-    requestData.data.forEach((item,index,array)=>{
-        //执行代码
-        var html = "<option value='"+item.id+"'>"+item.name+"</option>";
-        $('#platform').append(html);
-    });
-    $('#platform').selectpicker('refresh');
+
 }
 function initTable() {
 
@@ -96,7 +90,7 @@ function initTable() {
                 head : {'token' : getCookie('token')},
                 name : $('#name').val(),
                 search_id : $('#search_id').val(),
-                type: 1
+                type: 2
             };
 
             return params;

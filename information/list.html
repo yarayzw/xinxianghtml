@@ -86,7 +86,7 @@
     <div class="col-sm-12">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5>添加落地页</h5>
+                <h5>添加资讯</h5>
                 <div class="ibox-tools">
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>
@@ -103,14 +103,6 @@
                         <div class="col-sm-8">
                             <input type="text" class="form-control" name="name" value=""  />
                             <!--                            required="" aria-required="false"-->
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">平台 :</label>
-                        <div class="col-sm-8">
-                            <select id="platform" class="selectpicker" data-live-search="true">
-
-                            </select>
                         </div>
                     </div>
                     <div class="form-group">
@@ -160,6 +152,30 @@
 
                             </div>
                             <button id="picker-head" style="display: none;">点击上传文件</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">缩略小图：</label>
+                        <div class="col-sm-8">
+                            <div id="thumbnail_small">
+                                <span style="border: #ccc 2px solid;cursor:pointer;">点击上传</span>
+                            </div>
+                            <div id="thumbnail_small_div">
+
+                            </div>
+                            <button id="thumbnail_small_picker" style="display: none;">点击上传文件</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">缩略大图：</label>
+                        <div class="col-sm-8">
+                            <div id="thumbnail_big">
+                                <span style="border: #ccc 2px solid;cursor:pointer;">点击上传</span>
+                            </div>
+                            <div id="thumbnail_big_div">
+
+                            </div>
+                            <button id="thumbnail_big_picker" style="display: none;">点击上传文件</button>
                         </div>
                     </div>
                     <hr>
@@ -253,6 +269,6 @@
 <script src="../js/plugins/bootstrap-select-1.13.9/js/bootstrap-select.js"></script>
 
 
-<script src="../js/commodity/addCommodity.js?v1.0"></script>
-<script src="../js/commodity/list.js?v1.0"></script>
+<script src="../js/information/addInformation.js?v=1.1"></script>
+<script src="../js/information/list.js?v=1.0"></script>
 
