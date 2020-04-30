@@ -51,13 +51,13 @@ function getInfo(id) {
             $('#content_' + data.rs.mobile_view_name).append(content_page[0]);
             page_all = data.rs.content_rs_num -1;
             var html = '';
-            html += '<a href="##">共'+data.rs.content_rs_num+'页:</a>';
-            html += ' <a href="##" onclick="lastPage()">上一页</a>'
+            html += '<a href="#">共'+data.rs.content_rs_num+'页:</a>';
+            html += ' <a href="#" onclick="lastPage()">上一页</a>'
             for(var j = 0;j < data.rs.content_rs_num;j++){
                 let h = j+1;
-                html += '<a href="##" id="page_'+j+'" onclick="switchPage('+j+')">'+h+'</a>';
+                html += '<a href="#" id="page_'+j+'" onclick="switchPage('+j+')">'+h+'</a>';
             }
-            html += ' <a href="##" onclick="nextPage()">下一页</a>'
+            html += ' <a href="#" onclick="nextPage()">下一页</a>'
             $('#splpage').append(html);
             switchPage(0);
         },
