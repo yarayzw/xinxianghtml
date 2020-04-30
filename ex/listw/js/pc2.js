@@ -5,6 +5,7 @@ $(function () {
     let platform_id = getUrlParam('platform_id');
     let info = getInfo(id);
     setCookie('platform_id', platform_id)
+    bottomInfo();
 });
 
 let content_page = {
@@ -130,6 +131,83 @@ function getCookie(name) {
         }
     }
     return false
+}
+
+//底部推荐 右侧广告
+function bottomInfo() {
+    $('#main').empty();
+    $('#rightFix').empty();
+    $('#rightFix_ul').empty();
+    $.ajax({
+        // url: 'http://jindouyun.yarayzw.com/index/commodity/getInfoById',
+        // url: 'http://zixunadmin.yarayzw.com/index/commodity/getInfoById',
+        url: 'http://develop.yarayzw.com/index/commodity/getInfoList',
+        data: {
+        },
+        method: "POST",
+        dataType: "json",
+        async: false,
+        success: function (data) {
+            data.headInfo.forEach((item,index,array)=> {
+                //顶部资讯
+                let html = ' <a href="###" onclick="bottomInfo()" class="noread" style="margin-bottom: 30px;">您有未读新闻，点击查看</a>' +
+                    '   <div style="height:100px;position: relative;z-index:1;padding:15px 0;border-bottom: 1px dashed #d7d7d7;">\n' +
+                '               <a href="http://'+window.location.host+'/ex/listw'+'/pc2.html?id='+item.id+'&platform_id='+getUrlParam('platform_id')+'"> <img src="'+item.thumbnail_big+'" alt="" style="float:right">\n' +
+                '                <div style="overflow:hidden">\n' +
+                '                    <h3 style="margin-bottom:50px;">'+item.title+'</h3>\n' +
+                '                    <div>\n' +
+                '                        <span\n' +
+                '                            style="display: inline-block;height:18px;width:35px;line-height: 18px;vertical-align: middle;border: 1px solid #fea1ab; color:#fea1ab;font-size: 12px;text-align: center;">娱乐</span>\n' +
+                '                        <span style="font-size: 12px;color:#867a88;">来源：微观焦点 | '+item.create_at+'</span>\n' +
+                '                    </div>\n' +
+                '                </div></a>\n' +
+                '            </div>;'
+                $('#main').append(html);
+            });
+
+            let i = 1;
+            let html = '';
+            data.listInfo.forEach((item,index,array)=>{
+                if( i < 4){
+                    html = '<a href="http://'+window.location.host+'/ex/listw'+'/pc2.html?id='+item.id+'&platform_id='+getUrlParam('platform_id')+'"><h3 style="margin:20px 0;">'+item.title+'</h3>\n' +
+                        '            <img src="'+item.thumbnail_samll+'" alt="" style="width:100%">\n' +
+                        '            <div style="margin:10px 0">\n' +
+                        '                <span\n' +
+                        '                    style="display: inline-block;height:18px;width:35px;line-height: 18px;vertical-align: middle;border: 1px solid #fea1ab; color:#fea1ab;font-size: 12px;text-align: center;">娱乐</span>\n' +
+                        '                <span style="font-size: 12px;color:#867a88;">来源：微观焦点 | '+item.create_at+'</span>\n' +
+                        '            </div></a>\n' +
+                        '           ';
+                    $('#main').append(html);
+                    i++;
+                }
+            });
+            data.rightHead.forEach((item,index,array)=> {
+                //右侧上方
+                html = ' <div style="width:336px;height:280px;">\n' +
+                    '                    <a href="http://'+window.location.host+'/ex/listw'+'/pc2.html?id='+item.id+'&platform_id='+getUrlParam('platform_id')+'" id="fix"><img src="'+item.thumbnail_big+'" alt="" style="width:336px;height:280px"></a>\n' +
+                    '                </div>';
+                $('#rightFix').append(html);
+            });
+            html = '  <ul style="background-color: #f7f7f7;overflow: hidden;" id="rightFix_ul">\n';
+            $('#rightFix').append(html);
+
+            data.rightList.forEach((item,index,array)=> {
+                //右侧列表
+                html = '<li style="float:left;width:50%;margin-bottom: 10px;"><a href="http://'+window.location.host+'/ex/listw'+'/pc2.html?id='+item.id+'&platform_id='+getUrlParam('platform_id')+'" id="fix">\n' +
+                    '                            <img src="'+item.thumbnail_small+'" alt="" style="margin-bottom:7px;width:162px">\n' +
+                    '                            <p style="width:162px;font-size:12px;color:#312637;line-height:1.5;">\n' +
+                    '                                  '+item.title+'\n' +
+                    '                            </p>\n' +
+                    '                        </a></li>';
+                $('#rightFix_ul').append(html);
+            });
+            html = '<ul>';
+            $('#rightFix').append(html);
+
+        },
+        error: function () {
+        }
+    });
 }
 
 

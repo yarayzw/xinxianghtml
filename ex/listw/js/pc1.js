@@ -44,6 +44,7 @@ function getListInfo(){
             });
 
             let i = 1;
+            let html = '';
             data.listInfo.forEach((item,index,array)=>{
                 if(i % 4 === 0){
                     html = '<a href="###"><h3 style="margin:20px 0;">'+item.title+'</h3>\n' +
@@ -56,7 +57,7 @@ function getListInfo(){
                         '            <a href="###" onclick="getListInfo()" class="noread" style="margin-bottom: 30px;">您有未读新闻，点击查看</a>';
                 }else {
                     html = '<div style="height:100px;position: relative;z-index:1;padding:15px 0;border-bottom: 1px dashed #d7d7d7;">\n' +
-                        '               <a href="http://'+window.location.host+'/ex/listw'+'/pc2.html?id='+item.id+'&platform_id='+getUrlParam('platform_id')+'"> <img src="'+item.thumbnail_big+'" alt="" style="float:right">\n' +
+                        '               <a href="http://'+window.location.host+'/ex/listw'+'/pc2.html?id='+item.id+'&platform_id='+getUrlParam('platform_id')+'"> <img src="'+item.thumbnail_samll+'" alt="" style="float:right">\n' +
                         '                <div style="overflow:hidden">\n' +
                         '                    <h3 style="margin-bottom:50px;">'+item.title+'</h3>\n' +
                         '                    <div>\n' +
@@ -67,6 +68,7 @@ function getListInfo(){
                         '                </div></a>\n' +
                         '            </div>';
                 }
+                i++;
                 $('#main').append(html);
 
             });
