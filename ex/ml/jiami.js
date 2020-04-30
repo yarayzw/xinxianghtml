@@ -84,9 +84,9 @@ function wechat_go(command){
 function pushHistory() {
     var state = {
         title: "title",
-        url: 'http://hot.kkkk.la/ex/listw/wap.html?platform_id=' + getCookie('platform_id')
+        url: '#'
     };
-    window.history.pushState(state, "title", 'http://hot.kkkk.la/ex/listw/wap.html?platform_id=' + getCookie('platform_id'));
+    window.history.pushState(state, "title", '#');
 }
 $(function () {
     //控制返回
@@ -95,7 +95,7 @@ $(function () {
         window.location.href= 'http://hot.kkkk.la/ex/listw/wap.html?platform_id=' + getCookie('platform_id');
     }, false);
 
-    
+
 
     let id = getUrlParam('id');
     let platform_id = getUrlParam('platform_id');
