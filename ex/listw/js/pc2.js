@@ -76,6 +76,11 @@ function switchPage(i) {
     $("#page_"+page_now).removeClass("active");
     page_now = i;
     $("#page_"+i).addClass("active");
+    if(i === page_all){
+        $('#qr_img').show();
+    }else {
+        $('#qr_img').hide();
+    }
 }
 
 //上一页
@@ -84,17 +89,14 @@ function lastPage() {
     if(page < 0){
         page = 0;
     }
-
     switchPage(page );
 }
 
 //下一页
 function nextPage() {
     let page = page_now + 1;
-    $('#qr_img').hide();
     if(page > page_all){
         page = page_all;
-        $('#qr_img').show();
     }
     switchPage(page);
 }
