@@ -26,7 +26,7 @@ function getListInfo(){
     $.ajax({
         // url: 'http://jindouyun.yarayzw.com/index/commodity/getInfoById',
         // url: 'http://zixunadmin.yarayzw.com/index/commodity/getInfoById',
-        url: 'http://develop.yarayzw.com/index/commodity/getInfoList',
+        url: 'http://develop.yarayzw.com/index/information/getInfoList',
         data: {
         },
         method: "POST",

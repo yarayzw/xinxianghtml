@@ -26,7 +26,7 @@ let view_now = 'view_4'; //当前使用模版
 //获取小说信息
 function getInfo(id) {
     $.ajax({
-        url: base_url + '/index/commodity/getInfoById',
+        url: base_url + '/index/information/getInfoById',
         data: {
             id: id
         },
