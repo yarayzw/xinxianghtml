@@ -107,7 +107,6 @@ function initTable() {
                 field: 'material_name',
                 title: '素材名称',
                 formatter: function(value,row,index){
-
                     return value;
                 }
             },
@@ -127,6 +126,18 @@ function initTable() {
                 align: 'center',
                 formatter: function(value,row,index){
                     return '<xmp>' + value +'</xmp>';
+                }
+            },
+            {
+                field: 'is_top',
+                title: '置顶',
+                formatter: function(value,row,index){
+                    if(value === 1){
+                        var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="delTop(0)" >取消置顶</a>';
+                    }else {
+                        var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="delTop(1)" >置顶</a>';
+                    }
+                    return f;
                 }
             },
 
@@ -293,6 +304,27 @@ function del(obj) {
             if(requestCode === 0){
                 fac_search();
                 layer.msg('删除成功!');
+            }else {
+                layer.msg(requestMessage);
+            }
+        }
+    });
+}
+
+//删除
+function delTop(type) {
+    layer.msg('确定修改？', {
+        time: 0 //不自动关闭
+        ,btn: ['确定', '取消']
+        ,yes: function(index){
+            requestData.data = {
+                'id' : $(obj).attr('data_id'),
+                'type' : type
+            };
+            ajaxGo('admin/commodity/editTop');
+            if(requestCode === 0){
+                fac_search();
+                layer.msg('修改成功!');
             }else {
                 layer.msg(requestMessage);
             }
