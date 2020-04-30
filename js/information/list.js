@@ -87,19 +87,6 @@ function initTable() {
                 align: 'center'
             },
             {
-                field: 'platform_name',
-                title: '平台',
-                width : '10%',
-                align: 'center'
-            },
-            {
-                field: 'material_name',
-                title: '素材名称',
-                formatter: function(value,row,index){
-                    return value;
-                }
-            },
-            {
                 field: 'title',
                 title: '标题',
                 align: 'center'
@@ -140,7 +127,6 @@ function initTable() {
                     var e='<a href="#" mce_href="#" " data_url="http://hot.kkkk.la/ex/listw/'+'pc2.html?id='+row.id+'&name='+row.name+'&platform_id='+row.platform_id+'"  onclick="preview(this)" >pc版</a> ';
                     var d='<a href="#" mce_href="#" " data_url="http://hot.kkkk.la//ex/ml/'+'index.html?id='+row.id+'&name='+row.name+'&platform_id='+row.platform_id+'"  onclick="preview(this)" >手机版</a> ';
                     var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="del(this)" >删除</a>';
-
                     return a+d+e+f;
                 }
             }
