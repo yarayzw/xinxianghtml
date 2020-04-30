@@ -149,7 +149,7 @@ function bottomInfo() {
     $.ajax({
         // url: 'http://jindouyun.yarayzw.com/index/commodity/getInfoById',
         // url: 'http://zixunadmin.yarayzw.com/index/commodity/getInfoById',
-        url: base_url + '/index/commodity/getInfoList',
+        url: base_url + '/index/information/getInfoList',
         data: {
         },
         method: "POST",

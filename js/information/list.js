@@ -109,9 +109,9 @@ function initTable() {
                 title: '置顶',
                 formatter: function(value,row,index){
                     if(value === 1){
-                        var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="delTop(0)" >取消置顶</a>';
+                        var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="editTop(0,'+row.id+')" >取消置顶</a>';
                     }else {
-                        var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="delTop(1)" >置顶</a>';
+                        var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="editTop(1,'+row.id+')" >置顶</a>';
                     }
                     return f;
                 }
@@ -286,13 +286,13 @@ function del(obj) {
 }
 
 //删除
-function delTop(type) {
+function editTop(type,id) {
     layer.msg('确定修改？', {
         time: 0 //不自动关闭
         ,btn: ['确定', '取消']
         ,yes: function(index){
             requestData.data = {
-                'id' : $(obj).attr('data_id'),
+                'id' : id,
                 'type' : type
             };
             ajaxGo('admin/information/editTop');
