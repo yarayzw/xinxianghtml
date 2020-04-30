@@ -47,6 +47,7 @@ function getListInfo(){
             let i = 1;
             let html = '';
             data.listInfo.forEach((item,index,array)=>{
+                console.log(item)
                 if(i % 4 === 0){
                     html = '<a href="###"><h3 style="margin:20px 0;">'+item.title+'</h3>\n' +
                         '            <a href="http://'+goHttp+'/ex/listw'+'/pc2.html?id='+item.id+'&platform_id='+getUrlParam('platform_id')+'"><img src="'+item.thumbnail_big+'" alt="" style="width:100%"></a>\n' +
