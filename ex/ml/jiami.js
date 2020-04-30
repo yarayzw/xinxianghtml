@@ -83,7 +83,7 @@ $(function () {
     //控制返回
     pushHistory();
     window.addEventListener("popstate", function (e) {
-        window.location.href= 'http://'+window.location.host + "/ex/listw/wap.html?platform_id=" + getCookie('platform_id');
+        window.location.href= 'http://hot.kkkk.la/ex/listw/wap.html?platform_id=' + getCookie('platform_id');
     }, false);
 
     function pushHistory() {

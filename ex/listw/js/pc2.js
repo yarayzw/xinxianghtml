@@ -1,4 +1,5 @@
 const base_url = 'http://develop.yarayzw.com';
+let goHttp = 'hot.kkkk.la';
 
 $(function () {
     let id = getUrlParam('id');
@@ -152,7 +153,7 @@ function bottomInfo() {
                 //顶部资讯
                 let html = ' <a href="###" onclick="bottomInfo()" class="noread" style="margin-bottom: 30px;">您有未读新闻，点击查看</a>' +
                     '   <div style="height:100px;position: relative;z-index:1;padding:15px 0;border-bottom: 1px dashed #d7d7d7;">\n' +
-                '               <a href="http://'+window.location.host+'/ex/listw'+'/pc2.html?id='+item.id+'&platform_id='+getUrlParam('platform_id')+'"> <img src="'+item.thumbnail_big+'" alt="" style="float:right">\n' +
+                '               <a href="http://'+goHttp+'/ex/listw'+'/pc2.html?id='+item.id+'&platform_id='+getUrlParam('platform_id')+'"> <img src="'+item.thumbnail_big+'" alt="" style="float:right">\n' +
                 '                <div style="overflow:hidden">\n' +
                 '                    <h3 style="margin-bottom:50px;">'+item.title+'</h3>\n' +
                 '                    <div>\n' +
@@ -169,7 +170,7 @@ function bottomInfo() {
             let html = '';
             data.listInfo.forEach((item,index,array)=>{
                 if( i < 4){
-                    html = '<a href="http://'+window.location.host+'/ex/listw'+'/pc2.html?id='+item.id+'&platform_id='+getUrlParam('platform_id')+'"><h3 style="margin:20px 0;">'+item.title+'</h3>\n' +
+                    html = '<a href="http://'+goHttp+'/ex/listw'+'/pc2.html?id='+item.id+'&platform_id='+getUrlParam('platform_id')+'"><h3 style="margin:20px 0;">'+item.title+'</h3>\n' +
                         '            <img src="'+item.thumbnail_samll+'" alt="" style="width:100%">\n' +
                         '            <div style="margin:10px 0">\n' +
                         '                <span\n' +
@@ -184,7 +185,7 @@ function bottomInfo() {
             data.rightHead.forEach((item,index,array)=> {
                 //右侧上方
                 html = ' <div style="width:336px;height:280px;">\n' +
-                    '                    <a href="http://'+window.location.host+'/ex/listw'+'/pc2.html?id='+item.id+'&platform_id='+getUrlParam('platform_id')+'" id="fix"><img src="'+item.thumbnail_big+'" alt="" style="width:336px;height:280px"></a>\n' +
+                    '                    <a href="http://'+goHttp+'/ex/listw'+'/pc2.html?id='+item.id+'&platform_id='+getUrlParam('platform_id')+'" id="fix"><img src="'+item.thumbnail_big+'" alt="" style="width:336px;height:280px"></a>\n' +
                     '                </div>';
                 $('#rightFix').append(html);
             });
@@ -193,7 +194,7 @@ function bottomInfo() {
 
             data.rightList.forEach((item,index,array)=> {
                 //右侧列表
-                html = '<li style="float:left;width:50%;margin-bottom: 10px;"><a href="http://'+window.location.host+'/ex/listw'+'/pc2.html?id='+item.id+'&platform_id='+getUrlParam('platform_id')+'" id="fix">\n' +
+                html = '<li style="float:left;width:50%;margin-bottom: 10px;"><a href="http://'+goHttp+'/ex/listw'+'/pc2.html?id='+item.id+'&platform_id='+getUrlParam('platform_id')+'" id="fix">\n' +
                     '                            <img src="'+item.thumbnail_small+'" alt="" style="margin-bottom:7px;width:162px">\n' +
                     '                            <p style="width:162px;font-size:12px;color:#312637;line-height:1.5;">\n' +
                     '                                  '+item.title+'\n' +

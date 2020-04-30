@@ -17,6 +17,7 @@ function getCookie(name) {
 $(document).ready(function () {
     getListInfo();
 });
+let goHttp = 'hot.kkkk.la';
 
 function getListInfo(){
     $('#main').empty();
@@ -34,7 +35,7 @@ function getListInfo(){
         success: function (data) {
             data.headInfo.forEach((item,index,array)=> {
                 //顶部资讯
-                let html = ' <a href="http://'+window.location.host+'/ex/listw'+'/pc2.html?id='+item.id+'&platform_id='+getUrlParam('platform_id')+'" style="display: block;position: relative;z-index:1;margin-bottom: 10px;">\n' +
+                let html = ' <a href="http://'+goHttp+'/ex/listw'+'/pc2.html?id='+item.id+'&platform_id='+getUrlParam('platform_id')+'" style="display: block;position: relative;z-index:1;margin-bottom: 10px;">\n' +
                     '                <img src="'+item.thumbnail_big+'" alt="" style="width:100%">\n' +
                     '                <p\n' +
                     '                    style="position: absolute;bottom:0;left:0;right:0;background-color: rgba(0,0,0,.5);color:#fff;height:30px;line-height: 30px;padding:0 10px">\n' +
@@ -48,7 +49,7 @@ function getListInfo(){
             data.listInfo.forEach((item,index,array)=>{
                 if(i % 4 === 0){
                     html = '<a href="###"><h3 style="margin:20px 0;">'+item.title+'</h3>\n' +
-                        '            <a href="http://'+window.location.host+'/ex/listw'+'/pc2.html?id='+item.id+'&platform_id='+getUrlParam('platform_id')+'"><img src="'+item.thumbnail_big+'" alt="" style="width:100%"></a>\n' +
+                        '            <a href="http://'+goHttp+'/ex/listw'+'/pc2.html?id='+item.id+'&platform_id='+getUrlParam('platform_id')+'"><img src="'+item.thumbnail_big+'" alt="" style="width:100%"></a>\n' +
                         '            <div style="margin:10px 0">\n' +
                         '                <span\n' +
                         '                    style="display: inline-block;height:18px;width:35px;line-height: 18px;vertical-align: middle;border: 1px solid #fea1ab; color:#fea1ab;font-size: 12px;text-align: center;">娱乐</span>\n' +
@@ -57,7 +58,7 @@ function getListInfo(){
                         '            <a href="###" onclick="getListInfo()" class="noread" style="margin-bottom: 30px;">您有未读新闻，点击查看</a>';
                 }else {
                     html = '<div style="height:100px;position: relative;z-index:1;padding:15px 0;border-bottom: 1px dashed #d7d7d7;">\n' +
-                        '               <a href="http://'+window.location.host+'/ex/listw'+'/pc2.html?id='+item.id+'&platform_id='+getUrlParam('platform_id')+'"> <img src="'+item.thumbnail_samll+'" alt="" style="float:right">\n' +
+                        '               <a href="http://'+goHttp+'/ex/listw'+'/pc2.html?id='+item.id+'&platform_id='+getUrlParam('platform_id')+'"> <img src="'+item.thumbnail_samll+'" alt="" style="float:right">\n' +
                         '                <div style="overflow:hidden">\n' +
                         '                    <h3 style="margin-bottom:50px;">'+item.title+'</h3>\n' +
                         '                    <div>\n' +
@@ -75,7 +76,7 @@ function getListInfo(){
             data.rightHead.forEach((item,index,array)=> {
                 //顶部资讯
                  html = ' <div style="width:336px;height:280px;">\n' +
-                    '                    <a href="http://'+window.location.host+'/ex/listw'+'/pc2.html?id='+item.id+'&platform_id='+getUrlParam('platform_id')+'" id="fix"><img src="'+item.thumbnail_big+'" alt="" style="width:336px;height:280px"></a>\n' +
+                    '                    <a href="http://'+goHttp+'/ex/listw'+'/pc2.html?id='+item.id+'&platform_id='+getUrlParam('platform_id')+'" id="fix"><img src="'+item.thumbnail_big+'" alt="" style="width:336px;height:280px"></a>\n' +
                     '                </div>';
                 $('#rightFix').append(html);
             });
@@ -84,7 +85,7 @@ function getListInfo(){
 
             data.rightList.forEach((item,index,array)=> {
                 //顶部资讯
-                 html = '<li style="float:left;width:50%;margin-bottom: 10px;"><a href="http://'+window.location.host+'/ex/listw'+'/pc2.html?id='+item.id+'&platform_id='+getUrlParam('platform_id')+'" id="fix">\n' +
+                 html = '<li style="float:left;width:50%;margin-bottom: 10px;"><a href="http://'+goHttp+'/ex/listw'+'/pc2.html?id='+item.id+'&platform_id='+getUrlParam('platform_id')+'" id="fix">\n' +
                     '                            <img src="'+item.thumbnail_small+'" alt="" style="margin-bottom:7px;width:162px">\n' +
                     '                            <p style="width:162px;font-size:12px;color:#312637;line-height:1.5;">\n' +
                     '                                  '+item.title+'\n' +
