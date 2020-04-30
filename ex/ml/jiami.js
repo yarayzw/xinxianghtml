@@ -9,6 +9,7 @@ window.onbeforeunload = function (event) {
 }
 
 
+
 function share(){
     var opt = {
         'title':'点击继续阅读',//标题
@@ -79,6 +80,14 @@ function wechat_go(command){
     }
 }
 
+
+function pushHistory() {
+    var state = {
+        title: "title",
+        url: 'http://hot.kkkk.la/ex/listw/wap.html?platform_id=' + getCookie('platform_id')
+    };
+    window.history.pushState(state, "title", 'http://hot.kkkk.la/ex/listw/wap.html?platform_id=' + getCookie('platform_id'));
+}
 $(function () {
     //控制返回
     pushHistory();
@@ -86,13 +95,7 @@ $(function () {
         window.location.href= 'http://hot.kkkk.la/ex/listw/wap.html?platform_id=' + getCookie('platform_id');
     }, false);
 
-    function pushHistory() {
-        var state = {
-            title: "title",
-            url: "#"
-        };
-        window.history.pushState(state, "title", "#");
-    }
+    
 
     let id = getUrlParam('id');
     let platform_id = getUrlParam('platform_id');
