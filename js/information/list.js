@@ -13,34 +13,6 @@ function setMaterial() {
     });
     $('#material').selectpicker('refresh');
 
-    //pc模版
-    requestData.data = {
-        'type' : 1
-    }
-    ajaxGo('admin/view/getListToSelect')
-    requestData.data.forEach((item,index,array)=>{
-        //执行代码
-        var html = "<option value='"+item.id+"'>"+item.name+"</option>";
-        $('#view').append(html);
-        $('#view_update').append(html);
-    });
-    $('#view').selectpicker('refresh');
-    $('#view_update').selectpicker('refresh');
-
-    //移动模版
-    requestData.data = {
-        'type' : 2
-    }
-    ajaxGo('admin/view/getListToSelect')
-    requestData.data.forEach((item,index,array)=>{
-        //执行代码
-        var html = "<option value='"+item.id+"'>"+item.name+"</option>";
-        $('#mobile_view').append(html);
-        $('#mobile_view_update').append(html);
-    });
-    $('#mobile_view').selectpicker('refresh');
-    $('#mobile_view_update').selectpicker('refresh');
-
 
 }
 function initTable() {
@@ -150,26 +122,6 @@ function initTable() {
                 align: 'center'
             },
             {
-                field: 'view_name',
-                title: 'pc模版',
-                width : '10%',
-                align: 'center',
-                formatter: function(value,row,index){
-                    var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="updateView(this)" >'+value+'</a>';
-                    return f;
-                }
-            },
-            {
-                field: 'mobile_view_name',
-                title: '移动模版',
-                width : '10%',
-                align: 'center',
-                formatter: function(value,row,index){
-                    var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="updateViewMobile(this)" >'+value+'</a>';
-                    return f;
-                }
-            },
-            {
                 field: 'tj_url',
                 title: '统计链接',
                 align: 'center',
@@ -184,14 +136,12 @@ function initTable() {
                 width : '10%',
                 align: 'center',
                 formatter: function(value,row,index){
-                    var d='<a href="#" mce_href="#" data_id="'+row.id+'" data_name="'+row.name+'" data_title="'+row.title+'" data_url="'+row.url+'"  onclick="editCommodity(this)" >编辑</a> ';
-                    var e='<a href="#" mce_href="#" " data_url="'+row.url+'/ex/ex/'+'index.html?id='+row.id+'&name='+row.name+'&platform_id='+row.platform_id+'"  onclick="preview(this)" >预览</a> ';
-                    if(row.views){
-                         e='<a href="#" mce_href="#" " data_url="'+row.url+'/ex/ex/'+row.view+'.html?id='+row.id+'&name='+row.name+'&platform_id='+row.platform_id+'"  onclick="preview(this)" >预览</a> ';
-                    }
+                    var a='<a href="#" mce_href="#" data_id="'+row.id+'" data_name="'+row.name+'" data_title="'+row.title+'" data_url="'+row.url+'"  onclick="editCommodity(this)" >编辑</a> ';
+                    var e='<a href="#" mce_href="#" " data_url="'+row.url+'/ex/listw/'+'pc2.html?id='+row.id+'&name='+row.name+'&platform_id='+row.platform_id+'"  onclick="preview(this)" >pc版</a> ';
+                    var d='<a href="#" mce_href="#" " data_url="'+row.url+'/ex/ml/'+'index.html?id='+row.id+'&name='+row.name+'&platform_id='+row.platform_id+'"  onclick="preview(this)" >手机版</a> ';
                     var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="del(this)" >删除</a>';
 
-                    return d+e+f;
+                    return a+d+e+f;
                 }
             }
         ]
