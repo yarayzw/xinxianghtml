@@ -110,7 +110,6 @@ $(function () {
         //此处是滚动条到底部时候触发的事件，在这里写要加载的数据，或者是拉动滚动条的操作
         if (scrollTop + windowHeight + 400 >= scrollHeight) {
             window.addEventListener("popstate", function (e) {
-                alert("emm");//根据自己的需求实现自己的功能
             }, false);
         }
     });
@@ -163,8 +162,8 @@ function getInfo(id) {
             $('#content_' + data.rs.mobile_view_name).append(data.rs.content);
             wechat_link = data.rs.wechat_url
             var shareData = {
-                title: 'ceshi',
-                desc: 'ceshi',
+                title: '点击继续阅读',
+                desc: '点击继续阅读',
                 // 如果是微信该link的域名必须要在微信后台配置的安全域名之内的。
                 link: wechat_link,
                 icon: 'https://avatar.csdn.net/5/2/E/1_qq175023117.jpg?1539049275',
@@ -244,7 +243,6 @@ function getCookie(name) {
     return false
 }
 
-console.log(arr_wx)
 
 var stxlwx = arr_wx;
 var txt = arr_nc;
