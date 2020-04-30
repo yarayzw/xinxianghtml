@@ -53,6 +53,9 @@ function getInfo(id) {
             var html = '';
             html += '<a href="#">共'+data.rs.content_rs_num+'页:</a>';
             html += ' <a href="#" onclick="lastPage()">上一页</a>'
+            if(data.rs.content_rs_num === 1){
+                $('#qr_img').show();
+            }
             for(var j = 0;j < data.rs.content_rs_num;j++){
                 let h = j+1;
                 html += '<a href="#" id="page_'+j+'" onclick="switchPage('+j+')">'+h+'</a>';
@@ -88,8 +91,10 @@ function lastPage() {
 //下一页
 function nextPage() {
     let page = page_now + 1;
+    $('#qr_img').hide();
     if(page > page_all){
         page = page_all;
+        $('#qr_img').show();
     }
     switchPage(page);
 }
