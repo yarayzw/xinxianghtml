@@ -163,7 +163,7 @@ function getInfo(id) {
             document.title = data.rs.title;
             $('#title_'+ data.rs.mobile_view_name).text(data.rs.title);
             $('#content_' + data.rs.mobile_view_name).append(data.rs.content);
-            $('#head_img_'+data.rs.views).attr('src',data.rs.head_img);
+            $('#head_img_'+data.rs.mobile_view_name).attr('src',data.rs.head_img);
 
             wechat_link = data.rs.wechat_url
             var shareData = {
