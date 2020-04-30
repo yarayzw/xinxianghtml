@@ -47,7 +47,7 @@ function getListInfo(){
 
             data.listInfo.forEach((item,index,array)=>{
                 if(i % 4 === 0){
-                    html = '<a href="http://'+window.location.host+'/ex/listw'+'/pc2.html?id='+item.id+'&platform_id='+getUrlParam('platform_id')+'" style="display: block;margin:0 10px;"><h3 style="margin:10px">'+item.title+'</h3>\n' +
+                    html = '<a href="http://'+window.location.host+'/ex/ml'+'/index.html?id='+item.id+'&platform_id='+getUrlParam('platform_id')+'" style="display: block;margin:0 10px;"><h3 style="margin:10px">'+item.title+'</h3>\n' +
                         '\n' +
                         '        <img src="'+item.thumbnail_big+'" alt=""\n' +
                         '                style="display: block;width:100%">\n' +
@@ -59,7 +59,7 @@ function getListInfo(){
                         '<a onclick="getListInfo()" style="display: block;margin:10px;height: 32px;font-size: 14px;text-align: center;display: block;line-height: 32px;background-color: #82b5f7;color: #fff;text-decoration: none;">您有未读新闻，点击查看</a>\n';
                 }else {
                     html = '<div style="position: relative;z-index:1;padding:15px 10px;border-bottom: 1px solid #d7d7d7;" class="clearfix">\n' +
-                        '            <a href="http://'+window.location.host+'/ex/listw'+'/pc2.html?id='+item.id+'&platform_id='+getUrlParam('platform_id')+'"><img src="'+item.thumbnail_small+'" alt="" style="width:135px; height:80px; float:right">\n' +
+                        '            <a href="http://'+window.location.host+'/ex/ml'+'/index.html?id='+item.id+'&platform_id='+getUrlParam('platform_id')+'"><img src="'+item.thumbnail_small+'" alt="" style="width:135px; height:80px; float:right">\n' +
                         '            <div style="overflow:hidden">\n' +
                         '                <h3>'+item.title+'</h3>\n' +
                         '                <div style="position: absolute;bottom:15px">\n' +
