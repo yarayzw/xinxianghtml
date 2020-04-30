@@ -89,6 +89,9 @@ function pushHistory() {
     window.history.pushState(state, "title", '#');
 }
 $(function () {
+    XBack.listen(function(){
+        alert(11);
+    });
     //控制返回
     pushHistory();
     window.addEventListener("popstate", function (e) {
