@@ -196,7 +196,11 @@ function bottomInfo() {
                     '                </div>';
                 $('#rightFix').append(html);
             });
-            html = '  <ul style="background-color: #f7f7f7;overflow: hidden;" id="rightFix_ul">\n';
+            html = '<div style="width:336px;"><div style="margin:12px 0 7px">\n' +
+                '                        <span\n' +
+                '                            style="display: inline-block; height:18px;width:4px;background-color: #e44235;margin-right:5px;vertical-align: middle;"></span><span>阅读</span><span\n' +
+                '                            style="color: #e44235;">排行</span>\n' +
+                '                    </div> <ul style="background-color: #f7f7f7;overflow: hidden;" id="rightFix_ul">\n';
             $('#rightFix').append(html);
 
             data.rightList.forEach((item,index,array)=> {
@@ -209,7 +213,7 @@ function bottomInfo() {
                     '                        </a></li>';
                 $('#rightFix_ul').append(html);
             });
-            html = '<ul>';
+            html = '</ul></div>';
             $('#rightFix').append(html);
 
         },
