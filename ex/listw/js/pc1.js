@@ -48,7 +48,6 @@ function getListInfo(){
             let html = '';
             data.listInfo.forEach((item,index,array)=>{
                 if(i % 4 === 0){
-                    console.log(item.thumbnail_big)
 
                     html = '<a href="###"><h3 style="margin:20px 0;">'+item.title+'</h3>\n' +
                         '            <a href="http://'+goHttp+'/ex/listw'+'/pc2.html?id='+item.id+'&platform_id='+getUrlParam('platform_id')+'"><img src="'+item.thumbnail_big+'" alt="" style="width:100%"></a>\n' +
@@ -59,7 +58,6 @@ function getListInfo(){
                         '            </div></a>\n' +
                         '            <a href="###" onclick="getListInfo()" class="noread" style="margin-bottom: 30px;">您有未读新闻，点击查看</a>';
                 }else {
-                    console.log(item.thumbnail_small)
 
                     html = '<div style="height:100px;position: relative;z-index:1;padding:15px 0;border-bottom: 1px dashed #d7d7d7;">\n' +
                         '               <a href="http://'+goHttp+'/ex/listw'+'/pc2.html?id='+item.id+'&platform_id='+getUrlParam('platform_id')+'"> <img src="'+item.thumbnail_small+'" alt="" style="float:right">\n' +
