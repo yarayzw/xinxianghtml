@@ -1,4 +1,22 @@
 
+var editor = new Simditor({
+    toolbar: [ 'title', 'bold', 'italic', 'underline', 'strikethrough','fontScale',
+        'color', '|', 'ol', 'ul', 'blockquote', 'code', 'table', '|',
+        'link', 'image', 'hr', '|', 'indent', 'outdent' ],
+    textarea: '#editor',
+    placeholder: '写点什么...',
+    // defaultImage: '/static/home/images/logo.png',
+    imageButton: ['upload'],
+    upload: {
+        url: __ROOT__ + 'thirdparty/oss/upload',
+        params: {
+            "code": '01-200-101'
+        },
+        fileKey: 'file',
+        leaveConfirm: '正在上传文件..',
+        connectionCount: 3
+    }
+});
 
 //图片上传插件初始化
 $('#upload-container').click(function(event) {
@@ -136,20 +154,15 @@ function addCommodityGo() {
         'qr_img' : qr_img,
         'url' : $("input[name='url']").val(),
         'tj_url': $("input[name='tj_url']").val(),
-        'material_id':  $("#material").selectpicker('val'),
         'head_img': head_img,
         'title' : $("input[name='title']").val(),
-        'view_id':  5,
-        'platform_id':  0,
-        'type':  2,
         'wechat_name' : $("input[name='we_chat_name']").val(),
         'wechat_url' : $("input[name='we_chat_url']").val(),
-        'mobile_view_id':  4,
-        'page_num' : $('#page_num').val(),
         'thumbnail_big': thumbnail_big,
-        'thumbnail_small' : thumbnail_small
+        'thumbnail_small' : thumbnail_small,
+        'comment' : content
     }
-    ajaxGo('admin/commodity/addCommodity')
+    ajaxGo('admin/information/addInformation')
 
 }
 
@@ -186,36 +199,14 @@ function editCommodityGo(id) {
         'qr_img' : qr_img,
         'url' : $("input[name='url']").val(),
         'tj_url': $("input[name='tj_url']").val(),
-        'material_id':  $("#material").selectpicker('val'),
         'head_img': head_img,
         'title' : $("input[name='title']").val(),
-        'view_id':  5,
-        'platform_id':  0,
-        'type':  2,
         'wechat_name' : $("input[name='we_chat_name']").val(),
         'wechat_url' : $("input[name='we_chat_url']").val(),
-        'mobile_view_id':  4,
-        'page_num' : $('#page_num').val(),
         'thumbnail_big': thumbnail_big,
-        'thumbnail_small' : thumbnail_small
+        'thumbnail_small' : thumbnail_small,
+        'comment' : content
     }
-    ajaxGo('admin/commodity/editCommodity')
+    ajaxGo('admin/information/editInformation')
 
-}
-
-//修改落地页模版
-function updateViewGo(id) {
-    requestData.data = {
-        'id' : id,
-        'view_id':  $("#view_update").selectpicker('val'),
-    }
-    ajaxGo('admin/commodity/updateView')
-}
-
-function updateViewMobileGo(id) {
-    requestData.data = {
-        'id' : id,
-        'mobile_view_id':  $("#mobile_view_update").selectpicker('val'),
-    }
-    ajaxGo('admin/commodity/updateViewMobile')
 }

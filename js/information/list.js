@@ -1,25 +1,14 @@
 $(document).ready(function () {
     //调用函数，初始化表格
-    setMaterial();
     initTable();
 });
 
-function setMaterial() {
-    ajaxGo('admin/material/getListToSelect')
-    requestData.data.forEach((item,index,array)=>{
-        //执行代码
-        var html = "<option value='"+item.id+"'>"+item.name+"</option>";
-        $('#material').append(html);
-    });
-    $('#material').selectpicker('refresh');
 
-
-}
 function initTable() {
 
     $('#commodityTable').bootstrapTable('destroy');
     $("#commodityTable").bootstrapTable({
-        url: __ROOT__ + 'admin/commodity/getList', //获取数据的Servlet地址
+        url: __ROOT__ + 'admin/information/getList', //获取数据的Servlet地址
         striped: true,  //表格显示条纹
         pagination: true, //启动分页
         sortName: 'id',
@@ -205,7 +194,7 @@ function editCommodity(obj) {
     requestData.data = {
         'id' : $(obj).attr('data_id')
     }
-    ajaxGo('admin/commodity/getCommodityInfo');
+    ajaxGo('admin/information/getInformationInfo');
 
 
     $("input[name='name']").val(requestData.data.name);
@@ -247,11 +236,10 @@ function editCommodity(obj) {
         var html = '<div style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"  onclick="delImg(this)" ><img name="thumbnail_big" data_name="'+item+'" src="'+item+'"></div>';
         $('#thumbnail_big_div').append(html);
     });
+    editor.setValue(requestData.data.content);
 
-    $('#material').selectpicker('val',(requestData.data.material_id));
-    $('#view').selectpicker('val',(requestData.data.view_id));
     //移动端数据渲染
-    $('#mobile_view').selectpicker('val',(requestData.data.mobile_view_id));
+
     $("input[name='we_chat_name']").val(requestData.data.wechat_name);
     $("input[name='we_chat_url']").val(requestData.data.wechat_url);
 
@@ -300,7 +288,7 @@ function del(obj) {
             requestData.data = {
                 'id' : $(obj).attr('data_id')
             };
-            ajaxGo('admin/commodity/delCommodity');
+            ajaxGo('admin/information/delInformation');
             if(requestCode === 0){
                 fac_search();
                 layer.msg('删除成功!');
@@ -321,7 +309,7 @@ function delTop(type) {
                 'id' : $(obj).attr('data_id'),
                 'type' : type
             };
-            ajaxGo('admin/commodity/editTop');
+            ajaxGo('admin/information/editTop');
             if(requestCode === 0){
                 fac_search();
                 layer.msg('修改成功!');
@@ -332,64 +320,4 @@ function delTop(type) {
     });
 }
 
-function updateView(obj) {
 
-    layer.open({
-        type: 1,
-        title: '编辑',
-        shadeClose: true,
-        shade: 0.8,
-        area: ['90%', '90%'],
-        content: $('#updateView'),
-        btn: ['确定', '取消'], // 按钮
-        yes: function(index, layero){
-            layer.msg('确定修改？', {
-                time: 0 //不自动关闭
-                ,btn: ['确定', '取消']
-                ,yes: function(index){
-                    updateViewGo($(obj).attr('data_id'));
-                    if(requestCode === 0){
-                        fac_search();
-                        layer.close(index);
-                        layer.closeAll();
-                        layer.msg(requestMessage);
-                    }else {
-                        layer.msg(requestMessage);
-                    }
-                }
-            });
-        }
-//            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
-    });
-}
-
-function updateViewMobile(obj) {
-
-    layer.open({
-        type: 1,
-        title: '编辑',
-        shadeClose: true,
-        shade: 0.8,
-        area: ['90%', '90%'],
-        content: $('#updateViewMobile'),
-        btn: ['确定', '取消'], // 按钮
-        yes: function(index, layero){
-            layer.msg('确定修改？', {
-                time: 0 //不自动关闭
-                ,btn: ['确定', '取消']
-                ,yes: function(index){
-                    updateViewMobileGo($(obj).attr('data_id'));
-                    if(requestCode === 0){
-                        fac_search();
-                        layer.close(index);
-                        layer.closeAll();
-                        layer.msg(requestMessage);
-                    }else {
-                        layer.msg(requestMessage);
-                    }
-                }
-            });
-        }
-//            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
-    });
-}
