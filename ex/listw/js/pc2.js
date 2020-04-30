@@ -1,4 +1,4 @@
-const base_url = 'http://develop.yarayzw.com';
+const base_url = 'http://zixunadmin.yarayzw.com';
 let goHttp = 'hot.kkkk.la';
 
 $(function () {
@@ -142,7 +142,7 @@ function bottomInfo() {
     $.ajax({
         // url: 'http://jindouyun.yarayzw.com/index/commodity/getInfoById',
         // url: 'http://zixunadmin.yarayzw.com/index/commodity/getInfoById',
-        url: 'http://develop.yarayzw.com/index/commodity/getInfoList',
+        url: base_url + '/index/commodity/getInfoList',
         data: {
         },
         method: "POST",
