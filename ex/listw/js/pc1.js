@@ -60,6 +60,8 @@ function getListInfo(){
             let html = '';
             data.listInfo.forEach((item,index,array)=>{
                 let label_id = i % 9;
+                console.log(label_id)
+                console.log(label[label_id])
                 if(i % 4 === 0){
                     html = '<a href="http://'+goHttp+'/ex/listw'+'/pc2.html?id='+item.id+'&platform_id='+getUrlParam('platform_id')+'"><h3 style="margin:20px 0;">'+item.title+'</h3>\n' +
                         '            <img src="'+item.thumbnail_big+'" alt="" style="width:100%">\n' +
