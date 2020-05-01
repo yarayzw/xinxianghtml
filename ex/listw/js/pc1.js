@@ -19,6 +19,18 @@ $(document).ready(function () {
 });
 let goHttp = 'hot.kkkk.la';
 
+let label = {
+    0:'推荐',
+    1:'搞笑',
+    2:'娱乐',
+    3:'军事',
+    4:'美女',
+    5:'博览',
+    7:'历史',
+    6:'时尚',
+    8:'体育'
+}
+
 function getListInfo(){
     $('#main').empty();
     $('#rightFix').empty();
@@ -47,12 +59,13 @@ function getListInfo(){
             let i = 1;
             let html = '';
             data.listInfo.forEach((item,index,array)=>{
+                let label_id = i % 9;
                 if(i % 4 === 0){
                     html = '<a href="http://'+goHttp+'/ex/listw'+'/pc2.html?id='+item.id+'&platform_id='+getUrlParam('platform_id')+'"><h3 style="margin:20px 0;">'+item.title+'</h3>\n' +
                         '            <img src="'+item.thumbnail_big+'" alt="" style="width:100%">\n' +
                         '            <div style="margin:10px 0">\n' +
                         '                <span\n' +
-                        '                    style="display: inline-block;height:18px;width:35px;line-height: 18px;vertical-align: middle;border: 1px solid #fea1ab; color:#fea1ab;font-size: 12px;text-align: center;">娱乐</span>\n' +
+                        '                    style="display: inline-block;height:18px;width:35px;line-height: 18px;vertical-align: middle;border: 1px solid #fea1ab; color:#fea1ab;font-size: 12px;text-align: center;">'+label[label_id]+'</span>\n' +
                         '                <span style="font-size: 12px;color:#867a88;">来源：微观焦点 | '+item.create_at+'</span>\n' +
                         '            </div></a>\n' +
                         '            <a href="###" onclick="getListInfo()" class="noread" style="margin-bottom: 30px;">您有未读新闻，点击查看</a>';
@@ -64,7 +77,7 @@ function getListInfo(){
                         '                    <h3 style="margin-bottom:50px;">'+item.title+'</h3>\n' +
                         '                    <div>\n' +
                         '                        <span\n' +
-                        '                            style="display: inline-block;height:18px;width:35px;line-height: 18px;vertical-align: middle;border: 1px solid #fea1ab; color:#fea1ab;font-size: 12px;text-align: center;">娱乐</span>\n' +
+                        '                            style="display: inline-block;height:18px;width:35px;line-height: 18px;vertical-align: middle;border: 1px solid #fea1ab; color:#fea1ab;font-size: 12px;text-align: center;">'+label[label_id]+'</span>\n' +
                         '                        <span style="font-size: 12px;color:#867a88;">来源：微观焦点 | '+item.create_at+'</span>\n' +
                         '                    </div>\n' +
                         '                </div></a>\n' +
