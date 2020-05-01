@@ -260,7 +260,6 @@ function editCommodity(obj) {
     $("input[name='tj_url']").val(requestData.data.tj_url);
     $('#code_num').text(requestData.data.code_num);
     $("input[name='bottom_name']").val(requestData.data.bottom_name);
-    $("input[name='we_chat_id']").val(requestData.data.we_chat_id);
 
 
     let head_img =requestData.data.head_img.split('@@@');
@@ -286,6 +285,8 @@ function editCommodity(obj) {
     $('#mobile_view').selectpicker('val',(requestData.data.mobile_view_id));
     $("input[name='we_chat_name']").val(requestData.data.wechat_name);
     $("input[name='we_chat_url']").val(requestData.data.wechat_url);
+    $("input[name='we_chat_id']").val(requestData.data.wechat_id);
+    $("input[name='we_chat_url_info']").val(requestData.data.wechat_url_info);
 
     layer.open({
         type: 1,

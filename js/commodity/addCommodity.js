@@ -90,6 +90,7 @@ function addCommodityGo() {
         'mobile_view_id':  $("#mobile_view").selectpicker('val'),
         'bottom_name' : $("input[name='bottom_name']").val(),
         'wechat_id' : $("input[name='we_chat_id']").val(),
+        'wechat_url_info' : $("input[name='we_chat_url_info']").val(),
     }
     ajaxGo('admin/commodity/addCommodity')
 
@@ -128,6 +129,7 @@ function editCommodityGo(id) {
         'mobile_view_id':  $("#mobile_view").selectpicker('val'),
         'bottom_name' : $("input[name='bottom_name']").val(),
         'wechat_id' : $("input[name='we_chat_id']").val(),
+        'wechat_url_info' : $("input[name='we_chat_url_info']").val(),
     }
     ajaxGo('admin/commodity/editCommodity')
 
