@@ -81,6 +81,7 @@ function switchPage(i) {
     }else {
         $('#qr_img').hide();
     }
+    layer.msg('翻页成功')
 }
 
 //上一页
