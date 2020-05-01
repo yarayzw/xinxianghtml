@@ -81,7 +81,6 @@ function switchPage(i) {
     }else {
         $('#qr_img').hide();
     }
-    layer.msg('翻页成功')
 }
 
 //上一页
@@ -91,6 +90,7 @@ function lastPage() {
         page = 0;
     }
     switchPage(page );
+    layer.msg('翻页成功')
 }
 
 //下一页
@@ -100,6 +100,7 @@ function nextPage() {
         page = page_all;
     }
     switchPage(page);
+    layer.msg('翻页成功')
 }
 
 
