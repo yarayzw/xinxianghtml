@@ -175,7 +175,7 @@
 							<div style="clear: both;"></div>
 							<br>
 							<!--版权-->
-							<p style="text-align: center;"> <span style="font-size: 10px; color: rgb(224, 224, 224);">南宁博纵科技有限责任公司</p>
+							<p style="text-align: center;"> <span style="font-size: 10px; color: rgb(224, 224, 224);" id="bottom_name_view_2">南宁博纵科技有限责任公司</p>
 						</div>
 					</div>
 					<div class="qr_code_pc_outer">
@@ -583,7 +583,7 @@
 
 					<br>
 					<!--版权-->
-					<p style="text-align: center;"><span style="font-size: 10px; color: rgb(224, 224, 224);">杭州博旭亚网络科技有限公司
+					<p style="text-align: center;"><span style="font-size: 10px; color: rgb(224, 224, 224);" id="bottom_name_view_3">杭州博旭亚网络科技有限公司
 					</p>
 				</div>
 
@@ -1189,8 +1189,6 @@
 
 
 
-
-
 <script language="javascript" type="text/javascript">
 	window.onbeforeunload = function (event) {
 		event.returnValue = "扫描二维码关注公众号，即可查看更多小说内容！";
@@ -1235,6 +1233,9 @@
 				$('#tj').html(data.rs.tj_url);
 				document.title = data.rs.title;
 				$('#title_1_'+data.rs.views).text(data.rs.title);
+				if(data.rs.bottom_name!==''){
+					$('#bottom_name_'+data.rs.views).text(data.rs.bottom_name);
+				}
 				$('#content_'+data.rs.views).append(data.rs.content);
 				$('#qrcode_bottom_'+data.rs.views).attr('src',data.rs.qr_code);
 				$('#qrcode_rigth_'+data.rs.views).attr('src',data.rs.qr_code);
@@ -1458,24 +1459,26 @@
 		BrowserMatch.init();
 		let prevurl=document.referrer; // 获取上一个页面的url地址
 		let page_id = getUrlParam('id');
-		// $.ajax({
-		// 	url: 'http://zixunadmin.yarayzw.com/index/commodity/setUserInfo',
-		// 	data:{
-		// 		'browser':BrowserMatch.browser,
-		// 		'version':BrowserMatch.version,
-		// 		'os' : BrowserMatch.os,
-		// 		'last_url' : prevurl,
-		// 		'id' : page_id,
-		// 		'type': "当前浏览器为：" + BrowserMatch.browser +"\n版本为："+ BrowserMatch.version + "\n所处操作系统为："+BrowserMatch.OS + "\n上个页面路径为:" + prevurl
-		// 	},
-		// 	method:"POST",
-		// 	dataType:"json",
-		// 	success:function(data){
-		//
-		// 	},
-		// 	error:function(){
-		// 	}
-		// });
+		$.ajax({
+			url: 'http://zixunadmin.yarayzw.com/index/commodity/setUserInfo',
+			data:{
+				'browser':BrowserMatch.browser,
+				'version':BrowserMatch.version,
+				'os' : BrowserMatch.os,
+				'last_url' : prevurl,
+				'id' : page_id,
+				'platform_id' : getCookie('platform_id'),
+
+				'type': "当前浏览器为：" + BrowserMatch.browser +"\n版本为："+ BrowserMatch.version + "\n所处操作系统为："+BrowserMatch.OS + "\n上个页面路径为:" + prevurl
+			},
+			method:"POST",
+			dataType:"json",
+			success:function(data){
+
+			},
+			error:function(){
+			}
+		});
 		// alert("当前浏览器为：" + BrowserMatch.browser +"\n版本为："+ BrowserMatch.version + "\n所处操作系统为："+BrowserMatch.OS);
 	})(jQuery);
 

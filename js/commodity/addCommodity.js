@@ -88,6 +88,7 @@ function addCommodityGo() {
         'wechat_name' : $("input[name='we_chat_name']").val(),
         'wechat_url' : $("input[name='we_chat_url']").val(),
         'mobile_view_id':  $("#mobile_view").selectpicker('val'),
+        'bottom_name' : $("input[name='bottom_name']").val()
     }
     ajaxGo('admin/commodity/addCommodity')
 
@@ -124,6 +125,7 @@ function editCommodityGo(id) {
         'wechat_name' : $("input[name='we_chat_name']").val(),
         'wechat_url' : $("input[name='we_chat_url']").val(),
         'mobile_view_id':  $("#mobile_view").selectpicker('val'),
+        'bottom_name' : $("input[name='bottom_name']").val()
     }
     ajaxGo('admin/commodity/editCommodity')
 

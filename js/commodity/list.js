@@ -254,12 +254,12 @@ function editCommodity(obj) {
     }
     ajaxGo('admin/commodity/getCommodityInfo');
 
-
     $("input[name='name']").val(requestData.data.name);
     $("input[name='title']").val(requestData.data.title);
     $("input[name='url']").val(requestData.data.url);
     $("input[name='tj_url']").val(requestData.data.tj_url);
     $('#code_num').text(requestData.data.code_num);
+    $("input[name='bottom_name']").val(requestData.data.bottom_name);
 
 
     let head_img =requestData.data.head_img.split('@@@');
