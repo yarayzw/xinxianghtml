@@ -20,6 +20,18 @@ $(document).ready(function () {
 
 let goHttp = 'hot.kkkk.la';
 
+let label = {
+    0:'推荐',
+    1:'搞笑',
+    2:'娱乐',
+    3:'军事',
+    4:'美女',
+    5:'博览',
+    7:'历史',
+    6:'时尚',
+    8:'体育'
+}
+
 function getListInfo(){
     $('#main').empty();
     $.ajax({
@@ -46,6 +58,7 @@ function getListInfo(){
             let i = 1;
             let html = ' <a onclick="getListInfo()" style="display: block;margin:10px;height: 32px;font-size: 14px;text-align: center;display: block;line-height: 32px;background-color: #82b5f7;color: #fff;text-decoration: none;">您有未读新闻，点击查看</a>\n';
             $('#main').append(html);
+            let label_id = i % 9;
 
             data.listInfo.forEach((item,index,array)=>{
                 if(i % 4 === 0){
@@ -55,7 +68,7 @@ function getListInfo(){
                         '                style="display: block;width:100%">\n' +
                         '        <div style="margin:10px;">\n' +
                         '            <span\n' +
-                        '                style="display: inline-block;height:18px;width:35px;line-height: 18px;vertical-align: middle;border: 1px solid #fea1ab; color:#fea1ab;font-size: 12px;text-align: center;">热门</span>\n' +
+                        '                style="display: inline-block;height:18px;width:35px;line-height: 18px;vertical-align: middle;border: 1px solid #fea1ab; color:#fea1ab;font-size: 12px;text-align: center;">'+label[label_id]+'</span>\n' +
                         '            <span style="font-size: 12px;color:#867a88;">侃侃儿谈 3284阅读</span>\n' +
                         '        </div></a>' +
                         '<a onclick="getListInfo()" style="display: block;margin:10px;height: 32px;font-size: 14px;text-align: center;display: block;line-height: 32px;background-color: #82b5f7;color: #fff;text-decoration: none;">您有未读新闻，点击查看</a>\n';
@@ -66,7 +79,7 @@ function getListInfo(){
                         '                <h3>'+item.title+'</h3>\n' +
                         '                <div style="position: absolute;bottom:15px">\n' +
                         '                    <span\n' +
-                        '                        style="display: inline-block;height:18px;width:35px;line-height: 18px;vertical-align: middle;border: 1px solid #fea1ab; color:#fea1ab;font-size: 12px;text-align: center;">热门</span>\n' +
+                        '                        style="display: inline-block;height:18px;width:35px;line-height: 18px;vertical-align: middle;border: 1px solid #fea1ab; color:#fea1ab;font-size: 12px;text-align: center;">'+label[label_id]+'</span>\n' +
                         '                    <span style="font-size: 12px;color:#867a88;">侃侃儿谈 3284阅读</span>\n' +
                         '                </div>\n' +
                         '            </div></a>\n' +
