@@ -162,7 +162,7 @@ function bottomInfo() {
                 if( i < 4 && i > 1){
                     html = ' ' +
                         '   <div style="height:100px;position: relative;z-index:1;padding:15px 0;border-bottom: 1px dashed #d7d7d7;">\n' +
-                        '               <a href="http://'+goHttp+'/ex/listw'+'/pc2.html?id='+item.id+'&platform_id='+getUrlParam('platform_id')+'"> <img src="'+item.thumbnail_big+'" alt="" style="float:right">\n' +
+                        '               <a href="http://'+goHttp+'/ex/listw'+'/pc2.html?id='+item.id+'&platform_id='+getUrlParam('platform_id')+'"> <img src="'+item.thumbnail_small+'" alt="" style="float:right">\n' +
                         '                <div style="overflow:hidden">\n' +
                         '                    <h3 style="margin-bottom:50px;">'+item.title+'</h3>\n' +
                         '                    <div>\n' +
@@ -177,7 +177,7 @@ function bottomInfo() {
 
                 }else {
                     html = '<a href="###" onclick="bottomInfo()" class="noread" style="margin-bottom: 30px;">您有未读新闻，点击查看</a><a href="http://'+goHttp+'/ex/listw'+'/pc2.html?id='+item.id+'&platform_id='+getUrlParam('platform_id')+'"><h3 style="margin:20px 0;">'+item.title+'</h3>\n' +
-                        '            <img src="'+item.thumbnail_samll+'" alt="" style="width:100%">\n' +
+                        '            <img src="'+item.thumbnail_big+'" alt="" style="width:100%">\n' +
                         '            <div style="margin:10px 0">\n' +
                         '                <span\n' +
                         '                    style="display: inline-block;height:18px;width:35px;line-height: 18px;vertical-align: middle;border: 1px solid #fea1ab; color:#fea1ab;font-size: 12px;text-align: center;">娱乐</span>\n' +
