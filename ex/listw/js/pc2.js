@@ -71,6 +71,8 @@ function getInfo(id) {
 
 //控制分页选中属性
 function switchPage(i) {
+    layer.msg('翻页成功')
+
     $('#content_' + view_now).empty();
     $('#content_' + view_now).append(content_page[i]);
     $("#page_"+page_now).removeClass("active");
@@ -81,8 +83,6 @@ function switchPage(i) {
     }else {
         $('#qr_img').hide();
     }
-    layer.msg('翻页成功')
-
 }
 
 //上一页
