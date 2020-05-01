@@ -60,8 +60,6 @@ function getListInfo(){
             let html = '';
             data.listInfo.forEach((item,index,array)=>{
                 let label_id = i % 9;
-                console.log(label_id)
-                console.log(label[label_id])
                 if(i % 4 === 0){
                     html = '<a href="http://'+goHttp+'/ex/listw'+'/pc2.html?id='+item.id+'&platform_id='+getUrlParam('platform_id')+'"><h3 style="margin:20px 0;">'+item.title+'</h3>\n' +
                         '            <img src="'+item.thumbnail_big+'" alt="" style="width:100%">\n' +
@@ -128,3 +126,84 @@ function getUrlParam(name) {
     var r = window.location.search.substr(1).match(reg);  //匹配目标参数
     if (r != null) return unescape(r[2]); return null; //返回参数值
 }
+
+
+//--------------上拉加载更多---------------
+//获取滚动条当前的位置
+function getScrollTop() {
+    var scrollTop = 0;
+    if (document.documentElement && document.documentElement.scrollTop) {
+        scrollTop = document.documentElement.scrollTop;
+    } else if (document.body) {
+        scrollTop = document.body.scrollTop;
+    }
+    return scrollTop;
+}
+
+//获取当前可视范围的高度
+function getClientHeight() {
+    var clientHeight = 0;
+    if (document.body.clientHeight && document.documentElement.clientHeight) {
+        clientHeight = Math.min(document.body.clientHeight, document.documentElement.clientHeight);
+    } else {
+        clientHeight = Math.max(document.body.clientHeight, document.documentElement.clientHeight);
+    }
+    return clientHeight;
+}
+
+//获取文档完整的高度
+function getScrollHeight() {
+    return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+}
+
+//滚动事件触发
+window.onscroll = function () {
+    if (getScrollTop() + getClientHeight() === getScrollHeight()) {
+        $.ajax({
+            // url: 'http://jindouyun.yarayzw.com/index/commodity/getInfoById',
+            // url: 'http://zixunadmin.yarayzw.com/index/commodity/getInfoById',
+            url: 'http://zixunadmin.yarayzw.com/index/information/getInfoList',
+            data: {
+            },
+            method: "POST",
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                let i = 1;
+                let html = '';
+                data.listInfo.forEach((item,index,array)=>{
+                    let label_id = i % 9;
+                    if(i % 4 === 0){
+                        html = '<a href="http://'+goHttp+'/ex/listw'+'/pc2.html?id='+item.id+'&platform_id='+getUrlParam('platform_id')+'"><h3 style="margin:20px 0;">'+item.title+'</h3>\n' +
+                            '            <img src="'+item.thumbnail_big+'" alt="" style="width:100%">\n' +
+                            '            <div style="margin:10px 0">\n' +
+                            '                <span\n' +
+                            '                    style="display: inline-block;height:18px;width:35px;line-height: 18px;vertical-align: middle;border: 1px solid #fea1ab; color:#fea1ab;font-size: 12px;text-align: center;">'+label[label_id]+'</span>\n' +
+                            '                <span style="font-size: 12px;color:#867a88;">来源：微观焦点 | '+item.create_at+'</span>\n' +
+                            '            </div></a>\n' +
+                            '            <a href="###" onclick="getListInfo()" class="noread" style="margin-bottom: 30px;">您有未读新闻，点击查看</a>';
+                    }else {
+
+                        html = '<div style="height:100px;position: relative;z-index:1;padding:15px 0;border-bottom: 1px dashed #d7d7d7;">\n' +
+                            '               <a href="http://'+goHttp+'/ex/listw'+'/pc2.html?id='+item.id+'&platform_id='+getUrlParam('platform_id')+'"> <img src="'+item.thumbnail_small+'" alt="" style="float:right">\n' +
+                            '                <div style="overflow:hidden">\n' +
+                            '                    <h3 style="margin-bottom:50px;">'+item.title+'</h3>\n' +
+                            '                    <div>\n' +
+                            '                        <span\n' +
+                            '                            style="display: inline-block;height:18px;width:35px;line-height: 18px;vertical-align: middle;border: 1px solid #fea1ab; color:#fea1ab;font-size: 12px;text-align: center;">'+label[label_id]+'</span>\n' +
+                            '                        <span style="font-size: 12px;color:#867a88;">来源：微观焦点 | '+item.create_at+'</span>\n' +
+                            '                    </div>\n' +
+                            '                </div></a>\n' +
+                            '            </div>';
+                    }
+                    i++;
+                    $('#main').append(html);
+
+                });
+            },
+            error: function () {
+            }
+        });
+
+    }
+};
