@@ -171,7 +171,7 @@ function bottomInfo() {
                         '            </div></a>\n' +
                         '           ';
                     $('#main').append(html);
-                    i++;
+
                 }else {
                      html = ' <a href="###" onclick="bottomInfo()" class="noread" style="margin-bottom: 30px;">您有未读新闻，点击查看</a>' +
                         '   <div style="height:100px;position: relative;z-index:1;padding:15px 0;border-bottom: 1px dashed #d7d7d7;">\n' +
@@ -187,6 +187,7 @@ function bottomInfo() {
                         '            </div>;'
                     $('#main').append(html);
                 }
+                i++;
             });
             data.rightHead.forEach((item,index,array)=> {
                 //右侧上方

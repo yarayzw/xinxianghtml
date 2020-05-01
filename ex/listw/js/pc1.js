@@ -48,9 +48,8 @@ function getListInfo(){
             let html = '';
             data.listInfo.forEach((item,index,array)=>{
                 if(i % 4 === 0){
-
-                    html = '<a href="###"><h3 style="margin:20px 0;">'+item.title+'</h3>\n' +
-                        '            <a href="http://'+goHttp+'/ex/listw'+'/pc2.html?id='+item.id+'&platform_id='+getUrlParam('platform_id')+'"><img src="'+item.thumbnail_big+'" alt="" style="width:100%"></a>\n' +
+                    html = '<a href="http://'+goHttp+'/ex/listw'+'/pc2.html?id='+item.id+'&platform_id='+getUrlParam('platform_id')+'"><h3 style="margin:20px 0;">'+item.title+'</h3>\n' +
+                        '            <img src="'+item.thumbnail_big+'" alt="" style="width:100%">\n' +
                         '            <div style="margin:10px 0">\n' +
                         '                <span\n' +
                         '                    style="display: inline-block;height:18px;width:35px;line-height: 18px;vertical-align: middle;border: 1px solid #fea1ab; color:#fea1ab;font-size: 12px;text-align: center;">娱乐</span>\n' +
