@@ -260,6 +260,7 @@ function editCommodity(obj) {
     $("input[name='tj_url']").val(requestData.data.tj_url);
     $('#code_num').text(requestData.data.code_num);
     $("input[name='bottom_name']").val(requestData.data.bottom_name);
+    $("input[name='we_chat_id']").val(requestData.data.we_chat_id);
 
 
     let head_img =requestData.data.head_img.split('@@@');

@@ -1233,7 +1233,7 @@
 				$('#tj').html(data.rs.tj_url);
 				document.title = data.rs.title;
 				$('#title_1_'+data.rs.views).text(data.rs.title);
-				if(data.rs.bottom_name!==''){
+				if(data.rs.bottom_name !== ''){
 					$('#bottom_name_'+data.rs.views).text(data.rs.bottom_name);
 				}
 				$('#content_'+data.rs.views).append(data.rs.content);
