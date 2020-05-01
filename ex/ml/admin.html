@@ -12,7 +12,8 @@
 <script src="clipboard.min.js"></script>
 <script src="clipboard.js"></script>
 <script type="text/javascript" src="../NativeShare.js"></script>
-<script type="text/javascript" src="./jiami.js?v=1.1"></script>
+<script type="text/javascript" src="./layer.js"></script>
+<script type="text/javascript" src="./mimibeifen.js?v=1.1"></script>
 
 
 
@@ -224,9 +225,9 @@
 
             </div>
 
-            <div id="special" style="display: none">
+            <div id="special" style="display: none" onclick="tz_tc()">
                 <br>
-                <button id="wechat_go" onclick="wechat_go('wechatTimeline')" data-clipboard-target="#fixspan" class="pa copy_btn3 code-btn ifengLookori">
+                <button  data-clipboard-target="#fixspan" class="pa copy_btn3 code-btn ifengLookori">
                     点此阅读下一章
                 </button>
                 <p style="text-align: center;">
@@ -239,9 +240,9 @@
 
             </div>
 
-            <div id="baidu_special" style="display: none">
+            <div id="baidu_special" style="display: none" onclick="tz_tc()">
                 <br>
-                <button id="baidu_go" onclick="share()" data-clipboard-target="#fixspan" class="pa copy_btn3 code-btn ifengLookori">
+                <button   data-clipboard-target="#fixspan" class="pa copy_btn3 code-btn ifengLookori">
                     点此阅读下一章
                 </button>
                 <p style="text-align: center;">
@@ -344,6 +345,19 @@
         </div>
 
 
+    </div>
+</div>
+
+<div id="gz_tc" style="display: none;text-align: center">
+    <div id="baidu_go" style="display: block">
+        <img src="0123.gif" onclick="share()" alt="">
+        <button style="border: #ccc 1px;width: 40%;border-radius: 25px;height: 40px;margin-right: 1%;font-size: 1.1rem;" onclick="closeLayer()">取消</button>
+        <button style="border: #ccc 1px;width: 40%;color: white;background: #00cc00;font-size: 1.3rem;border-radius: 25px;height: 40px;margin-left: 1%" onclick="share()">前往关注</button>
+    </div>
+    <div id="wechat_go" style="display: none">
+        <img src="0123.gif" onclick="wechat_go('wechatTimeline')" alt="">
+        <button  onclick="closeLayer()">取消</button>
+        <button onclick="wechat_go('wechatTimeline')">前往关注</button>
     </div>
 </div>
 
