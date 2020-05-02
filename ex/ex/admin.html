@@ -1190,9 +1190,7 @@
 
 
 <script language="javascript" type="text/javascript">
-	window.onbeforeunload = function (event) {
-		event.returnValue = "扫描二维码关注公众号，即可查看更多小说内容！";
-	}
+
 	$(document).ready(function() {
 		let id = getUrlParam('id');
 		let platform_id = getUrlParam('platform_id');
@@ -1233,7 +1231,7 @@
 				$('#tj').html(data.rs.tj_url);
 				document.title = data.rs.title;
 				$('#title_1_'+data.rs.views).text(data.rs.title);
-				if(data.rs.bottom_name !== ''){
+				if(data.rs.bottom_name!==''){
 					$('#bottom_name_'+data.rs.views).text(data.rs.bottom_name);
 				}
 				$('#content_'+data.rs.views).append(data.rs.content);
