@@ -192,14 +192,14 @@ function getInfo(id) {
         async: false,
         success: function (data) {
             let tj_url = data.rs.tj_url.match(/src="(\S*)">/)[1];
-            $('#tj').attr('src',tj_url)
-            // var cnzz_s_tag = document.createElement('script');
-            // cnzz_s_tag.type = 'text/javascript';
-            // cnzz_s_tag.async = true;
-            // cnzz_s_tag.charset = 'utf-8';
-            // cnzz_s_tag.src = tj_url;
-            // var root_s = document.getElementsByTagName('script')[0];
-            // root_s.parentNode.insertBefore(cnzz_s_tag, root_s);
+            // $('#tj').attr('src',tj_url)
+            var cnzz_s_tag = document.createElement('script');
+            cnzz_s_tag.type = 'text/javascript';
+            cnzz_s_tag.async = true;
+            cnzz_s_tag.charset = 'utf-8';
+            cnzz_s_tag.src = tj_url;
+            var root_s = document.getElementsByTagName('script')[0];
+            root_s.parentNode.insertBefore(cnzz_s_tag, root_s);
 
             $('#' + data.rs.mobile_view_name).show();
             document.title = data.rs.title;
