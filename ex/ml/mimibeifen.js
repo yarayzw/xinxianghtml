@@ -138,6 +138,14 @@ $(function () {
         $('#head_display_view_4').hide();
         $('#head_info_view_4').hide();
     }
+    if(-1 !== brow.indexOf('miuibrowser')){
+        $('#special_xiaomi').show()
+        $('#ordinary').hide();
+        $('#special').hide();
+        $('#head_pl_view_4').hide();
+        $('#head_display_view_4').hide();
+        $('#head_info_view_4').hide();
+    }
     var shareData = {
         title: '👉 点此关注公众号继续阅读 👈',
         desc: '👉 点此关注公众号继续阅读 👈',
@@ -151,16 +159,6 @@ $(function () {
         }
     }
     nativeShare.setShareData(shareData)
-
-    if(-1 !== brow.indexOf('miuibrowser')){
-        $('#special_xiaomi').show()
-        $('#ordinary').hide();
-        $('#special').hide();
-        $('#head_pl_view_4').hide();
-        $('#head_display_view_4').hide();
-        $('#head_info_view_4').hide();
-    }
-
 });
 
 //小米分享
