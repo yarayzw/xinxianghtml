@@ -57,9 +57,9 @@ function initTable() {
         striped: true,  //表格显示条纹
         pagination: true, //启动分页
         sortName: 'id',
-        pageSize: 10,  //每页显示的记录数
+        pageSize: 5,  //每页显示的记录数
         pageNumber:1, //当前第几页
-        pageList: [10, 15, 20, 25],  //记录数可选列表
+        pageList: [5, 10, 15, 20],  //记录数可选列表
         search: false,
         toolbar: '#list_search_faci',
         showColumns: true,  //显示下拉框勾选要显示的列
