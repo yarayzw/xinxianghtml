@@ -125,7 +125,7 @@ function initTable() {
                 formatter: function(value,row,index){
                     var a='<a href="#" mce_href="#" data_id="'+row.id+'" data_name="'+row.name+'" data_title="'+row.title+'" data_url="'+row.url+'"  onclick="editCommodity(this)" >编辑</a> ';
                     var e='<a href="#" mce_href="#" " data_url="http://hot.kkkk.la/ex/listw/'+'pc2.html?id='+row.id+'&name='+row.name+'&platform_id='+row.platform_id+'"  onclick="preview(this)" >pc版</a> ';
-                    var d='<a href="#" mce_href="#" " data_url="http://hot.kkkk.la//ex/ml/'+'index.html?id='+row.id+'&name='+row.name+'&platform_id='+row.platform_id+'"  onclick="preview(this)" >手机版</a> ';
+                    var d='<a href="#" mce_href="#" " data_url="http://hot.kkkk.la//ex/zx/'+'index.html?id='+row.id+'&name='+row.name+'&platform_id='+row.platform_id+'"  onclick="preview(this)" >手机版</a> ';
                     var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="del(this)" >删除</a>';
                     return a+d+e+f;
                 }
