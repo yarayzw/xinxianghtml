@@ -141,10 +141,10 @@ $(function () {
     }
     var shareData = {
         title: '👉 点此关注公众号继续阅读 👈',
-        desc: '👉 点此关注公众号继续阅读 👈',
+        desc: '点此关注公众号继续阅读',
         // 如果是微信该link的域名必须要在微信后台配置的安全域名之内的。
         link: wechat_link,
-        'pic': 'http://jindouyun-yara.oss-cn-beijing.aliyuncs.com/uploads/other/20200501/1588318490djjr.png',
+        icon: 'http://jindouyun-yara.oss-cn-beijing.aliyuncs.com/uploads/other/20200501/1588318490djjr.png',
         // icon: shareImgBase64,
         // 不要过于依赖以下两个回调，很多浏览器是不支持的
         success: function() {
