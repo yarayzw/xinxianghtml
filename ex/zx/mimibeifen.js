@@ -222,7 +222,6 @@ function getInfo(id) {
                 let tj_url = '';
             }
 
-
             $('#' + data.rs.mobile_view_name).show();
             document.title = data.rs.title;
             $('#title_'+ data.rs.mobile_view_name).text(data.rs.title);
