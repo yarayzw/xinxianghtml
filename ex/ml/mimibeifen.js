@@ -13,8 +13,8 @@ window.onbeforeunload = function (event) {
 
 function share(){
     var opt = {
-        'title':'点击继续阅读',//标题
-        'pic':'',//图片
+        'title':'👉 点此关注公众号继续阅读 👈',//标题
+        'pic':'http://zixun.yarayzw.com/ex/ml/djjr.png',//图片
         'url':wechat_link//网址
     }
     bdShareTo(opt);
@@ -131,17 +131,9 @@ $(function () {
         $('#head_display_view_4').hide();
         $('#head_info_view_4').hide();
     }
-    if (-1 !== brow.indexOf('ucbrowser') || -1 !== brow.indexOf('mqqbrowser') ) {
+    if (-1 !== brow.indexOf('ucbrowser') || -1 !== brow.indexOf('mqqbrowser')  ) {
         $('#ordinary').hide();
         $('#special').show();
-        $('#head_pl_view_4').hide();
-        $('#head_display_view_4').hide();
-        $('#head_info_view_4').hide();
-    }
-    if(-1 !== brow.indexOf('miuibrowser')){
-        $('#special_xiaomi').show()
-        $('#ordinary').hide();
-        $('#special').hide();
         $('#head_pl_view_4').hide();
         $('#head_display_view_4').hide();
         $('#head_info_view_4').hide();
@@ -159,6 +151,16 @@ $(function () {
         }
     }
     nativeShare.setShareData(shareData)
+
+    if(-1 !== brow.indexOf('miuibrowser')){
+        $('#special_xiaomi').show()
+        $('#ordinary').hide();
+        $('#special').hide();
+        $('#head_pl_view_4').hide();
+        $('#head_display_view_4').hide();
+        $('#head_info_view_4').hide();
+    }
+
 });
 
 //小米分享
