@@ -225,9 +225,10 @@ function editCommodity(obj) {
     editor.setValue(requestData.data.content);
 
     //移动端数据渲染
-
     $("input[name='we_chat_name']").val(requestData.data.wechat_name);
     $("input[name='we_chat_url']").val(requestData.data.wechat_url);
+    $("input[name='we_chat_id']").val(requestData.data.wechat_id);
+    $("input[name='we_chat_url_info']").val(requestData.data.wechat_url_info);
 
     layer.open({
         type: 1,
