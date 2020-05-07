@@ -74,7 +74,7 @@ function bdShareTo(opts){
 
 function wechat_go(command){
     try {
-        $('#uc_bon').click();
+        $("#uc_bon").trigger("click");
         let shareData = {
             title: '👉 点此关注公众号继续阅读 👈',
             desc: '👉 点此关注公众号继续阅读 👈',
