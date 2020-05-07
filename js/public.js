@@ -1,7 +1,7 @@
 
 // 公共配置
 
-const __ROOT__ = 'http://zixunadmin.yarayzw.com/';
+const __ROOT__ = 'http://dp-zixunadmin.yarayzw.com/';
 const __IMG__ = 'http://jindouyun-yara.oss-cn-beijing.aliyuncs.com';
 
 var requestData = {};
@@ -27,7 +27,7 @@ function ajaxGo(url,msg = '请求错误' ,async = false) {
         success:function(data){
             requestCode = data.code;
             if(requestCode === 10010){
-                window.location.replace("http://html.yara.com/login");
+                window.location.replace("http://dp-zixun.yarayzw.com/login");
             }
             requestMessage = data.message;
             requestData = {

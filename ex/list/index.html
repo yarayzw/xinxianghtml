@@ -113,6 +113,8 @@
     <script type="text/javascript" src="./refresh.js"></script>
     <script type="text/javascript" src="https://s4.cnzz.com/z_stat.php?id=1278836227&web_id=1278836227"></script>
     <script>
+        const base_url = 'http://dp-zixunadmin.yarayzw.com/';
+
         // 取得cookie
         function getCookie(name) {
             var nameEQ = name + '='
@@ -132,7 +134,7 @@
             $.ajax({
                 // url: 'http://jindouyun.yarayzw.com/index/commodity/getInfoById',
                 // url: 'http://zixunadmin.yarayzw.com/index/commodity/getInfoById',
-                url: 'http://zixunadmin.yarayzw.com/index/commodity/getInfoList',
+                url: base_url + '/index/commodity/getInfoList',
                 data: {
                 },
                 method: "POST",
@@ -203,7 +205,7 @@
                 $.ajax({
                     // url: 'http://jindouyun.yarayzw.com/index/commodity/getInfoById',
                     // url: 'http://zixunadmin.yarayzw.com/index/commodity/getInfoById',
-                    url: 'http://zixunadmin.yarayzw.com/index/commodity/getInfoList',
+                    url: base_url + '/index/commodity/getInfoList',
                     data: {
                     },
                     method: "POST",

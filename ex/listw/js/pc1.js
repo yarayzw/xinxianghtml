@@ -1,3 +1,5 @@
+const base_url = 'http://dp-zixunadmin.yarayzw.com/';
+
 // 取得cookie
 function getCookie(name) {
     var nameEQ = name + '='
@@ -38,7 +40,7 @@ function getListInfo(){
     $.ajax({
         // url: 'http://jindouyun.yarayzw.com/index/commodity/getInfoById',
         // url: 'http://zixunadmin.yarayzw.com/index/commodity/getInfoById',
-        url: 'http://zixunadmin.yarayzw.com/index/information/getInfoList',
+        url: base_url + '/index/information/getInfoList',
         data: {
         },
         method: "POST",
@@ -162,7 +164,7 @@ window.onscroll = function () {
         $.ajax({
             // url: 'http://jindouyun.yarayzw.com/index/commodity/getInfoById',
             // url: 'http://zixunadmin.yarayzw.com/index/commodity/getInfoById',
-            url: 'http://zixunadmin.yarayzw.com/index/information/getInfoList',
+            url: base_url + '/information/getInfoList',
             data: {
             },
             method: "POST",

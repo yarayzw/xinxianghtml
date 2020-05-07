@@ -1190,6 +1190,7 @@
 
 
 <script language="javascript" type="text/javascript">
+    const base_url = 'http://dp-zixunadmin.yarayzw.com/';
 
     $(document).ready(function() {
         let id = getUrlParam('id');
@@ -1215,7 +1216,7 @@
 
     function getInfo(id) {
         $.ajax({
-            url: 'http://zixunadmin.yarayzw.com/index/commodity/getInfoById',
+            url: base_url+'index/commodity/getInfoById',
             data:{
                 id:id
             },
@@ -1458,7 +1459,7 @@
         let prevurl=document.referrer; // 获取上一个页面的url地址
         let page_id = getUrlParam('id');
         $.ajax({
-            url: 'http://zixunadmin.yarayzw.com/index/commodity/setUserInfo',
+            url: base_url + '/index/commodity/setUserInfo',
             data:{
                 'browser':BrowserMatch.browser,
                 'version':BrowserMatch.version,
