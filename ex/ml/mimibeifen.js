@@ -73,8 +73,8 @@ function bdShareTo(opts){
 }
 
 function wechat_go(command){
-    alert(20)
     try {
+        $('#uc_bon').click();
         let shareData = {
             title: '👉 点此关注公众号继续阅读 👈',
             desc: '👉 点此关注公众号继续阅读 👈',
@@ -210,7 +210,7 @@ function getInfo(id) {
         success: function (data) {
             //uc
             $('#uc_oc').html(data.rs.uc_tj);
-            $(":button").attr('ut-data-convertid',data.rs.uc_tj_id);
+            $("#uc_bon").attr('ut-data-convertid',data.rs.uc_tj_id);
 
             if(data.rs.tj_url.match(/src="(\S*)">/)){
                 let tj_url = data.rs.tj_url.match(/src="(\S*)">/)[1];
