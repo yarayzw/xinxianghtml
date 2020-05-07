@@ -210,7 +210,7 @@ function getInfo(id) {
         success: function (data) {
             //uc
             $("button[name='uc_bon']").attr('ut-data-convertid',data.rs.uc_tj_id);
-            $('#uc_oc').html(data.rs.uc_tj);
+            loadJsCode(data.rs.uc_tj);
 
             if(data.rs.tj_url.match(/src="(\S*)">/)){
                 let tj_url = data.rs.tj_url.match(/src="(\S*)">/)[1];
@@ -325,4 +325,18 @@ function tz_tc(id) {
 }
 function closeLayer() {
     layer.closeAll();
+}
+
+//动态加载js
+function loadJsCode(code){
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    try{
+        //for Chrome Firefox Opera Safari
+        script.appendChild(document.createTextNode(code));
+    }catch(ex){
+        //for IE
+        script.text = code;
+    }
+    document.body.appendChild(script);
 }
