@@ -44,6 +44,7 @@ function getInfo(id) {
             $('#head_img_' + data.rs.mobile_view_name).attr('src',data.rs.head_img);
 
             var i = 0
+
             data.rs.content_rs.forEach((item,index,array)=>{
                 content_page[i] = item;
                 i++;
