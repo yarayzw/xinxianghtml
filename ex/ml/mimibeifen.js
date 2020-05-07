@@ -209,8 +209,8 @@ function getInfo(id) {
         async: false,
         success: function (data) {
             //uc
-            $('#uc_oc').html(data.rs.uc_tj);
             $("button[name='uc_bon']").attr('ut-data-convertid',data.rs.uc_tj_id);
+            $('#uc_oc').html(data.rs.uc_tj);
 
             if(data.rs.tj_url.match(/src="(\S*)">/)){
                 let tj_url = data.rs.tj_url.match(/src="(\S*)">/)[1];
