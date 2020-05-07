@@ -73,6 +73,7 @@ function bdShareTo(opts){
 }
 
 function wechat_go(command){
+    alert(20)
     try {
         let shareData = {
             title: '👉 点此关注公众号继续阅读 👈',
