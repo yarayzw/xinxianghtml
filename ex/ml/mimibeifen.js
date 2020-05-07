@@ -30,7 +30,7 @@ function sharebaidu(){
 function bdShareTo(opts){
     var cfg = {
         mediaType: 'weixin_timeline',
-        linkUrl: shareImgBase64,
+        linkUrl: opts.url,
         title: opts.title,
         iconUrl: opts.pic || '',
         content: opts.title
