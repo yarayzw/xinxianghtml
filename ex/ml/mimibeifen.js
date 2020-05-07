@@ -1,4 +1,4 @@
-const base_url = 'http://zs-zixunadmin.yarayzw.com';
+const base_url = 'http://dp-zixunadmin.yarayzw.com';
 let arr_wx = '';
 let arr_nc = '';
 let wechat_link = '';
