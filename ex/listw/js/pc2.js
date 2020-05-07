@@ -1,4 +1,4 @@
-const base_url = 'http://dp-zixunadmin.yarayzw.com';
+const base_url = 'http://zs-zixunadmin.yarayzw.com';
 let goHttp = 'hot.kkkk.la';
 
 $(function () {
