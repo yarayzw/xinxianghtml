@@ -91,6 +91,8 @@ function addCommodityGo() {
         'bottom_name' : $("input[name='bottom_name']").val(),
         'wechat_id' : $("input[name='we_chat_id']").val(),
         'wechat_url_info' : $("input[name='we_chat_url_info']").val(),
+        'uc_tj_id' : $("input[name='uc_tj_id']").val(),
+        'uc_tj' : $("input[name='uc_tj']").val(),
     }
     ajaxGo('admin/commodity/addCommodity')
 
@@ -130,6 +132,8 @@ function editCommodityGo(id) {
         'bottom_name' : $("input[name='bottom_name']").val(),
         'wechat_id' : $("input[name='we_chat_id']").val(),
         'wechat_url_info' : $("input[name='we_chat_url_info']").val(),
+        'uc_tj_id' : $("input[name='uc_tj_id']").val(),
+        'uc_tj' : $("input[name='uc_tj']").val(),
     }
     ajaxGo('admin/commodity/editCommodity')
 

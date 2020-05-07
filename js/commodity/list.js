@@ -287,6 +287,9 @@ function editCommodity(obj) {
     $("input[name='we_chat_url']").val(requestData.data.wechat_url);
     $("input[name='we_chat_id']").val(requestData.data.wechat_id);
     $("input[name='we_chat_url_info']").val(requestData.data.wechat_url_info);
+    //uc ocpc
+    $("input[name='uc_tj_id']").val(requestData.data.uc_tj_id);
+    $("input[name='uc_tj']").val(requestData.data.uc_tj);
 
     layer.open({
         type: 1,

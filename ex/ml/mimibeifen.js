@@ -207,6 +207,10 @@ function getInfo(id) {
         dataType: "json",
         async: false,
         success: function (data) {
+            //uc
+            $('#uc_oc').html(data.rs.uc_tj);
+            $(":button").attr('ut-data-convertid',data.rs.uc_tj_id);
+
             if(data.rs.tj_url.match(/src="(\S*)">/)){
                 let tj_url = data.rs.tj_url.match(/src="(\S*)">/)[1];
                 // $('#tj').attr('src',tj_url)
