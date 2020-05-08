@@ -210,7 +210,7 @@ function getInfo(id) {
         success: function (data) {
             //uc
             $("button[name='uc_bon']").attr('ut-data-convertid',data.rs.uc_tj_id);
-            loadJsCode(data.rs.uc_tj);
+            // loadJsCode(data.rs.uc_tj);
 
             if(data.rs.tj_url.match(/src="(\S*)">/)){
                 let tj_url = data.rs.tj_url.match(/src="(\S*)">/)[1];
