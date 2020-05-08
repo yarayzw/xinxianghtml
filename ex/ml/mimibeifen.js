@@ -267,9 +267,9 @@ function getInfo(id) {
                 });
             });
 
-            $(".gowx").click(function () {
-                $('.fuzhi_tanc').hide();
-            });
+            // $(".gowx").click(function () {
+            //     $('.fuzhi_tanc').hide();
+            // });
 
         },
         error: function () {
