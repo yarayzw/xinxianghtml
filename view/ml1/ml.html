@@ -320,7 +320,7 @@
 <input type="text" style="display:none;" id="wechat_id_display" value="{{wechat_id}}">
 <div id="gz_tc1" style="display: none;text-align: center;z-index: 99999">
     <div id="baidu_go" style="display: block">
-        <img src="0123.gif" onclick="sharebaidu()" alt="">
+        <img src="../../static/ml/0123.gif" onclick="sharebaidu()" alt="">
         <button style="border: #ccc 1px;width: 40%;border-radius: 25px;height: 40px;margin-right: 1%;font-size: 1.1rem;" onclick="closeLayer()">取消</button>
         <button style="border: #ccc 1px;width: 40%;color: white;background: #00cc00;font-size: 1.3rem;border-radius: 25px;height: 40px;margin-left: 1%" onclick="sharebaidu()">前往关注</button>
     </div>
@@ -345,12 +345,14 @@
 <script>
     {{tj_url}}
 </script>
+
+
 <script>
-    let wechat_id = {{wechat_id}};
-    let wechat_name = {{wechat_name}};
-    let wechat_link = {{wechat_url}};
-    let wechat_link_info = {{wechat_url_info}};
-    let ocpc_id = {{wechat_url_info}};
+    let wechat_id = '{{wechat_id}}';
+    let wechat_name = '{{wechat_name}}';
+    let wechat_link = '{{wechat_url}}';
+    let wechat_link_info = '{{wechat_url_info}}';
+    let ocpc_id = '{{wechat_url_info}}';
 </script>
 <script type="text/javascript" src="../../static/ml/new.js?v=1.0"></script>
 
