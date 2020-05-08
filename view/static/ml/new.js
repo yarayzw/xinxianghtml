@@ -63,8 +63,8 @@ $(function () {
         t.value = e;
         var clipboard = new ClipboardJS('#codeBtn');
         clipboard.on("success", function (e) {
-            if($('#ip_uc_tj').val() !== '{{uc_tj}}'){
-                utq('track', 'Other', $('#ip_uc_tj').val());
+            if($('#ip_uc_tj_id').val() !== '{{uc_tj_id}}'){
+                utq('track', 'Other', $('#ip_uc_tj_id').val());
             }
             //alert("复制成功！");
             $('.fuzhi_tanc').show();
