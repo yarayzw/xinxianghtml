@@ -408,7 +408,7 @@
 <!--结束广告end-->
 
 </div>
-
+<script type="text/javascript" src="https://s9.cnzz.com/z_stat.php?id=1278869469&web_id=1278869469"></script>
 </body>
 
 
@@ -420,7 +420,19 @@
 		// window.location.href= 'http://hot.kkkk.la/ex/listw/pc1.html?platform_id=' + getCookie('platform_id');
 		window.location.href= 'https://qqvip.oss-cn-shanghai.aliyuncs.com/vip/index.html';
 	});
+	$(document).ready(function() {
+		//监听滚动条
+		$("#big_div").scroll(function(){
 
+			var divHeight = $(this).height();
+			var nScrollHeight = $(this)[0].scrollHeight;
+			var nScrollTop = $(this)[0].scrollTop;
+			if(nScrollTop + divHeight + 350 >= nScrollHeight) {
+				//请求数据
+				$('#closeOnClick').hide();
+			}
+		});
+	});
 
 </script>
 
