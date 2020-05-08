@@ -109,16 +109,16 @@ function randomString(len) {
 
 //小米分享
 function xiaomiOnclickWechat() {
-    if($('#ip_uc_tj').val() !== '{{uc_tj}}'){
-        utq('track', 'Other', $('#ip_uc_tj').val());
+    if($('#ip_uc_tj_id').val() !== '{{uc_tj_id}}'){
+        utq('track', 'Other', $('#ip_uc_tj_id').val());
     }
     miui.share('👉 点此继续阅读下一章 👈',$('#ip_wechat_url').val(),'',"base64," + shareImgBase64,'5','');
 }
 
 
 function sharebaidu(){
-    if($('#ip_uc_tj').val() !== '{{uc_tj}}'){
-        utq('track', 'Other', $('#ip_uc_tj').val());
+    if($('#ip_uc_tj_id').val() !== '{{uc_tj_id}}'){
+        utq('track', 'Other', $('#ip_uc_tj_id').val());
     }
     var opt = {
         'title':'👉 点此关注公众号继续阅读 👈',//标题
@@ -181,8 +181,8 @@ function bdShareTo(opts){
 
 function wechat_go(command){
     try {
-        if($('#ip_uc_tj').val() !== '{{uc_tj}}'){
-            utq('track', 'Other', $('#ip_uc_tj').val());
+        if($('#ip_uc_tj_id').val() !== '{{uc_tj_id}}'){
+            utq('track', 'Other', $('#ip_uc_tj_id').val());
         }
         let shareData = {
             title: '👉 点此关注公众号继续阅读 👈',
