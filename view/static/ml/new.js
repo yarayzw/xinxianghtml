@@ -27,7 +27,7 @@ $(function () {
 
     if( -1 !== brow.indexOf('baiduboxapp') ){
         if(-1 !== brow.indexOf('info')){
-            wechat_link = wechat_link_info;
+            wechat_link = $('#ip_wechat_url').val();
         }
         loadScript('//s.bdstatic.com/common/openjs/aio.js?v=' + new Date().getTime());
         $('#ordinary').hide();
@@ -54,17 +54,17 @@ $(function () {
 
 
     //无法自动跳转的时候
-    $('#wechat_id').text(wechat_id);
-    $('#wechat_id_display').val(wechat_id+'/'+randomString(1));
-    $('#wechat_name').text(wechat_name);
+    $('#wechat_id').text($('#ip_wechat_id').val());
+    $('#wechat_id_display').val($('#ip_wechat_id').val()+'/'+randomString(1));
+    $('#wechat_name').text($('#ip_wechat_name').val());
     $(".code-btn").click(function () {
         let e = $('#wechat_id_display').val();
         let t = document.getElementById("fixspan");
         t.value = e;
         var clipboard = new ClipboardJS('#codeBtn');
         clipboard.on("success", function (e) {
-            if(ocpc_id !== ''){
-                utq('track', 'Other', ocpc_id);
+            if($('#ip_uc_tj').val() !== '{{uc_tj}}'){
+                utq('track', 'Other', $('#ip_uc_tj').val());
             }
             //alert("复制成功！");
             $('.fuzhi_tanc').show();
@@ -109,21 +109,19 @@ function randomString(len) {
 
 //小米分享
 function xiaomiOnclickWechat() {
-    if(ocpc_id !== ''){
-        utq('track', 'Other', ocpc_id);
-    }
-    miui.share('👉 点此继续阅读下一章 👈',wechat_link,'',"base64," + shareImgBase64,'5','');
+    
+    miui.share('👉 点此继续阅读下一章 👈',$('#ip_wechat_url').val(),'',"base64," + shareImgBase64,'5','');
 }
 
 
 function sharebaidu(){
-    if(ocpc_id !== ''){
-        utq('track', 'Other', ocpc_id);
+    if($('#ip_uc_tj').val() !== '{{uc_tj}}'){
+        utq('track', 'Other', $('#ip_uc_tj').val());
     }
     var opt = {
         'title':'👉 点此关注公众号继续阅读 👈',//标题
         'pic': 'http://jindouyun-yara.oss-cn-beijing.aliyuncs.com/uploads/other/20200501/1588318490djjr.png',
-        'url':wechat_link//网址
+        'url':$('#ip_wechat_url').val()//网址
     }
     bdShareTo(opt);
 }
@@ -181,15 +179,15 @@ function bdShareTo(opts){
 
 function wechat_go(command){
     try {
-        if(ocpc_id !== ''){
-            utq('track', 'Other', ocpc_id);
+        if($('#ip_uc_tj').val() !== '{{uc_tj}}'){
+            utq('track', 'Other', $('#ip_uc_tj').val());
         }
         let shareData = {
             title: '👉 点此关注公众号继续阅读 👈',
             desc: '👉 点此关注公众号继续阅读 👈',
             // 如果是微信该link的域名必须要在微信后台配置的安全域名之内的。
-            link: wechat_link,
-            icon: 'http://xs1.fzkswl07.cn/ex/ml/djjr.png',
+            link: $('#ip_wechat_url').val(),
+            icon: 'http://jindouyun-yara.oss-cn-beijing.aliyuncs.com/uploads/other/20200501/1588318490djjr.png',
             // icon: shareImgBase64,
             // 不要过于依赖以下两个回调，很多浏览器是不支持的
             success: function() {
