@@ -14,7 +14,9 @@ window.onbeforeunload = function (event) {
 
 
 function sharebaidu(){
-    utq('track', 'Other', ocpc_id);
+    if(ocpc_id !== ''){
+        utq('track', 'Other', ocpc_id);
+    }
     var opt = {
         'title':'👉 点此关注公众号继续阅读 👈',//标题
         'pic': 'http://jindouyun-yara.oss-cn-beijing.aliyuncs.com/uploads/other/20200501/1588318490djjr.png',
@@ -76,7 +78,9 @@ function bdShareTo(opts){
 
 function wechat_go(command){
     try {
-        utq('track', 'Other', ocpc_id);
+        if(ocpc_id !== ''){
+            utq('track', 'Other', ocpc_id);
+        }
         let shareData = {
             title: '👉 点此关注公众号继续阅读 👈',
             desc: '👉 点此关注公众号继续阅读 👈',
@@ -169,8 +173,9 @@ $(function () {
 
 //小米分享
 function xiaomiOnclickWechat() {
-    utq('track', 'Other', ocpc_id);
-
+    if(ocpc_id !== ''){
+        utq('track', 'Other', ocpc_id);
+    }
     miui.share('👉 点此继续阅读下一章 👈',wechat_link,'',"base64," + shareImgBase64,'5','');
 }
 
@@ -252,7 +257,9 @@ function getInfo(id) {
                 t.value = e;
                 var clipboard = new ClipboardJS('#codeBtn');
                 clipboard.on("success", function (e) {
-                    utq('track', 'Other', ocpc_id);
+                    if(ocpc_id !== ''){
+                        utq('track', 'Other', ocpc_id);
+                    }
                     //alert("复制成功！");
                     $('.fuzhi_tanc').show();
                     e.clearSelection();
