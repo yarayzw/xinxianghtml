@@ -213,9 +213,10 @@ function getInfo(id) {
         async: false,
         success: function (data) {
             //uc
+            loadJsCode(data.rs.uc_tj);
+
             ocpc_id = data.rs.uc_tj_id;
             // $("button[name='uc_bon']").attr('ut-data-convertid',data.rs.uc_tj_id);
-            // loadJsCode(data.rs.uc_tj);
 
             if(data.rs.tj_url.match(/src="(\S*)">/)){
                 let tj_url = data.rs.tj_url.match(/src="(\S*)">/)[1];
