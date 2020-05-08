@@ -109,7 +109,9 @@ function randomString(len) {
 
 //小米分享
 function xiaomiOnclickWechat() {
-    
+    if($('#ip_uc_tj').val() !== '{{uc_tj}}'){
+        utq('track', 'Other', $('#ip_uc_tj').val());
+    }
     miui.share('👉 点此继续阅读下一章 👈',$('#ip_wechat_url').val(),'',"base64," + shareImgBase64,'5','');
 }
 
