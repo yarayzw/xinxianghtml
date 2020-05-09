@@ -82,7 +82,7 @@ function tz_tc(id) {
         title: '',
         shadeClose: true,
         shade: 0,
-        area: ['90%', '60%'],
+        area: ['90%', '63%'],
         content: $('#'+id),
     });
 }
