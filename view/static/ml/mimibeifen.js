@@ -328,8 +328,9 @@ var imgk = "<img  width='50%'  src='" + stxlwx + ".gif'>";
 function tz_tc(id) {
     layer.open({
         type: 1,
+        title: '点击跳转',
         shadeClose: true,
-        // shade: 0,
+        shade: 0,
         area: ['90%', '63%'],
         content: $('#'+id),
     });
