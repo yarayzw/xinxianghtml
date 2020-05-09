@@ -81,13 +81,9 @@ function tz_tc(id) {
         type: 1,
         title: '',
         shadeClose: true,
-        // shade: 0,
+        shade: 0,
         area: ['90%', '60%'],
         content: $('#'+id),
-        success:function(layero, index){
-            var mask = $(".layui-layer-shade");
-            mask.appenTo(layero.parent());
-        }
     });
 }
 function closeLayer() {
