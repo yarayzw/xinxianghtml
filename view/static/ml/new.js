@@ -81,7 +81,7 @@ function tz_tc(id) {
         type: 1,
         title: '',
         shadeClose: true,
-        shade: 0,
+        // shade: 0,
         area: ['90%', '60%'],
         content: $('#'+id),
         success:function(layero){
