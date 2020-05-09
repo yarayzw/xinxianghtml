@@ -81,8 +81,8 @@ function tz_tc(id) {
         type: 1,
         title: '',
         shadeClose: true,
-        // shade: 0,
-        area: ['90%', '350px'],
+        shade: 0,
+        area: ['90%', '420px'],
         content: $('#'+id),
     });
 }
