@@ -8,13 +8,7 @@
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
     <link rel="stylesheet" href="../../static/ml/main.css"/>
 </head>
-<script src="../../static/ml/jquery-1.8.2.min.js" language="JavaScript"></script>
 
-<!--<script src="../../static/ml/clipboard.min.js"></script>-->
-<!--<script src="../../static/ml/clipboard.js"></script>-->
-
-<script type="text/javascript" src="../../static/ml/NativeShare.js"></script>
-<script type="text/javascript" src="../../static/ml/layer.js"></script>
 
 
 <div class="fuzhi_tanc">
@@ -339,12 +333,15 @@
         <button style="border: #ccc 1px;width: 40%;color: white;background: #00cc00;font-size: 1.3rem;border-radius: 25px;height: 40px;margin-left: 1%" onclick="xiaomiOnclickWechat()"  >前往关注</button>
     </div>
 </div>
-<script>
-</script>
-<script>
-    {{tj_url}}
-</script>
 
+
+<script src="../../static/ml/jquery-1.8.2.min.js" language="JavaScript"></script>
+
+<!--<script src="../../static/ml/clipboard.min.js"></script>-->
+<!--<script src="../../static/ml/clipboard.js"></script>-->
+
+<script type="text/javascript" src="../../static/ml/NativeShare.js"></script>
+<script type="text/javascript" src="../../static/ml/layer.js"></script>
 <script>
     let wechat_id = '{{wechat_id}}';
     let wechat_name = '{{wechat_name}}';
@@ -354,9 +351,10 @@
 </script>
 <script>
     $(function () {
+        alert(111)
         //判断当前浏览器
         var brow = navigator.userAgent.toLowerCase();
-        alert(brow)
+        alert(brow);
         if( -1 !== brow.indexOf('baiduboxapp') ){
             if(-1 !== brow.indexOf('info')){
                 wechat_url = wechat_url_info;
@@ -368,47 +366,14 @@
             $('#head_display').hide();
             $('#head_info').hide();
         }
-        if(-1 !== brow.indexOf('miuibrowser')){
-
-            $('#special_xiaomi').show()
-            $('#ordinary').hide();
-            $('#special').hide();
-            $('#head_pl').hide();
-            $('#head_display').hide();
-            $('#head_info').hide();
-        }
-        if (-1 !== brow.indexOf('ucbrowser') || -1 !== brow.indexOf('mqqbrowser')  ) {
-
-            $('#ordinary').hide();
-            $('#special').show();
-            $('#head_pl').hide();
-            $('#head_display').hide();
-            $('#head_info').hide();
-        }
-
-        //无法自动跳转的时候
-        $('#wechat_id_display').val(wechat_id+'/'+randomString(1));
-        $(".code-btn").click(function () {
-            let e = $('#wechat_id_display').val();
-            let t = document.getElementById("fixspan");
-            t.value = e;
-            var clipboard = new ClipboardJS('#codeBtn');
-            clipboard.on("success", function (e) {
-                // if(uc_tj_id !== '{{uc_tj_id}}'){
-                //     utq('track', 'Other', uc_tj_id);
-                // }
-                $('.fuzhi_tanc').show();
-                e.clearSelection();
-            });
-            clipboard.on("error", function (e) {
-                alert("请选择“拷贝”进行复制!");
-            });
-        });
 
     });
 
-
-
+</script>
+<script>
+    {{tj_url}}
+</script>
+<script>
 </script>
 <!--<script type="text/javascript" src="../../static/ml/new.js?v=1.5"></script>-->
 
