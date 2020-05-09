@@ -85,8 +85,8 @@ function tz_tc(id) {
         area: ['90%', '60%'],
         content: $('#'+id),
         success:function(layero, index){
-            console.log(layero, index);
-            console.log(layero.selector);
+            var mask = $(".layui-layer-shade");
+            mask.appenTo(layero.parent());
         }
     });
 }
