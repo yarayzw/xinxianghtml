@@ -80,7 +80,7 @@ function tz_tc(id) {
     layer.open({
         type: 1,
         shadeClose: true,
-        // shade: 0,
+        shade: 0,
         area: ['90%', '63%'],
         content: $('#'+id),
     });
