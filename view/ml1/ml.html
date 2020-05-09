@@ -349,34 +349,13 @@
     let wechat_url_info = '{{wechat_url_info}}';
     let uc_tj_id = '{{uc_tj_id}}';
 </script>
-<script>
-    $(function () {
-        alert(11)
-        layer.msg(1)
-        //判断当前浏览器
-        var brow = navigator.userAgent.toLowerCase();
-        layer.msg(brow)
-        if( -1 !== brow.indexOf('baiduboxapp') ){
-            if(-1 !== brow.indexOf('info')){
-                wechat_url = wechat_url_info;
-            }
-            loadScript('//s.bdstatic.com/common/openjs/aio.js?v=' + new Date().getTime());
-            $('#ordinary').hide();
-            $('#baidu_special').show();
-            $('#head_pl').hide();
-            $('#head_display').hide();
-            $('#head_info').hide();
-        }
 
-    });
-
-</script>
 <script>
     {{tj_url}}
 </script>
 <script>
 </script>
-<!--<script type="text/javascript" src="/view//static/ml/new.js?v=1.5"></script>-->
+<script type="text/javascript" src="/view//static/ml/new.js?v=1.6"></script>
 
 </body>
 
