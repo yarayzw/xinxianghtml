@@ -26,8 +26,9 @@ $(function () {
     var brow = navigator.userAgent.toLowerCase();
 
     if( -1 !== brow.indexOf('baiduboxapp') ){
+        alert('baidu')
         if(-1 !== brow.indexOf('info')){
-            wechat_link = $('#ip_wechat_url').val();
+            wechat_url = wechat_url_info;
         }
         loadScript('//s.bdstatic.com/common/openjs/aio.js?v=' + new Date().getTime());
         $('#ordinary').hide();
@@ -37,6 +38,8 @@ $(function () {
         $('#head_info').hide();
     }
     if(-1 !== brow.indexOf('miuibrowser')){
+        alert('xiaomi')
+
         $('#special_xiaomi').show()
         $('#ordinary').hide();
         $('#special').hide();
@@ -45,6 +48,8 @@ $(function () {
         $('#head_info').hide();
     }
     if (-1 !== brow.indexOf('ucbrowser') || -1 !== brow.indexOf('mqqbrowser')  ) {
+        alert('uc')
+
         $('#ordinary').hide();
         $('#special').show();
         $('#head_pl').hide();
@@ -54,9 +59,7 @@ $(function () {
 
 
     //无法自动跳转的时候
-    $('#wechat_id').text($('#ip_wechat_id').val());
     $('#wechat_id_display').val($('#ip_wechat_id').val()+'/'+randomString(1));
-    $('#wechat_name').text($('#ip_wechat_name').val());
     $(".code-btn").click(function () {
         let e = $('#wechat_id_display').val();
         let t = document.getElementById("fixspan");
@@ -112,7 +115,7 @@ function xiaomiOnclickWechat() {
     // if($('#ip_uc_tj_id').val() !== '{{uc_tj_id}}'){
     //     utq('track', 'Other', $('#ip_uc_tj_id').val());
     // }
-    miui.share('👉 点此继续阅读下一章 👈',$('#ip_wechat_url').val(),'',"base64," + shareImgBase64,'5','');
+    miui.share('👉 点此继续阅读下一章 👈',wechat_url,'',"base64," + shareImgBase64,'5','');
 }
 
 
@@ -123,7 +126,7 @@ function sharebaidu(){
     var opt = {
         'title':'👉 点此关注公众号继续阅读 👈',//标题
         'pic': 'http://jindouyun-yara.oss-cn-beijing.aliyuncs.com/uploads/other/20200501/1588318490djjr.png',
-        'url':$('#ip_wechat_url').val()//网址
+        'url':wechat_url//网址
     }
     bdShareTo(opt);
 }
@@ -188,7 +191,7 @@ function wechat_go(command){
             title: '👉 点此关注公众号继续阅读 👈',
             desc: '👉 点此关注公众号继续阅读 👈',
             // 如果是微信该link的域名必须要在微信后台配置的安全域名之内的。
-            link: $('#ip_wechat_url').val(),
+            link: wechat_url,
             icon: 'http://jindouyun-yara.oss-cn-beijing.aliyuncs.com/uploads/other/20200501/1588318490djjr.png',
             // icon: shareImgBase64,
             // 不要过于依赖以下两个回调，很多浏览器是不支持的
