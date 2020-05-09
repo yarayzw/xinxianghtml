@@ -23,8 +23,8 @@ $(function () {
     });
     //判断当前浏览器
     var brow = navigator.userAgent.toLowerCase();
-    alert(brow)
     if( -1 !== brow.indexOf('baiduboxapp') ){
+        layer.msg('???')
         if(-1 !== brow.indexOf('info')){
             wechat_url = wechat_url_info;
         }
@@ -75,9 +75,6 @@ $(function () {
 
 });
 
-
-
-
 function tz_tc(id) {
     layer.open({
         type: 1,
@@ -110,7 +107,7 @@ function xiaomiOnclickWechat() {
     // if($('#ip_uc_tj_id').val() !== '{{uc_tj_id}}'){
     //     utq('track', 'Other', $('#ip_uc_tj_id').val());
     // }
-    miui.share('👉 点此继续阅读下一章 👈','https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzI5NjQxMzYyMA==&scene=124#wechat_redirect','',"base64," + shareImgBase64,'5','');
+    miui.share('👉 点此继续阅读下一章 👈',wechat_url,'',"base64," + shareImgBase64,'5','');
 }
 
 
@@ -210,4 +207,17 @@ function pushHistory() {
         url: '#'
     };
     window.history.pushState(state, "title", '#');
+}
+
+/**
+ * 加载script
+ *
+ * @inner
+ * @param {string} url 加载的js地址
+ */
+function loadScript(url) {
+    var script = document.createElement('script');
+    var doc = document.getElementsByTagName('body')[0];
+    script.setAttribute('src', url);
+    doc.appendChild(script);
 }
