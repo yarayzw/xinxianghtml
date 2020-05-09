@@ -84,10 +84,9 @@ function tz_tc(id) {
         // shade: 0,
         area: ['90%', '60%'],
         content: $('#'+id),
-        success:function(layero){
-            var mask = $(".layui-layer-shade");
-            mask.appenTo($('#'+id).parent());
-            //其中：layero是弹层的DOM对象
+        success:function(layero, index){
+            console.log(layero, index);
+            console.log(layero.selector);
         }
     });
 }
