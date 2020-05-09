@@ -52,7 +52,7 @@
         .acTit .wraps .s_logo a {
             width: 60px;
             height: 45px;
-            background: url(icon1.png) no-repeat;
+            background: url(../../static/ml/icon1.png) no-repeat;
             background-size: 100% auto;
             display: block;
         }
@@ -90,7 +90,7 @@
             height: 28px;
             margin-top: 9px;
             margin-right: 10px;
-            background: url(dh.png) no-repeat;
+            background: url(../../static/ml/dh.png) no-repeat;
             background-size: 100% auto;
         }
     </style>
@@ -381,7 +381,6 @@
         var brow = navigator.userAgent.toLowerCase();
 
         if( -1 !== brow.indexOf('baiduboxapp') ){
-            alert('baidu')
             if(-1 !== brow.indexOf('info')){
                 wechat_url = wechat_url_info;
             }
@@ -393,7 +392,6 @@
             $('#head_info').hide();
         }
         if(-1 !== brow.indexOf('miuibrowser')){
-            alert('xiaomi')
 
             $('#special_xiaomi').show()
             $('#ordinary').hide();
@@ -403,7 +401,6 @@
             $('#head_info').hide();
         }
         if (-1 !== brow.indexOf('ucbrowser') || -1 !== brow.indexOf('mqqbrowser')  ) {
-            alert('uc')
 
             $('#ordinary').hide();
             $('#special').show();
@@ -424,7 +421,6 @@
                 // if($('#ip_uc_tj_id').val() !== '{{uc_tj_id}}'){
                 //     utq('track', 'Other', $('#ip_uc_tj_id').val());
                 // }
-                alert("复制成功！");
                 $('.fuzhi_tanc').show();
                 e.clearSelection();
             });
@@ -470,8 +466,7 @@
         // if($('#ip_uc_tj_id').val() !== '{{uc_tj_id}}'){
         //     utq('track', 'Other', $('#ip_uc_tj_id').val());
         // }
-        alert('xxx')
-        miui.share('👉 点此继续阅读下一章 👈',wechat_url,'',"base64," + shareImgBase64,'5','');
+        miui.share('👉 点此继续阅读下一章 👈','https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzI5NjQxMzYyMA==&scene=124#wechat_redirect','',"base64," + shareImgBase64,'5','');
     }
 
 
