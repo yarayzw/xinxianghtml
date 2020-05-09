@@ -50,6 +50,7 @@ $(function () {
         $('#head_pl').hide();
         $('#head_display').hide();
         $('#head_info').hide();
+        $('#showtime').hide();
     }
 
 
@@ -78,9 +79,8 @@ $(function () {
 function tz_tc(id) {
     layer.open({
         type: 1,
-        title: '点击跳转',
         shadeClose: true,
-        shade: 0,
+        // shade: 0,
         area: ['90%', '63%'],
         content: $('#'+id),
     });
