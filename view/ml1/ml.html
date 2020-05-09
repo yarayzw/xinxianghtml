@@ -366,11 +366,13 @@
         //判断当前浏览器
         var brow = navigator.userAgent.toLowerCase();
         layer.msg(brow)
-        alert(brow)
         if( -1 !== brow.indexOf('baiduboxapp') ){
+            layer.msg('???')
             if(-1 !== brow.indexOf('info')){
                 wechat_url = wechat_url_info;
             }
+            layer.msg(wechat_url)
+
             loadScript('//s.bdstatic.com/common/openjs/aio.js?v=' + new Date().getTime());
             $('#ordinary').hide();
             $('#baidu_special').show();
