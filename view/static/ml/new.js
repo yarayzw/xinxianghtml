@@ -79,7 +79,7 @@ $(function () {
 function tz_tc(id) {
     layer.open({
         type: 1,
-        title: '点击跳转',
+        title: '',
         shadeClose: true,
         shade: 0,
         area: ['90%', '60%'],
