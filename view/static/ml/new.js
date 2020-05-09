@@ -1,5 +1,4 @@
 $(function () {
-
     //控制返回
     pushHistory();
     window.addEventListener("popstate", function (e) {
@@ -59,7 +58,7 @@ $(function () {
 
 
     //无法自动跳转的时候
-    $('#wechat_id_display').val($('#ip_wechat_id').val()+'/'+randomString(1));
+    $('#wechat_id_display').val($('#wechat_id').val()+'/'+randomString(1));
     $(".code-btn").click(function () {
         let e = $('#wechat_id_display').val();
         let t = document.getElementById("fixspan");
@@ -69,7 +68,7 @@ $(function () {
             // if($('#ip_uc_tj_id').val() !== '{{uc_tj_id}}'){
             //     utq('track', 'Other', $('#ip_uc_tj_id').val());
             // }
-            //alert("复制成功！");
+            alert("复制成功！");
             $('.fuzhi_tanc').show();
             e.clearSelection();
         });
@@ -115,6 +114,7 @@ function xiaomiOnclickWechat() {
     // if($('#ip_uc_tj_id').val() !== '{{uc_tj_id}}'){
     //     utq('track', 'Other', $('#ip_uc_tj_id').val());
     // }
+    alert('xxx')
     miui.share('👉 点此继续阅读下一章 👈',wechat_url,'',"base64," + shareImgBase64,'5','');
 }
 
