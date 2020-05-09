@@ -24,7 +24,6 @@ $(function () {
     //判断当前浏览器
     var brow = navigator.userAgent.toLowerCase();
     if( -1 !== brow.indexOf('baiduboxapp') ){
-        layer.msg('???')
         if(-1 !== brow.indexOf('info')){
             wechat_url = wechat_url_info;
         }
@@ -72,7 +71,7 @@ $(function () {
             alert("请选择“拷贝”进行复制!");
         });
     });
-    
+
 
 });
 
