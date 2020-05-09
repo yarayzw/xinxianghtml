@@ -95,7 +95,7 @@
                                 <img src="/static/pc/b1.jpg" style="width:100%; margin-top: -15px;">
 
                                 <!--底部二维码-->
-                                <img id="qrcode_bottom_view_2" style="position: absolute;width: 25%;left:37.5%;top:5%;" src="{{qr_code}}">
+                                <img id="qr_code_bottom" style="position: absolute;width: 25%;left:37.5%;top:5%;" src="{{qr_code}}">
                             </p>
                             <br>
 
@@ -164,7 +164,7 @@
                             <div style="clear: both;"></div>
                             <br>
                             <!--版权-->
-                            <p style="text-align: center;"> <span style="font-size: 10px; color: rgb(224, 224, 224);" id="bottom_name_view_2">南宁博纵科技有限责任公司</p>
+                            <p style="text-align: center;"> <span style="font-size: 10px; color: rgb(224, 224, 224);" id="bottom_name_view_2">{{bottom_name}}</p>
                         </div>
                     </div>
                     <div class="qr_code_pc_outer">
@@ -172,7 +172,7 @@
                             <div class="qr_code_pc">
                                 <p><img src="/static/pc/ra.png"></p>
                                 <!-- 右边二维码-->
-                                <p style="text-align: center"><img class="qr_code" id="qrcode_rigth_view_2" style="width: 95%" src="{{qr_code}}"></p>
+                                <p style="text-align: center"><img class="qr_code" id="qr_code_rigth" style="width: 95%" src="{{qr_code}}"></p>
                                 <p style=""><img src="/static/pc/rb.gif"></p>
                             </div>
                         </div>
@@ -188,12 +188,36 @@
 </script>
 </body>
 <script language="javascript" type="text/javascript">
-
+    let qr_code = {{qr_code}};
+    let update_at = {{update_at}};
     $("#closeOnClick").on("click",function(){
         // window.location.href= 'http://hot.kkkk.la/ex/listw/pc1.html?platform_id=' + getCookie('platform_id');
         window.location.href= 'https://qqvip.oss-cn-shanghai.aliyuncs.com/vip/index.html';
     });
     $(document).ready(function() {
+        let myDate = new Date();
+        let qr_code_s = qr_code.split('@@@');
+        let update_at_c = (new Date(update_at)).getTime() / 1000;
+
+        let year=myDate.getFullYear();        //获取当前年
+        let month=myDate.getMonth()+1;   //获取当前月
+        let date=myDate.getDate();            //获取当前日
+
+
+        let h=myDate.getHours();              //获取当前小时数(0-23)
+        let m=myDate.getMinutes();          //获取当前分钟数(0-59)
+        let s=myDate.getSeconds();
+        let now = year+'-'+getNow(month)+"-"+getNow(date);
+        let now_c = (new Date(now)).getTime() / 1000;
+
+        let time = (now_c - update_at_c) / 24/3600;
+
+        if (time >= qr_code_s.length) {
+            time = time % qr_code_s.length;
+        }
+        $('#qr_code_bottom').attr('src',qr_code_s[time]);
+        $('#qr_code_rigth').attr('src',qr_code_s[time]);
+
         //监听滚动条
         $("#big_div").scroll(function(){
 
