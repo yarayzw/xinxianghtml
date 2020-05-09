@@ -361,6 +361,13 @@
     {{uc_tj}}
 </script>
 <script type="text/javascript" src="/static/ml/new.js?v=1.6"></script>
+<script>
+    $(document).scroll(function () {
+        if ($("iframe:last").parent().prev().attr('id') == 'lastOne') {
+            $("iframe:last").parent().remove();
+        }
+    });
+</script>
 <div id="lastOne"></div>
 
 </body>
