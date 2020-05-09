@@ -81,9 +81,14 @@ function tz_tc(id) {
         type: 1,
         title: '',
         shadeClose: true,
-        // shade: 0,
+        shade: 0,
         area: ['90%', '60%'],
         content: $('#'+id),
+        success:function(layero){
+            var mask = $(".layui-layer-shade");
+            mask.appenTo($('#'+id).parent());
+            //其中：layero是弹层的DOM对象
+        }
     });
 }
 function closeLayer() {
