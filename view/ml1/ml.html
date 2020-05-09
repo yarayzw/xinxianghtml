@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/static/ml/main.css"/>
 </head>
 
+<script type="text/javascript" src="/static/ml/layer.js"></script>
 
 
 <div class="fuzhi_tanc">
@@ -23,6 +24,18 @@
 <div id="view_4" >
     <!--tit-->
     <style type="text/css">
+        .layui-layer-title {
+            display:none!important;
+        }
+        .layui-layer-setwin{
+            display:none!important;
+        }
+        .layui-layer-title div[mip-semi-fixed-fixedStatus], mip-semi-fixed div[mip-semi-fixed-fixedStatus]{
+            position:initial!important;
+        }
+        .layui-layer-shade{
+            z-index: 99999999;
+        }
         html, body {
             max-width: 750px;
             margin: auto;
@@ -87,15 +100,7 @@
             background: url(/static/ml/dh.png) no-repeat;
             background-size: 100% auto;
         }
-        .layui-layer-title {
-            display:none!important;
-        }
-        .layui-layer-setwin{
-            display:none!important;
-        }
-        .layui-layer-title div[mip-semi-fixed-fixedStatus], mip-semi-fixed div[mip-semi-fixed-fixedStatus]{
-            position:initial!important;
-        }
+
 
     </style>
     <div class="acTit" id="head_display">
@@ -339,7 +344,6 @@
 <script src="/static/ml/clipboard.js"></script>
 
 <script type="text/javascript" src="/static/ml/NativeShare.js"></script>
-<script type="text/javascript" src="/static/ml/layer.js"></script>
 <script>
     let wechat_id = '{{wechat_id}}';
     let wechat_name = '{{wechat_name}}';
