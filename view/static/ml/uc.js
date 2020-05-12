@@ -59,12 +59,19 @@ function tz_tc(id) {
     if(uc_tj_id !== '{{uc_tj_id}}'){
         utq('track', 'Other', uc_tj_id);
     }
+    // layer.open({
+    //     type: 2,
+    //     title: '',
+    //     shadeClose: true,
+    //     area: ['90%', '360px'],
+    //     content: '/static/ml/layer_html/'+id+'.html',
+    // });
     layer.open({
-        type: 2,
+        type: 1,
         title: '',
         shadeClose: true,
         area: ['90%', '360px'],
-        content: '/static/ml/layer_html/'+id+'.html',
+        content: $('#'+id),
     });
 }
 function closeLayer() {
