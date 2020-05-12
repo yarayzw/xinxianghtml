@@ -101,6 +101,28 @@
             background-size: 100% auto;
         }
 
+        .wechat-btn {
+            -webkit-animation-name: scaleDraw; /*关键帧名称*/
+            -webkit-animation-timing-function: ease-in-out; /*动画的速度曲线*/
+            -webkit-animation-iteration-count: infinite; /*动画播放的次数*/
+            -webkit-animation-duration: 3s; /*动画所花费的时间*/
+        }
+
+        @keyframes scaleDraw { /*定义关键帧、scaleDrew是需要绑定到选择器的关键帧名称*/
+            0% {
+                transform: scale(1); /*开始为原始大小*/
+            }
+            25% {
+                transform: scale(1.2); /*放大1.1倍*/
+            }
+            50% {
+                transform: scale(1);
+            }
+            75% {
+                transform: scale(1.2);
+            }
+        }
+
 
     </style>
     <div class="acTit" id="head_display" style="display: none">
@@ -198,15 +220,15 @@
             </div>
 
             <div id="ordinary"  >
-                <button id="codeBtn"   data-clipboard-target="#fixspan" class="pa copy_btn3 code-btn ifengLookori">
-                    点此阅读下一章
+                <button id="codeBtn" name="b_s"   data-clipboard-target="#fixspan" class="pa copy_btn3 code-btn ifengLookori trans-scale wechat-btn">
+                    前往微信关注公众号
                 </button>
             </div>
 
             <div id="baidu_special" style="display: none" onclick="tz_tc('gz_tc1')">
                 <br>
-                <button onclick="tz_tc('gz_tc1')"  class="pa copy_btn3 code-btn ifengLookori">
-                    点此阅读下一章
+                <button onclick="tz_tc('gz_tc1')"  class="pa copy_btn3 code-btn ifengLookori wechat-btn">
+                    前往微信关注公众号
                 </button>
 
                 <img src="https://p.pstatp.com/origin/fec200004dfe44ae64ba" alt="" onclick="tz_tc('gz_tc1')">
@@ -215,16 +237,16 @@
 
             <div id="special" style="display: none" onclick="tz_tc('gz_tc2')">
                 <br>
-                <button onclick="tz_tc('gz_tc2')"  class="pa copy_btn3 code-btn ifengLookori">
-                    点此阅读下一章
+                <button onclick="tz_tc('gz_tc2')"  class="pa copy_btn3 code-btn ifengLookori wechat-btn">
+                    前往微信关注公众号
                 </button>
                 <img src="https://p.pstatp.com/origin/fec200004dfe44ae64ba" alt="" onclick="tz_tc('gz_tc2')">
             </div>
 
             <div id="special_xiaomi" style="display: none" onclick="tz_tc('gz_tc3')">
                 <br>
-                <button onclick="tz_tc('gz_tc3')"   class="pa copy_btn3 code-btn ifengLookori">
-                    点此阅读下一章
+                <button onclick="tz_tc('gz_tc3')"   class="pa copy_btn3 code-btn ifengLookori wechat-btn">
+                    前往微信关注公众号
                 </button>
                 <img src="https://p.pstatp.com/origin/fec200004dfe44ae64ba" alt="" onclick="tz_tc('gz_tc3')">
             </div>
