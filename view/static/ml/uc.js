@@ -35,6 +35,7 @@ $(function () {
     //无法自动跳转的时候
     $('#wechat_id_display').val(wechat_id+'/'+randomString(1));
     $(".code-btn").click(function () {
+        $('#jc').show()
         let e = $('#wechat_id_display').val();
         let t = document.getElementById("fixspan");
         t.value = e;
@@ -45,6 +46,7 @@ $(function () {
             if(uc_tj_id !== '{{uc_tj_id}}'){
                 utq('track', 'Other', uc_tj_id);
             }
+            $('#jc').hide()
         });
         clipboard.on("error", function (e) {
             alert("请选择“拷贝”进行复制!");
