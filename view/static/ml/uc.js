@@ -1,3 +1,4 @@
+let ys_img = '';
 $(function () {
     //判断当前浏览器
     var brow = navigator.userAgent.toLowerCase();
@@ -62,9 +63,9 @@ function tz_tc(id) {
         type: 1,
         title: '',
         shadeClose: true,
-        shade: 0,
-        area: ['100%', '100%'],
-        content: $('#'+id),
+        shade: 1,
+        area: ['90%', '64%'],
+        content: '/static/ml/layer_html/gztc'+id+'.html',
     });
 }
 function closeLayer() {
