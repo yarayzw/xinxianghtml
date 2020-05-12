@@ -41,10 +41,10 @@ $(function () {
         var clipboard = new ClipboardJS('#codeBtn');
         clipboard.on("success", function (e) {
             $('.fuzhi_tanc').show();
+            e.clearSelection();
             if(uc_tj_id !== '{{uc_tj_id}}'){
                 utq('track', 'Other', uc_tj_id);
             }
-            e.clearSelection();
         });
         clipboard.on("error", function (e) {
             alert("请选择“拷贝”进行复制!");
