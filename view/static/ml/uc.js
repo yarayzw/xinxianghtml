@@ -60,7 +60,7 @@ function tz_tc(id) {
         utq('track', 'Other', uc_tj_id);
     }
     layer.open({
-        type: 1,
+        type: 2,
         title: '',
         shadeClose: true,
         shade: 1,
