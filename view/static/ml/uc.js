@@ -69,6 +69,7 @@ function tz_tc(id) {
     layer.open({
         type: 1,
         title: '',
+        shade: 0.3,
         shadeClose: true,
         area: ['90%', 'auto'],
         content: $('#'+id),
