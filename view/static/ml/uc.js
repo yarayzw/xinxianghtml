@@ -70,7 +70,7 @@ function tz_tc(id) {
         type: 1,
         title: '',
         shadeClose: true,
-        area: ['90%', '360px'],
+        area: ['90%', 'auto'],
         content: $('#'+id),
     });
 }
