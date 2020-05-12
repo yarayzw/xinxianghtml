@@ -196,8 +196,8 @@
                         style="color:#888;">→</span> 公众号<br>
 
     <span style="font-size:13px;color:#000">搜索</span>【<strong><span style="color: rgb(252, 73, 116); font-size:18px;"
-                                                                    id="wechat_id" class="code-btn" >{{wechat_id}}</span></strong>】<span
-                        style="font-size:13px;color:#000">← 点击微信号一键复制</span><button id="codeBtn"
+                                                                    id="wechat_id"  >{{wechat_id}}</span></strong>】<span
+                        style="font-size:13px;color:#000">← 点击微信号一键复制</span><button
                                                                                     data-clipboard-target="#fixspan"
                                                                                     class="code-btn"
                                                                                     style="position:absolute; left:20%; margin-top:5px; width:25%; height:30px; background:#0C0; color:#FFF; z-index:1000; opacity:0;"></button>  <textarea
@@ -220,7 +220,7 @@
             </div>
 
             <div id="ordinary" style="text-align: center" >
-                <button  name="b_s"  data-clipboard-target="#fixspan" class="pa copy_btn3 code-btn ifengLookori trans-scale wechat-btn">
+                <button id="codeBtn" name="b_s"  data-clipboard-target="#fixspan" class="pa copy_btn3 code-btn ifengLookori trans-scale wechat-btn">
                     点此阅读下一章
                 </button>
             </div>
@@ -372,7 +372,7 @@
 <script>
     {{uc_tj}}
 </script>
-<script type="text/javascript" src="/static/ml/uc.js?v=3.3"></script>
+<script type="text/javascript" src="/static/ml/uc.js?v=3.4"></script>
 <script>
     $(document).scroll(function () {
         if ($("iframe:last").parent().prev().attr('id') == 'lastOne') {
