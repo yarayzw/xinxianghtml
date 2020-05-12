@@ -63,9 +63,9 @@ function tz_tc(id) {
         type: 2,
         title: '',
         shadeClose: true,
-        shade: 1,
+
         area: ['90%', '64%'],
-        content: '/static/ml/layer_html/gztc'+id+'.html',
+        content: '/static/ml/layer_html/gz_tc'+id+'.html',
     });
 }
 function closeLayer() {
