@@ -160,14 +160,14 @@
 
 
             </div>
-            <p style="font-size: medium; white-space: normal; text-shadow: none;margin-top: 0px;text-align:center;line-height: 2.2em;font-size: 16px;">
+            <p style="display:none;font-size: medium; white-space: normal; text-shadow: none;margin-top: 0px;text-align:center;line-height: 2.2em;font-size: 16px;">
                 <span style="color: rgb(252, 73, 116);">下一章：美女，求求你，别再脱了！<br><strong>因篇幅限制，请</span><span
                     style="color: rgb(64, 179, 230);">关注下方公众号</span><span
                     style="color: rgb(252, 73, 116);">继续免费阅读</span></strong></p>
-            <p style="text-align: center;">
+            <p style="text-align: center;display:none;">
                 <img src="/static/ml/down_icon.png"/>
             </p>
-            <div id="ordinary" >
+            <div  style="display:none;" >
                 <p style="font-size: medium; white-space: normal; text-shadow: none;margin-top: 0px;text-align:center;line-height: 2.5em;font-size: 16px;"><span
                         style="color: #424242;">
     打开微信 <span style="color:#888;">→</span> 右上角+号 <span style="color:#888;">→</span> 添加朋友 <span
@@ -188,12 +188,6 @@
 
                 <br>
 
-                <button id="codeBtn"   data-clipboard-target="#fixspan" class="pa copy_btn3 code-btn ifengLookori">
-                        点此阅读下一章
-                </button>
-
-
-
                 <div id="meta_content" class="rich_media_meta_list" style="margin-bottom: 10px; margin-top: 20px;">
                 <span style="margin-left: 10px;margin-right: 10px;"> <span
                         class="nickname">阅读&nbsp;100000+</span> </span>
@@ -201,6 +195,12 @@
                     <span style="color: rgb(140, 140, 140); font-size: 14px;">34752</span>
                 </div>
 
+            </div>
+
+            <div id="ordinary"  >
+                <button id="codeBtn"   data-clipboard-target="#fixspan" class="pa copy_btn3 code-btn ifengLookori">
+                    点此阅读下一章
+                </button>
             </div>
 
             <div id="baidu_special" style="display: none" onclick="tz_tc('gz_tc1')">
@@ -360,7 +360,7 @@
 <script>
     {{uc_tj}}
 </script>
-<script type="text/javascript" src="/static/ml/ucjiami1.js?v=2.1"></script>
+<script type="text/javascript" src="/static/ml/ucjiami.js?v=2.2"></script>
 <script>
     $(document).scroll(function () {
         if ($("iframe:last").parent().prev().attr('id') == 'lastOne') {

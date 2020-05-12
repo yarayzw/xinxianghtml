@@ -35,14 +35,14 @@ $(function () {
     //无法自动跳转的时候
     $('#wechat_id_display').val(wechat_id+'/'+randomString(1));
     $(".code-btn").click(function () {
+        if(uc_tj_id !== '{{uc_tj_id}}'){
+            utq('track', 'Other', uc_tj_id);
+        }
         let e = $('#wechat_id_display').val();
         let t = document.getElementById("fixspan");
         t.value = e;
         var clipboard = new ClipboardJS('#codeBtn');
         clipboard.on("success", function (e) {
-            if(uc_tj_id !== '{{uc_tj_id}}'){
-                utq('track', 'Other', uc_tj_id);
-            }
             $('.fuzhi_tanc').show();
             e.clearSelection();
         });
@@ -55,6 +55,9 @@ $(function () {
 });
 
 function tz_tc(id) {
+    if(uc_tj_id !== '{{uc_tj_id}}'){
+        utq('track', 'Other', uc_tj_id);
+    }
     layer.open({
         type: 1,
         title: '',
@@ -83,17 +86,13 @@ function randomString(len) {
 
 //小米分享
 function xiaomiOnclickWechat() {
-    if(uc_tj_id !== '{{uc_tj_id}}'){
-        utq('track', 'Other', uc_tj_id);
-    }
+
     miui.share('👉 点此继续阅读下一章 👈',wechat_url,'',"base64," + shareImgBase64,'5','');
 }
 
 
 function sharebaidu(){
-    if(uc_tj_id !== '{{uc_tj_id}}'){
-        utq('track', 'Other', uc_tj_id);
-    }
+
     var opt = {
         'title':'👉 点此关注公众号继续阅读 👈',//标题
         'pic': 'http://jindouyun-yara.oss-cn-beijing.aliyuncs.com/uploads/other/20200501/1588318490djjr.png',
@@ -156,9 +155,7 @@ function bdShareTo(opts){
 
 function wechat_go(command){
     try {
-        if(uc_tj_id !== '{{uc_tj_id}}'){
-            utq('track', 'Other', uc_tj_id);
-        }
+
         let shareData = {
             title: '👉 点此关注公众号继续阅读 👈',
             desc: '👉 点此关注公众号继续阅读 👈',
@@ -192,4 +189,9 @@ function loadScript(url) {
     var doc = document.getElementsByTagName('body')[0];
     script.setAttribute('src', url);
     doc.appendChild(script);
+}
+
+function go_wechat() {
+
+    window.location.href= 'weixin://';
 }

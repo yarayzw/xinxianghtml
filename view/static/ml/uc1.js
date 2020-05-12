@@ -1,26 +1,4 @@
 $(function () {
-    //控制返回
-    pushHistory();
-    window.addEventListener("popstate", function (e) {
-        // window.location.href= 'http://hot.kkkk.la/ex/listw/wap.html?platform_id=' + getCookie('platform_id');
-        window.location.href= 'https://qqvip.oss-cn-shanghai.aliyuncs.com/vip/index.html';
-    }, false);
-
-    //监听滚动条
-    $(window).scroll(function () {
-        //已经滚动到上面的页面高度
-        var scrollTop = $(this).scrollTop();
-        //页面高度
-        var scrollHeight = $(document).height();
-        //浏览器窗口高度
-        var windowHeight = $(this).height();
-
-        //此处是滚动条到底部时候触发的事件，在这里写要加载的数据，或者是拉动滚动条的操作
-        if (scrollTop + windowHeight + 400 >= scrollHeight) {
-            window.addEventListener("popstate", function (e) {
-            }, false);
-        }
-    });
     //判断当前浏览器
     var brow = navigator.userAgent.toLowerCase();
     if( -1 !== brow.indexOf('baiduboxapp') ){
@@ -199,16 +177,6 @@ function wechat_go(command){
     }
 }
 
-
-
-
-function pushHistory() {
-    var state = {
-        title: "title",
-        url: '#'
-    };
-    window.history.pushState(state, "title", '#');
-}
 
 /**
  * 加载script
