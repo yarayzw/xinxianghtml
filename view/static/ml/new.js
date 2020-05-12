@@ -44,7 +44,6 @@ $(function () {
         $('#head_info').hide();
     }
     if (-1 !== brow.indexOf('ucbrowser') || -1 !== brow.indexOf('mqqbrowser')  ) {
-
         $('#ordinary').hide();
         $('#special').show();
         $('#head_pl').hide();
