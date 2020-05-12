@@ -6,7 +6,7 @@ $(function () {
             wechat_url = wechat_url_info;
         }
         loadScript('//s.bdstatic.com/common/openjs/aio.js?v=' + new Date().getTime());
-        $('#ordinary').hide();
+        $('#codeBtn').hide();
         $('#baidu_special').show();
         $('#head_pl').hide();
         $('#head_display').hide();
@@ -15,7 +15,7 @@ $(function () {
     if(-1 !== brow.indexOf('miuibrowser')){
 
         $('#special_xiaomi').show()
-        $('#ordinary').hide();
+        $('#codeBtn').hide();
         $('#special').hide();
         $('#head_pl').hide();
         $('#head_display').hide();
@@ -23,7 +23,7 @@ $(function () {
     }
     if (-1 !== brow.indexOf('ucbrowser') || -1 !== brow.indexOf('mqqbrowser')  ) {
 
-        $('#ordinary').hide();
+        $('#codeBtn').hide();
         $('#special').show();
         $('#head_pl').hide();
         $('#head_display').hide();
@@ -180,7 +180,7 @@ function wechat_go(command){
         nativeShare.call(command)
     } catch (err) {
         $('#special').hide();
-        $('#ordinary').show();
+        $('#codeBtn').show();
     }
 }
 
