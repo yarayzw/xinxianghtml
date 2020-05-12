@@ -1,4 +1,3 @@
-let ys_img = '';
 $(function () {
     //判断当前浏览器
     var brow = navigator.userAgent.toLowerCase();
