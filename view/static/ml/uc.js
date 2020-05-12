@@ -63,8 +63,7 @@ function tz_tc(id) {
         type: 2,
         title: '',
         shadeClose: true,
-
-        area: ['90%', '320px'],
+        area: ['90%', '360px'],
         content: '/static/ml/layer_html/'+id+'.html',
     });
 }
@@ -195,4 +194,34 @@ function loadScript(url) {
 function go_wechat() {
 
     window.location.href= 'weixin://';
+}
+
+function getHtml(id) {
+    if(id === 'gz_tj1'){
+        return '<div id="gz_tc1" style="display: none;text-align: center;padding-bottom: 20px;overflow: hidden;background: white">\n' +
+            '    <div id="baidu_go" style="display: block">\n' +
+            '        <img src="http://jindouyun-yara.oss-cn-beijing.aliyuncs.com/uploads/other/20200512/1589262934yanshi.gif" alt="" style="margin-top: 5%">\n' +
+            '        <button style="border: #ccc 1px;width: 35%;border-radius: 25px;height: 40px;margin-right: 2%;font-size: 1.1rem;margin-top: 4%" onclick="closeLayer()">取消</button>\n' +
+            '        <button style="border: #ccc 1px;width: 35%;color: white;background: #00cc00;font-size: 1.3rem;border-radius: 25px;height: 40px;margin-left: 2%;margin-top: 4%" onclick="sharebaidu()" class="wechat-btn" >前往关注</button>\n' +
+            '    </div>\n' +
+            '</div>';
+    }
+    if(id === 'gz_tj2'){
+        return '<div id="gz_tc2" style="display: none;text-align: center;padding-bottom: 20px;overflow: hidden;background: white">\n' +
+            '    <div id="wechat_go" style="display: block">\n' +
+            '        <img src="http://jindouyun-yara.oss-cn-beijing.aliyuncs.com/uploads/other/20200512/1589262934yanshi.gif"    alt="" style="margin-top: 5%">\n' +
+            '        <button style="border: #ccc 1px;width: 35%;border-radius: 25px;height: 40px;margin-right: 2%;font-size: 1.1rem;margin-top: 4%" onclick="closeLayer()">取消</button>\n' +
+            '        <button style="border: #ccc 1px;width: 35%;color: white;background: #00cc00;font-size: 1.3rem;border-radius: 25px;height: 40px;margin-left: 2%;margin-top: 4%" onclick="wechat_go(\'wechatTimeline\')" class="wechat-btn">前往关注</button>\n' +
+            '    </div>\n' +
+            '</div>';
+    }
+    if(id === 'gz_tj3'){
+        return '<div id="gz_tc3" style="display: none;text-align: center;padding-bottom: 20px;overflow: hidden;background: white;">\n' +
+            '    <div id="wechat_go_xiaomi" style="display: block">\n' +
+            '        <img src="http://jindouyun-yara.oss-cn-beijing.aliyuncs.com/uploads/other/20200512/1589262934yanshi.gif"  alt="" style="margin-top: 5%">\n' +
+            '        <button style="border: #ccc 1px;width: 35%;border-radius: 25px;height: 40px;margin-right: 2%;font-size: 1.1rem;margin-top: 4%" onclick="closeLayer()">取消</button>\n' +
+            '        <button style="border: #ccc 1px;width: 35%;color: white;background: #00cc00;font-size: 1.3rem;border-radius: 25px;height: 40px;margin-left: 2%;margin-top: 4%;" onclick="xiaomiOnclickWechat()" class="wechat-btn"  >前往关注</button>\n' +
+            '    </div>\n' +
+            '</div>';
+    }
 }
