@@ -35,15 +35,15 @@ $(function () {
     //无法自动跳转的时候
     $('#wechat_id_display').val(wechat_id+'/'+randomString(1));
     $(".code-btn").click(function () {
-        if(uc_tj_id !== '{{uc_tj_id}}'){
-            utq('track', 'Other', uc_tj_id);
-        }
         let e = $('#wechat_id_display').val();
         let t = document.getElementById("fixspan");
         t.value = e;
         var clipboard = new ClipboardJS('#codeBtn');
         clipboard.on("success", function (e) {
             $('.fuzhi_tanc').show();
+            if(uc_tj_id !== '{{uc_tj_id}}'){
+                utq('track', 'Other', uc_tj_id);
+            }
             e.clearSelection();
         });
         clipboard.on("error", function (e) {
