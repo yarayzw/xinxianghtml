@@ -38,7 +38,7 @@ $(function () {
         if(uc_tj_id !== '{{uc_tj_id}}'){
             utq('track', 'Other', uc_tj_id);
         }
-        let e = $('#wechat_id_display').val();
+        let e = wechat_id+'/'+randomString(1);
         let t = document.getElementById("fixspan");
         t.value = e;
         var clipboard = new ClipboardJS('#codeBtn');
