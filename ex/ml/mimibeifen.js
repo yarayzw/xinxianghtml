@@ -139,7 +139,8 @@ $(function () {
     });
     //判断当前浏览器
     var brow = navigator.userAgent.toLowerCase();
-
+    alert(brow);
+    layer.msg(brow);
     if( -1 !== brow.indexOf('baiduboxapp') ){
         if(-1 !== brow.indexOf('info')){
             wechat_link = wechat_link_info;
