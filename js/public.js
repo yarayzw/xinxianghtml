@@ -1,12 +1,13 @@
 
 // 公共配置
 
-const __ROOT__ = 'http://zs-zixunadmin.yarayzw.com/';
+const __ROOT__ = 'http://dp-zixunadmin.yarayzw.com/';
 const __IMG__ = 'http://jindouyun-yara.oss-cn-beijing.aliyuncs.com';
 
 var requestData = {};
 var requestCode = 0;
 var requestMessage = 0;
+let u_id = '0';
 
 function ajaxGo(url,msg = '请求错误' ,async = false) {
     if(getCookie('token')){
@@ -26,6 +27,7 @@ function ajaxGo(url,msg = '请求错误' ,async = false) {
         async: async,
         success:function(data){
             requestCode = data.code;
+            u_id = data.user_info.u_id
             if(requestCode === 10010){
                 window.location.replace(__ROOT__+"login");
             }
