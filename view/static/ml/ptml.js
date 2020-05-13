@@ -68,7 +68,7 @@ $(function () {
             alert("请选择“拷贝”进行复制!");
         });
     });
-    $("#wechat_id").click(function () {
+    $(".wechat_id").click(function () {
         let e = $('#wechat_id_display').val();
         let t = document.getElementById("fixspan");
         t.value = e;
