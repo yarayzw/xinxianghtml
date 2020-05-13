@@ -72,7 +72,7 @@ $(function () {
         let e = $('#wechat_id_display').val();
         let t = document.getElementById("fixspan");
         t.value = e;
-        var clipboard = new ClipboardJS('#codeBtn');
+        var clipboard = new ClipboardJS('#wechat_id');
         clipboard.on("success", function (e) {
             $('.fuzhi_tanc').show();
             e.clearSelection();
