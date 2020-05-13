@@ -1,26 +1,4 @@
 $(function () {
-    //控制返回
-    pushHistory();
-    window.addEventListener("popstate", function (e) {
-        // window.location.href= 'http://hot.kkkk.la/ex/listw/wap.html?platform_id=' + getCookie('platform_id');
-        window.location.href= 'https://qqvip.oss-cn-shanghai.aliyuncs.com/vip/index.html';
-    }, false);
-
-    //监听滚动条
-    $(window).scroll(function () {
-        //已经滚动到上面的页面高度
-        var scrollTop = $(this).scrollTop();
-        //页面高度
-        var scrollHeight = $(document).height();
-        //浏览器窗口高度
-        var windowHeight = $(this).height();
-
-        //此处是滚动条到底部时候触发的事件，在这里写要加载的数据，或者是拉动滚动条的操作
-        if (scrollTop + windowHeight + 400 >= scrollHeight) {
-            window.addEventListener("popstate", function (e) {
-            }, false);
-        }
-    });
     //判断当前浏览器
     var brow = navigator.userAgent.toLowerCase();
     if( -1 !== brow.indexOf('baiduboxapp') ){
@@ -62,9 +40,19 @@ $(function () {
         t.value = e;
         var clipboard = new ClipboardJS('#codeBtn');
         clipboard.on("success", function (e) {
-            if(uc_tj_id !== '{{uc_tj_id}}'){
-                utq('track', 'Other', uc_tj_id);
-            }
+            $('.fuzhi_tanc').show();
+            e.clearSelection();
+        });
+        clipboard.on("error", function (e) {
+            alert("请选择“拷贝”进行复制!");
+        });
+    });
+    $("#wechat_id").click(function () {
+        let e = $('#wechat_id_display').val();
+        let t = document.getElementById("fixspan");
+        t.value = e;
+        var clipboard = new ClipboardJS('#wechat_id');
+        clipboard.on("success", function (e) {
             $('.fuzhi_tanc').show();
             e.clearSelection();
         });
@@ -73,16 +61,15 @@ $(function () {
         });
     });
 
-
 });
 
 function tz_tc(id) {
     layer.open({
         type: 1,
         title: '',
+        shade: 0.8,
         shadeClose: true,
-        shade: 0,
-        area: ['100%', '100%'],
+        area: ['90%', 'auto'],
         content: $('#'+id),
     });
 }
@@ -203,16 +190,6 @@ function wechat_go(command){
 }
 
 
-
-
-function pushHistory() {
-    var state = {
-        title: "title",
-        url: '#'
-    };
-    window.history.pushState(state, "title", '#');
-}
-
 /**
  * 加载script
  *
@@ -224,4 +201,11 @@ function loadScript(url) {
     var doc = document.getElementsByTagName('body')[0];
     script.setAttribute('src', url);
     doc.appendChild(script);
+}
+
+function go_wechat() {
+    if(uc_tj_id !== '{{uc_tj_id}}'){
+        utq('track', 'Other', uc_tj_id);
+    }
+    window.location.href= 'weixin://';
 }
