@@ -37,7 +37,7 @@ function addMaterialMemoGo() {
 }
 
 //修改落地页数据
-function editMaterialGo(id) {
+function editMaterialMemoGo(id) {
 
     //富文本值
     var content = $(".simditor-body").html();
