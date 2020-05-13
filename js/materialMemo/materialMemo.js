@@ -163,7 +163,7 @@ function editMaterialMemo(obj) {
     requestData.data = {
         'id' : $(obj).attr('data_id')
     }
-    ajaxGo('admin/materialMemo/getInfoById');
+    ajaxGo('admin/material_memo/getInfoById');
     $("input[name='name']").val(requestData.data.name);
     $('#material_id').selectpicker('val',(requestData.data.material_id));
 
