@@ -5,7 +5,7 @@ $(document).ready(function () {
 });
 
 function setMaterial() {
-    ajaxGo('admin/material/getListToSelect')
+    ajaxGo('admin/material_memo/getListToSelect')
     requestData.data.forEach((item,index,array)=>{
         //执行代码
         var html = "<option value='"+item.id+"'>"+item.name+"</option>";

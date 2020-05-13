@@ -4,7 +4,7 @@ function initTable() {
     var $materialTable = $('#materialTable');
     $materialTable.bootstrapTable('destroy');
     $materialTable.bootstrapTable({
-        url: __ROOT__ + 'admin/material/getList', //获取数据的Servlet地址
+        url: __ROOT__ + 'admin/material_memo/getList', //获取数据的Servlet地址
         striped: true,  //表格显示条纹
         pagination: true, //启动分页
         sortName: 'id',
@@ -77,21 +77,14 @@ function initTable() {
             },
             {
                 field: 'name',
-                title: '素材名称',
+                title: '扩展名称',
                 width : '10%',
                 align: 'center'
             },
             {
-                field: 'short_name',
-                title: '素材简称',
-                align: 'center'
-            },
-            {
-                field: 'title',
-                title: '素材标题',
-                formatter: function(value,row,index){
-                    return value;
-                }
+                field: 'material_name',
+                title: '素材名称',
+                align: 'text'
             },
 
             {
@@ -100,16 +93,9 @@ function initTable() {
                 width : '10%',
                 align: 'center',
                 formatter: function(value,row,index){
-                    if(requestData.user_info.u_id !== '5'){
-                        var d='<a href="#" mce_href="#" data_id="'+row.id+'"  onclick="editMaterial(this)" >编辑</a> ';
-                        var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="del(this)" >删除</a>';
-                        return d+f;
-                    }else {
-                        var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="addMemo(this)" >添加序言</a>';
-                        return f;
-                    }
-
-
+                    var d='<a href="#" mce_href="#" data_id="'+row.id+'"  onclick="editMaterialMemo(this)" >编辑</a> ';
+                    var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="delMaterialMemo(this)" >删除</a>';
+                    return d+f;
                 }
             }
         ]
@@ -118,15 +104,27 @@ function initTable() {
 
 $(document).ready(function () {
     //调用函数，初始化表格
+    setMaterial();
     initTable();
 });
+
+function setMaterial() {
+    ajaxGo('admin/material/getListToSelect')
+    requestData.data.forEach((item,index,array)=>{
+        //执行代码
+        var html = "<option value='"+item.id+"'>"+item.name+"</option>";
+        $('#material_id').append(html);
+    });
+    $('#material_id').selectpicker('refresh');
+}
+
 //搜索
 function fac_search() {
     $('#materialTable').bootstrapTable('refresh');
 }
 
 //添加
-function addMaterial() {
+function addMaterialMemo() {
     layer.open({
         type: 1,
         title: '添加',
@@ -141,7 +139,7 @@ function addMaterial() {
                 time: 0 //不自动关闭
                 ,btn: ['确定', '取消']
                 ,yes: function(index){
-                    addMaterialGo();
+                    addMaterialMemoGo();
                     if(requestCode === 0){
                         fac_search();
                         layer.close(index);
@@ -161,26 +159,16 @@ function addMaterial() {
 }
 
 //编辑
-function editMaterial(obj) {
-
-
+function editMaterialMemo(obj) {
     requestData.data = {
         'id' : $(obj).attr('data_id')
     }
-    ajaxGo('admin/material/getInfoById');
+    ajaxGo('admin/materialMemo/getInfoById');
     $("input[name='name']").val(requestData.data.name);
-    $("input[name='title']").val(requestData.data.title);
-    $("input[name='short_name']").val(requestData.data.short_name);
+    $('#material_id').selectpicker('val',(requestData.data.material_id));
 
-    let head_img =requestData.data.head_img.split('@@@');
-    $('#upload-list').empty();
 
-    head_img.forEach((item,index,array)=>{
-        //执行代码
-        var html = '<div style="float: left;padding-right: 10px"  onclick="delImg(this)" ><img name="head_img" data_name="'+item+'" src="'+item+'"></div>';
-        $('#upload-list').append(html);
-    });
-    editor.setValue(requestData.data.content);
+    editor.setValue(requestData.data.text);
 
     layer.open({
         type: 1,
@@ -196,7 +184,7 @@ function editMaterial(obj) {
                 time: 0 //不自动关闭
                 ,btn: ['确定', '取消']
                 ,yes: function(index){
-                    editMaterialGo($(obj).attr('data_id'));
+                    editMaterialMemoGo($(obj).attr('data_id'));
                     if(requestCode === 0){
                         fac_search();
                         layer.close(index);
@@ -215,29 +203,14 @@ function editMaterial(obj) {
 
 }
 
-//复制链接
-function copyUrl(obj) {
-    let text = $(obj).attr('data_url');
-    console.log(text);
 
-    var input = document.getElementById("copyText");
-    input.value = text; // 修改文本框的内容
-    input.select(); // 选中文本
-    document.execCommand("copy"); // 执行浏览器复制命令
-    layer.msg('复制成功');
-}
-
-//预览页面
-function preview(obj) {
-    window.open($(obj).attr('data_url'), '_blank').location;
-}
 
 //删除
 function del(obj) {
     requestData.data = {
         'id' : $(obj).attr('data_id')
     };
-    ajaxGo('admin/material/delMaterial');
+    ajaxGo('admin/material_memo/delMaterial');
     if(requestCode === 0){
         fac_search();
         layer.msg('删除成功!');

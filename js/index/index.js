@@ -1,5 +1,7 @@
 $(document).ready(function() {
-
+    if(u_id !== 5){
+        $('#material_menu').hide()
+    }
 });
 
 function getMenu() {
