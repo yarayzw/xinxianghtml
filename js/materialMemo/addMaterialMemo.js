@@ -48,6 +48,6 @@ function editMaterialMemoGo(id) {
         'text' : content,
         'material_id':  $("#material_id").selectpicker('val'),
     }
-    ajaxGo('admin/material_memo/editMaterial')
+    ajaxGo('admin/material_memo/editMaterialMemo')
 
 }
