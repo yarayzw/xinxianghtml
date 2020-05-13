@@ -12,7 +12,6 @@
 </head>
 
 
-
 <div class="fuzhi_tanc">
     <img src="/static/ml/cg.gif"/>
     <a href="weixin://">
@@ -22,18 +21,20 @@
 </div>
 
 
-<body >
-<div id="view_4" >
+<body>
+<div id="view_4">
     <!--tit-->
     <style type="text/css">
         .layui-layer-title {
-            display:none!important;
+            display: none !important;
         }
-        .layui-layer-setwin{
-            display:none!important;
+
+        .layui-layer-setwin {
+            display: none !important;
         }
-        .layui-layer-title div[mip-semi-fixed-fixedStatus], mip-semi-fixed div[mip-semi-fixed-fixedStatus]{
-            position:initial!important;
+
+        .layui-layer-title div[mip-semi-fixed-fixedStatus], mip-semi-fixed div[mip-semi-fixed-fixedStatus] {
+            position: initial !important;
         }
 
         html, body {
@@ -125,10 +126,10 @@
 
 
     </style>
-    <div class="acTit" id="head_display" >
+    <div class="acTit" id="head_display">
         <a href="https://qqvip.oss-cn-shanghai.aliyuncs.com/vip/index.html">
             <div class="wraps">
-                <div class="s_logo" >
+                <div class="s_logo">
                     <a href=""></a>
 
                 </div>
@@ -153,10 +154,10 @@
         <!--广告end-->
         <div class="acTxt wrap_w100">
             <!--acTxtTit-->
-            <div class="acTxtTit wrap_w94" >
+            <div class="acTxtTit wrap_w94">
                 <h1 id="title">{{title}}</h1>
-                <div >
-                    <div >
+                <div>
+                    <div>
                         <span id="showtime">{{create_at}}</span>
                     </div>
                     <div class="zi" id="head_info">
@@ -190,20 +191,16 @@
             <p style="text-align: center;">
                 <img src="/static/ml/down_icon.png"/>
             </p>
-            <div id="ordinary" >
-                <p id="jc" style="font-size: medium; white-space: normal; text-shadow: none;margin-top: 0px;text-align:center;line-height: 2.5em;font-size: 16px;"><span
-                        style="color: #424242;">
-    打开微信 <span style="color:#888;">→</span> 右上角+号 <span style="color:#888;">→</span> 添加朋友 <span
-                        style="color:#888;">→</span> 公众号<br>
+            <div id="ordinary">
+                <p id="jc" style="font-size: medium; white-space: normal; text-shadow: none;margin-top: 0px;text-align:center;line-height: 2.5em;font-size: 16px;">
+                    <span style="color: #424242;">打开微信 <span style="color:#888;">→</span> 右上角+号 <span style="color:#888;">→</span> 添加朋友
+                        <span style="color:#888;">→</span> 公众号<br>
 
-    <span style="font-size:13px;color:#000">搜索</span>【<strong><span style="color: rgb(252, 73, 116); font-size:18px;"
-                                                                    id="wechat_id" data-clipboard-target="#fixspan" >{{wechat_id}}</span></strong>】<span
-                        style="font-size:13px;color:#000">← 点击微信号一键复制</span><button
-                                                                                    data-clipboard-target="#fixspan"
-                                                                                    class="code-btn"
-                                                                                    style="position:absolute; left:20%; margin-top:5px; width:25%; height:30px; background:#0C0; color:#FFF; z-index:1000; opacity:0;"></button>  <textarea
-                        readonly name="content" id="fixspan" class="kefuTel go" wukaction="悬浮微信wap"
-                        style="position:absolute; left:0; z-index:5; opacity:0;"></textarea><br>
+                    <span style="font-size:13px;color:#000">搜索</span>【<strong><span id="wechat_id" style="color: rgb(252, 73, 116); font-size:18px;"  >{{wechat_id}}</span></strong>】
+                        <span style="font-size:13px;color:#000">← 点击微信号一键复制</span>
+                        <button data-clipboard-target="#fixspan" class="code-btn" style="position:absolute; left:20%; margin-top:5px; width:25%; height:30px; background:#0C0; color:#FFF; z-index:1000; opacity:0;"></button>
+                        <textarea readonly name="content" id="fixspan" class="kefuTel go" wukaction="悬浮微信wap" style="position:absolute; left:0; z-index:5; opacity:0;"></textarea>
+                        <br>
 
     关注" <span style="color: rgb(252, 73, 116);" id="wechat_name">{{wechat_name}}</span> "后，继续免费阅读精彩内容！
 
@@ -211,7 +208,8 @@
 
                 <br>
                 <div style="text-align: center">
-                    <button id="codeBtn"   data-clipboard-target="#fixspan" class="pa copy_btn3 code-btn ifengLookori wechat-btn">
+                    <button id="codeBtn" data-clipboard-target="#fixspan"
+                            class="pa copy_btn3 code-btn ifengLookori wechat-btn">
                         点此阅读下一章
                     </button>
                 </div>
@@ -227,28 +225,31 @@
 
             <div id="baidu_special" style="display: none;text-align: center" onclick="tz_tc('gz_tc1')">
                 <br>
-                <button  class="pa copy_btn3  ifengLookori wechat-btn">
+                <button class="pa copy_btn3  ifengLookori wechat-btn">
                     点此阅读下一章
                 </button>
 
-                <img src="http://jindouyun-yara.oss-cn-beijing.aliyuncs.com/uploads/other/20200512/1589262934yanshi.gif" alt="" onclick="tz_tc('gz_tc1')">
+                <img src="http://jindouyun-yara.oss-cn-beijing.aliyuncs.com/uploads/other/20200512/1589262934yanshi.gif"
+                     alt="" onclick="tz_tc('gz_tc1')">
 
             </div>
 
             <div id="special" style="display: none;text-align: center" onclick="tz_tc('gz_tc2')">
                 <br>
-                <button   class="pa copy_btn3  ifengLookori wechat-btn">
+                <button class="pa copy_btn3  ifengLookori wechat-btn">
                     点此阅读下一章
                 </button>
-                <img src="http://jindouyun-yara.oss-cn-beijing.aliyuncs.com/uploads/other/20200512/1589262934yanshi.gif" alt="" onclick="tz_tc('gz_tc2')">
+                <img src="http://jindouyun-yara.oss-cn-beijing.aliyuncs.com/uploads/other/20200512/1589262934yanshi.gif"
+                     alt="" onclick="tz_tc('gz_tc2')">
             </div>
 
             <div id="special_xiaomi" style="display: none;text-align: center" onclick="tz_tc('gz_tc3')">
                 <br>
-                <button    class="pa copy_btn3  ifengLookori wechat-btn">
+                <button class="pa copy_btn3  ifengLookori wechat-btn">
                     点此阅读下一章
                 </button>
-                <img src="http://jindouyun-yara.oss-cn-beijing.aliyuncs.com/uploads/other/20200512/1589262934yanshi.gif" alt="" onclick="tz_tc('gz_tc3')">
+                <img src="http://jindouyun-yara.oss-cn-beijing.aliyuncs.com/uploads/other/20200512/1589262934yanshi.gif"
+                     alt="" onclick="tz_tc('gz_tc3')">
             </div>
 
 
@@ -335,31 +336,44 @@
 <input type="text" style="display:none;" id="wechat_id_display" value="{{wechat_id}}">
 
 
-
-<div id="gz_tc1" style="display: none;text-align: center;margin:0 5%;padding:5% 0.5% 20px 0.5%;overflow: hidden;background: white">
+<div id="gz_tc1"
+     style="display: none;text-align: center;margin:0 5%;padding:5% 0.5% 20px 0.5%;overflow: hidden;background: white">
     <div id="baidu_go" style="display: block">
-        <img src="http://jindouyun-yara.oss-cn-beijing.aliyuncs.com/uploads/other/20200512/1589262934yanshi.gif" alt="" >
-        <button style="border: #ccc 1px;width: 40%;color:#666666;background: #ccc;border-radius: 10px;height: 40px;margin-right: 3%;font-size: 1.1rem;margin-top: 4%" onclick="closeLayer()">取消</button>
-        <button style="border: #ccc 1px;width: 40%;color: white;background: #00cc00;font-size: 1.3rem;border-radius: 10px;height: 40px;margin-left: 3%;margin-top: 4%" onclick="sharebaidu()" class="wechat-btn" >前往关注</button>
+        <img src="http://jindouyun-yara.oss-cn-beijing.aliyuncs.com/uploads/other/20200512/1589262934yanshi.gif" alt="">
+        <button style="border: #ccc 1px;width: 40%;color:#666666;background: #ccc;border-radius: 10px;height: 40px;margin-right: 3%;font-size: 1.1rem;margin-top: 4%"
+                onclick="closeLayer()">取消
+        </button>
+        <button style="border: #ccc 1px;width: 40%;color: white;background: #00cc00;font-size: 1.3rem;border-radius: 10px;height: 40px;margin-left: 3%;margin-top: 4%"
+                onclick="sharebaidu()" class="wechat-btn">前往关注
+        </button>
     </div>
 </div>
 
-<div id="gz_tc2" style="display: none;text-align: center;margin:0 5%;padding:5% 0.5% 20px 0.5%;;overflow: hidden;background: white">
+<div id="gz_tc2"
+     style="display: none;text-align: center;margin:0 5%;padding:5% 0.5% 20px 0.5%;;overflow: hidden;background: white">
     <div id="wechat_go" style="display: block">
-        <img src="http://jindouyun-yara.oss-cn-beijing.aliyuncs.com/uploads/other/20200512/1589262934yanshi.gif"    alt="" >
-        <button style="border: #ccc 1px;width: 40%;color:#666666;background: #ccc;border-radius: 10px;height: 40px;margin-right: 3%;font-size: 1.1rem;margin-top: 4%" onclick="closeLayer()">取消</button>
-        <button style="border: #ccc 1px;width: 40%;color: white;background: #00cc00;font-size: 1.3rem;border-radius: 10px;height: 40px;margin-left: 3%;margin-top: 4%" onclick="wechat_go('wechatTimeline')" class="wechat-btn">前往关注</button>
+        <img src="http://jindouyun-yara.oss-cn-beijing.aliyuncs.com/uploads/other/20200512/1589262934yanshi.gif" alt="">
+        <button style="border: #ccc 1px;width: 40%;color:#666666;background: #ccc;border-radius: 10px;height: 40px;margin-right: 3%;font-size: 1.1rem;margin-top: 4%"
+                onclick="closeLayer()">取消
+        </button>
+        <button style="border: #ccc 1px;width: 40%;color: white;background: #00cc00;font-size: 1.3rem;border-radius: 10px;height: 40px;margin-left: 3%;margin-top: 4%"
+                onclick="wechat_go('wechatTimeline')" class="wechat-btn">前往关注
+        </button>
     </div>
 </div>
 
-<div id="gz_tc3" style="display: none;text-align: center;margin:0 5%;padding:5% 0.5% 20px 0.5%;;overflow: hidden;background: white;">
+<div id="gz_tc3"
+     style="display: none;text-align: center;margin:0 5%;padding:5% 0.5% 20px 0.5%;;overflow: hidden;background: white;">
     <div id="wechat_go_xiaomi" style="display: block">
-        <img src="http://jindouyun-yara.oss-cn-beijing.aliyuncs.com/uploads/other/20200512/1589262934yanshi.gif"  alt="" >
-        <button style="border: #ccc 1px;width: 40%;color:#666666;background: #ccc;border-radius: 10px;height: 40px;margin-right: 3%;font-size: 1.1rem;margin-top: 4%" onclick="closeLayer()">取消</button>
-        <button style="border: #ccc 1px;width: 40%;color: white;background: #00cc00;font-size: 1.3rem;border-radius: 10px;height: 40px;margin-left: 3%;margin-top: 4%;" onclick="xiaomiOnclickWechat()" class="wechat-btn"  >前往关注</button>
+        <img src="http://jindouyun-yara.oss-cn-beijing.aliyuncs.com/uploads/other/20200512/1589262934yanshi.gif" alt="">
+        <button style="border: #ccc 1px;width: 40%;color:#666666;background: #ccc;border-radius: 10px;height: 40px;margin-right: 3%;font-size: 1.1rem;margin-top: 4%"
+                onclick="closeLayer()">取消
+        </button>
+        <button style="border: #ccc 1px;width: 40%;color: white;background: #00cc00;font-size: 1.3rem;border-radius: 10px;height: 40px;margin-left: 3%;margin-top: 4%;"
+                onclick="xiaomiOnclickWechat()" class="wechat-btn">前往关注
+        </button>
     </div>
 </div>
-
 
 
 <script src="/static/ml/clipboard.min.js"></script>
