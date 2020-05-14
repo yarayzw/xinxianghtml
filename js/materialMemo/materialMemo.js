@@ -206,7 +206,7 @@ function editMaterialMemo(obj) {
 
 
 //删除
-function del(obj) {
+function delMaterialMemo(obj) {
     requestData.data = {
         'id' : $(obj).attr('data_id')
     };
