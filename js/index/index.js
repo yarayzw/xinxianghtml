@@ -1,5 +1,6 @@
 $(document).ready(function() {
-    if(u_id !== 5){
+    let u_id = getCookie('u_id');
+    if(u_id !== '5'){
         $('#material_menu').hide()
     }
 });

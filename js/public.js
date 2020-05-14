@@ -27,7 +27,9 @@ function ajaxGo(url,msg = '请求错误' ,async = false) {
         async: async,
         success:function(data){
             requestCode = data.code;
-            u_id = data.user_info.u_id
+            u_id = data.user_info.u_id;
+            setCookie('u_id',data.user_info.u_id);
+
             if(requestCode === 10010){
                 window.location.replace(__ROOT__+"login");
             }
@@ -42,7 +44,6 @@ function ajaxGo(url,msg = '请求错误' ,async = false) {
                 "data": data.data
             };
             setCookie('token',data.token);
-
             return data;
         },
         error:function(){
