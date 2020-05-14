@@ -100,16 +100,22 @@ function initTable() {
                 width : '10%',
                 align: 'center',
                 formatter: function(value,row,index){
-                    var d='<a href="#" mce_href="#" data_id="'+row.id+'"  onclick="editMaterial(this)" >编辑</a> ';
-                    var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="del(this)" >删除</a>';
-                    return d+f;
+                    if(m_u_id === '5'){
+                        var d='<a href="#" mce_href="#" data_id="'+row.id+'"  onclick="editMaterial(this)" >编辑</a> ';
+                        var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="del(this)" >删除</a>';
+                        return d+f;
+                    }
                 }
             }
         ]
     });
 }
-
+let m_u_id = '';
 $(document).ready(function () {
+    m_u_id = getCookie('u_id');
+    if(m_u_id !== '5'){
+        $('#add_btn').hide();
+    }
     //调用函数，初始化表格
     initTable();
 });
