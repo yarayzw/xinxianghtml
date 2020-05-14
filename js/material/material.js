@@ -100,16 +100,9 @@ function initTable() {
                 width : '10%',
                 align: 'center',
                 formatter: function(value,row,index){
-                    if(requestData.user_info.u_id !== '5'){
-                        var d='<a href="#" mce_href="#" data_id="'+row.id+'"  onclick="editMaterial(this)" >编辑</a> ';
-                        var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="del(this)" >删除</a>';
-                        return d+f;
-                    }else {
-                        var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="addMemo(this)" >添加序言</a>';
-                        return f;
-                    }
-
-
+                    var d='<a href="#" mce_href="#" data_id="'+row.id+'"  onclick="editMaterial(this)" >编辑</a> ';
+                    var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="del(this)" >删除</a>';
+                    return d+f;
                 }
             }
         ]
