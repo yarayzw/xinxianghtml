@@ -2,6 +2,9 @@ $(document).ready(function() {
     let u_id = getCookie('u_id');
     if(u_id !== '5'){
         $('#material_menu').hide()
+        $('#view_menu').hide()
+        $('#platform_menu').hide()
+        $('#commodityBindPlatform_menu').hide()
     }
 });
 
