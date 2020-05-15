@@ -211,8 +211,8 @@ function initTable() {
                 align: 'center',
                 formatter: function(value,row,index){
                     var a='<a href="#" mce_href="#" data_id="'+row.id+'" data_name="'+row.name+'" data_title="'+row.title+'" data_url="'+row.url+'"  onclick="editCommodity(this)" >编辑</a> ';
-                    var e='<a href="#" mce_href="#" " data_url="'+row.view+'/'+row.pc_url+'""  onclick="preview(this)" >预览</a> ';
-                    var d='<a href="#" mce_href="#" " data_url="'+row.view+'/'+row.ml_url+'"  onclick="preview(this)" >手机版</a> ';
+                    var e='<a href="#" mce_href="#" " data_url="'+row.url+'/'+row.pc_url+'""  onclick="preview(this)" >预览</a> ';
+                    var d='<a href="#" mce_href="#" " data_url="'+row.url+'/'+row.ml_url+'"  onclick="preview(this)" >手机版</a> ';
                     var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="del(this)" >删除</a>';
 
                     return a+e+d+f;
