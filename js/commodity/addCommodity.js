@@ -53,9 +53,13 @@ uploader_head.on("uploadSuccess", function(file, response) {
 });
 
 function delImg(i) {
-    i.remove();
-    // console.log(i);
-    // $('#upload-item'+i).remove();
+    layer.msg('确定删除？', {
+        time: 0 //不自动关闭
+        ,btn: ['确定', '取消']
+        ,yes: function(index){
+            i.remove();
+        }
+    });
 }
 
 //提交落地页数据
@@ -154,4 +158,12 @@ function updateViewMobileGo(id) {
         'mobile_view_id':  $("#mobile_view_update").selectpicker('val'),
     }
     ajaxGo('admin/commodity/updateViewMobile')
+}
+
+function updateMaterialGo(id) {
+    requestData.data = {
+        'id' : id,
+        'material_id':  $("#material_update").selectpicker('val'),
+    }
+    ajaxGo('admin/commodity/updateMaterial')
 }

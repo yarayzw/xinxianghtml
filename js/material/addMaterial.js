@@ -48,9 +48,16 @@ setTimeout(function(){
 
 
 function delImg(i) {
-    i.remove();
+
     // console.log(i);
     // $('#upload-item'+i).remove();
+    layer.msg('确定删除？', {
+        time: 0 //不自动关闭
+        ,btn: ['确定', '取消']
+        ,yes: function(index){
+            i.remove();
+        }
+    });
 }
 
 //提交落地页数据

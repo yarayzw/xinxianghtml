@@ -1,7 +1,10 @@
 $(document).ready(function () {
+
+
     //调用函数，初始化表格
     setMaterial();
     initTable();
+
 });
 
 function setMaterial() {
@@ -10,8 +13,10 @@ function setMaterial() {
         //执行代码
         var html = "<option value='"+item.id+"'>"+item.name+"</option>";
         $('#material').append(html);
+        $('#material_update').append(html);
     });
     $('#material').selectpicker('refresh');
+    $('#material_update').selectpicker('refresh');
 
     //pc模版
     requestData.data = {
@@ -122,33 +127,45 @@ function initTable() {
                 title: 'ID',
                 field: 'id',
                 align: 'center',
+                width : '4%',
                 valign: 'middle',
-                width : '5%',
+            },
+            {
+                field: 'view',
+                title: '人员',
+                width : '4%',
+                formatter: function(value,row,index){
+                    return '<xmp>' + value +'</xmp>';
+                }
             },
             {
                 field: 'name',
                 title: '网页名称',
-                width : '10%',
+                width : '5%',
                 align: 'center'
             },
             {
                 field: 'platform_name',
                 title: '平台',
-                width : '10%',
+                width : '4%',
                 align: 'center'
             },
             {
                 field: 'material_name',
                 title: '素材名称',
                 formatter: function(value,row,index){
-
-                    return value;
+                    var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="updateMaterial(this)" >'+value+'</a>';
+                    return f;
                 }
             },
             {
                 field: 'title',
                 title: '标题',
-                align: 'center'
+                width : '25%',
+                formatter: function(value,row,index){
+                    var html = '<div style="float: left"><img style="width: 120px;height: 60px" src="'+row.head_img+'" alt=""></div><div>'+value+'</div>';
+                    return html;
+                }
             },
             {
                 field: 'url',
@@ -158,7 +175,6 @@ function initTable() {
             {
                 field: 'view_name',
                 title: 'pc模版',
-                width : '10%',
                 align: 'center',
                 formatter: function(value,row,index){
                     var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="updateView(this)" >'+value+'</a>';
@@ -168,7 +184,6 @@ function initTable() {
             {
                 field: 'mobile_view_name',
                 title: '移动模版',
-                width : '10%',
                 align: 'center',
                 formatter: function(value,row,index){
                     var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="updateViewMobile(this)" >'+value+'</a>';
@@ -179,15 +194,20 @@ function initTable() {
                 field: 'tj_url',
                 title: '统计链接',
                 align: 'center',
+                width : '4%',
                 formatter: function(value,row,index){
-                    return '<xmp>' + value +'</xmp>';
+                    if(value !== ''){
+                        return  '有';
+                    }else {
+                        return '无';
+                    }
                 }
             },
 
             {
                 field: 'operate',
                 title: '操作',
-                width : '10%',
+                width : '12%',
                 align: 'center',
                 formatter: function(value,row,index){
                     var a='<a href="#" mce_href="#" data_id="'+row.id+'" data_name="'+row.name+'" data_title="'+row.title+'" data_url="'+row.url+'"  onclick="editCommodity(this)" >编辑</a> ';
@@ -254,15 +274,14 @@ function editCommodity(obj) {
     $("input[name='title']").val(requestData.data.title);
     $("input[name='url']").val(requestData.data.url);
     $("input[name='tj_url']").val(requestData.data.tj_url);
-    $('#code_num').text(requestData.data.code_num);
     $("input[name='bottom_name']").val(requestData.data.bottom_name);
 
 
     let head_img =requestData.data.head_img.split('@@@');
     $('#upload-list-head').empty();
     head_img.forEach((item,index,array)=>{
-        //执行代码
         var html = '<div style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"  onclick="delImg(this)" ><img name="head_img" data_name="'+item+'" src="'+item+'"></div>';
+        //执行代码
         $('#upload-list-head').append(html);
     });
 
@@ -270,7 +289,15 @@ function editCommodity(obj) {
     $('#upload-list').empty();
     qr_img.forEach((item,index,array)=>{
         //执行代码
-        var html = '<div style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"  onclick="delImg(this)" ><img name="qr_img" data_name="'+item+'" src="'+item+'"></div>';
+        if(requestData.data.code_num === (index+1) ){
+            var html = '<div style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"  onclick="delImg(this)" ><div><img name="qr_img" data_name="'+item+'" src="'+item+'"></div><div style="color: red;text-align: center">使用中</div></div>';
+        }
+        if(requestData.data.code_num < (index+1) ){
+            var html = '<div style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"  onclick="delImg(this)" ><div><img name="qr_img" data_name="'+item+'" src="'+item+'"></div><div style="color: #5fc55e;text-align: center">待使用</div></div>';
+        }
+        if(requestData.data.code_num > (index+1) ){
+            var html = '<div style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"  onclick="delImg(this)" ><div><img name="qr_img" data_name="'+item+'" src="'+item+'"></div><div style="color: #ccc;text-align: center">已使用</div></div>';
+        }
         $('#upload-list').append(html);
     });
 
@@ -390,6 +417,36 @@ function updateViewMobile(obj) {
                 ,btn: ['确定', '取消']
                 ,yes: function(index){
                     updateViewMobileGo($(obj).attr('data_id'));
+                    if(requestCode === 0){
+                        fac_search();
+                        layer.close(index);
+                        layer.closeAll();
+                        layer.msg(requestMessage);
+                    }else {
+                        layer.msg(requestMessage);
+                    }
+                }
+            });
+        }
+//            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
+    });
+}
+
+function updateMaterial(obj) {
+    layer.open({
+        type: 1,
+        title: '编辑',
+        shadeClose: true,
+        shade: 0.8,
+        area: ['40%', '60%'],
+        content: $('#updateMaterial'),
+        btn: ['确定', '取消'], // 按钮
+        yes: function(index, layero){
+            layer.msg('确定修改？', {
+                time: 0 //不自动关闭
+                ,btn: ['确定', '取消']
+                ,yes: function(index){
+                    updateMaterialGo($(obj).attr('data_id'));
                     if(requestCode === 0){
                         fac_search();
                         layer.close(index);

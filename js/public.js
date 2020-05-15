@@ -30,9 +30,9 @@ function ajaxGo(url,msg = '请求错误' ,async = false) {
             u_id = data.user_info.u_id;
             setCookie('u_id',data.user_info.u_id);
 
-            if(requestCode === 10010){
-                window.location.replace(__ROOT__+"login");
-            }
+            // if(data.user_info.u_id === '0'){
+            //     window.location.replace('http://zs-zixun.yarayzw.com/'+"login");
+            // }
             requestMessage = data.message;
             requestData = {
                 "head": {

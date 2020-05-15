@@ -271,16 +271,23 @@ function preview(obj) {
 
 //删除
 function del(obj) {
-    requestData.data = {
-        'id' : $(obj).attr('data_id')
-    };
-    ajaxGo('admin/material/delMaterial');
-    if(requestCode === 0){
-        fac_search();
-        layer.msg('删除成功!');
-    }else {
-        layer.msg(requestMessage);
-    }
+    layer.msg('确定删除？', {
+        time: 0 //不自动关闭
+        ,btn: ['确定', '取消']
+        ,yes: function(index){
+            requestData.data = {
+                'id' : $(obj).attr('data_id')
+            };
+            ajaxGo('admin/material/delMaterial');
+            if(requestCode === 0){
+                fac_search();
+                layer.msg('删除成功!');
+            }else {
+                layer.msg(requestMessage);
+            }
+        }
+    });
 
 }
+
 
