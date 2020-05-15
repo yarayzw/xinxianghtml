@@ -58,6 +58,7 @@ function delImg(i) {
         ,btn: ['确定', '取消']
         ,yes: function(index){
             i.remove();
+            layer.close(index);
         }
     });
 }
