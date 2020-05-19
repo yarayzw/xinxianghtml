@@ -32,6 +32,7 @@ function initTable() {
             //     },
             //     "data": data.data
             // };
+            u_id = data.user_info.u_id;
             return data.data;
         },
         queryParamsType : "undefined",
@@ -99,18 +100,25 @@ function initTable() {
                 width : '10%',
                 align: 'center',
                 formatter: function(value,row,index){
-                    var d='<a href="#" mce_href="#" data_id="'+row.id+'"  onclick="editMaterial(this)" >编辑</a> ';
-
-                    var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="del(this)" >删除</a>';
-
-                    return d+f;
+                    if(m_u_id === '5'){
+                        var d='<a href="#" mce_href="#" data_id="'+row.id+'"  onclick="editMaterial(this)" >编辑</a> ';
+                        var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="del(this)" >删除</a>';
+                        return d+f;
+                    }else {
+                        var d='<a href="#" mce_href="#" data_id="'+row.id+'"  onclick="lookMaterial(this)" >查看</a> ';
+                        return d;
+                    }
                 }
             }
         ]
     });
 }
-
+let m_u_id = '';
 $(document).ready(function () {
+    m_u_id = getCookie('u_id');
+    if(m_u_id !== '5'){
+        $('#add_btn').hide();
+    }
     //调用函数，初始化表格
     initTable();
 });
@@ -209,6 +217,41 @@ function editMaterial(obj) {
 
 }
 
+//查看
+function lookMaterial(obj) {
+
+
+    requestData.data = {
+        'id' : $(obj).attr('data_id')
+    }
+    ajaxGo('admin/material/getInfoById');
+    $("input[name='name']").val(requestData.data.name);
+    $("input[name='title']").val(requestData.data.title);
+    $("input[name='short_name']").val(requestData.data.short_name);
+
+    let head_img =requestData.data.head_img.split('@@@');
+    $('#upload-list').empty();
+
+    head_img.forEach((item,index,array)=>{
+        //执行代码
+        var html = '<div style="float: left;padding-right: 10px"  onclick="delImg(this)" ><img name="head_img" data_name="'+item+'" src="'+item+'"></div>';
+        $('#upload-list').append(html);
+    });
+    editor.setValue(requestData.data.content);
+
+    layer.open({
+        type: 1,
+        title: '编辑',
+        shadeClose: true,
+        shade: 0.8,
+        area: ['90%', '90%'],
+        content: $('#add'),
+        btn: ['取消'], // 按钮
+//            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
+    });
+
+}
+
 //复制链接
 function copyUrl(obj) {
     let text = $(obj).attr('data_url');
@@ -228,16 +271,23 @@ function preview(obj) {
 
 //删除
 function del(obj) {
-    requestData.data = {
-        'id' : $(obj).attr('data_id')
-    };
-    ajaxGo('admin/material/delMaterial');
-    if(requestCode === 0){
-        fac_search();
-        layer.msg('删除成功!');
-    }else {
-        layer.msg(requestMessage);
-    }
+    layer.msg('确定删除？', {
+        time: 0 //不自动关闭
+        ,btn: ['确定', '取消']
+        ,yes: function(index){
+            requestData.data = {
+                'id' : $(obj).attr('data_id')
+            };
+            ajaxGo('admin/material/delMaterial');
+            if(requestCode === 0){
+                fac_search();
+                layer.msg('删除成功!');
+            }else {
+                layer.msg(requestMessage);
+            }
+        }
+    });
 
 }
+
 

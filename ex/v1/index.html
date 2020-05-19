@@ -195,7 +195,7 @@
 
         function getInfo(id) {
             $.ajax({
-                url: 'http://jindouyun.yarayzw.com/index/commodity/getInfoById',
+                url: 'http://zixunadmin.yarayzw.com/index/commodity/getInfoById',
                 data:{
                     id:id
                 },
@@ -433,7 +433,7 @@
             let prevurl=document.referrer; // 获取上一个页面的url地址
             let page_id = getUrlParam('id');
             $.ajax({
-                url: 'http://jindouyun.yarayzw.com/index/commodity/setUserInfo',
+                url: 'http://zixunadmin.yarayzw.com/index/commodity/setUserInfo',
                 data:{
                     'browser':BrowserMatch.browser,
                     'version':BrowserMatch.version,

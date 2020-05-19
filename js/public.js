@@ -1,12 +1,14 @@
 
 // 公共配置
 
-const __ROOT__ = 'http://niubiadmin.yarayzw.com/';
+const __ROOT__ = 'http://sq.yara.com:8086/';
 const __IMG__ = 'http://niuibi.oss-cn-beijing.aliyuncs.com';
+
 
 var requestData = {};
 var requestCode = 0;
 var requestMessage = 0;
+let u_id = '0';
 
 function ajaxGo(url,msg = '请求错误' ,async = false) {
     if(getCookie('token')){
@@ -26,6 +28,12 @@ function ajaxGo(url,msg = '请求错误' ,async = false) {
         async: async,
         success:function(data){
             requestCode = data.code;
+            u_id = data.user_info.u_id;
+            setCookie('u_id',data.user_info.u_id);
+
+            // if(data.user_info.u_id === '0'){
+            //     window.location.replace('http://zs-zixun.yarayzw.com/'+"login");
+            // }
             requestMessage = data.message;
             requestData = {
                 "head": {
@@ -37,7 +45,6 @@ function ajaxGo(url,msg = '请求错误' ,async = false) {
                 "data": data.data
             };
             setCookie('token',data.token);
-
             return data;
         },
         error:function(){

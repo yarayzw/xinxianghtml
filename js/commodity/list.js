@@ -1,18 +1,58 @@
 $(document).ready(function () {
+
+
     //调用函数，初始化表格
     setMaterial();
     initTable();
+
 });
 
 function setMaterial() {
-    ajaxGo('admin/material/getListToSelect')
+    ajaxGo('admin/material_memo/getListToSelect')
     requestData.data.forEach((item,index,array)=>{
         //执行代码
         var html = "<option value='"+item.id+"'>"+item.name+"</option>";
         $('#material').append(html);
-
+        $('#material_update').append(html);
     });
     $('#material').selectpicker('refresh');
+    $('#material_update').selectpicker('refresh');
+
+    //pc模版
+    requestData.data = {
+        'type' : 1
+    }
+    ajaxGo('admin/view/getListToSelect')
+    requestData.data.forEach((item,index,array)=>{
+        //执行代码
+        var html = "<option value='"+item.id+"'>"+item.name+"</option>";
+        $('#view').append(html);
+        $('#view_update').append(html);
+    });
+    $('#view').selectpicker('refresh');
+    $('#view_update').selectpicker('refresh');
+
+    //移动模版
+    requestData.data = {
+        'type' : 2
+    }
+    ajaxGo('admin/view/getListToSelect')
+    requestData.data.forEach((item,index,array)=>{
+        //执行代码
+        var html = "<option value='"+item.id+"'>"+item.name+"</option>";
+        $('#mobile_view').append(html);
+        $('#mobile_view_update').append(html);
+    });
+    $('#mobile_view').selectpicker('refresh');
+    $('#mobile_view_update').selectpicker('refresh');
+
+    ajaxGo('admin/platform/getListToSelect')
+    requestData.data.forEach((item,index,array)=>{
+        //执行代码
+        var html = "<option value='"+item.id+"'>"+item.name+"</option>";
+        $('#platform').append(html);
+    });
+    $('#platform').selectpicker('refresh');
 }
 function initTable() {
 
@@ -24,7 +64,7 @@ function initTable() {
         sortName: 'id',
         pageSize: 10,  //每页显示的记录数
         pageNumber:1, //当前第几页
-        pageList: [10, 15, 20, 25],  //记录数可选列表
+        pageList: [5, 10, 15, 20],  //记录数可选列表
         search: false,
         toolbar: '#list_search_faci',
         showColumns: true,  //显示下拉框勾选要显示的列
@@ -60,6 +100,8 @@ function initTable() {
                 // id : {$_GET['id']},
                 head : {'token' : getCookie('token')},
                 name : $('#name').val(),
+                search_id : $('#search_id').val(),
+                type: 1
             };
 
             return params;
@@ -85,27 +127,45 @@ function initTable() {
                 title: 'ID',
                 field: 'id',
                 align: 'center',
+                width : '4%',
                 valign: 'middle',
-                width : '5%',
+            },
+            {
+                field: 'view',
+                title: '人员',
+                width : '4%',
+                formatter: function(value,row,index){
+                    return '<xmp>' + value +'</xmp>';
+                }
             },
             {
                 field: 'name',
                 title: '网页名称',
-                width : '10%',
+                width : '5%',
+                align: 'center'
+            },
+            {
+                field: 'platform_name',
+                title: '平台',
+                width : '4%',
                 align: 'center'
             },
             {
                 field: 'material_name',
                 title: '素材名称',
                 formatter: function(value,row,index){
-
-                    return value;
+                    var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="updateMaterial(this)" >'+value+'</a>';
+                    return f;
                 }
             },
             {
                 field: 'title',
                 title: '标题',
-                align: 'center'
+                width : '25%',
+                formatter: function(value,row,index){
+                    var html = '<div style="float: left"><img style="width: 120px;height: 60px" src="'+row.head_img+'" alt=""></div><div>'+value+'</div>';
+                    return html;
+                }
             },
             {
                 field: 'url',
@@ -113,28 +173,49 @@ function initTable() {
                 align: 'center'
             },
             {
+                field: 'view_name',
+                title: 'pc模版',
+                align: 'center',
+                formatter: function(value,row,index){
+                    var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="updateView(this)" >'+value+'</a>';
+                    return f;
+                }
+            },
+            {
+                field: 'mobile_view_name',
+                title: '移动模版',
+                align: 'center',
+                formatter: function(value,row,index){
+                    var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="updateViewMobile(this)" >'+value+'</a>';
+                    return f;
+                }
+            },
+            {
                 field: 'tj_url',
                 title: '统计链接',
                 align: 'center',
+                width : '4%',
                 formatter: function(value,row,index){
-                    return '<xmp>' + value +'</xmp>';
+                    if(value !== ''){
+                        return  '有';
+                    }else {
+                        return '无';
+                    }
                 }
             },
 
             {
                 field: 'operate',
                 title: '操作',
-                width : '10%',
+                width : '12%',
                 align: 'center',
                 formatter: function(value,row,index){
-                    var d='<a href="#" mce_href="#" data_id="'+row.id+'" data_name="'+row.name+'" data_title="'+row.title+'" data_url="'+row.url+'"  onclick="editCommodity(this)" >编辑</a> ';
-                    var e='<a href="#" mce_href="#" " data_url="'+row.url+'/ex/v1/index.html?id='+row.id+'"  onclick="preview(this)" >预览</a> ';
-                    if(row.view){
-                         e='<a href="#" mce_href="#" " data_url="'+row.url+'/ex/v1/'+row.view+'.html?id='+row.id+'&name='+row.name+'"  onclick="preview(this)" >预览</a> ';
-                    }
+                    var a='<a href="#" mce_href="#" data_id="'+row.id+'" data_name="'+row.name+'" data_title="'+row.title+'" data_url="'+row.url+'"  onclick="editCommodity(this)" >编辑</a> ';
+                    var e='<a href="#" mce_href="#" " data_url="'+row.url+'/'+row.pc_url+'""  onclick="preview(this)" >预览</a> ';
+                    var d='<a href="#" mce_href="#" " data_url="'+row.url+'/'+row.ml_url+'"  onclick="preview(this)" >手机版</a> ';
                     var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="del(this)" >删除</a>';
 
-                    return d+e+f;
+                    return a+e+d+f;
                 }
             }
         ]
@@ -149,6 +230,7 @@ function fac_search() {
 
 //添加
 function addCommodity() {
+    $('#code_num').text(1);
     layer.open({
         type: 1,
         title: '添加',
@@ -158,7 +240,6 @@ function addCommodity() {
         content: $('#add'),
         btn: ['确定', '取消'], // 按钮
         yes: function(index, layero){
-
             layer.msg('确定添加？', {
                 time: 0 //不自动关闭
                 ,btn: ['确定', '取消']
@@ -184,10 +265,54 @@ function addCommodity() {
 
 //编辑
 function editCommodity(obj) {
-    $("input[name='name']").val($(obj).attr('data_name'));
-    $("input[name='title']").val($(obj).attr('data_title'));
-    $("input[name='url']").val($(obj).attr('data_url'));
-    $("input[name='tj_url']").val($(obj).attr('data_tj_url'));
+    requestData.data = {
+        'id' : $(obj).attr('data_id')
+    }
+    ajaxGo('admin/commodity/getCommodityInfo');
+
+    $("input[name='name']").val(requestData.data.name);
+    $("input[name='title']").val(requestData.data.title);
+    $("input[name='url']").val(requestData.data.url);
+    $("input[name='tj_url']").val(requestData.data.tj_url);
+    $("input[name='bottom_name']").val(requestData.data.bottom_name);
+
+
+    let head_img =requestData.data.head_img.split('@@@');
+    $('#upload-list-head').empty();
+    head_img.forEach((item,index,array)=>{
+        var html = '<div style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"  onclick="delImg(this)" ><img name="head_img" data_name="'+item+'" src="'+item+'"></div>';
+        //执行代码
+        $('#upload-list-head').append(html);
+    });
+
+    let qr_img =requestData.data.qr_code.split('@@@');
+    $('#upload-list').empty();
+    qr_img.forEach((item,index,array)=>{
+        //执行代码
+        if(requestData.data.code_num === (index+1) ){
+            var html = '<div style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"  onclick="delImg(this)" ><div><img name="qr_img" data_name="'+item+'" src="'+item+'"></div><div style="color: red;text-align: center">使用中</div></div>';
+        }
+        if(requestData.data.code_num < (index+1) ){
+            var html = '<div style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"  onclick="delImg(this)" ><div><img name="qr_img" data_name="'+item+'" src="'+item+'"></div><div style="color: #5fc55e;text-align: center">待使用</div></div>';
+        }
+        if(requestData.data.code_num > (index+1) ){
+            var html = '<div style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"  onclick="delImg(this)" ><div><img name="qr_img" data_name="'+item+'" src="'+item+'"></div><div style="color: #ccc;text-align: center">已使用</div></div>';
+        }
+        $('#upload-list').append(html);
+    });
+
+    $('#platform').selectpicker('val',(requestData.data.platform_id));
+    $('#material').selectpicker('val',(requestData.data.material_id));
+    $('#view').selectpicker('val',(requestData.data.view_id));
+    //移动端数据渲染
+    $('#mobile_view').selectpicker('val',(requestData.data.mobile_view_id));
+    $("input[name='we_chat_name']").val(requestData.data.wechat_name);
+    $("input[name='we_chat_url']").val(requestData.data.wechat_url);
+    $("input[name='we_chat_id']").val(requestData.data.wechat_id);
+    $("input[name='we_chat_url_info']").val(requestData.data.wechat_url_info);
+    //uc ocpc
+    $("input[name='uc_tj_id']").val(requestData.data.uc_tj_id);
+    $("input[name='uc_tj']").val(requestData.data.uc_tj);
 
     layer.open({
         type: 1,
@@ -213,25 +338,12 @@ function editCommodity(obj) {
                     }
                 }
             });
-
-
         }
 //            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
     });
 
 }
 
-//复制链接
-function copyUrl(obj) {
-    let text = $(obj).attr('data_url');
-    console.log(text);
-
-    var input = document.getElementById("copyText");
-    input.value = text; // 修改文本框的内容
-    input.select(); // 选中文本
-    document.execCommand("copy"); // 执行浏览器复制命令
-    layer.msg('复制成功');
-}
 
 //预览页面
 function preview(obj) {
@@ -240,15 +352,112 @@ function preview(obj) {
 
 //删除
 function del(obj) {
-    requestData.data = {
-        'id' : $(obj).attr('data_id')
-    };
-    ajaxGo('admin/commodity/delCommodity');
-    if(requestCode === 0){
-        fac_search();
-        layer.msg('删除成功!');
-    }else {
-        layer.msg(requestMessage);
-    }
+    layer.msg('确定删除？', {
+        time: 0 //不自动关闭
+        ,btn: ['确定', '取消']
+        ,yes: function(index){
+            requestData.data = {
+                'id' : $(obj).attr('data_id')
+            };
+            ajaxGo('admin/commodity/delCommodity');
+            if(requestCode === 0){
+                fac_search();
+                layer.msg('删除成功!');
+            }else {
+                layer.msg(requestMessage);
+            }
+        }
+    });
+}
 
+function updateView(obj) {
+
+    layer.open({
+        type: 1,
+        title: '编辑',
+        shadeClose: true,
+        shade: 0.8,
+        area: ['90%', '90%'],
+        content: $('#updateView'),
+        btn: ['确定', '取消'], // 按钮
+        yes: function(index, layero){
+            layer.msg('确定修改？', {
+                time: 0 //不自动关闭
+                ,btn: ['确定', '取消']
+                ,yes: function(index){
+                    updateViewGo($(obj).attr('data_id'));
+                    if(requestCode === 0){
+                        fac_search();
+                        layer.close(index);
+                        layer.closeAll();
+                        layer.msg(requestMessage);
+                    }else {
+                        layer.msg(requestMessage);
+                    }
+                }
+            });
+        }
+//            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
+    });
+}
+
+function updateViewMobile(obj) {
+
+    layer.open({
+        type: 1,
+        title: '编辑',
+        shadeClose: true,
+        shade: 0.8,
+        area: ['90%', '90%'],
+        content: $('#updateViewMobile'),
+        btn: ['确定', '取消'], // 按钮
+        yes: function(index, layero){
+            layer.msg('确定修改？', {
+                time: 0 //不自动关闭
+                ,btn: ['确定', '取消']
+                ,yes: function(index){
+                    updateViewMobileGo($(obj).attr('data_id'));
+                    if(requestCode === 0){
+                        fac_search();
+                        layer.close(index);
+                        layer.closeAll();
+                        layer.msg(requestMessage);
+                    }else {
+                        layer.msg(requestMessage);
+                    }
+                }
+            });
+        }
+//            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
+    });
+}
+
+function updateMaterial(obj) {
+    layer.open({
+        type: 1,
+        title: '编辑',
+        shadeClose: true,
+        shade: 0.8,
+        area: ['40%', '60%'],
+        content: $('#updateMaterial'),
+        btn: ['确定', '取消'], // 按钮
+        yes: function(index, layero){
+            layer.msg('确定修改？', {
+                time: 0 //不自动关闭
+                ,btn: ['确定', '取消']
+                ,yes: function(index){
+                    updateMaterialGo($(obj).attr('data_id'));
+                    if(requestCode === 0){
+                        fac_search();
+                        layer.close(index);
+                        layer.closeAll();
+                        layer.msg(requestMessage);
+                    }else {
+                        layer.msg(requestMessage);
+                    }
+                }
+            });
+        }
+//            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
+    });
 }

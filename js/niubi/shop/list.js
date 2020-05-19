@@ -52,7 +52,7 @@ function initTable() {
 
     $('#shopTable').bootstrapTable('destroy');
     $("#shopTable").bootstrapTable({
-        url: __ROOT__ + 'admin/shop/getList', //获取数据的Servlet地址
+        url: __ROOT__ + 'admin/goods/getList', //获取数据的Servlet地址
         striped: true,  //表格显示条纹
         pagination: true, //启动分页
         sortName: 'id',
@@ -124,38 +124,89 @@ function initTable() {
             },
             {
                 field: 'name',
-                title: '商品名称',
-                width : '10%',
+                title: '名称',
                 align: 'center'
             },
             {
-                field: 'title',
-                title: '商品内容',
+                field: 'type_name',
+                title: '类别',
+                align: 'center'
+            },
+            {
+                field: 'inventory',
+                title: '库存',
+                align: 'center'
+            },
+            {
+                field: 'inventory_unit',
+                title: '库存单位',
+                align: 'center'
+            },
+            {
+                field: 'is_deduction_inventory',
+                title: '是否减少库存',
+                align: 'center',
                 formatter: function(value,row,index){
-
-                    return value;
+                    if(value === 0){
+                        return '否';
+                    }else {
+                        return '是';
+                    }
                 }
             },
             {
-                field: 'type',
-                title: '分区',
+                field: 'price',
+                title: '售价',
                 align: 'center'
             },
-
+            {
+                field: 'origin_price',
+                title: '原价',
+                align: 'center'
+            },
+            {
+                field: 'buy_mix_num',
+                title: '最低起购数',
+                align: 'center'
+            },
+            {
+                field: 'buy_max_num',
+                title: '最大购买数',
+                align: 'center'
+            },
+            {
+                field: 'is_shelves',
+                title: '上架',
+                align: 'center',
+                formatter: function(value,row,index){
+                    if(value === 0){
+                        return '否';
+                    }else {
+                        return '是';
+                    }
+                }
+            },
+            {
+                field: 'sales_count',
+                title: '销量',
+                align: 'center'
+            },
+            {
+                field: 'access_count',
+                title: '访问量',
+                align: 'center'
+            },
             {
                 field: 'operate',
                 title: '操作',
                 width : '10%',
                 align: 'center',
                 formatter: function(value,row,index){
-                    var d='<a href="#" mce_href="#" data_id="'+row.id+'" data_name="'+row.name+'" data_title="'+row.title+'" data_url="'+row.url+'"  onclick="editshop(this)" >编辑</a> ';
-                    var e='<a href="#" mce_href="#" " data_url="'+row.url+'/ex/v1/index.html?id='+row.id+'"  onclick="preview(this)" >预览</a> ';
-                    if(row.view){
-                         e='<a href="#" mce_href="#" " data_url="'+row.url+'/ex/v1/'+row.view+'.html?id='+row.id+'&name='+row.name+'"  onclick="preview(this)" >预览</a> ';
-                    }
-                    var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="del(this)" >删除</a>';
+                    var a='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="editGoods(this)" >编辑</a>';
 
-                    return f;
+                    var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="delGoods(this)" >删除</a>';
+
+                    return a+f;
                 }
             }
         ]

@@ -20,7 +20,7 @@ setTimeout(function(){
         fileVal:'upload', // [默认值：'file'] 设置文件上传域的name。
     });
     uploader.on('uploadSuccess', function(file, response) {
-        var html = '<div  onclick="delImg(this)" ><img name="qr_img" data_name="'+__IMG__+ response.path[0]+'" src="'+__IMG__+ response.path[0]+'"></div>';
+        var html = '<div  onclick="delImg(this)" style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"><img name="qr_img" data_name="'+__IMG__+ response.path[0]+'" src="'+__IMG__+ response.path[0]+'"></div>';
         $('#upload-list').append(html);
     });
 },3000);
@@ -48,14 +48,19 @@ var uploader_head =  WebUploader.create(
 );
 
 uploader_head.on("uploadSuccess", function(file, response) {
-    var html = '<div  onclick="delImg(this)" ><img name="head_img" data_name="'+__IMG__+ response.path[0]+'" src="'+__IMG__+ response.path[0]+'"></div>';
+    var html = '<div  onclick="delImg(this)" style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"><img name="head_img" data_name="'+__IMG__+ response.path[0]+'" src="'+__IMG__+ response.path[0]+'"></div>';
     $('#upload-list-head').append(html);
 });
 
 function delImg(i) {
-    i.remove();
-    // console.log(i);
-    // $('#upload-item'+i).remove();
+    layer.msg('确定删除？', {
+        time: 0 //不自动关闭
+        ,btn: ['确定', '取消']
+        ,yes: function(index){
+            i.remove();
+            layer.close(index);
+        }
+    });
 }
 
 //提交落地页数据
@@ -82,6 +87,17 @@ function addCommodityGo() {
         'material_id':  $("#material").selectpicker('val'),
         'head_img': head_img,
         'title' : $("input[name='title']").val(),
+        'view_id':  $("#view").selectpicker('val'),
+        'platform_id':  $("#platform").selectpicker('val'),
+        'type':  1,
+        'wechat_name' : $("input[name='we_chat_name']").val(),
+        'wechat_url' : $("input[name='we_chat_url']").val(),
+        'mobile_view_id':  $("#mobile_view").selectpicker('val'),
+        'bottom_name' : $("input[name='bottom_name']").val(),
+        'wechat_id' : $("input[name='we_chat_id']").val(),
+        'wechat_url_info' : $("input[name='we_chat_url_info']").val(),
+        'uc_tj_id' : $("input[name='uc_tj_id']").val(),
+        'uc_tj' : $("input[name='uc_tj']").val(),
     }
     ajaxGo('admin/commodity/addCommodity')
 
@@ -112,7 +128,43 @@ function editCommodityGo(id) {
         'material_id':  $("#material").selectpicker('val'),
         'head_img': head_img,
         'title' : $("input[name='title']").val(),
+        'view_id':  $("#view").selectpicker('val'),
+        'platform_id':  $("#platform").selectpicker('val'),
+        'type':  1,
+        'wechat_name' : $("input[name='we_chat_name']").val(),
+        'wechat_url' : $("input[name='we_chat_url']").val(),
+        'mobile_view_id':  $("#mobile_view").selectpicker('val'),
+        'bottom_name' : $("input[name='bottom_name']").val(),
+        'wechat_id' : $("input[name='we_chat_id']").val(),
+        'wechat_url_info' : $("input[name='we_chat_url_info']").val(),
+        'uc_tj_id' : $("input[name='uc_tj_id']").val(),
+        'uc_tj' : $("input[name='uc_tj']").val(),
     }
     ajaxGo('admin/commodity/editCommodity')
 
+}
+
+//修改落地页模版
+function updateViewGo(id) {
+    requestData.data = {
+        'id' : id,
+        'view_id':  $("#view_update").selectpicker('val'),
+    }
+    ajaxGo('admin/commodity/updateView')
+}
+
+function updateViewMobileGo(id) {
+    requestData.data = {
+        'id' : id,
+        'mobile_view_id':  $("#mobile_view_update").selectpicker('val'),
+    }
+    ajaxGo('admin/commodity/updateViewMobile')
+}
+
+function updateMaterialGo(id) {
+    requestData.data = {
+        'id' : id,
+        'material_id':  $("#material_update").selectpicker('val'),
+    }
+    ajaxGo('admin/commodity/updateMaterial')
 }

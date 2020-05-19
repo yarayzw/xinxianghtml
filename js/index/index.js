@@ -1,5 +1,10 @@
 $(document).ready(function() {
-
+    let u_id = getCookie('u_id');
+    if(u_id !== '5'){
+        $('#view_menu').hide()
+        $('#platform_menu').hide()
+        $('#log').hide()
+    }
 });
 
 function getMenu() {
