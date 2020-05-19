@@ -399,10 +399,9 @@ img {
 	/*line-height: 30px;*/
 	text-align: justify;
 	width: 92%;
-	margin: 15px auto 0px;
+	margin: 10px auto;
 	/*font-family: Microsoft YaHei;*/
-	font-size: 16pt;
-	margin-top: 25px;
+	font-size: 14pt;
 	line-height: 1.6em;
 	background: #f5f5f5;
 }
