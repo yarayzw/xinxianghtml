@@ -103,7 +103,7 @@ function initTable() {
                 title: '详情',
                 width : '35%',
                 formatter: function(value,row,index){
-                    return value;
+                    return '<xml>'+value.substring(-1,30)+'</xml>';
                 }
             }
         ]
