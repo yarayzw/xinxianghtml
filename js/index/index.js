@@ -3,7 +3,7 @@ $(document).ready(function() {
     if(u_id !== '5'){
         $('#view_menu').hide()
         $('#platform_menu').hide()
-        $('#commodityBindPlatform_menu').hide()
+        $('#log').hide()
     }
 });
 
