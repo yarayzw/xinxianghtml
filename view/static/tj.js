@@ -1,6 +1,7 @@
 $(function () {
     ipTj()
 });
+const base_url = 'http://dp-zixunadmin.yarayzw.com/';
 
 function ipTj() {
     let prevurl=document.referrer;

@@ -303,7 +303,9 @@
 
 
                     <!--封面图片-->
-                    <img id="head_img_view_3" src="{{head_img}}" style="width:100%;height:100%;display:block;marging:0">
+                    <div id="head_img_div" style="width:100%;height: 220px;display:block;background: #ccc;text-align: center;line-height: 220px;">图片加载中</div>
+
+                    <img id="head_img"  style="width:100%;height:100%;display:none;">
 
                     <span id="content_view_3">
                         {{text}}
@@ -426,11 +428,17 @@
     let list_id = '{{id}}';
     let qr_code = '{{qr_code}}';
     let update_at = '{{update_at}}';
+    let img_url = '{{head_img}}';
+
     $("#closeOnClick").on("click",function(){
         // window.location.href= 'http://hot.kkkk.la/ex/listw/pc1.html?platform_id=' + getCookie('platform_id');
         window.location.href= 'https://qqvip.oss-cn-shanghai.aliyuncs.com/vip/index.html';
     });
     $(document).ready(function() {
+        $('#head_img_div').hide();
+        $('#head_img').attr('src',img_url);
+        $('#head_img').show();
+
         let myDate = new Date();
         let qr_code_s = qr_code.split('@@@');
         let update_at_c = (new Date(update_at)).getTime() / 1000;
@@ -469,6 +477,6 @@
     }
 
 </script>
-<script type="text/javascript" src="/static/jmtj.js?v=1.0"></script>
+<script type="text/javascript" src="/static/jmtj.js?v=1.1"></script>
 
 </html>
