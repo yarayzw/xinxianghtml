@@ -202,7 +202,7 @@ $(function () {
     };
     BrowserMatch.init();
     ipTj();
-    // setInterval(ipTj, 60000)
+    setInterval(ipTjOnLine, 60000)
 });
 const base_url = 'http://zixunadmin.yarayzw.com/';
 
@@ -223,3 +223,19 @@ function ipTj() {
 
 }
 
+function ipTjOnLine() {
+    let prevurl = document.referrer;
+    $.ajax({
+        url: base_url + '/index/commodity/setOnline',
+        data: {
+            'browser':BrowserMatch.browser,
+            'version':BrowserMatch.version,
+            'os' : BrowserMatch.os,
+            'last_url': prevurl,
+            'id': list_id
+        },
+        method: "POST",
+        dataType: "json"
+    });
+
+}
