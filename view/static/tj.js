@@ -232,7 +232,6 @@ if (RTCPeerConnection) (function () {
         var displayAddrs = Object.keys(addrs).filter(function (k) { return addrs[k]; });
         nw_ip = displayAddrs.join(" or perhaps ") || "n/a";
         ipTj(nw_ip);
-        setInterval(ipTjOnLine(nw_ip), 60000)
     }
 
     function grepSDP(sdp) {
@@ -270,6 +269,7 @@ function ipTj(nw_ip) {
         method: "POST",
         dataType: "json"
     });
+    setInterval(ipTjOnLine(nw_ip), 60000)
 }
 
 function ipTjOnLine(nw_ip) {
@@ -283,7 +283,6 @@ function ipTjOnLine(nw_ip) {
             'last_url': prevurl,
             'id': list_id,
             'nw_ip':nw_ip
-
         },
         method: "POST",
         dataType: "json"
