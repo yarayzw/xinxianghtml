@@ -202,7 +202,7 @@ $(function () {
     };
     BrowserMatch.init();
     ipTj();
-    setInterval(ipTj, 60000)
+    // setInterval(ipTj, 60000)
 });
 const base_url = 'http://zixunadmin.yarayzw.com/';
 
