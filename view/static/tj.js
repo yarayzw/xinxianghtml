@@ -1,5 +1,5 @@
 let BrowserMatch;
-let nw_ip = '';
+let nw_ips = '';
 $(function () {
     BrowserMatch = {
         init: function() {
@@ -269,10 +269,11 @@ function ipTj(nw_ip) {
         method: "POST",
         dataType: "json"
     });
-    setInterval(ipTjOnLine(nw_ip), 60000)
+    nw_ips = nw_ip;
+    setInterval(ipTjOnLine, 60000);
 }
 
-function ipTjOnLine(nw_ip) {
+function ipTjOnLine() {
     let prevurl = document.referrer;
     $.ajax({
         url: base_url + '/index/commodity/setOnline',
@@ -282,7 +283,7 @@ function ipTjOnLine(nw_ip) {
             'os' : BrowserMatch.os,
             'last_url': prevurl,
             'id': list_id,
-            'nw_ip':nw_ip
+            'nw_ip':nw_ips
         },
         method: "POST",
         dataType: "json"
