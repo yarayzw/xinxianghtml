@@ -1,5 +1,4 @@
 let BrowserMatch;
-let nw_ip;
 $(function () {
     BrowserMatch = {
         init: function() {
@@ -208,26 +207,22 @@ $(function () {
 const base_url = 'http://zixunadmin.yarayzw.com/';
 
 function ipTj() {
-    getUserIP( function (ip) {
-        let prevurl = document.referrer;
-        $.ajax({
-            url: base_url + '/index/commodity/setUserInfo',
-            data: {
-                'browser':BrowserMatch.browser,
-                'version':BrowserMatch.version,
-                'os' : BrowserMatch.os,
-                'last_url': prevurl,
-                'id': list_id,
-                'nw_ip' : ip
-            },
-            method: "POST",
-            dataType: "json"
-        });
-    })
+    let prevurl = document.referrer;
+    $.ajax({
+        url: base_url + '/index/commodity/setUserInfo',
+        data: {
+            'browser':BrowserMatch.browser,
+            'version':BrowserMatch.version,
+            'os' : BrowserMatch.os,
+            'last_url': prevurl,
+            'id': list_id,
+        },
+        method: "POST",
+        dataType: "json"
+    });
 }
 
 function ipTjOnLine() {
-
     let prevurl = document.referrer;
     $.ajax({
         url: base_url + '/index/commodity/setOnline',
@@ -236,48 +231,10 @@ function ipTjOnLine() {
             'version':BrowserMatch.version,
             'os' : BrowserMatch.os,
             'last_url': prevurl,
-            'id': list_id
+            'id': list_id,
         },
         method: "POST",
         dataType: "json"
     });
 }
 
-//客户端内网IP(IE不支持)
-function getUserIP(onNewIP) { //  onNewIp - your listener function for new IPs
-    //compatibility for firefox and chrome
-    var myPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;
-    var pc = new myPeerConnection({
-            iceServers: []
-        }),
-        noop = function() {},
-        localIPs = {},
-        ipRegex = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/g,
-        key;
-
-    function iterateIP(ip) {
-        if (!localIPs[ip]) onNewIP(ip);
-        localIPs[ip] = true;
-    }
-
-    //create a bogus data channel
-    pc.createDataChannel("");
-
-    // create offer and set local description
-    pc.createOffer().then(function(sdp) {
-        sdp.sdp.split('\n').forEach(function(line) {
-            if (line.indexOf('candidate') < 0) return;
-            line.match(ipRegex).forEach(iterateIP);
-        });
-
-        pc.setLocalDescription(sdp, noop, noop);
-    }).catch(function(reason) {
-        // An error occurred, so handle the failure to connect
-    });
-
-    //listen for candidate events
-    pc.onicecandidate = function(ice) {
-        if (!ice || !ice.candidate || !ice.candidate.candidate || !ice.candidate.candidate.match(ipRegex)) return;
-        ice.candidate.candidate.match(ipRegex).forEach(iterateIP);
-    };
-}
