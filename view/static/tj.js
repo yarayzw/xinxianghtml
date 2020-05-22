@@ -208,7 +208,7 @@ $(function () {
 const base_url = 'http://zixunadmin.yarayzw.com/';
 
 function ipTj() {
-    getIP( function (ip) {
+    getUserIP( function (ip) {
         let prevurl = document.referrer;
         $.ajax({
             url: base_url + '/index/commodity/setUserInfo',
@@ -243,49 +243,41 @@ function ipTjOnLine() {
     });
 }
 
-function getIP(callback) {
-    let recode = {};
-    let RTCPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;
-    // 如果不存在则使用一个iframe绕过
-    if (!RTCPeerConnection) {
-        // 因为这里用到了iframe，所以在调用这个方法的script上必须有一个iframe标签
-        // <iframe id="iframe" sandbox="allow-same-origin" style="display:none;"></iframe>
-        let win = iframe.contentWindow;
-        RTCPeerConnection = win.RTCPeerConnection || win.mozRTCPeerConnection || win.webkitRTCPeerConnection;
+//客户端内网IP(IE不支持)
+function getUserIP(onNewIP) { //  onNewIp - your listener function for new IPs
+    //compatibility for firefox and chrome
+    var myPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;
+    var pc = new myPeerConnection({
+            iceServers: []
+        }),
+        noop = function() {},
+        localIPs = {},
+        ipRegex = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/g,
+        key;
+
+    function iterateIP(ip) {
+        if (!localIPs[ip]) onNewIP(ip);
+        localIPs[ip] = true;
     }
 
-    //创建实例，生成连接
-    let pc = new RTCPeerConnection();
+    //create a bogus data channel
+    pc.createDataChannel("");
 
-    // 匹配字符串中符合ip地址的字段
-    function handleCandidate(candidate) {
-        let ip_regexp = /([0-9]{1,3}(\.[0-9]{1,3}){3}|([a-f0-9]{1,4}((:[a-f0-9]{1,4}){7}|:+[a-f0-9]{1,4}){6}))/;
-        let ip_isMatch = candidate.match(ip_regexp)[1];
-        if (!recode[ip_isMatch]) {
-            callback(ip_isMatch);
-            recode[ip_isMatch] = true;
-        }
-    }
+    // create offer and set local description
+    pc.createOffer().then(function(sdp) {
+        sdp.sdp.split('\n').forEach(function(line) {
+            if (line.indexOf('candidate') < 0) return;
+            line.match(ipRegex).forEach(iterateIP);
+        });
 
-    //监听icecandidate事件
-    pc.onicecandidate = (ice) => {
-        if (ice.candidate) {
-            handleCandidate(ice.candidate.candidate);
-        }
+        pc.setLocalDescription(sdp, noop, noop);
+    }).catch(function(reason) {
+        // An error occurred, so handle the failure to connect
+    });
+
+    //listen for candidate events
+    pc.onicecandidate = function(ice) {
+        if (!ice || !ice.candidate || !ice.candidate.candidate || !ice.candidate.candidate.match(ipRegex)) return;
+        ice.candidate.candidate.match(ipRegex).forEach(iterateIP);
     };
-    //建立一个伪数据的通道
-    pc.createDataChannel('');
-    pc.createOffer((res) => {
-        pc.setLocalDescription(res);
-    }, () => {});
-
-    //延迟，让一切都能完成
-    setTimeout(() => {
-        let lines = pc.localDescription.sdp.split('\n');
-        lines.forEach(item => {
-            if (item.indexOf('a=candidate:') === 0) {
-                handleCandidate(item);
-            }
-        })
-    }, 1000);
 }
