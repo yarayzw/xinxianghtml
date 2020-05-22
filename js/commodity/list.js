@@ -196,11 +196,13 @@ function initTable() {
                 align: 'center',
                 width : '4%',
                 formatter: function(value,row,index){
-                    if(value !== ''){
-                        return  '有';
-                    }else {
-                        return '无';
-                    }
+                    var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="lookTj(this)" >查看</a>';
+                    return f;
+                    // if(value !== ''){
+                    //     return  '有';
+                    // }else {
+                    //     return '无';
+                    // }
                 }
             },
 
@@ -458,6 +460,23 @@ function updateMaterial(obj) {
                 }
             });
         }
+//            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
+    });
+}
+
+function lookTj(obj) {
+    requestData.data = {
+        'page_id' : $(obj).attr('data_id')
+    }
+    ajaxGo('admin/commodity/getCommodityStatic');
+    layer.open({
+        type: 1,
+        title: '统计数据',
+        shadeClose: true,
+        shade: 0.8,
+        area: ['75%', '70%'],
+        content: $('#tj_div'),
+        btn: ['取消'], // 按钮
 //            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
     });
 }

@@ -268,6 +268,55 @@
         </div>
     </div>
 </div>
+<div id="tj_div" style="display: none">
+    <div>
+        <div style="float: left;width: 34%;height: 500px;text-align: center;border-right: #ccc solid 1px">
+            <div style="text-align: center">
+                <strong>最近一分钟</strong>
+                <br>
+                <span>
+                    您网站上有 <span style="color: red" id="all_num"></span> 独立访客
+                </span>
+                <div style="background: #c0a16b;width: 100%;height: 30px;line-height: 30px;text-align: center">
+                    今日最高： <span id="today_max"></span> (发生在 <span id="today_max_time"></span>)
+                </div>
+            </div>
+            <br>
+            <div>
+                <div style="float: left;width: 50%;text-align: center">
+                    今日汇总
+                    <br>
+                    <span style="color: #00bbff">浏览次数: <span id="all_all"></span></span><br>
+                    <span style="color: #c0a16b">独立访客: <span id="all_fk"></span></span><br>
+                    <span style="color: forestgreen">IP数:<span id="all_ip"></span></span>
+                </div>
+                <div style="float: left;width: 50%;text-align: center">
+                    最近15分钟
+                    <br>
+                    <span style="color: #00bbff">浏览次数: <span id="15_all"></span></span><br>
+                    <span style="color: #c0a16b">独立访客: <span id="15_fk"></span></span><br>
+                    <span style="color: forestgreen">IP数:<span id="15_ip"></span></span>
+                </div>
+            </div>
+        </div>
+        <div id="zb" style="float: left;width: 30%;height:500px"></div>
+        <div style="float: left;width: 35%;height:500px;">
+            <table>
+                <tr>
+                    <td style="width: 220px">来路域名</td>
+                    <td>次数</td>
+                    <td>占比</td>
+                </tr>
+                <tr>
+                    <td>hao.360.com</td>
+                    <td>123123</td>
+                    <td>23%</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
 </body>
 
 <script src="../js/jquery.min.js?v=2.1.4"></script>
@@ -287,6 +336,8 @@
 <script src="../js/plugins/simditor/hotkeys.js"></script>
 <script src="../js/simditor-2.3.28/lib/simditor.js"></script>
 <script src="../js/plugins/webuploader/webuploader.min.js"></script>
+<script src="../js/echarts/dist/echarts.min.js"></script>
+
 <!--<script src="../js/demo/webuploader-demo.min.js"></script>-->
 <!--//下拉框js-->
 <script src="../js/plugins/bootstrap-select-1.13.9/js/bootstrap-select.js"></script>
