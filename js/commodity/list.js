@@ -476,9 +476,9 @@ function lookTj(obj) {
     $("#all_ip").text(requestData.data.today.ip);
 
     //15分钟
-    $("#15_all").text(requestData.data[15].all);
-    $("#15_fk").text(requestData.data[15].dl);
-    $("#15_ip").text(requestData.data[15].ip);
+    $("#15_all").text(requestData.data['15'].all);
+    $("#15_fk").text(requestData.data['15'].dl);
+    $("#15_ip").text(requestData.data['15'].ip);
 
     //占比
     var option = {
@@ -522,7 +522,7 @@ function lookTj(obj) {
 
     $('#all_list').empty();
     $('#all_list').append(html);
-    let all_num = requestData.data.all_list.all[0].count;
+    let all_num = requestData.data.all_lists.all;
     requestData.data.all_list.list.forEach((item,index,array)=>{
         var html = '<tr class="layer1" style="font-size:12px;width: 100%; line-height: 23px;">\n' +
             '                    <td style="float:left; color: #999; width: 53%; padding-left:2%; text-align:left;">'+item.url+'</td>\n' +
