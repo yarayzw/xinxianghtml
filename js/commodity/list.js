@@ -111,13 +111,6 @@ function initTable() {
                 $(this).attr("title", $(this).text());
                 $(this).css("cursor", 'pointer');
             });
-//                    if(data.total==0){
-//                        layer.msg('暂无设备数据！');
-//                        $("#userFaciTable").bootstrapTable('hideRow');
-//                        $("#userFaciTable").bootstrapTable('refresh');
-//                    }
-            //            alert("加载成功"+data);
-
         },
         onLoadError: function(){  //加载失败时执行
             layer.msg("加载数据失败", {time : 1500, icon : 2});
@@ -196,10 +189,10 @@ function initTable() {
                 align: 'center',
                 width : '4%',
                 formatter: function(value,row,index){
-                    // var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="lookTj(this)" >查看</a>';
+                    var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="lookTj(this)" >查看</a>';
                     // return f;
                     if(value !== ''){
-                        return  '有';
+                        return  '有'+f;
                     }else {
                         return '无';
                     }
@@ -463,12 +456,82 @@ function updateMaterial(obj) {
 //            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
     });
 }
+var myChart = echarts.init(document.getElementById('zb'));
 
 function lookTj(obj) {
     requestData.data = {
         'page_id' : $(obj).attr('data_id')
     }
     ajaxGo('admin/commodity/getCommodityStatic');
+
+    $("#all_num").text(requestData.data.now_time); //一分钟内独立访客
+
+    //今日最高
+    $("#today_max").text(requestData.data.max_num.num);
+    $("#today_max_time").text(requestData.data.max_num.time);
+
+    //今日汇总
+    $("#all_all").text(requestData.data.today.all);
+    $("#all_fk").text(requestData.data.today.dl);
+    $("#all_ip").text(requestData.data.today.ip);
+
+    //15分钟
+    $("#15_all").text(requestData.data[15].all);
+    $("#15_fk").text(requestData.data[15].dl);
+    $("#15_ip").text(requestData.data[15].ip);
+
+    //占比
+    var option = {
+        tooltip: {
+            trigger: 'item',
+            formatter: '{a} <br/>{b} : {c} ({d}%)'
+        },
+        legend: {
+            orient: 'vertical',
+            left: 'left',
+            data: ['站内量', '站外量']
+        },
+        series: [
+            {
+                name: '访问来源',
+                type: 'pie',
+                radius: '55%',
+                center: ['50%', '60%'],
+                data: [
+                    {value: requestData.data.zb.zn, name: '站内量'},
+                    {value: requestData.data.zb.zw, name: '站外量'},
+                ],
+                emphasis: {
+                    itemStyle: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }
+        ]
+    };
+    myChart.setOption(option);
+
+    //右侧列表
+    let html = '<tr style="float: left; font-size:12px;font-weight:bold; width: 100%; line-height: 25px; background:#E9E9E9;">\n' +
+        '                    <td style="float:left; width: 53%; padding-left:2%; text-align:left;">来路域名</td>\n' +
+        '                    <td style="float:left; width: 25%; text-align:left;">次数</td>\n' +
+        '                    <td style="float:right; width: 18%; text-align:left;">占比</td>\n' +
+        '                </tr>';
+
+    $('#all_list').empty();
+    $('#all_list').append(html);
+    let all_num = requestData.data.all_list.all[0].count;
+    requestData.data.all_list.list.forEach((item,index,array)=>{
+        var html = '<tr class="layer1" style="font-size:12px;width: 100%; line-height: 23px;">\n' +
+            '                    <td style="float:left; color: #999; width: 53%; padding-left:2%; text-align:left;">'+item.url+'</td>\n' +
+            '                    <td style="float:left; color: #999; width: 25%; text-align:left;">'+item.count+'</td>\n' +
+            '                    <td style="float:right; color: #2e91da; width: 18%; text-align:left;">'+(item.count/all_num).toFixed(2)+'%</td>\n' +
+            '                </tr>'//执行代码
+        $('#all_list').append(html);
+    });
+
     layer.open({
         type: 1,
         title: '统计数据',
