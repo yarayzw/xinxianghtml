@@ -270,7 +270,7 @@ function ipTj(nw_ip) {
         dataType: "json"
     });
     nw_ips = nw_ip;
-    setInterval(ipTjOnLine, 60000);
+    // setInterval(ipTjOnLine, 60000);
 }
 
 function ipTjOnLine() {

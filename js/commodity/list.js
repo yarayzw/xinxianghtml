@@ -459,6 +459,16 @@ function updateMaterial(obj) {
 var myChart = echarts.init(document.getElementById('zb'));
 
 function lookTj(obj) {
+    layer.open({
+        type: 1,
+        title: '统计数据',
+        shadeClose: true,
+        shade: 0.8,
+        area: ['85%', '70%'],
+        content: $('#tj_div'),
+        btn: ['取消'], // 按钮
+//            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
+    });
     requestData.data = {
         'page_id' : $(obj).attr('data_id')
     }
@@ -476,9 +486,9 @@ function lookTj(obj) {
     $("#all_ip").text(requestData.data.today.ip);
 
     //15分钟
-    $("#15_all").text(requestData.data['15'].all);
-    $("#15_fk").text(requestData.data['15'].dl);
-    $("#15_ip").text(requestData.data['15'].ip);
+    $("#15_all").text(requestData.data.five.all);
+    $("#15_fk").text(requestData.data.five.dl);
+    $("#15_ip").text(requestData.data.five.ip);
 
     //占比
     var option = {
@@ -514,32 +524,26 @@ function lookTj(obj) {
     myChart.setOption(option);
 
     //右侧列表
-    let html = '<tr style="float: left; font-size:12px;font-weight:bold; width: 100%; line-height: 25px; background:#E9E9E9;">\n' +
-        '                    <td style="float:left; width: 53%; padding-left:2%; text-align:left;">来路域名</td>\n' +
-        '                    <td style="float:left; width: 25%; text-align:left;">次数</td>\n' +
-        '                    <td style="float:right; width: 18%; text-align:left;">占比</td>\n' +
+    let html = '<tr style=" font-size:12px;font-weight:bold; width: 100%; line-height: 25px; background:#E9E9E9;">\n' +
+        '                    <td style="text-align: right; width: 35%; padding-left:2%; text-align:left;">来路域名</td>\n' +
+        '                    <td style="text-align: left; width: 25%; text-align:left;">次数</td>\n' +
+        '                    <td style="text-align: right; width: 18%; text-align:left;">占比</td>\n' +
         '                </tr>';
 
     $('#all_list').empty();
     $('#all_list').append(html);
-    let all_num = requestData.data.all_lists.all;
-    requestData.data.all_list.list.forEach((item,index,array)=>{
+    let all_num = requestData.data.all_urls.all;
+    requestData.data.all_urls.list.forEach((item,index,array)=>{
+        if(item.url === ''){
+            item.url = '未知';
+        }
         var html = '<tr class="layer1" style="font-size:12px;width: 100%; line-height: 23px;">\n' +
-            '                    <td style="float:left; color: #999; width: 53%; padding-left:2%; text-align:left;">'+item.url+'</td>\n' +
-            '                    <td style="float:left; color: #999; width: 25%; text-align:left;">'+item.count+'</td>\n' +
-            '                    <td style="float:right; color: #2e91da; width: 18%; text-align:left;">'+(item.count/all_num).toFixed(2)+'%</td>\n' +
+            '                    <td style="text-align: right; color: #999; width: 100px; padding-left:2%; text-align:left;">'+item.url+'</td>\n' +
+            '                    <td style="text-align: left; color: #999; width: 25%; text-align:left;">'+item.count+'</td>\n' +
+            '                    <td style="text-align: right; color: #2e91da; width: 18%; text-align:left;">'+((item.count/all_num)*100).toFixed(2)+'%</td>\n' +
             '                </tr>'//执行代码
         $('#all_list').append(html);
     });
 
-    layer.open({
-        type: 1,
-        title: '统计数据',
-        shadeClose: true,
-        shade: 0.8,
-        area: ['75%', '70%'],
-        content: $('#tj_div'),
-        btn: ['取消'], // 按钮
-//            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
-    });
+
 }
