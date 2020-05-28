@@ -501,7 +501,7 @@ function lookTj(obj) {
                 name: '访问来源',
                 type: 'pie',
                 radius: '45%',
-                center: ['50%', '30%'],
+                center: ['50%', '40%'],
                 data: [
                     {value: requestData.data.zb.zn, name: '站内量'},
                     {value: requestData.data.zb.zw, name: '站外量'},
