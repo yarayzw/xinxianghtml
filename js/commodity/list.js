@@ -496,17 +496,12 @@ function lookTj(obj) {
             trigger: 'item',
             formatter: '{a} <br/>{b} : {c} ({d}%)'
         },
-        legend: {
-            orient: 'vertical',
-            left: 'left',
-            data: ['站内量', '站外量']
-        },
         series: [
             {
                 name: '访问来源',
                 type: 'pie',
                 radius: '55%',
-                center: ['50%', '60%'],
+                center: ['50%', '30%'],
                 data: [
                     {value: requestData.data.zb.zn, name: '站内量'},
                     {value: requestData.data.zb.zw, name: '站外量'},
