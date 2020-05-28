@@ -190,12 +190,12 @@ function initTable() {
                 width : '4%',
                 formatter: function(value,row,index){
                     var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="lookTj(this)" >查看</a>';
-                    // return f;
-                    if(value !== ''){
-                        return  '有'+f;
-                    }else {
-                        return '无';
-                    }
+                    return f;
+                    // if(value !== ''){
+                    //     return  '有'+f;
+                    // }else {
+                    //     return '无';
+                    // }
                 }
             },
 
