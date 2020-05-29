@@ -457,8 +457,10 @@ function updateMaterial(obj) {
     });
 }
 var myChart = echarts.init(document.getElementById('zb'));
+var myChartzx = echarts.init(document.getElementById('zxt'));
 
 function lookTj(obj) {
+
     layer.open({
         type: 1,
         title: '统计数据',
@@ -466,11 +468,20 @@ function lookTj(obj) {
         shade: 0.8,
         area: ['85%', '70%'],
         content: $('#tj_div'),
-        btn: ['取消'], // 按钮
+        btn: ['刷新','取消'], // 按钮
+        yes: function(index, layero){
+            layer.msg('正在加载');
+
+            getTj($(obj).attr('data_id'));
+        }
 //            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
     });
+    getTj($(obj).attr('data_id'));
+}
+
+function getTj(page_id) {
     requestData.data = {
-        'page_id' : $(obj).attr('data_id')
+        'page_id' : page_id
     }
     ajaxGo('admin/commodity/getCommodityStatic');
 
@@ -490,12 +501,16 @@ function lookTj(obj) {
     $("#15_fk").text(requestData.data.five.dl);
     $("#15_ip").text(requestData.data.five.ip);
 
+    //来源总数
+    let all_num = requestData.data.all_urls.all;
+
     //占比
     var option = {
         tooltip: {
             trigger: 'item',
             formatter: '{a} <br/>{b} : {c} ({d}%)'
         },
+        color:['#2E91DA','#f6bd0f','#F5AD46','#6CBF3D','#EDEB2C','#A149D9','#f6bd0f'],
         series: [
             {
                 name: '访问来源',
@@ -503,8 +518,13 @@ function lookTj(obj) {
                 radius: '45%',
                 center: ['50%', '40%'],
                 data: [
-                    {value: requestData.data.zb.zn, name: '站内量'},
-                    {value: requestData.data.zb.zw, name: '站外量'},
+                    {value: requestData.data.bt[0]['num'], name: requestData.data.bt[0]['url']+'/'+requestData.data.bt[0]['num']+'/'+((requestData.data.bt[0]['num']/all_num)*100).toFixed(2)+'%'},
+                    {value: requestData.data.bt[1]['num'], name: requestData.data.bt[1]['url']+'/'+requestData.data.bt[1]['num']+'/'+((requestData.data.bt[1]['num']/all_num)*100).toFixed(2)+'%'},
+                    {value: requestData.data.bt[2]['num'], name: requestData.data.bt[2]['url']+'/'+requestData.data.bt[2]['num']+'/'+((requestData.data.bt[2]['num']/all_num)*100).toFixed(2)+'%'},
+                    {value: requestData.data.bt[3]['num'], name: requestData.data.bt[3]['url']+'/'+requestData.data.bt[3]['num']+'/'+((requestData.data.bt[3]['num']/all_num)*100).toFixed(2)+'%'},
+                    {value: requestData.data.bt[4]['num'], name: requestData.data.bt[4]['url']+'/'+requestData.data.bt[4]['num']+'/'+((requestData.data.bt[4]['num']/all_num)*100).toFixed(2)+'%'},
+                    {value: requestData.data.bt[5]['num'], name: requestData.data.bt[5]['url']+'/'+requestData.data.bt[5]['num']+'/'+((requestData.data.bt[5]['num']/all_num)*100).toFixed(2)+'%'},
+                    {value: requestData.data.bt[6]['num'], name: requestData.data.bt[6]['url']+'/'+requestData.data.bt[6]['num']+'/'+((requestData.data.bt[6]['num']/all_num)*100).toFixed(2)+'%'},
                 ],
                 emphasis: {
                     itemStyle: {
@@ -518,6 +538,50 @@ function lookTj(obj) {
     };
     myChart.setOption(option);
 
+    option = {
+        tooltip: {
+            trigger: 'axis'
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+
+        xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00', '09:00', '10:00', '11:00', '12:00','13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00']
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: [
+            {
+                name: requestData.data.zxt[0]['url'],
+                type: 'line',
+                stack: '总量',
+                data: requestData.data.zxt[0]['data']
+            },
+            {
+                name: requestData.data.zxt[1]['url'],
+                type: 'line',
+                stack: '总量',
+                data: requestData.data.zxt[1]['data']
+            },
+            {
+                name: requestData.data.zxt[2]['url'],
+                type: 'line',
+                stack: '总量',
+                data: requestData.data.zxt[2]['data']
+            }
+        ]
+    };
+
+
+    myChartzx.setOption(option);
+
     //右侧列表
     let html = '<tr style=" font-size:12px;font-weight:bold; width: 100%; line-height: 25px; background:#E9E9E9;">\n' +
         '                    <td style="text-align: right; width: 35%; padding-left:2%; text-align:left;">来路域名</td>\n' +
@@ -527,10 +591,9 @@ function lookTj(obj) {
 
     $('#all_list').empty();
     $('#all_list').append(html);
-    let all_num = requestData.data.all_urls.all;
     requestData.data.all_urls.list.forEach((item,index,array)=>{
         if(item.url === ''){
-            item.url = '未知';
+            item.url = '未知来源';
         }
         var html = '<tr class="layer1" style="font-size:12px;width: 100%; line-height: 23px;">\n' +
             '                    <td style="text-align: right; color: #999; width: 100px; padding-left:2%; text-align:left;">'+item.url+'</td>\n' +
@@ -540,5 +603,5 @@ function lookTj(obj) {
         $('#all_list').append(html);
     });
 
-
+    layer.msg('加载成功');
 }
