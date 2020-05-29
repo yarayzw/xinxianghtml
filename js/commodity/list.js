@@ -539,6 +539,9 @@ function getTj(page_id) {
     myChart.setOption(option);
 
     option = {
+        legend: {
+            data: [requestData.data.zxt[0]['url'], requestData.data.zxt[1]['url'], requestData.data.zxt[2]['url']]
+        },
         tooltip: {
             trigger: 'axis'
         },
@@ -561,19 +564,19 @@ function getTj(page_id) {
             {
                 name: requestData.data.zxt[0]['url'],
                 type: 'line',
-                stack: '总量',
+                stack: '总量1',
                 data: requestData.data.zxt[0]['data']
             },
             {
                 name: requestData.data.zxt[1]['url'],
                 type: 'line',
-                stack: '总量',
+                stack: '总量2',
                 data: requestData.data.zxt[1]['data']
             },
             {
                 name: requestData.data.zxt[2]['url'],
                 type: 'line',
-                stack: '总量',
+                stack: '总量3',
                 data: requestData.data.zxt[2]['data']
             }
         ]
