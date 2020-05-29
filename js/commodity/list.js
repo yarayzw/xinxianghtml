@@ -515,16 +515,29 @@ function getTj(page_id) {
             {
                 name: '访问来源',
                 type: 'pie',
-                radius: '45%',
+                radius: '55%',
                 center: ['50%', '40%'],
+                label:{            //饼图图形上的文本标签
+                    normal:{
+                        show:true,
+                        position: 'outer',
+                        alignTo: 'edge',
+                        margin: 15,
+                        textStyle : {
+                            // fontWeight : 300 ,
+                            fontSize : 10,    //文字的字体大小
+                            color:'#666',
+                        },
+                    }
+                },
                 data: [
-                    {value: requestData.data.bt[0]['num'], name: requestData.data.bt[0]['url']+'/'+requestData.data.bt[0]['num']+'/'+((requestData.data.bt[0]['num']/all_num)*100).toFixed(2)+'%'},
-                    {value: requestData.data.bt[1]['num'], name: requestData.data.bt[1]['url']+'/'+requestData.data.bt[1]['num']+'/'+((requestData.data.bt[1]['num']/all_num)*100).toFixed(2)+'%'},
-                    {value: requestData.data.bt[2]['num'], name: requestData.data.bt[2]['url']+'/'+requestData.data.bt[2]['num']+'/'+((requestData.data.bt[2]['num']/all_num)*100).toFixed(2)+'%'},
-                    {value: requestData.data.bt[3]['num'], name: requestData.data.bt[3]['url']+'/'+requestData.data.bt[3]['num']+'/'+((requestData.data.bt[3]['num']/all_num)*100).toFixed(2)+'%'},
-                    {value: requestData.data.bt[4]['num'], name: requestData.data.bt[4]['url']+'/'+requestData.data.bt[4]['num']+'/'+((requestData.data.bt[4]['num']/all_num)*100).toFixed(2)+'%'},
-                    {value: requestData.data.bt[5]['num'], name: requestData.data.bt[5]['url']+'/'+requestData.data.bt[5]['num']+'/'+((requestData.data.bt[5]['num']/all_num)*100).toFixed(2)+'%'},
-                    {value: requestData.data.bt[6]['num'], name: requestData.data.bt[6]['url']+'/'+requestData.data.bt[6]['num']+'/'+((requestData.data.bt[6]['num']/all_num)*100).toFixed(2)+'%'},
+                    {value: requestData.data.bt[0]['num'], name: requestData.data.bt[0]['url']+'/'+requestData.data.bt[0]['num']+'/'+((requestData.data.bt[0]['num']/all_num)*100).toFixed(2)+'%\n'},
+                    {value: requestData.data.bt[1]['num'], name: requestData.data.bt[1]['url']+'/'+requestData.data.bt[1]['num']+'/'+((requestData.data.bt[1]['num']/all_num)*100).toFixed(2)+'%\n'},
+                    {value: requestData.data.bt[2]['num'], name: requestData.data.bt[2]['url']+'/'+requestData.data.bt[2]['num']+'/'+((requestData.data.bt[2]['num']/all_num)*100).toFixed(2)+'%\n'},
+                    {value: requestData.data.bt[3]['num'], name: requestData.data.bt[3]['url']+'/'+requestData.data.bt[3]['num']+'/'+((requestData.data.bt[3]['num']/all_num)*100).toFixed(2)+'%\n'},
+                    {value: requestData.data.bt[4]['num'], name: requestData.data.bt[4]['url']+'/'+requestData.data.bt[4]['num']+'/'+((requestData.data.bt[4]['num']/all_num)*100).toFixed(2)+'%\n'},
+                    {value: requestData.data.bt[5]['num'], name: requestData.data.bt[5]['url']+'/'+requestData.data.bt[5]['num']+'/'+((requestData.data.bt[5]['num']/all_num)*100).toFixed(2)+'%\n'},
+                    {value: requestData.data.bt[6]['num'], name: requestData.data.bt[6]['url']+'/'+requestData.data.bt[6]['num']+'/'+((requestData.data.bt[6]['num']/all_num)*100).toFixed(2)+'%\n'},
                 ],
                 emphasis: {
                     itemStyle: {
@@ -551,7 +564,7 @@ function getTj(page_id) {
             bottom: '3%',
             containLabel: true
         },
-
+        color:['#2E91DA','#F5AD46','#6CBF3D'],
         xAxis: {
             type: 'category',
             boundaryGap: false,
