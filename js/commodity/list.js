@@ -466,7 +466,7 @@ function lookTj(obj) {
         title: '统计数据',
         shadeClose: true,
         shade: 0.8,
-        area: ['85%', '70%'],
+        area: ['85%', '90%'],
         content: $('#tj_div'),
         btn: ['刷新','取消'], // 按钮
         yes: function(index, layero){
