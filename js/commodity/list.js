@@ -525,7 +525,11 @@ function getTj(page_id) {
                             fontSize : 11,    //文字的字体大小
                             color:'#666',
                         },
-                    }
+                        position: 'outer',
+                        alignTo: 'edge',
+                        margin: 20,
+                        lineHeight: 13,
+                    },
                 },
                 data: [
                     {value: requestData.data.bt[0]['num'], name: requestData.data.bt[0]['url']+'\n'+requestData.data.bt[0]['num']+' -> '+((requestData.data.bt[0]['num']/all_num)*100).toFixed(2)+'%\n'},
@@ -534,7 +538,7 @@ function getTj(page_id) {
                     {value: requestData.data.bt[3]['num'], name: requestData.data.bt[3]['url']+'\n'+requestData.data.bt[3]['num']+' -> '+((requestData.data.bt[3]['num']/all_num)*100).toFixed(2)+'%\n'},
                     {value: requestData.data.bt[4]['num'], name: requestData.data.bt[4]['url']+'\n'+requestData.data.bt[4]['num']+' -> '+((requestData.data.bt[4]['num']/all_num)*100).toFixed(2)+'%\n'},
                     {value: requestData.data.bt[5]['num'], name: requestData.data.bt[5]['url']+'\n'+requestData.data.bt[5]['num']+' -> '+((requestData.data.bt[5]['num']/all_num)*100).toFixed(2)+'%\n'},
-                    {value: requestData.data.bt[6]['num'], name: requestData.data.bt[6]['url']+'\n'+requestData.data.bt[6]['num']+'/'+((requestData.data.bt[6]['num']/all_num)*100).toFixed(2)+'%\n'},
+                    {value: requestData.data.bt[6]['num'], name: requestData.data.bt[6]['url']+'\n'+requestData.data.bt[6]['num']+'->'+((requestData.data.bt[6]['num']/all_num)*100).toFixed(2)+'%\n'},
                 ],
                 emphasis: {
                     itemStyle: {
