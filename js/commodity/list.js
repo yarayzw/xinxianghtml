@@ -516,7 +516,7 @@ function getTj(page_id) {
                 name: '访问来源',
                 type: 'pie',
                 radius: '35%',
-                center: ['50%', '50%'],
+                center: ['50%', '45%'],
                 avoidLabelOverlap: true,
                 minAngle: 5,
                 label:{            //饼图图形上的文本标签
