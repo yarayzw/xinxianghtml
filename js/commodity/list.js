@@ -185,7 +185,7 @@ function initTable() {
             },
             {
                 field: 'tj_url',
-                title: '统计链接',
+                title: '统计',
                 align: 'center',
                 width : '4%',
                 formatter: function(value,row,index){
