@@ -466,7 +466,7 @@ function lookTj(obj) {
         title: '统计数据',
         shadeClose: true,
         shade: 0.8,
-        area: ['85%', '90%'],
+        area: ['85%', '98%'],
         content: $('#tj_div'),
         btn: ['刷新','取消'], // 按钮
         yes: function(index, layero){
@@ -515,38 +515,55 @@ function getTj(page_id) {
             {
                 name: '访问来源',
                 type: 'pie',
-                radius: '55%',
-                center: ['50%', '35%'],
+                radius: '35%',
+                center: ['50%', '50%'],
+                avoidLabelOverlap: true,
+                minAngle: 5,
                 label:{            //饼图图形上的文本标签
-                    normal:{
-                        show:true,
-                        textStyle : {
-                            // fontWeight : 300 ,
-                            fontSize : 11,    //文字的字体大小
-                            color:'#666',
+                    formatter: '{b|{b}：}{per|{d}%}\n{c|{c}}  ',
+                    lineHeight: 13,
+
+                    rich: {
+                        a: {
+                            color: '#999',
+                            lineHeight: 22,
+                            align: 'center'
                         },
-                        position: 'outer',
-                        alignTo: 'edge',
-                        margin: 20,
-                        lineHeight: 13,
-                    },
+                        b: {
+                            fontSize: 11,
+                            lineHeight: 13,
+                            color: '#000',
+                        },
+                        per: {
+                            color: '#eee',
+                            backgroundColor: '#334455',
+                            padding: [2, 4],
+                            borderRadius: 2,
+                            fontSize: 10,
+                        },
+                        c: {
+                            align: 'left'
+                        }
+
+                    }
                 },
                 data: [
-                    {value: requestData.data.bt[0]['num'], name: requestData.data.bt[0]['url']+'\n'+requestData.data.bt[0]['num']+' → '+((requestData.data.bt[0]['num']/all_num)*100).toFixed(2)+'%\n'},
-                    {value: requestData.data.bt[1]['num'], name: requestData.data.bt[1]['url']+'\n'+requestData.data.bt[1]['num']+' → '+((requestData.data.bt[1]['num']/all_num)*100).toFixed(2)+'%\n'},
-                    {value: requestData.data.bt[2]['num'], name: requestData.data.bt[2]['url']+'\n'+requestData.data.bt[2]['num']+' → '+((requestData.data.bt[2]['num']/all_num)*100).toFixed(2)+'%\n'},
-                    {value: requestData.data.bt[3]['num'], name: requestData.data.bt[3]['url']+'\n'+requestData.data.bt[3]['num']+' → '+((requestData.data.bt[3]['num']/all_num)*100).toFixed(2)+'%\n'},
-                    {value: requestData.data.bt[4]['num'], name: requestData.data.bt[4]['url']+'\n'+requestData.data.bt[4]['num']+' → '+((requestData.data.bt[4]['num']/all_num)*100).toFixed(2)+'%\n'},
-                    {value: requestData.data.bt[5]['num'], name: requestData.data.bt[5]['url']+'\n'+requestData.data.bt[5]['num']+' → '+((requestData.data.bt[5]['num']/all_num)*100).toFixed(2)+'%\n'},
-                    {value: requestData.data.bt[6]['num'], name: requestData.data.bt[6]['url']+'\n'+requestData.data.bt[6]['num']+' → '+((requestData.data.bt[6]['num']/all_num)*100).toFixed(2)+'%\n'},
-                ],
-                emphasis: {
-                    itemStyle: {
-                        shadowBlur: 10,
-                        shadowOffsetX: 0,
-                        shadowColor: 'rgba(0, 0, 0, 0.5)'
-                    }
-                }
+                    {value: requestData.data.bt[0]['num'], name: requestData.data.bt[0]['url']},
+                    {value: requestData.data.bt[1]['num'], name: requestData.data.bt[1]['url']},
+                    {value: requestData.data.bt[2]['num'], name: requestData.data.bt[2]['url']},
+                    {value: requestData.data.bt[3]['num'], name: requestData.data.bt[3]['url']},
+                    {value: requestData.data.bt[4]['num'], name: requestData.data.bt[4]['url']},
+                    {value: requestData.data.bt[5]['num'], name: requestData.data.bt[5]['url']},
+                    {value: requestData.data.bt[6]['num'], name: requestData.data.bt[6]['url']},
+                ]
+                // ,
+                // emphasis: {
+                //     itemStyle: {
+                //         shadowBlur: 10,
+                //         shadowOffsetX: 0,
+                //         shadowColor: 'rgba(0, 0, 0, 0.5)'
+                //     }
+                // }
             }
         ]
     };
