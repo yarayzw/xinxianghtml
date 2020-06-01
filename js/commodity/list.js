@@ -522,7 +522,6 @@ function getTj(page_id) {
                 label:{            //饼图图形上的文本标签
                     formatter: '{b|{b}：}{per|{d}%}\n{c|{c}}  ',
                     lineHeight: 13,
-
                     rich: {
                         a: {
                             color: '#999',
@@ -532,17 +531,19 @@ function getTj(page_id) {
                         b: {
                             fontSize: 11,
                             lineHeight: 13,
-                            color: '#000',
+                            color: '#333',
                         },
                         per: {
                             color: '#eee',
                             backgroundColor: '#334455',
                             padding: [2, 4],
                             borderRadius: 2,
-                            fontSize: 10,
+                            fontSize: 9,
                         },
                         c: {
-                            align: 'left'
+                            align: 'left',
+                            fontSize: 10,
+                            color: '#999',
                         }
 
                     }
