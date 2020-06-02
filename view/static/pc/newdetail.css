@@ -3049,16 +3049,14 @@ ul.hot_rec_item li.maindsp:hover h5 {
     position: relative;
     z-index: 1;
 	
-	border-bottom: 1px #ddd solid;
+	/*border-bottom: 1px #ddd solid;*/
 }
 .item-photo-container {
     margin: 0 auto 20px;
 }   
 
 .T-content {
-		padding-left: 40px;
 		margin: 0 auto;
-		background:url(jin.png) no-repeat left 0px;
 	}
 
 
