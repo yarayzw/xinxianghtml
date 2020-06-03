@@ -222,11 +222,13 @@ function initTable() {
 //搜索
 function fac_search() {
     $('#commodityTable').bootstrapTable('refresh');
-    requestData.data = {
-        'log' : $('#search_id').val()
-    };
-    ajaxGo('admin/Weakness/addWeakness');
-    searchHistory();
+    if('' !== $('#search_id').val()){
+        requestData.data = {
+            'log' : $('#search_id').val()
+        };
+        ajaxGo('admin/Weakness/addWeakness');
+        searchHistory();
+    }
 }
 
 //添加
