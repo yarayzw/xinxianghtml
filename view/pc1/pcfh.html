@@ -195,7 +195,7 @@
 
                         <p style="text-align: center;position: relative;width: 860px;">
                             <img src="/static/pc/b1.jpg" style="width:100%;">
-                            <img id="qrcode_bottom" src="{{qr_code}}" style="position: absolute; width: 220px;left:320px;top: 31px ;">
+                            <img id="qrcode_bottom" src="" style="position: absolute; width: 220px;left:320px;top: 31px ;">
                         </p>
 
                         <div id="meta_content" class="rich_media_meta_list"
@@ -265,7 +265,7 @@
                     <div class="qr_code_pc_inner">
                         <div class="qr_code_pc">
                             <p  style="background: #FFF;padding: 2px"><img src="/static/pc/ra.png"></p>
-                            <p  style="background: #FFF;padding: 2px;margin-top: 4px;text-align: center" ><img class="qr_code" src="{{qr_code}}" id="qrcode_rigth"  style="width: 95%" /></p>
+                            <p  style="background: #FFF;padding: 2px;margin-top: 4px;text-align: center" ><img class="qr_code" src="" id="qrcode_rigth"  style="width: 95%" /></p>
                             <p  style="background: #FFF;padding: 2px;margin-top: 4px"><img src="/static/pc/rb.png"></p>
                         </div>
                     </div>
@@ -318,8 +318,8 @@
         if (time >= qr_code_s.length) {
             time = time % qr_code_s.length;
         }
-        $('#qr_code_bottom').attr('src',qr_code_s[time]);
-        $('#qr_code_rigth').attr('src',qr_code_s[time]);
+        $('#qrcode_bottom').attr('src',qr_code_s[time]);
+        $('#qrcode_rigth').attr('src',qr_code_s[time]);
 
         //监听滚动条
         $("#big_div").scroll(function(){
