@@ -658,7 +658,7 @@ function searchHistory()
     $('#history_search').append(html);
 
     requestData.data.forEach((item,index,array)=>{
-        var html = '<div style="float: left;">\n' +
+        var html = '<div style="float: left;margin-left: 5px">\n' +
             '                    <span style="cursor:pointer" onclick="searchLog(this)" data_id = "'+item.log+'">'+item.log+'</span>\n' +
             '                    <span style="position: relative;left: 4px;bottom:12px;color: blue;cursor:pointer" data_id = "'+item.id+'" onclick="delLog(this)">x</span>\n' +
             '                </div>';
