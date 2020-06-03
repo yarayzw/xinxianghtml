@@ -3,6 +3,7 @@ $(document).ready(function () {
 
     //调用函数，初始化表格
     setMaterial();
+    searchHistory();
     initTable();
 
 });
@@ -221,6 +222,11 @@ function initTable() {
 //搜索
 function fac_search() {
     $('#commodityTable').bootstrapTable('refresh');
+    requestData.data = {
+        'log' : $('#search_id').val()
+    };
+    ajaxGo('admin/Weakness/addWeakness');
+    searchHistory();
 }
 
 //添加
@@ -639,4 +645,49 @@ function getTj(page_id) {
     });
 
     layer.msg('加载成功');
+}
+
+//渲染搜索历史
+function searchHistory()
+{
+    ajaxGo('admin/Weakness/getListToSelect');
+    $('#history_search').empty();
+    let html = ' <div style="float: left"> 历史记录： </div>';
+    $('#history_search').append(html);
+
+    requestData.data.forEach((item,index,array)=>{
+        var html = '<div style="float: left;">\n' +
+            '                    <span style="cursor:pointer" onclick="searchLog(this)" data_id = "'+item.id+'">'+item.log+'</span>\n' +
+            '                    <span style="position: relative;left: 4px;bottom:12px;color: blue;cursor:pointer" data_id = "'+item.id+'" onclick="delLog(this)">x</span>\n' +
+            '                </div>';
+        //执行代码
+        $('#history_search').append(html);
+    });
+
+}
+
+//删除搜索历史
+function delLog(obj){
+    layer.msg('确定删除？', {
+        time: 0 //不自动关闭
+        ,btn: ['确定', '取消']
+        ,yes: function(index){
+            requestData.data = {
+                'id' : $(obj).attr('data_id')
+            };
+            ajaxGo('admin/Weakness/delWeakness');
+            if(requestCode === 0){
+                searchHistory();
+                layer.msg('删除成功!');
+            }else {
+                layer.msg(requestMessage);
+            }
+        }
+    });
+}
+
+//根据搜索历史搜索
+function searchLog(obj) {
+    $('#search_id').val($(obj).attr('data_id'));
+    fac_search();
 }
