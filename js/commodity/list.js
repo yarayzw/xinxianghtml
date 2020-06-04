@@ -125,6 +125,13 @@ function initTable() {
                 valign: 'middle',
             },
             {
+                title: '编号',
+                field: 'user_view_id',
+                align: 'center',
+                width : '4%',
+                valign: 'middle',
+            },
+            {
                 field: 'view',
                 title: '人员',
                 width : '4%',

@@ -2166,11 +2166,11 @@ ul.rec_cnt li a .dot_news {
   color: #fff;
 } */
 .tip-cue {
-  height: 106px;
+  height: auto;
   line-height: 56px;
   overflow: hidden;
-  padding-bottom: 20px;
-  
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ddd;
 }
 
 .tips-close {
@@ -2416,6 +2416,7 @@ ul.rec_cnt li a .dot_news {
   overflow-x: hidden;
   overflow-y: scroll;
   position: relative;
+  padding-top: 20px;
 }
 
 .tip-scroll::-webkit-scrollbar {
