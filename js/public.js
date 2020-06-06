@@ -1,7 +1,7 @@
 
 // 公共配置
 
-const __ROOT__ = 'http://zjz-admin.yarayzw.com/';
+const __ROOT__ = 'http://zjz-zzjsl.cn/';
 // const __ROOT__ = 'http://127.0.0.1:8000/';
 const __IMG__ = 'http://jindouyun-yara.oss-cn-beijing.aliyuncs.com';
 
