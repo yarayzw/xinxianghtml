@@ -123,14 +123,18 @@ function initTable() {
                 align: 'center',
                 width : '4%',
                 valign: 'middle',
+                // formatter: function(value,row,index){
+                //     let html = value+'<br><span style="color: #aaa;font-size: 10px">' + row.user_view_id + '</span>';
+                //     return html;
+                // }
             },
-            {
-                title: '编号',
-                field: 'user_view_id',
-                align: 'center',
-                width : '4%',
-                valign: 'middle',
-            },
+            // {
+            //     title: '编号',
+            //     field: 'user_view_id',
+            //     align: 'center',
+            //     width : '4%',
+            //     valign: 'middle',
+            // },
             {
                 field: 'view',
                 title: '人员',
@@ -169,10 +173,21 @@ function initTable() {
                 }
             },
             {
-                field: 'url',
-                title: '域名',
-                align: 'center'
+                field: 'tj_url',
+                title: '统计',
+                align: 'center',
+                width : '4%',
+                formatter: function(value,row,index){
+                    var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="lookTj(this)" >查看</a>';
+                    return f;
+                    // if(value !== ''){
+                    //     return  '有'+f;
+                    // }else {
+                    //     return '无';
+                    // }
+                }
             },
+
             {
                 field: 'view_name',
                 title: 'pc模版',
@@ -192,19 +207,9 @@ function initTable() {
                 }
             },
             {
-                field: 'tj_url',
-                title: '统计',
-                align: 'center',
-                width : '4%',
-                formatter: function(value,row,index){
-                    var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="lookTj(this)" >查看</a>';
-                    return f;
-                    // if(value !== ''){
-                    //     return  '有'+f;
-                    // }else {
-                    //     return '无';
-                    // }
-                }
+                field: 'url',
+                title: '域名',
+                align: 'center'
             },
 
             {
