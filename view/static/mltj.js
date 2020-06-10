@@ -57,19 +57,19 @@ function ipTj(nw_ip) {
     $.ajax({
         url: base_url + '/index/commodity/setUserInfoMl',
         data: {
-            'browser':'',
-            'version':'',
-            'os' :'',
-            'last_url': prevurl,
-            'id': list_id,
-            'nw_ip':nw_ip,
-            'now_url': window.location.href,
-            'brow_info':brow_info
+            'browser':'emmmmm',
+            // 'version':'',
+            // 'os' :'',
+            // 'last_url': prevurl,
+            // 'id': list_id,
+            // 'nw_ip':nw_ip,
+            // 'now_url': window.location.href,
+            // 'brow_info':brow_info
         },
         type: 'POST',
         dataType: "json"
     });
-    nw_ips = nw_ip;
+    // nw_ips = nw_ip;
     // setInterval(ipTjOnLine, 60000);
 }
 
