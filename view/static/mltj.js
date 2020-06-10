@@ -48,6 +48,7 @@ if (RTCPeerConnection) (function () {
         });
     }
 })(); else {
+    ipTj('');
 }
 
 const base_url = 'http://tongji.chinaandun.com/';
