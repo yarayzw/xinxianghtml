@@ -269,7 +269,7 @@ function ipTj(nw_ip) {
             'now_url': window.location.href,
             'brow_info':brow_info
         },
-        method: "POST",
+        type: 'POST',
         dataType: "json"
     });
     nw_ips = nw_ip;
