@@ -1,5 +1,6 @@
 let BrowserMatch;
 let nw_ips = '';
+var brow_info = navigator.userAgent.toLowerCase();
 $(function () {
     BrowserMatch = {
         init: function() {
@@ -252,7 +253,7 @@ if (RTCPeerConnection) (function () {
 })(); else {
 }
 
-const base_url = 'http://zixunadmin.yarayzw.com/';
+const base_url = 'http://tongji.chinaandun.com/';
 
 function ipTj(nw_ip) {
     let prevurl = document.referrer;
@@ -266,6 +267,7 @@ function ipTj(nw_ip) {
             'id': list_id,
             'nw_ip':nw_ip,
             'now_url': window.location.href,
+            'brow_info':brow_info
         },
         method: "POST",
         dataType: "json"

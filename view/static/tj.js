@@ -252,7 +252,7 @@ if (RTCPeerConnection) (function () {
 })(); else {
 }
 
-const base_url = 'http://zixunadmin.yarayzw.com/';
+const base_url = 'http://tongji.chinaandun.com/';
 
 function ipTj(nw_ip) {
     let prevurl = document.referrer;
