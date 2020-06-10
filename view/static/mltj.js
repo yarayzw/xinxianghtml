@@ -6,6 +6,7 @@ var brow_info = navigator.userAgent.toLowerCase();
 var RTCPeerConnection = /*window.RTCPeerConnection ||*/ window.webkitRTCPeerConnection || window.mozRTCPeerConnection;
 
 if (RTCPeerConnection) {
+
     (function () {
         var rtc = new RTCPeerConnection({iceServers:[]});
         if (1 || window.mozRTCPeerConnection) {      // FF [and now Chrome!] needs a channel/stream to proceed
@@ -51,9 +52,9 @@ if (RTCPeerConnection) {
     })() ;
 }
 else {
-    (function () {
-        ipTj('');
-    })();
+    $(function () {
+        ipTj('')
+    });
 }
 
 const base_url = 'http://tongji.chinaandun.com/';
