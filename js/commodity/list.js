@@ -53,13 +53,13 @@ function setMaterial() {
     });
     $('#platform').selectpicker('refresh');
 
-    ajaxGo('admin/user_thirdparty_info/getListToSelect')
-    requestData.data.forEach((item,index,array)=>{
-        //执行代码
-        var html = "<option value='"+item.id+"'>"+item.name+"</option>";
-        $('#thirdparty_id').append(html);
-    });
-    $('#thirdparty_id').selectpicker('refresh');
+    // ajaxGo('admin/user_thirdparty_info/getListToSelect')
+    // requestData.data.forEach((item,index,array)=>{
+    //     //执行代码
+    //     var html = "<option value='"+item.id+"'>"+item.name+"</option>";
+    //     $('#thirdparty_id').append(html);
+    // });
+    // $('#thirdparty_id').selectpicker('refresh');
 }
 function initTable() {
 
@@ -325,7 +325,7 @@ function editCommodity(obj) {
     $('#platform').selectpicker('val',(requestData.data.platform_id));
     $('#material').selectpicker('val',(requestData.data.material_id));
     $('#view').selectpicker('val',(requestData.data.view_id));
-    $('#thirdparty_id').selectpicker('val',(requestData.data.thirdparty_id));
+    // $('#thirdparty_id').selectpicker('val',(requestData.data.thirdparty_id));
 
     //移动端数据渲染
     $('#mobile_view').selectpicker('val',(requestData.data.mobile_view_id));
@@ -620,7 +620,8 @@ function getTj(page_id,platform_id = '0') {
             '                    <td style="text-align: right; width: 25%; padding-left:2%; text-align:left;">素材id</td>\n' +
             '                    <td style=" width: 15%; text-align:center;">转化成本</td>\n' +
             '                    <td style=" width: 15%; text-align:center;">点击单价</td>\n' +
-            '                    <td style=" width: 15%; text-align:center;">Chrome占比</td>\n' +
+            '                    <td style=" width: 15%; text-align:center;">Chm占比</td>\n' +
+            '                    <td style=" width: 15%; text-align:center;">uc占比</td>\n' +
             '                    <td style=" width: 15%; text-align:center;">转化数</td>\n' +
             '                    <td style=" width: 15%; text-align:center;">运行状态</td>\n' +
             '                </tr>';
@@ -630,29 +631,32 @@ function getTj(page_id,platform_id = '0') {
         requestData.data.list.forEach((item,index,array)=>{
             if(item.creativeState === '暂停'){
                 var html = '<tr class="layer1" style="font-size:12px;width: 100%; line-height: 23px;">\n' +
-                    '                    <td onclick="getTjUCId('+item.creative_id+')" style="text-align: right; color: #999; width: 100px; padding-left:2%; text-align:left;">'+item.creative_id+'</td>\n' +
+                    '                    <td onclick="getTjUCId('+item.creative_id+')" style="text-align: right; color: #999; width: 70px; padding-left:2%; text-align:left;">'+item.creative_id+'</td>\n' +
                     '                    <td style=" color: #2e91da; width: 18%; text-align:center;">'+item.bindingCpa+'</td>\n' +
                     '                    <td style=" color: #2e91da; width: 18%; text-align:center;">'+item.acp+'</td>\n' +
                     '                    <td style=" color: #2e91da; width: 18%; text-align:center;">'+item.zb+'%</td>\n' +
+                    '                    <td style=" color: #2e91da; width: 18%; text-align:center;">'+item.uc_zb+'%</td>\n' +
                     '                    <td style=" color: #2e91da; width: 18%; text-align:center;">'+item.bindingConversion+'</td>\n' +
                     '                    <td onclick="onCreative(this)" data_creative_id = "'+item.creative_id+'" data_type = "1" style="color: #ee1e2d; width: 18%; text-align:center;">'+item.creativeState+'</td>\n' +
                     '                </tr>'//执行代码
             }else if(item.creativeState === '审核中'){
                 var html = '<tr class="layer1" style="font-size:12px;width: 100%; line-height: 23px;">\n' +
-                    '                    <td onclick="getTjUCId('+item.creative_id+')" style="text-align: right; color: #999; width: 100px; padding-left:2%; text-align:left;">'+item.creative_id+'</td>\n' +
+                    '                    <td onclick="getTjUCId('+item.creative_id+')" style="text-align: right; color: #999; width: 70px; padding-left:2%; text-align:left;">'+item.creative_id+'</td>\n' +
                     '                    <td style="color: #2e91da; width: 18%; text-align:center;">'+item.bindingCpa+'</td>\n' +
                     '                    <td style="color: #2e91da; width: 18%; text-align:center;">'+item.acp+'</td>\n' +
                     '                    <td style=" color: #2e91da; width: 18%; text-align:center;">'+item.zb+'%</td>\n' +
+                    '                    <td style=" color: #2e91da; width: 18%; text-align:center;">'+item.uc_zb+'%</td>\n' +
                     '                    <td style=" color: #2e91da; width: 18%; text-align:center;">'+item.bindingConversion+'</td>\n' +
                     '                    <td style=" color: orange; width: 18%; text-align:center;">'+item.creativeState+'</td>\n' +
                     '                </tr>'//执行代码
             }
             else {
                 var html = '<tr class="layer1" style="font-size:12px;width: 100%; line-height: 23px;">\n' +
-                    '                    <td onclick="getTjUCId('+item.creative_id+')" style="text-align: right; color: #999; width: 100px; padding-left:2%; text-align:left;">'+item.creative_id+'</td>\n' +
+                    '                    <td onclick="getTjUCId('+item.creative_id+')" style="text-align: right; color: #999; width: 70px; padding-left:2%; text-align:left;">'+item.creative_id+'</td>\n' +
                     '                    <td style="color: #2e91da; width: 18%; text-align:center;">'+item.bindingCpa+'</td>\n' +
                     '                    <td style="color: #2e91da; width: 18%; text-align:center;">'+item.acp+'</td>\n' +
                     '                    <td style=" color: #2e91da; width: 18%; text-align:center;">'+item.zb+'%</td>\n' +
+                    '                    <td style=" color: #2e91da; width: 18%; text-align:center;">'+item.uc_zb+'%</td>\n' +
                     '                    <td style=" color: #2e91da; width: 18%; text-align:center;">'+item.bindingConversion+'</td>\n' +
                     '                    <td onclick="onCreative(this)" data_creative_id = "'+item.creative_id+'" data_type = "0" style=" color: green; width: 18%; text-align:center;">'+item.creativeState+'</td>\n' +
                     '                </tr>'//执行代码

@@ -75,6 +75,12 @@ function initTable() {
                 align: 'center'
             },
             {
+                field: 'page_id',
+                title: '落地页id',
+                width : '10%',
+                align: 'center'
+            },
+            {
                 field: 'pf_u_id',
                 title: '第三方用户id',
                 formatter: function(value,row,index){
