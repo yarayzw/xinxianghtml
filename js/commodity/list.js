@@ -625,6 +625,7 @@ function getTj(page_id,platform_id = '0') {
             '                    <td style=" width: 15%; text-align:center;">uc占比</td>\n' +
             '                    <td style=" width: 15%; text-align:center;">转化数</td>\n' +
             '                    <td style=" width: 15%; text-align:center;">运行状态</td>\n' +
+            '                    <td style=" width: 15%; text-align:center;">留存</td>\n' +
             '                </tr>';
 
         $('#all_list').empty();
@@ -640,6 +641,7 @@ function getTj(page_id,platform_id = '0') {
                     '                    <td style=" font-size:10px;color: #2e91da; width: 18%; text-align:center;">'+item.uc_zb+'%</td>\n' +
                     '                    <td style=" font-size:10px;color: #2e91da; width: 18%; text-align:center;">'+item.bindingConversion+'</td>\n' +
                     '                    <td onclick="onCreative(this)" data_creative_id = "'+item.creative_id+'" data_type = "1" style="color: #ee1e2d; width: 18%; text-align:center;">'+item.creativeState+'</td>\n' +
+                    '                    <td onclick="setInfoReserve(this)" data_creative_id = "'+item.creative_id+'" data_page_id = "'+page_id+'" style=" width: 18%; text-align:center;">'+item.is_reserve+'</td>\n' +
                     '                </tr>'//执行代码
             }else if(item.creativeState === '审核中'){
                 var html = '<tr class="layer1" style="width: 100%; line-height: 23px;">\n' +
@@ -651,6 +653,7 @@ function getTj(page_id,platform_id = '0') {
                     '                    <td style=" font-size:10px;color: #2e91da; width: 18%; text-align:center;">'+item.uc_zb+'%</td>\n' +
                     '                    <td style=" font-size:10px;color: #2e91da; width: 18%; text-align:center;">'+item.bindingConversion+'</td>\n' +
                     '                    <td style="font-size:10px; color: orange; width: 18%; text-align:center;">'+item.creativeState+'</td>\n' +
+                    '                    <td onclick="setInfoReserve(this)" data_creative_id = "'+item.creative_id+'" data_page_id = "'+page_id+'" style=" width: 18%; text-align:center;">'+item.is_reserve+'</td>\n' +
                     '                </tr>'//执行代码
             }
             else {
@@ -663,6 +666,7 @@ function getTj(page_id,platform_id = '0') {
                     '                    <td style=" font-size:10px;color: #2e91da; width: 18%; text-align:center;">'+item.uc_zb+'%</td>\n' +
                     '                    <td style=" font-size:10px;color: #2e91da; width: 18%; text-align:center;">'+item.bindingConversion+'</td>\n' +
                     '                    <td onclick="onCreative(this)" data_creative_id = "'+item.creative_id+'" data_type = "0" style=" color: green; width: 18%; text-align:center;">'+item.creativeState+'</td>\n' +
+                    '                    <td onclick="setInfoReserve(this)" data_creative_id = "'+item.creative_id+'" data_page_id = "'+page_id+'" style=" width: 18%; text-align:center;">'+item.is_reserve+'</td>\n' +
                     '                </tr>'//执行代码
             }
 
@@ -1020,5 +1024,32 @@ function onCreative(obj) {
 
 }
 
+/**
+ * 设置统计预留数据
+ */
+function setInfoReserve(obj) {
+    layer.msg('确定修改预留？', {
+        time: 0 //不自动关闭
+        ,btn: ['确定', '取消']
+        ,yes: function(index){
+            requestData.data = {
+                'creative_id' : $(obj).attr('data_creative_id'),
+                'page_id': $(obj).attr('data_page_id')
+            };
+            ajaxGo('admin/user_thirdparty_info/setInfoReserve');
+            if(requestCode===0){
+                let text = $(obj).text();
+                if('是' === text){
+                    $(obj).text('否');
+                }else {
+                    $(obj).text('是');
+                }
+                layer.msg('修改成功!');
+            }else {
+                layer.msg(requestMessage);
+            }
+        }
+    });
+}
 
 
