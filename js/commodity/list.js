@@ -630,34 +630,34 @@ function getTj(page_id,platform_id = '0') {
         $('#all_list').append(html);
         requestData.data.list.forEach((item,index,array)=>{
             if(item.creativeState === '暂停'){
-                var html = '<tr class="layer1" style="font-size:12px;width: 100%; line-height: 23px;">\n' +
-                    '                    <td onclick="getTjUCId('+item.creative_id+')" style="text-align: right; color: #999; width: 70px; padding-left:2%; text-align:left;">'+item.creative_id+'</td>\n' +
-                    '                    <td style=" color: #2e91da; width: 18%; text-align:center;">'+item.bindingCpa+'</td>\n' +
-                    '                    <td style=" color: #2e91da; width: 18%; text-align:center;">'+item.acp+'</td>\n' +
-                    '                    <td style=" color: #2e91da; width: 18%; text-align:center;">'+item.zb+'%</td>\n' +
-                    '                    <td style=" color: #2e91da; width: 18%; text-align:center;">'+item.uc_zb+'%</td>\n' +
-                    '                    <td style=" color: #2e91da; width: 18%; text-align:center;">'+item.bindingConversion+'</td>\n' +
+                var html = '<tr class="layer1" style="width: 100%; line-height: 23px;">\n' +
+                    '                    <td  onclick="getTjUCId('+item.creative_id+',this)" style="font-size:12px;text-align: right; color: #999; width: 70px; padding-left:2%; text-align:left;">'+item.creative_id+'</td>\n' +
+                    '                    <td style=" font-size:10px;color: #2e91da; width: 18%; text-align:center;">'+item.bindingCpa+'</td>\n' +
+                    '                    <td style=" font-size:10px;color: #2e91da; width: 18%; text-align:center;">'+item.acp+'</td>\n' +
+                    '                    <td style=" font-size:10px;color: #2e91da; width: 18%; text-align:center;">'+item.zb+'%</td>\n' +
+                    '                    <td style=" font-size:10px;color: #2e91da; width: 18%; text-align:center;">'+item.uc_zb+'%</td>\n' +
+                    '                    <td style=" font-size:10px;color: #2e91da; width: 18%; text-align:center;">'+item.bindingConversion+'</td>\n' +
                     '                    <td onclick="onCreative(this)" data_creative_id = "'+item.creative_id+'" data_type = "1" style="color: #ee1e2d; width: 18%; text-align:center;">'+item.creativeState+'</td>\n' +
                     '                </tr>'//执行代码
             }else if(item.creativeState === '审核中'){
-                var html = '<tr class="layer1" style="font-size:12px;width: 100%; line-height: 23px;">\n' +
-                    '                    <td onclick="getTjUCId('+item.creative_id+')" style="text-align: right; color: #999; width: 70px; padding-left:2%; text-align:left;">'+item.creative_id+'</td>\n' +
-                    '                    <td style="color: #2e91da; width: 18%; text-align:center;">'+item.bindingCpa+'</td>\n' +
-                    '                    <td style="color: #2e91da; width: 18%; text-align:center;">'+item.acp+'</td>\n' +
-                    '                    <td style=" color: #2e91da; width: 18%; text-align:center;">'+item.zb+'%</td>\n' +
-                    '                    <td style=" color: #2e91da; width: 18%; text-align:center;">'+item.uc_zb+'%</td>\n' +
-                    '                    <td style=" color: #2e91da; width: 18%; text-align:center;">'+item.bindingConversion+'</td>\n' +
-                    '                    <td style=" color: orange; width: 18%; text-align:center;">'+item.creativeState+'</td>\n' +
+                var html = '<tr class="layer1" style="width: 100%; line-height: 23px;">\n' +
+                    '                    <td  onclick="getTjUCId('+item.creative_id+',this)" style="font-size:12px;text-align: right; color: #999; width: 70px; padding-left:2%; text-align:left;">'+item.creative_id+'</td>\n' +
+                    '                    <td style="font-size:10px;color: #2e91da; width: 18%; text-align:center;">'+item.bindingCpa+'</td>\n' +
+                    '                    <td style="font-size:10px;color: #2e91da; width: 18%; text-align:center;">'+item.acp+'</td>\n' +
+                    '                    <td style="font-size:10px; color: #2e91da; width: 18%; text-align:center;">'+item.zb+'%</td>\n' +
+                    '                    <td style=" font-size:10px;color: #2e91da; width: 18%; text-align:center;">'+item.uc_zb+'%</td>\n' +
+                    '                    <td style=" font-size:10px;color: #2e91da; width: 18%; text-align:center;">'+item.bindingConversion+'</td>\n' +
+                    '                    <td style="font-size:10px; color: orange; width: 18%; text-align:center;">'+item.creativeState+'</td>\n' +
                     '                </tr>'//执行代码
             }
             else {
-                var html = '<tr class="layer1" style="font-size:12px;width: 100%; line-height: 23px;">\n' +
-                    '                    <td onclick="getTjUCId('+item.creative_id+')" style="text-align: right; color: #999; width: 70px; padding-left:2%; text-align:left;">'+item.creative_id+'</td>\n' +
-                    '                    <td style="color: #2e91da; width: 18%; text-align:center;">'+item.bindingCpa+'</td>\n' +
-                    '                    <td style="color: #2e91da; width: 18%; text-align:center;">'+item.acp+'</td>\n' +
-                    '                    <td style=" color: #2e91da; width: 18%; text-align:center;">'+item.zb+'%</td>\n' +
-                    '                    <td style=" color: #2e91da; width: 18%; text-align:center;">'+item.uc_zb+'%</td>\n' +
-                    '                    <td style=" color: #2e91da; width: 18%; text-align:center;">'+item.bindingConversion+'</td>\n' +
+                var html = '<tr class="layer1" style="width: 100%; line-height: 23px;">\n' +
+                    '                    <td onclick="getTjUCId('+item.creative_id+',this)" style="font-size:12px;text-align: right; color: #999; width: 70px; padding-left:2%; text-align:left;">'+item.creative_id+'</td>\n' +
+                    '                    <td style="font-size:10px;color: #2e91da; width: 18%; text-align:center;">'+item.bindingCpa+'</td>\n' +
+                    '                    <td style="font-size:10px;color: #2e91da; width: 18%; text-align:center;">'+item.acp+'</td>\n' +
+                    '                    <td style=" font-size:10px;color: #2e91da; width: 18%; text-align:center;">'+item.zb+'%</td>\n' +
+                    '                    <td style=" font-size:10px;color: #2e91da; width: 18%; text-align:center;">'+item.uc_zb+'%</td>\n' +
+                    '                    <td style=" font-size:10px;color: #2e91da; width: 18%; text-align:center;">'+item.bindingConversion+'</td>\n' +
                     '                    <td onclick="onCreative(this)" data_creative_id = "'+item.creative_id+'" data_type = "0" style=" color: green; width: 18%; text-align:center;">'+item.creativeState+'</td>\n' +
                     '                </tr>'//执行代码
             }
@@ -878,8 +878,11 @@ function searchLog(obj) {
 /**
  * 根据素材id 设置饼图和折线图
  * @param creative_id
+ * @param obj
  */
-function getTjUCId(creative_id) {
+function getTjUCId(creative_id,obj) {
+    $("tr").removeClass("tr_color");
+    $(obj).parent('tr').addClass('tr_color');
     requestData.data = {
         'creative_id' : creative_id
     };
