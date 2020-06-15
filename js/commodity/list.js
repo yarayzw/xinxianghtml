@@ -618,6 +618,7 @@ function getTj(page_id,platform_id = '0') {
         //右侧列表
         let html = '<tr style=" font-size:12px;font-weight:bold; width: 100%; line-height: 25px; background:#E9E9E9;">\n' +
             '                    <td style="text-align: right; width: 25%; padding-left:2%; text-align:left;">素材id</td>\n' +
+            '                    <td style=" width: 15%; text-align:center;">消费</td>\n' +
             '                    <td style=" width: 15%; text-align:center;">转化成本</td>\n' +
             '                    <td style=" width: 15%; text-align:center;">点击单价</td>\n' +
             '                    <td style=" width: 15%; text-align:center;">Chm占比</td>\n' +
@@ -632,6 +633,7 @@ function getTj(page_id,platform_id = '0') {
             if(item.creativeState === '暂停'){
                 var html = '<tr class="layer1" style="width: 100%; line-height: 23px;">\n' +
                     '                    <td  onclick="getTjUCId('+item.creative_id+',this)" style="font-size:12px;text-align: right; color: #999; width: 70px; padding-left:2%; text-align:left;">'+item.creative_id+'</td>\n' +
+                    '                    <td style=" font-size:10px;color: #2e91da; width: 18%; text-align:center;">'+item.consume+'</td>\n' +
                     '                    <td style=" font-size:10px;color: #2e91da; width: 18%; text-align:center;">'+item.bindingCpa+'</td>\n' +
                     '                    <td style=" font-size:10px;color: #2e91da; width: 18%; text-align:center;">'+item.acp+'</td>\n' +
                     '                    <td style=" font-size:10px;color: #2e91da; width: 18%; text-align:center;">'+item.zb+'%</td>\n' +
@@ -642,6 +644,7 @@ function getTj(page_id,platform_id = '0') {
             }else if(item.creativeState === '审核中'){
                 var html = '<tr class="layer1" style="width: 100%; line-height: 23px;">\n' +
                     '                    <td  onclick="getTjUCId('+item.creative_id+',this)" style="font-size:12px;text-align: right; color: #999; width: 70px; padding-left:2%; text-align:left;">'+item.creative_id+'</td>\n' +
+                    '                    <td style="font-size:10px;color: #2e91da; width: 18%; text-align:center;">'+item.consume+'</td>\n' +
                     '                    <td style="font-size:10px;color: #2e91da; width: 18%; text-align:center;">'+item.bindingCpa+'</td>\n' +
                     '                    <td style="font-size:10px;color: #2e91da; width: 18%; text-align:center;">'+item.acp+'</td>\n' +
                     '                    <td style="font-size:10px; color: #2e91da; width: 18%; text-align:center;">'+item.zb+'%</td>\n' +
@@ -653,6 +656,7 @@ function getTj(page_id,platform_id = '0') {
             else {
                 var html = '<tr class="layer1" style="width: 100%; line-height: 23px;">\n' +
                     '                    <td onclick="getTjUCId('+item.creative_id+',this)" style="font-size:12px;text-align: right; color: #999; width: 70px; padding-left:2%; text-align:left;">'+item.creative_id+'</td>\n' +
+                    '                    <td style="font-size:10px;color: #2e91da; width: 18%; text-align:center;">'+item.consume+'</td>\n' +
                     '                    <td style="font-size:10px;color: #2e91da; width: 18%; text-align:center;">'+item.bindingCpa+'</td>\n' +
                     '                    <td style="font-size:10px;color: #2e91da; width: 18%; text-align:center;">'+item.acp+'</td>\n' +
                     '                    <td style=" font-size:10px;color: #2e91da; width: 18%; text-align:center;">'+item.zb+'%</td>\n' +
