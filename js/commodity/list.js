@@ -1,6 +1,4 @@
 $(document).ready(function () {
-
-
     //调用函数，初始化表格
     setMaterial();
     searchHistory();
@@ -54,6 +52,14 @@ function setMaterial() {
         $('#platform').append(html);
     });
     $('#platform').selectpicker('refresh');
+
+    ajaxGo('admin/user_thirdparty_info/getListToSelect')
+    requestData.data.forEach((item,index,array)=>{
+        //执行代码
+        var html = "<option value='"+item.id+"'>"+item.name+"</option>";
+        $('#thirdparty_id').append(html);
+    });
+    $('#thirdparty_id').selectpicker('refresh');
 }
 function initTable() {
 
@@ -178,8 +184,8 @@ function initTable() {
                 align: 'center',
                 width : '4%',
                 formatter: function(value,row,index){
-                    var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="lookTj(this)" >查看</a>';
-                    return f;
+                    var t='<a  data_id="'+row.id+'" data_platform_id="'+row.platform_id+'" onclick="lookTj(this)" >查看</a>';
+                    return t;
                     // if(value !== ''){
                     //     return  '有'+f;
                     // }else {
@@ -193,7 +199,7 @@ function initTable() {
                 title: 'pc模版',
                 align: 'center',
                 formatter: function(value,row,index){
-                    var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="updateView(this)" >'+value+'</a>';
+                    var f='<a href="#" mce_href="#"  data_id="'+row.id+'"  onclick="updateView(this)" >'+value+'</a>';
                     return f;
                 }
             },
@@ -202,7 +208,7 @@ function initTable() {
                 title: '移动模版',
                 align: 'center',
                 formatter: function(value,row,index){
-                    var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="updateViewMobile(this)" >'+value+'</a>';
+                    var f='<a href="#" mce_href="#"  data_id="'+row.id+'"  onclick="updateViewMobile(this)" >'+value+'</a>';
                     return f;
                 }
             },
@@ -319,6 +325,8 @@ function editCommodity(obj) {
     $('#platform').selectpicker('val',(requestData.data.platform_id));
     $('#material').selectpicker('val',(requestData.data.material_id));
     $('#view').selectpicker('val',(requestData.data.view_id));
+    $('#thirdparty_id').selectpicker('val',(requestData.data.thirdparty_id));
+
     //移动端数据渲染
     $('#mobile_view').selectpicker('val',(requestData.data.mobile_view_id));
     $("input[name='we_chat_name']").val(requestData.data.wechat_name);
@@ -492,173 +500,330 @@ function lookTj(obj) {
         yes: function(index, layero){
             layer.msg('正在加载');
 
-            getTj($(obj).attr('data_id'));
+            getTj($(obj).attr('data_id'),$(obj).attr('data_platform_id'));
         }
 //            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
     });
-    getTj($(obj).attr('data_id'));
+    getTj($(obj).attr('data_id'),$(obj).attr('data_platform_id'));
 }
 
-function getTj(page_id) {
-    requestData.data = {
-        'page_id' : page_id
-    }
-    ajaxGo('admin/commodity/getCommodityStatic');
 
-    $("#all_num").text(requestData.data.now_time); //一分钟内独立访客
+function getTj(page_id,platform_id = '0') {
+    console.log(platform_id);
+    if('3' === platform_id){
+        //uc的统计展示
+        requestData.data = {
+            'page_id' : page_id
+        };
+        ajaxGo('admin/commodity/getCommodityStaticByUc');
+        $("#all_num").text(requestData.data.now_time); //一分钟内独立访客
 
-    //今日最高
-    $("#today_max").text(requestData.data.max_num.num);
-    $("#today_max_time").text(requestData.data.max_num.time);
+        //今日最高
+        $("#today_max").text(requestData.data.max_num.num);
+        $("#today_max_time").text(requestData.data.max_num.time);
 
-    //今日汇总
-    $("#all_all").text(requestData.data.today.all);
-    $("#all_fk").text(requestData.data.today.dl);
-    $("#all_ip").text(requestData.data.today.ip);
+        //今日汇总
+        $("#all_all").text(requestData.data.today.all);
+        $("#all_fk").text(requestData.data.today.dl);
+        $("#all_ip").text(requestData.data.today.ip);
 
-    //15分钟
-    $("#15_all").text(requestData.data.five.all);
-    $("#15_fk").text(requestData.data.five.dl);
-    $("#15_ip").text(requestData.data.five.ip);
+        //15分钟
+        $("#15_all").text(requestData.data.five.all);
+        $("#15_fk").text(requestData.data.five.dl);
+        $("#15_ip").text(requestData.data.five.ip);
 
-    //来源总数
-    let all_num = requestData.data.all_urls.all;
+        //总数
+        $("#all_zxf").text(requestData.data.list_all.consume);
+        $("#all_zhcb").text(requestData.data.list_all.bindingCpa);
+        $("#all_zhs").text(requestData.data.list_all.bindingConversion);
+        $("#all_djjj").text(requestData.data.list_all.acp);
 
-    //占比
-    var option = {
-        tooltip: {
-            trigger: 'item',
-            formatter: '{a} <br/>{b} : {c} ({d}%'
-        },
-        color:['#2E91DA','#f6bd0f','#F5AD46','#6CBF3D','#EDEB2C','#A149D9','#f6bd0f'],
-        series: [
-            {
-                name: '访问来源',
-                type: 'pie',
-                radius: '35%',
-                center: ['50%', '45%'],
-                avoidLabelOverlap: true,
-                minAngle: 5,
-                label:{            //饼图图形上的文本标签
-                    formatter: '{b|{b}：}{per|{d}%}\n{c|{c}}  ',
-                    lineHeight: 13,
-                    rich: {
-                        a: {
-                            color: '#999',
-                            lineHeight: 22,
-                            align: 'center'
-                        },
-                        b: {
-                            fontSize: 11,
-                            lineHeight: 13,
-                            color: '#333',
-                        },
-                        per: {
-                            color: '#eee',
-                            backgroundColor: '#334455',
-                            padding: [2, 4],
-                            borderRadius: 2,
-                            fontSize: 9,
-                        },
-                        c: {
-                            align: 'left',
-                            fontSize: 10,
-                            color: '#999',
+        //占比
+        var option = {
+            tooltip: {
+                trigger: 'item',
+                formatter: '{a} <br/>{b} : {c} ({d}%'
+            },
+            color:['#2E91DA','#f6bd0f','#F5AD46','#6CBF3D','#EDEB2C','#A149D9','#f6bd0f'],
+            series: [
+                {
+                    name: '访问来源',
+                    type: 'pie',
+                    radius: '35%',
+                    center: ['50%', '55%'],
+                    avoidLabelOverlap: true,
+                    minAngle: 5,
+                    label:{            //饼图图形上的文本标签
+                        formatter: '{b|{b}：}{per|{d}%}\n{c|{c}}  ',
+                        lineHeight: 13,
+                        rich: {
+                            a: {
+                                color: '#999',
+                                lineHeight: 22,
+                                align: 'center'
+                            },
+                            b: {
+                                fontSize: 11,
+                                lineHeight: 13,
+                                color: '#333',
+                            },
+                            per: {
+                                color: '#eee',
+                                backgroundColor: '#334455',
+                                padding: [2, 4],
+                                borderRadius: 2,
+                                fontSize: 9,
+                            },
+                            c: {
+                                align: 'left',
+                                fontSize: 10,
+                                color: '#999',
+                            }
+
                         }
+                    },
+                    data: requestData.data.lnq_zb
+                }
+            ]
+        };
+        myChart.setOption(option);
 
-                    }
-                },
-                data: [
-                    {value: requestData.data.bt[0]['num'], name: requestData.data.bt[0]['url']},
-                    {value: requestData.data.bt[1]['num'], name: requestData.data.bt[1]['url']},
-                    {value: requestData.data.bt[2]['num'], name: requestData.data.bt[2]['url']},
-                    {value: requestData.data.bt[3]['num'], name: requestData.data.bt[3]['url']},
-                    {value: requestData.data.bt[4]['num'], name: requestData.data.bt[4]['url']},
-                    {value: requestData.data.bt[5]['num'], name: requestData.data.bt[5]['url']},
-                    {value: requestData.data.bt[6]['num'], name: requestData.data.bt[6]['url']},
-                ]
-                // ,
-                // emphasis: {
-                //     itemStyle: {
-                //         shadowBlur: 10,
-                //         shadowOffsetX: 0,
-                //         shadowColor: 'rgba(0, 0, 0, 0.5)'
-                //     }
-                // }
-            }
-        ]
-    };
-    myChart.setOption(option);
-
-    option = {
-        legend: {
-            data: [requestData.data.zxt[0]['url'], requestData.data.zxt[1]['url'], requestData.data.zxt[2]['url']]
-        },
-        tooltip: {
-            trigger: 'axis'
-        },
-        grid: {
-            left: '3%',
-            right: '4%',
-            bottom: '3%',
-            containLabel: true
-        },
-        color:['#2E91DA','#F5AD46','#6CBF3D'],
-        xAxis: {
-            type: 'category',
-            boundaryGap: false,
-            data: ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00', '09:00', '10:00', '11:00', '12:00','13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00']
-        },
-        yAxis: {
-            type: 'value'
-        },
-        series: [
-            {
-                name: requestData.data.zxt[0]['url'],
-                type: 'line',
-                stack: '总量1',
-                data: requestData.data.zxt[0]['data']
+        //折线
+        option = {
+            legend: {
+                data: [requestData.data.zxt[0]['name'], requestData.data.zxt[1]['name'], requestData.data.zxt[2]['name']]
             },
-            {
-                name: requestData.data.zxt[1]['url'],
-                type: 'line',
-                stack: '总量2',
-                data: requestData.data.zxt[1]['data']
+            tooltip: {
+                trigger: 'axis'
             },
-            {
-                name: requestData.data.zxt[2]['url'],
-                type: 'line',
-                stack: '总量3',
-                data: requestData.data.zxt[2]['data']
-            }
-        ]
-    };
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            color:['#2E91DA','#F5AD46','#6CBF3D'],
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00', '09:00', '10:00', '11:00', '12:00','13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00']
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: requestData.data.llq_zb_zx
+        };
+        myChartzx.setOption(option);
 
+        //右侧列表
+        let html = '<tr style=" font-size:12px;font-weight:bold; width: 100%; line-height: 25px; background:#E9E9E9;">\n' +
+            '                    <td style="text-align: right; width: 25%; padding-left:2%; text-align:left;">素材id</td>\n' +
+            '                    <td style=" width: 15%; text-align:center;">转化成本</td>\n' +
+            '                    <td style=" width: 15%; text-align:center;">点击单价</td>\n' +
+            '                    <td style=" width: 15%; text-align:center;">Chrome占比</td>\n' +
+            '                    <td style=" width: 15%; text-align:center;">转化数</td>\n' +
+            '                    <td style=" width: 15%; text-align:center;">运行状态</td>\n' +
+            '                </tr>';
 
-    myChartzx.setOption(option);
-
-    //右侧列表
-    let html = '<tr style=" font-size:12px;font-weight:bold; width: 100%; line-height: 25px; background:#E9E9E9;">\n' +
-        '                    <td style="text-align: right; width: 35%; padding-left:2%; text-align:left;">来路域名</td>\n' +
-        '                    <td style="text-align: left; width: 25%; text-align:left;">次数</td>\n' +
-        '                    <td style="text-align: right; width: 18%; text-align:left;">占比</td>\n' +
-        '                </tr>';
-
-    $('#all_list').empty();
-    $('#all_list').append(html);
-    requestData.data.all_urls.list.forEach((item,index,array)=>{
-        if(item.url === ''){
-            item.url = '未知来源';
-        }
-        var html = '<tr class="layer1" style="font-size:12px;width: 100%; line-height: 23px;">\n' +
-            '                    <td style="text-align: right; color: #999; width: 100px; padding-left:2%; text-align:left;">'+item.url+'</td>\n' +
-            '                    <td style="text-align: left; color: #999; width: 25%; text-align:left;">'+item.count+'</td>\n' +
-            '                    <td style="text-align: right; color: #2e91da; width: 18%; text-align:left;">'+((item.count/all_num)*100).toFixed(2)+'%</td>\n' +
-            '                </tr>'//执行代码
+        $('#all_list').empty();
         $('#all_list').append(html);
-    });
+        requestData.data.list.forEach((item,index,array)=>{
+            if(item.creativeState === '暂停'){
+                var html = '<tr class="layer1" style="font-size:12px;width: 100%; line-height: 23px;">\n' +
+                    '                    <td onclick="getTjUCId('+item.creative_id+')" style="text-align: right; color: #999; width: 100px; padding-left:2%; text-align:left;">'+item.creative_id+'</td>\n' +
+                    '                    <td style=" color: #2e91da; width: 18%; text-align:center;">'+item.bindingCpa+'</td>\n' +
+                    '                    <td style=" color: #2e91da; width: 18%; text-align:center;">'+item.acp+'</td>\n' +
+                    '                    <td style=" color: #2e91da; width: 18%; text-align:center;">'+item.zb+'%</td>\n' +
+                    '                    <td style=" color: #2e91da; width: 18%; text-align:center;">'+item.bindingConversion+'</td>\n' +
+                    '                    <td onclick="onCreative(this)" data_creative_id = "'+item.creative_id+'" data_type = "1" style="color: #ee1e2d; width: 18%; text-align:center;">'+item.creativeState+'</td>\n' +
+                    '                </tr>'//执行代码
+            }else if(item.creativeState === '审核中'){
+                var html = '<tr class="layer1" style="font-size:12px;width: 100%; line-height: 23px;">\n' +
+                    '                    <td onclick="getTjUCId('+item.creative_id+')" style="text-align: right; color: #999; width: 100px; padding-left:2%; text-align:left;">'+item.creative_id+'</td>\n' +
+                    '                    <td style="color: #2e91da; width: 18%; text-align:center;">'+item.bindingCpa+'</td>\n' +
+                    '                    <td style="color: #2e91da; width: 18%; text-align:center;">'+item.acp+'</td>\n' +
+                    '                    <td style=" color: #2e91da; width: 18%; text-align:center;">'+item.zb+'%</td>\n' +
+                    '                    <td style=" color: #2e91da; width: 18%; text-align:center;">'+item.bindingConversion+'</td>\n' +
+                    '                    <td style=" color: orange; width: 18%; text-align:center;">'+item.creativeState+'</td>\n' +
+                    '                </tr>'//执行代码
+            }
+            else {
+                var html = '<tr class="layer1" style="font-size:12px;width: 100%; line-height: 23px;">\n' +
+                    '                    <td onclick="getTjUCId('+item.creative_id+')" style="text-align: right; color: #999; width: 100px; padding-left:2%; text-align:left;">'+item.creative_id+'</td>\n' +
+                    '                    <td style="color: #2e91da; width: 18%; text-align:center;">'+item.bindingCpa+'</td>\n' +
+                    '                    <td style="color: #2e91da; width: 18%; text-align:center;">'+item.acp+'</td>\n' +
+                    '                    <td style=" color: #2e91da; width: 18%; text-align:center;">'+item.zb+'%</td>\n' +
+                    '                    <td style=" color: #2e91da; width: 18%; text-align:center;">'+item.bindingConversion+'</td>\n' +
+                    '                    <td onclick="onCreative(this)" data_creative_id = "'+item.creative_id+'" data_type = "0" style=" color: green; width: 18%; text-align:center;">'+item.creativeState+'</td>\n' +
+                    '                </tr>'//执行代码
+            }
 
-    layer.msg('加载成功');
+            $('#all_list').append(html);
+        });
+
+        layer.msg('加载成功');
+    }
+    else {
+        requestData.data = {
+            'page_id' : page_id
+        };
+        ajaxGo('admin/commodity/getCommodityStatic');
+
+        $("#all_num").text(requestData.data.now_time); //一分钟内独立访客
+
+        //今日最高
+        $("#today_max").text(requestData.data.max_num.num);
+        $("#today_max_time").text(requestData.data.max_num.time);
+
+        //今日汇总
+        $("#all_all").text(requestData.data.today.all);
+        $("#all_fk").text(requestData.data.today.dl);
+        $("#all_ip").text(requestData.data.today.ip);
+
+        //15分钟
+        $("#15_all").text(requestData.data.five.all);
+        $("#15_fk").text(requestData.data.five.dl);
+        $("#15_ip").text(requestData.data.five.ip);
+
+        //来源总数
+        let all_num = requestData.data.all_urls.all;
+
+        //占比
+        var option = {
+            tooltip: {
+                trigger: 'item',
+                formatter: '{a} <br/>{b} : {c} ({d}%'
+            },
+            color:['#2E91DA','#f6bd0f','#F5AD46','#6CBF3D','#EDEB2C','#A149D9','#f6bd0f'],
+            series: [
+                {
+                    name: '访问来源',
+                    type: 'pie',
+                    radius: '35%',
+                    center: ['50%', '45%'],
+                    avoidLabelOverlap: true,
+                    minAngle: 5,
+                    label:{            //饼图图形上的文本标签
+                        formatter: '{b|{b}：}{per|{d}%}\n{c|{c}}  ',
+                        lineHeight: 13,
+                        rich: {
+                            a: {
+                                color: '#999',
+                                lineHeight: 22,
+                                align: 'center'
+                            },
+                            b: {
+                                fontSize: 11,
+                                lineHeight: 13,
+                                color: '#333',
+                            },
+                            per: {
+                                color: '#eee',
+                                backgroundColor: '#334455',
+                                padding: [2, 4],
+                                borderRadius: 2,
+                                fontSize: 9,
+                            },
+                            c: {
+                                align: 'left',
+                                fontSize: 10,
+                                color: '#999',
+                            }
+
+                        }
+                    },
+                    data: [
+                        {value: requestData.data.bt[0]['num'], name: requestData.data.bt[0]['url']},
+                        {value: requestData.data.bt[1]['num'], name: requestData.data.bt[1]['url']},
+                        {value: requestData.data.bt[2]['num'], name: requestData.data.bt[2]['url']},
+                        {value: requestData.data.bt[3]['num'], name: requestData.data.bt[3]['url']},
+                        {value: requestData.data.bt[4]['num'], name: requestData.data.bt[4]['url']},
+                        {value: requestData.data.bt[5]['num'], name: requestData.data.bt[5]['url']},
+                        {value: requestData.data.bt[6]['num'], name: requestData.data.bt[6]['url']},
+                    ]
+                    // ,
+                    // emphasis: {
+                    //     itemStyle: {
+                    //         shadowBlur: 10,
+                    //         shadowOffsetX: 0,
+                    //         shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    //     }
+                    // }
+                }
+            ]
+        };
+        myChart.setOption(option);
+
+        option = {
+            legend: {
+                data: [requestData.data.zxt[0]['url'], requestData.data.zxt[1]['url'], requestData.data.zxt[2]['url']]
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            color:['#2E91DA','#F5AD46','#6CBF3D'],
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00', '09:00', '10:00', '11:00', '12:00','13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00']
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [
+                {
+                    name: requestData.data.zxt[0]['url'],
+                    type: 'line',
+                    stack: '总量1',
+                    data: requestData.data.zxt[0]['data']
+                },
+                {
+                    name: requestData.data.zxt[1]['url'],
+                    type: 'line',
+                    stack: '总量2',
+                    data: requestData.data.zxt[1]['data']
+                },
+                {
+                    name: requestData.data.zxt[2]['url'],
+                    type: 'line',
+                    stack: '总量3',
+                    data: requestData.data.zxt[2]['data']
+                }
+            ]
+        };
+
+
+        myChartzx.setOption(option);
+
+        //右侧列表
+        let html = '<tr style=" font-size:12px;font-weight:bold; width: 100%; line-height: 25px; background:#E9E9E9;">\n' +
+            '                    <td style="text-align: right; width: 35%; padding-left:2%; text-align:left;">来路域名</td>\n' +
+            '                    <td style="text-align: left; width: 25%; text-align:left;">次数</td>\n' +
+            '                    <td style="text-align: right; width: 18%; text-align:left;">占比</td>\n' +
+            '                </tr>';
+
+        $('#all_list').empty();
+        $('#all_list').append(html);
+        requestData.data.all_urls.list.forEach((item,index,array)=>{
+            if(item.url === ''){
+                item.url = '未知来源';
+            }
+            var html = '<tr class="layer1" style="font-size:12px;width: 100%; line-height: 23px;">\n' +
+                '                    <td style="text-align: right; color: #999; width: 100px; padding-left:2%; text-align:left;">'+item.url+'</td>\n' +
+                '                    <td style="text-align: left; color: #999; width: 25%; text-align:left;">'+item.count+'</td>\n' +
+                '                    <td style="text-align: right; color: #2e91da; width: 18%; text-align:left;">'+((item.count/all_num)*100).toFixed(2)+'%</td>\n' +
+                '                </tr>'//执行代码
+            $('#all_list').append(html);
+        });
+
+        layer.msg('加载成功');
+    }
 }
 
 //渲染搜索历史
@@ -705,3 +870,144 @@ function searchLog(obj) {
     $('#search_id').val($(obj).attr('data_id'));
     fac_search();
 }
+
+/**
+ * 根据素材id 设置饼图和折线图
+ * @param creative_id
+ */
+function getTjUCId(creative_id) {
+    requestData.data = {
+        'creative_id' : creative_id
+    };
+    ajaxGo('admin/user_thirdparty_info/getTjUCId');
+
+    $("#all_num").text(requestData.data.now_time); //一分钟内独立访客
+
+    //今日最高
+    $("#today_max").text(requestData.data.max_num.num);
+    $("#today_max_time").text(requestData.data.max_num.time);
+
+    //今日汇总
+    $("#all_all").text(requestData.data.today.all);
+    $("#all_fk").text(requestData.data.today.dl);
+    $("#all_ip").text(requestData.data.today.ip);
+
+    //15分钟
+    $("#15_all").text(requestData.data.five.all);
+    $("#15_fk").text(requestData.data.five.dl);
+    $("#15_ip").text(requestData.data.five.ip);
+
+
+    //占比
+    var option = {
+        tooltip: {
+            trigger: 'item',
+            formatter: '{a} <br/>{b} : {c} ({d}%'
+        },
+        color:['#2E91DA','#f6bd0f','#F5AD46','#6CBF3D','#EDEB2C','#A149D9','#f6bd0f'],
+        series: [
+            {
+                name: '访问来源',
+                type: 'pie',
+                radius: '35%',
+                center: ['50%', '55%'],
+                avoidLabelOverlap: true,
+                minAngle: 5,
+                label:{            //饼图图形上的文本标签
+                    formatter: '{b|{b}：}{per|{d}%}\n{c|{c}}  ',
+                    lineHeight: 13,
+                    rich: {
+                        a: {
+                            color: '#999',
+                            lineHeight: 22,
+                            align: 'center'
+                        },
+                        b: {
+                            fontSize: 11,
+                            lineHeight: 13,
+                            color: '#333',
+                        },
+                        per: {
+                            color: '#eee',
+                            backgroundColor: '#334455',
+                            padding: [2, 4],
+                            borderRadius: 2,
+                            fontSize: 9,
+                        },
+                        c: {
+                            align: 'left',
+                            fontSize: 10,
+                            color: '#999',
+                        }
+
+                    }
+                },
+                data: requestData.data.lnq_zb
+            }
+        ]
+    };
+    myChart.setOption(option);
+
+    //折线
+    option = {
+        legend: {
+            data: [requestData.data.zxt[0]['name'], requestData.data.zxt[1]['name'], requestData.data.zxt[2]['name']]
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        color:['#2E91DA','#F5AD46','#6CBF3D'],
+        xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00', '09:00', '10:00', '11:00', '12:00','13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00']
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: requestData.data.llq_zb_zx
+    };
+    myChartzx.setOption(option);
+}
+
+/**
+ * 开启素材  1开启0暂停
+ * @param obj
+ */
+function onCreative(obj) {
+    layer.msg('确定修改？', {
+        time: 0 //不自动关闭
+        ,btn: ['确定', '取消']
+        ,yes: function(index){
+            requestData.data = {
+                'creative_id' : $(obj).attr('data_creative_id'),
+                'type': $(obj).attr('data_type')
+            };
+            ajaxGo('admin/user_thirdparty_info/setUcCreative');
+            if(requestCode===0){
+                if($(obj).attr('data_type')==='1'){
+                    $(obj).css('color','green');
+                    $(obj).attr('data_type','0');
+                    $(obj).text('启动');
+                }else {
+                    $(obj).css('color','#ee1e2d');
+                    $(obj).attr('data_type','1');
+                    $(obj).text('暂停');
+                }
+                layer.msg('修改成功!');
+            }else {
+                layer.msg(requestMessage);
+            }
+        }
+    });
+
+}
+
+
+

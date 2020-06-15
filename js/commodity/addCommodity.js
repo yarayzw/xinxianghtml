@@ -89,6 +89,7 @@ function addCommodityGo() {
         'title' : $("input[name='title']").val(),
         'view_id':  $("#view").selectpicker('val'),
         'platform_id':  $("#platform").selectpicker('val'),
+        'thirdparty_id':  $("#thirdparty_id").selectpicker('val'),
         'type':  1,
         'wechat_name' : $("input[name='we_chat_name']").val(),
         'wechat_url' : $("input[name='we_chat_url']").val(),
@@ -139,6 +140,7 @@ function editCommodityGo(id) {
         'wechat_url_info' : $("input[name='we_chat_url_info']").val(),
         'uc_tj_id' : $("input[name='uc_tj_id']").val(),
         'uc_tj' : $("input[name='uc_tj']").val(),
+        'thirdparty_id':  $("#thirdparty_id").selectpicker('val')
     }
     ajaxGo('admin/commodity/editCommodity')
 
