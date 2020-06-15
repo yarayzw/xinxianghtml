@@ -217,6 +217,14 @@
                             </select>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">第三方账号信息 :</label>
+                        <div class="col-sm-8">
+                            <select id="thirdparty_id" class="selectpicker" data-live-search="true">
+
+                            </select>
+                        </div>
+                    </div>
                     <hr>
                     <div class="form-group" style="text-align: center;padding: 0 auto">
                         UC OCPC代码
@@ -271,7 +279,7 @@
         </div>
     </div>
 </div>
-<div id="tj_div" style="display:none;">
+<div id="tj_div" style="display:none;padding-top: 20px">
     <div style="float: left;width: 65%">
         <div style="float: left;width: 34%;height:320px;text-align: center;border-right: #ccc solid 1px">
             <div style="text-align: center">
@@ -319,6 +327,26 @@
                 cursor: pointer;
             }
         </style>
+        <table id="all_list_num" style="width: 100%;">
+            <tr>
+                <td id="em" style="white-space:normal">
+                    总消费
+                </td>
+                <td id="emm" style="white-space:normal">
+                    转化成本
+                </td>
+                <td id="emmm" style="white-space:normal">
+                    转化数
+                </td>
+                <td id="emmmm" style="white-space:normal">点击均价</td>
+            </tr>
+            <tr>
+                <td id="all_zxf"></td>
+                <td id="all_zhcb"></td>
+                <td id="all_zhs"></td>
+                <td id="all_djjj"></td>
+            </tr>
+        </table>
         <table id="all_list" style="float: left;width: 100%;">
 
 
@@ -326,6 +354,7 @@
     </div>
 
 </div>
+
 
 </body>
 
