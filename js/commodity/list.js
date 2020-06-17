@@ -591,7 +591,7 @@ function getTj(page_id,platform_id = '0') {
         //折线
         option = {
             legend: {
-                data: [requestData.data.zxt[0]['name'], requestData.data.zxt[1]['name'], requestData.data.zxt[2]['name']]
+                data: requestData.data.zxt
             },
             tooltip: {
                 trigger: 'axis'
