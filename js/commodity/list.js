@@ -676,6 +676,8 @@ function getTj(page_id,platform_id = '0') {
         layer.msg('加载成功');
     }
     else {
+        $('#all_list_num').hide();
+
         requestData.data = {
             'page_id' : page_id
         };
