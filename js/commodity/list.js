@@ -509,9 +509,9 @@ function lookTj(obj) {
 
 
 function getTj(page_id,platform_id = '0') {
-    console.log(platform_id);
     if('3' === platform_id){
         //uc的统计展示
+        $('#all_list_num').show();
         requestData.data = {
             'page_id' : page_id
         };
