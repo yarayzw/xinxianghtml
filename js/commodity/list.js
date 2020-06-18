@@ -178,21 +178,21 @@ function initTable() {
                     return html;
                 }
             },
-            {
-                field: 'tj_url',
-                title: '统计',
-                align: 'center',
-                width : '4%',
-                formatter: function(value,row,index){
-                    var t='<a  data_id="'+row.id+'" data_platform_id="'+row.platform_id+'" onclick="lookTj(this)" >查看</a>';
-                    return t;
-                    // if(value !== ''){
-                    //     return  '有'+f;
-                    // }else {
-                    //     return '无';
-                    // }
-                }
-            },
+            // {
+            //     field: 'tj_url',
+            //     title: '统计',
+            //     align: 'center',
+            //     width : '4%',
+            //     formatter: function(value,row,index){
+            //         var t='<a  data_id="'+row.id+'" data_platform_id="'+row.platform_id+'" onclick="lookTj(this)" >查看</a>';
+            //         return t;
+            //         // if(value !== ''){
+            //         //     return  '有'+f;
+            //         // }else {
+            //         //     return '无';
+            //         // }
+            //     }
+            // },
 
             {
                 field: 'view_name',
