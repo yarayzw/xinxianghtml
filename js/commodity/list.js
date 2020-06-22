@@ -897,7 +897,9 @@ function getTjUCId(creative_id,obj) {
         'creative_id' : creative_id
     };
     ajaxGo('admin/user_thirdparty_info/getTjUCId');
-
+    if(requestCode === 1){
+        layer.msg(requestMessage);
+    }
     $("#all_num").text(requestData.data.now_time); //一分钟内独立访客
 
     //今日最高

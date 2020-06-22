@@ -20,15 +20,7 @@
 </head>
 <style>
     /**字符串过长 转化为 。。。**/
-    table{
-        table-layout:fixed;/* 只有定义了表格的布局算法为fixed，下面td的定义才能起作用。 */
-    }
-    td{
-        max-width: 58px;
-        text-overflow:ellipsis;
-        overflow: auto;
-        white-space: pre-wrap;
-    }
+
 
 </style>
 <body>
@@ -166,6 +158,11 @@
             fileSizeLimit: 1024*1024*100*100, //验证文件总大小是否超出限制, 超出则不允许加入队列。
             fileSingleSizeLimit: 1024*1024*100, //验证单个文件大小是否超出限制, 超出则不允许加入队列。
             fileVal:'upload', // [默认值：'file'] 设置文件上传域的name。
+            accept: {
+                title: 'Files',
+                extensions: 'csv',
+                mimeTypes: 'application/csv'
+            },
         });
         uploader.on('uploadSuccess', function(file, response) {
             csvGo(response.path[0]);
@@ -191,6 +188,20 @@
             fileSizeLimit: 1024*1024*100*100, //验证文件总大小是否超出限制, 超出则不允许加入队列。
             fileSingleSizeLimit: 1024*1024*100, //验证单个文件大小是否超出限制, 超出则不允许加入队列。
             fileVal:'upload', // [默认值：'file'] 设置文件上传域的name。
+            accept: {
+                title: 'Files',
+                extensions: 'xls,xlsx',
+                mimeTypes: 'image/*,text/*'
+                    //word
+                    +',application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+                    //excel
+                    +',application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                    //ppt
+                    +',application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation'
+                    +',application/pdf'
+                    +',application/zip'
+                    +',application/csv'
+            },
         }
     );
 
@@ -219,8 +230,139 @@
         requestData.data = {
             'url' : url
         };
-        ajaxGo('admin/commodity/editCommodity')
+        ajaxGo('admin/statistics/uploadReflinksCsv');
+        exportCsvTable(requestData.data.rows);
+        console.log(requestData.data.rows)
+        layer.open({
+            type: 1,
+            title: '上传文件',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['90%', '90%'],
+            content: $('#csv_div'),
+            btn: [ '取消'],
+//            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
+        });
     }
+    function exportCsvTable(rows) {
+        $('#exportCsvTable').bootstrapTable('destroy');
+        $("#exportCsvTable").bootstrapTable({
+            striped: true,  //表格显示条纹
+            pagination: false, //启动分页
+            sortName: 'id',
+            pageSize: 10,  //每页显示的记录数
+            pageNumber:1, //当前第几页
+            pageList: [5, 10, 15, 20],  //记录数可选列表
+            search: false,
+            showColumns: true,  //显示下拉框勾选要显示的列
+            showRefresh: true,  //显示刷新按钮
+            data: rows,
+            onLoadError: function(){  //加载失败时执行
+                layer.msg("加载数据失败", {time : 1500, icon : 2});
+            },
+            columns: [
+                {
+                    title: '链接ID',
+                    field: '0',
+                    align: 'center',
+                    width : '10%',
+                    valign: 'middle',
+                },
+                {
+                    title: '链接名称',
+                    field: '1',
+                    align: 'center',
+                    width : '10%',
+                    valign: 'middle',
+                },
+                {
+                    title: '渠道名称',
+                    field: '2',
+                    align: 'center',
+                    width : '10%',
+                    valign: 'middle',
+                },
+                {
+                    title: '链接类型',
+                    field: '3',
+                    align: 'center',
+                    width : '5%',
+                    valign: 'middle',
+                },
+                {
+                    title: '链接入口',
+                    field: '4',
+                    align: 'center',
+                    width : '10%',
+                    valign: 'middle',
+                },
+                {
+                    title: '点击量',
+                    field: '5',
+                    align: 'center',
+                    width : '10%',
+                    valign: 'middle',
+                },
+                {
+                    title: '新增阅读量',
+                    field: '6',
+                    align: 'center',
+                    width : '5%',
+                    valign: 'middle',
+                },
+                {
+                    title: '新增关注',
+                    field: '7',
+                    align: 'center',
+                    width : '5%',
+                    valign: 'middle',
+                },
+                {
+                    title: '充值金额',
+                    field: '8',
+                    align: 'center',
+                    width : '5%',
+                    valign: 'middle',
+                },
+                {
+                    title: '订单数',
+                    field: '9',
+                    align: 'center',
+                    width : '5%',
+                    valign: 'middle',
+                },
+                {
+                    title: '充值比列',
+                    field: '10',
+                    align: 'center',
+                    width : '5%',
+                    valign: 'middle',
+                },
+                {
+                    title: '成本',
+                    field: '11',
+                    align: 'center',
+                    width : '5%',
+                    valign: 'middle',
+                },
+                {
+                    title: '利润',
+                    field: '12',
+                    align: 'center',
+                    width : '5%',
+                    valign: 'middle',
+                },
+                {
+                    title: '创建日期',
+                    field: '13',
+                    align: 'center',
+                    width : '10%',
+                    valign: 'middle',
+                },
+            ]
+        });
+    }
+
 </script>
 
 <!--<script src="../js/statistics/index.js?v=1.0"></script>-->
