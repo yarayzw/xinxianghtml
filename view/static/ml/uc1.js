@@ -41,9 +41,9 @@ $(function () {
         var clipboard = new ClipboardJS('#codeBtn');
         clipboard.on("success", function (e) {
             //复制成功事件
-
-            $('.fuzhi_tanc').show();
+            // $('.fuzhi_tanc').show();
             e.clearSelection();
+            clickWechat();
         });
         clipboard.on("error", function (e) {
             alert("请选择“拷贝”进行复制!");
@@ -55,8 +55,8 @@ $(function () {
         t.value = e;
         var clipboard = new ClipboardJS('#wechat_id');
         clipboard.on("success", function (e) {
-            $('.fuzhi_tanc').show();
             e.clearSelection();
+            clickWechat();
         });
         clipboard.on("error", function (e) {
             alert("请选择“拷贝”进行复制!");
