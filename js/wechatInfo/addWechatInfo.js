@@ -12,6 +12,7 @@ function addViewGo() {
         'app_id' : $("input[name='app_id']").val(),
         'app_secret' : $("input[name='app_secret']").val(),
         'bind_user_id' : $("#bind_user_id").selectpicker('val'),
+        'zzy_channel_id' : $("input[name='zzy_channel_id']").val()
     }
     ajaxGo('admin/wechat_config/addWechatConfig')
 }
@@ -29,6 +30,7 @@ function editViewGo(id) {
         'bind_user_id' : $("#bind_user_id").selectpicker('val'),
         'app_id' : $("input[name='app_id']").val(),
         'app_secret' : $("input[name='app_secret']").val(),
+        'zzy_channel_id' : $("input[name='zzy_channel_id']").val(),
     }
     ajaxGo('admin/wechat_config/editWechatConfig')
 

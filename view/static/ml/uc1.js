@@ -40,6 +40,8 @@ $(function () {
         t.value = e;
         var clipboard = new ClipboardJS('#codeBtn');
         clipboard.on("success", function (e) {
+            //复制成功事件
+
             $('.fuzhi_tanc').show();
             e.clearSelection();
         });
@@ -208,4 +210,15 @@ function go_wechat() {
         utq('track', 'Other', uc_tj_id);
     }
     window.location.href= 'weixin://';
+}
+
+function clickWechat() {
+    layer.open({
+        type: 1,
+        title: '',
+        shade: 0.8,
+        shadeClose: true,
+        area: ['90%', 'auto'],
+        content: $('#'+id),
+    });
 }

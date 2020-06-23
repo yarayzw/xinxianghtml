@@ -117,6 +117,10 @@ function initTable() {
                 title: '归属账户'
             },
             {
+                field: 'zzy_channel_id',
+                title: '掌中云渠道id'
+            },
+            {
                 field: 'operate',
                 title: '操作',
                 width : '10%',
@@ -188,6 +192,7 @@ function editView(obj) {
     $("input[name='code_name']").val(requestData.data.code_name);
     $("input[name='app_id']").val(requestData.data.app_id);
     $("input[name='app_secret']").val(requestData.data.app_secret);
+    $("input[name='zzy_channel_id']").val(requestData.data.zzy_channel_id);
     $('#bind_user_id').selectpicker('val',(requestData.data.bind_user_id));
 
     layer.open({
