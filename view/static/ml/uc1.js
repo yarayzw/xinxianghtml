@@ -219,6 +219,6 @@ function clickWechat() {
         shade: 0.8,
         shadeClose: true,
         area: ['90%', 'auto'],
-        content: $('#'+id),
+        content: $('#wechat_click'),
     });
 }
