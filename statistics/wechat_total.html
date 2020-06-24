@@ -318,6 +318,9 @@
                     field: 'today_recharge',
                     title: '当日充值',
                     width : '5%',
+                    formatter: function(value,row,index){
+                        return '<span style="color: #39aef5">'+value+'</span>';
+                    }
                 },
                 {
                     field: 'total_fans',
@@ -325,7 +328,7 @@
                     width : '5%',
                     formatter: function(value,row,index){
                         //当日充值/总推广粉丝
-                        let num = row.total_recharge / row.total_fans;
+                        let num = row.today_recharge / row.total_fans;
                         return num.toFixed(2);
                     }
                 },
@@ -344,8 +347,8 @@
                     title: '粉丝单价',
                     width : '5%',
                     formatter: function(value,row,index){
-                        //总广告粉/总推广粉丝
-                        let num = row.total_recharge / row.total_fans;
+                        //总广告费/总推广粉丝
+                        let num = row.total_consume / row.total_fans;
                         return num.toFixed(2);
                     }
                 },
@@ -355,7 +358,7 @@
                     width : '5%',
                     formatter: function(value,row,index){
                         //当日消耗/新增粉丝
-                        let num = row.total_recharge / row.total_fans;
+                        let num = row.today_consume / row.new_fans;
                         return num.toFixed(2);
                     }
                 },
@@ -363,6 +366,9 @@
                     field: 'today_consume',
                     title: '当日消耗',
                     width : '5%',
+                    formatter: function(value,row,index){
+                        return '<span style="color: #00cc00">'+parseFloat(value).toFixed(2)+'</span>';
+                    }
                 },
                 {
                     field: 'total_fans',
@@ -370,8 +376,12 @@
                     width : '5%',
                     formatter: function(value,row,index){
                         //新用户充值/当日消耗
-                        let num = row.total_recharge / row.total_fans;
-                        return num.toFixed(2);
+                        let num = row.new_fans_recharge / row.today_consume * 100;
+                        if(num.toFixed(2) === 'NaN'){
+                            return '<span style="color: #ee1e2d">'+0.00+'%</span>';
+                        }else {
+                            return '<span style="color: #ee1e2d">'+num.toFixed(2)+'%</span>';
+                        }
                     }
                 },
                 {
@@ -383,6 +393,9 @@
                     field: 'total_recharge',
                     title: '总充值',
                     width : '5%',
+                    formatter: function(value,row,index){
+                        return parseFloat(value).toFixed(2);
+                    }
                 },
                 {
                     field: 'total_fans',
@@ -390,12 +403,16 @@
                     width : '5%',
                     formatter: function(value,row,index){
                         //总充值*0。9/总广告费
-                        let num = row.total_recharge / row.total_fans;
-                        return num.toFixed(2);
+                        let num = row.total_recharge * 0.9 / row.total_consume * 100;
+                        if(num.toFixed(2) === 'NaN'){
+                            return '<span style="color: #ee1e2d">'+0.00+'%</span>';
+                        }else {
+                            return '<span style="color: #ee1e2d">'+num.toFixed(2)+'%</span>';
+                        }
                     }
                 },
                 {
-                    field: 'total_fans',
+                    field: 'today_recharge',
                     title: '当日利润',
                     width : '5%',
                     formatter: function(value,row,index){

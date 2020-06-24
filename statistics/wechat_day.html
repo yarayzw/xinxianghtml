@@ -351,7 +351,7 @@
                     width : '5%',
                     formatter: function(value,row,index){
                         //当日充值/总推广粉丝
-                        let num = row.total_recharge / row.total_fans;
+                        let num = row.today_recharge / row.total_fans;
                         return num.toFixed(2);
                     }
                 },
@@ -370,8 +370,8 @@
                     title: '粉丝单价',
                     width : '5%',
                     formatter: function(value,row,index){
-                        //总广告粉/总推广粉丝
-                        let num = row.total_recharge / row.total_fans;
+                        //总广告费/总推广粉丝
+                        let num = row.total_consume / row.total_fans;
                         return num.toFixed(2);
                     }
                 },
@@ -390,7 +390,7 @@
                     title: '当日消耗',
                     width : '5%',
                     formatter: function(value,row,index){
-                        return '<span style="color: #00cc00">'+value+'</span>';
+                        return '<span style="color: #00cc00">'+parseFloat(value).toFixed(2)+'</span>';
                     }
                 },
                 {
@@ -416,6 +416,9 @@
                     field: 'total_recharge',
                     title: '总充值',
                     width : '5%',
+                    formatter: function(value,row,index){
+                        return parseFloat(value).toFixed(2);
+                    }
                 },
                 {
                     field: 'total_fans',
