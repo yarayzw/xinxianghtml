@@ -114,20 +114,6 @@
                             <!--                            required="" aria-required="false"-->
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">总广告费 :</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" name="total_consume" value=""  />
-                            <!--                            required="" aria-required="false"-->
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">总充值 :</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" name="total_recharge" value=""  />
-                            <!--                            required="" aria-required="false"-->
-                        </div>
-                    </div>
 
                 </form>
             </div>
@@ -425,7 +411,7 @@
                         {
                             return  '';
                         }else {
-                            var d='<a href="#" mce_href="#" data_id="'+row.id+'"   onclick="editWechatDay(this)" >编辑</a> ';
+                            var d='<a href="#" mce_href="#" data_id="'+row.id+'" data_new_fans_recharge="'+row.new_fans_recharge+'" data_today_recharge="'+row.today_recharge+'" data_today_consume="'+row.today_consume+'"  onclick="editWechatDay(this)" >编辑</a> ';
                             return d;
                         }
 
@@ -443,7 +429,9 @@
 
     //编辑
     function editWechatDay(obj) {
-
+        $("input[name='new_fans_recharge']").val($(obj).attr('data_new_fans_recharge'));
+        $("input[name='today_recharge']").val($(obj).attr('data_today_recharge'));
+        $("input[name='today_consume']").val($(obj).attr('data_today_consume'));
         layer.open({
             type: 1,
             title: '编辑',
@@ -483,8 +471,6 @@
             'new_fans_recharge' : $("input[name='new_fans_recharge']").val(),
             'today_recharge' : $("input[name='today_recharge']").val(),
             'today_consume' : $("input[name='today_consume']").val(),
-            'total_consume' : $("input[name='total_consume']").val(),
-            'total_recharge' : $("input[name='total_recharge']").val(),
         }
         ajaxGo('admin/statistics/editWechatDay')
 
