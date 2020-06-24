@@ -45,8 +45,13 @@
             <div class="col-sm-10">
                 <div class="row">
                     <div class="col-md-2">
-                        <div class="input-group m-b"><span class="input-group-addon">名称</span>
-                            <input type="text" id="name" class="form-control" aria-label="..." placeholder="" style="width: 120px">
+                        <div class="input-group m-b"><span class="input-group-addon">名字</span>
+                            <input type="text" id="name" class="form-control" aria-label="..." placeholder="" >
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="input-group m-b"><span class="input-group-addon">公众号名称</span>
+                            <input type="text" id="wechat_name" class="form-control" aria-label="..." placeholder="" >
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -64,7 +69,11 @@
                             <button class="btn btn-default" type="button" onclick="fac_search()">搜索</button>
                         </span>
                     </div>
+                    <br>
+                    <br>
+                    <div id="history_search" style="margin-top: 3px;margin-left: 15px">
 
+                    </div>
 
                     </div>
                 </div>
@@ -193,12 +202,36 @@
     });
 
     $(document).ready(function () {
-
+        searchHistory();
         start_time = getDay(-1, '-');
         end_time = getDay(-1, '-');
         //调用函数，初始化表格
         initTable();
     });
+
+    //渲染人员筛选
+    function searchHistory()
+    {
+        ajaxGo('admin/statistics/getListToSelect');
+        $('#history_search').empty();
+        let html = ' <div style="float: left;margin-left: 15px"> 用户： </div>';
+        $('#history_search').append(html);
+
+        requestData.data.forEach((item,index,array)=>{
+            var html = '<div style="float: left;margin-right: 15px;margin-left: 5px">\n' +
+                '                    <span style="cursor:pointer" onclick="searchLog(this)" data_name = "'+item.name+'">'+item.log+'</span>\n' +
+                '                    ' +
+                '                </div>';
+            //执行代码
+            $('#history_search').append(html);
+        });
+
+    }
+    //根据人员搜索
+    function searchLog(obj) {
+        $('#name').val($(obj).attr('data_name'));
+        fac_search();
+    }
     function initTable() {
         $('#wechatDayToolbar').bootstrapTable('destroy');
         $("#wechatDayToolbar").bootstrapTable({
@@ -244,6 +277,7 @@
                     // id : {$_GET['id']},
                     head : {'token' : getCookie('token')},
                     name : $('#name').val(),
+                    wechat_name : $('#wechat_name').val(),
                     start_time : start_time,
                     end_time : end_time,
                 };
@@ -307,6 +341,9 @@
                     field: 'today_recharge',
                     title: '当日充值',
                     width : '5%',
+                    formatter: function(value,row,index){
+                        return '<span style="color: #39aef5">'+value+'</span>';
+                    }
                 },
                 {
                     field: 'total_fans',
@@ -344,7 +381,7 @@
                     width : '5%',
                     formatter: function(value,row,index){
                         //当日消耗/新增粉丝
-                        let num = row.total_recharge / row.total_fans;
+                        let num = row.today_consume / row.new_fans;
                         return num.toFixed(2);
                     }
                 },
@@ -352,6 +389,9 @@
                     field: 'today_consume',
                     title: '当日消耗',
                     width : '5%',
+                    formatter: function(value,row,index){
+                        return '<span style="color: #00cc00">'+value+'</span>';
+                    }
                 },
                 {
                     field: 'total_fans',
@@ -359,8 +399,12 @@
                     width : '5%',
                     formatter: function(value,row,index){
                         //新用户充值/当日消耗
-                        let num = row.total_recharge / row.total_fans;
-                        return num.toFixed(2);
+                        let num = row.new_fans_recharge / row.today_consume * 100;
+                        if(num.toFixed(2) === 'NaN'){
+                            return '<span style="color: #ee1e2d">'+0.00+'%</span>';
+                        }else {
+                            return '<span style="color: #ee1e2d">'+num.toFixed(2)+'%</span>';
+                        }
                     }
                 },
                 {
@@ -379,8 +423,12 @@
                     width : '5%',
                     formatter: function(value,row,index){
                         //总充值*0。9/总广告费
-                        let num = row.total_recharge / row.total_fans;
-                        return num.toFixed(2);
+                        let num = row.total_recharge * 0.9 / row.total_consume * 100;
+                        if(num.toFixed(2) === 'NaN'){
+                            return '<span style="color: #ee1e2d">'+0.00+'%</span>';
+                        }else {
+                            return '<span style="color: #ee1e2d">'+num.toFixed(2)+'%</span>';
+                        }
                     }
                 },
                 {
