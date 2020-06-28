@@ -201,7 +201,6 @@
     });
 
     $(document).ready(function () {
-        searchHistory();
         start_time = getDay(-1, '-');
         end_time = getDay(-1, '-');
         //调用函数，初始化表格
@@ -209,6 +208,7 @@
         if(u_id !== '5'){
             initTableYy();
         }else {
+            searchHistory();
             initTable();
         }
     });
