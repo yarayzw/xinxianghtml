@@ -19,22 +19,10 @@
     <div class="ibox-content">
         <div class="row row-lg">
             <div class="col-sm-12">
-                <!-- Example Toolbar -->
-                <div class="example-wrap">
-                    <div class="example" >
-                        <div class="btn-group hidden-xs" id="wechatDayToolbar" role="group">
-                        </div>
-
-                            <table class="table table-hover" id="wechatDayTable"
-                                   data-pagination="true"
-                                   data-show-refresh="true"
-                                   data-show-toggle="true"
-                                   data-showColumns="true" >
-                            </table>
-
-                    </div>
+                <div class="btn-group hidden-xs" id="wechatDayToolbar" role="group">
                 </div>
-                <!-- End Example Toolbar -->
+                <table  id="wechatDayTable" >
+                </table>
             </div>
         </div>
     </div>
@@ -241,7 +229,6 @@
     function initTable() {
         $('#wechatDayToolbar').bootstrapTable('destroy');
         $("#wechatDayToolbar").bootstrapTable({
-            height: 660,
             url: __ROOT__ + 'admin/statistics/getWechatDayList', //获取数据的Servlet地址
             striped: true,  //表格显示条纹
             pagination: false, //启动分页
@@ -256,6 +243,8 @@
             sidePagination: "server", //表示服务端请求
             //设置为undefined可以获取pageNumber，pageSize，searchText，sortName，sortOrder
             //设置为limit可以获取limit, offset, search, sort, order
+            height: 700,
+
             responseHandler:function(data){
                 //远程数据加载之前,处理程序响应数据格式,对象包含的参数: 我们可以对返回的数据格式进行处理
                 //在ajax后我们可以在这里进行一些事件的处理
@@ -308,13 +297,13 @@
                 {
                     field: 'bind_user_name',
                     title: '名字',
-                    width : '5%',
+                    width : '4.75%',
                     align: 'center'
                 },
                 {
                     field: 'wechat_name',
                     title: '公众号',
-                    width : '5%',
+                    width : '4.75%',
                     formatter: function(value,row,index){
                         return value;
                     }
@@ -322,32 +311,32 @@
                 {
                     field: 'total_fans',
                     title: '总推广',
-                    width : '5%',
+                    width : '4.75%',
                 },
                 {
                     field: 'total_fans_cancel',
                     title: '总取消',
-                    width : '5%',
+                    width : '4.75%',
                 },
                 {
                     field: 'today_cancel',
                     title: '当日取消',
-                    width : '5%',
+                    width : '4.75%',
                 },
                 {
                     field: 'new_fans',
                     title: '新增粉丝',
-                    width : '5%',
+                    width : '4.75%',
                 },
                 {
                     field: 'new_fans_recharge',
                     title: '新用户充值',
-                    width : '5%',
+                    width : '4.75%',
                 },
                 {
                     field: 'today_recharge',
                     title: '当日充值',
-                    width : '5%',
+                    width : '4.75%',
                     formatter: function(value,row,index){
                         return '<span style="color: #39aef5">'+parseFloat(value).toFixed(2)+'</span>';
                     }
@@ -355,7 +344,7 @@
                 {
                     field: 'total_fans',
                     title: '单粉日产出',
-                    width : '5%',
+                    width : '4.75%',
                     formatter: function(value,row,index){
                         //当日充值/总推广粉丝
                         let num = row.today_recharge / row.total_fans;
@@ -365,7 +354,7 @@
                 {
                     field: 'total_fans',
                     title: '单粉总产值',
-                    width : '5%',
+                    width : '4.75%',
                     formatter: function(value,row,index){
                         //总充值/总推广粉丝
                         let num = row.total_recharge / row.total_fans;
@@ -375,7 +364,7 @@
                 {
                     field: 'total_fans',
                     title: '粉丝单价',
-                    width : '5%',
+                    width : '4.75%',
                     formatter: function(value,row,index){
                         //总广告费/总推广粉丝
                         let num = row.total_consume / row.total_fans;
@@ -385,7 +374,7 @@
                 {
                     field: 'total_fans',
                     title: '新增单价',
-                    width : '5%',
+                    width : '4.75%',
                     formatter: function(value,row,index){
                         //当日消耗/新增粉丝
                         let num = row.today_consume / row.new_fans;
@@ -395,7 +384,7 @@
                 {
                     field: 'today_consume',
                     title: '当日消耗',
-                    width : '5%',
+                    width : '4.75%',
                     formatter: function(value,row,index){
                         return '<span style="color: #00cc00">'+parseFloat(value).toFixed(2)+'</span>';
                     }
@@ -403,7 +392,7 @@
                 {
                     field: 'total_fans',
                     title: '当日ROI回本',
-                    width : '5%',
+                    width : '4.75%',
                     formatter: function(value,row,index){
                         //新用户充值/当日消耗
                         let num = row.new_fans_recharge / row.today_consume * 100;
@@ -417,7 +406,7 @@
                 {
                     field: 'total_consume',
                     title: '总广告费',
-                    width : '5%',
+                    width : '4.75%',
                     formatter: function(value,row,index){
                         return parseFloat(value).toFixed(2);
                     }
@@ -425,7 +414,7 @@
                 {
                     field: 'total_recharge',
                     title: '总充值',
-                    width : '5%',
+                    width : '4.75%',
                     formatter: function(value,row,index){
                         return parseFloat(value).toFixed(2);
                     }
@@ -433,7 +422,7 @@
                 {
                     field: 'total_fans',
                     title: '回本比例',
-                    width : '5%',
+                    width : '4.75%',
                     formatter: function(value,row,index){
                         //总充值*0。9/总广告费
                         let num = row.total_recharge * 0.9 / row.total_consume * 100;
@@ -447,7 +436,7 @@
                 {
                     field: 'today_recharge',
                     title: '当日利润',
-                    width : '5%',
+                    width : '4.75%',
                     formatter: function(value,row,index){
                         let num = row.today_recharge * 0.9 - row.today_consume;
                         return num.toFixed(2);
@@ -456,7 +445,7 @@
                 {
                     field: 'total_fans',
                     title: '总利润',
-                    width : '5%',
+                    width : '4.75%',
                     formatter: function(value,row,index){
                         let num = row.total_recharge * 0.9 - row.total_consume;
                         return num.toFixed(2);
@@ -465,7 +454,7 @@
                 {
                     field: 'operate',
                     title: '操作',
-                    width : '10%',
+                    width : '4.75%',
                     align: 'center',
                     formatter: function(value,row,index){
                         if(row.time === '合计')
