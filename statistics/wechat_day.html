@@ -446,7 +446,7 @@
                     title: '当日利润',
                     width : '5%',
                     formatter: function(value,row,index){
-                        let num = row.today_recharge - row.today_consume;
+                        let num = row.today_recharge * 0.9 - row.today_consume;
                         return num.toFixed(2);
                     }
                 },
@@ -455,7 +455,7 @@
                     title: '总利润',
                     width : '5%',
                     formatter: function(value,row,index){
-                        let num = row.total_recharge - row.total_consume;
+                        let num = row.total_recharge * 0.9 - row.total_consume;
                         return num.toFixed(2);
                     }
                 },
