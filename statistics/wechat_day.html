@@ -12,7 +12,6 @@
     <link href="../css/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../js/plugins/bootstrap-select-1.13.9/dist/css/bootstrap-select.css">
 
-
 </head>
 
 <body>
@@ -206,7 +205,12 @@
         start_time = getDay(-1, '-');
         end_time = getDay(-1, '-');
         //调用函数，初始化表格
-        initTable();
+        let u_id = getCookie('u_id');
+        if(u_id !== '5'){
+            initTableYy();
+        }else {
+            initTable();
+        }
     });
 
     //渲染人员筛选
@@ -472,6 +476,127 @@
         });
     }
 
+    function initTableYy() {
+        $('#wechatDayToolbar').bootstrapTable('destroy');
+        $("#wechatDayToolbar").bootstrapTable({
+            url: __ROOT__ + 'admin/statistics/getWechatDayList', //获取数据的Servlet地址
+            striped: true,  //表格显示条纹
+            pagination: false, //启动分页
+            sortName: 'id',
+            pageSize: 10,  //每页显示的记录数
+            pageNumber:1, //当前第几页
+            pageList: [10, 15, 20, 25],  //记录数可选列表
+            search: false,
+            toolbar: '#list_search_faci',
+            showColumns: true,  //显示下拉框勾选要显示的列
+            showRefresh: true,  //显示刷新按钮
+            sidePagination: "server", //表示服务端请求
+            //设置为undefined可以获取pageNumber，pageSize，searchText，sortName，sortOrder
+            //设置为limit可以获取limit, offset, search, sort, order
+            responseHandler:function(data){
+                //远程数据加载之前,处理程序响应数据格式,对象包含的参数: 我们可以对返回的数据格式进行处理
+                //在ajax后我们可以在这里进行一些事件的处理
+                // requestCode = data.code;
+                // requestMessage = data.message;
+                // requestData = {
+                //     "head": {
+                //         "token": data.token,
+                //         "time": (new Date()).getTime(),
+                //         "version": "1.2.0",
+                //         "recode": "",
+                //     },
+                //     "data": data.data
+                // };
+                return data.data;
+            },
+            queryParamsType : "undefined",
+            // method: 'post',
+            queryParams: function queryParams(params) {   //设置查询参数
+                params = {
+                    //这里是在ajax发送请求的时候设置一些参数 params有什么东西，自己看看源码就知道了
+                    pageNumber: params.pageNumber,
+                    pageSize: params.pageSize,
+                    sortName: params.sortName,
+                    sortOrder: params.sortOrder,
+                    // id : {$_GET['id']},
+                    head : {'token' : getCookie('token')},
+                    name : $('#name').val(),
+                    wechat_name : $('#wechat_name').val(),
+                    start_time : start_time,
+                    end_time : end_time,
+                };
+
+                return params;
+            },
+            onLoadSuccess: function(data){  //加载成功时执行
+
+            },
+            onLoadError: function(){  //加载失败时执行
+                layer.msg("加载数据失败", {time : 1500, icon : 2});
+            },
+            columns: [
+                {
+                    title: '日期',
+                    field: 'time',
+                    align: 'center',
+                    valign: 'middle',
+                    width : '5%',
+                },
+                {
+                    field: 'bind_user_name',
+                    title: '名字',
+                    width : '5%',
+                    align: 'center'
+                },
+                {
+                    field: 'wechat_name',
+                    title: '公众号',
+                    width : '5%',
+                    formatter: function(value,row,index){
+                        return value;
+                    }
+                },
+
+                {
+                    field: 'new_fans_recharge',
+                    title: '新用户充值',
+                    width : '5%',
+                },
+                {
+                    field: 'today_recharge',
+                    title: '当日充值',
+                    width : '5%',
+                    formatter: function(value,row,index){
+                        return '<span style="color: #39aef5">'+value+'</span>';
+                    }
+                },
+                {
+                    field: 'today_consume',
+                    title: '当日消耗',
+                    width : '5%',
+                    formatter: function(value,row,index){
+                        return '<span style="color: #00cc00">'+parseFloat(value).toFixed(2)+'</span>';
+                    }
+                },
+                {
+                    field: 'operate',
+                    title: '操作',
+                    width : '10%',
+                    align: 'center',
+                    formatter: function(value,row,index){
+                        if(row.time === '合计')
+                        {
+                            return  '';
+                        }else {
+                            var d='<a href="#" mce_href="#" data_id="'+row.id+'" data_new_fans_recharge="'+row.new_fans_recharge+'" data_today_recharge="'+row.today_recharge+'" data_today_consume="'+row.today_consume+'"  onclick="editWechatDay(this)" >编辑</a> ';
+                            return d;
+                        }
+
+                    }
+                }
+            ]
+        });
+    }
 
     //搜索
     function fac_search() {
