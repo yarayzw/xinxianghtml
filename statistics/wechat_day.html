@@ -415,6 +415,9 @@
                     field: 'total_consume',
                     title: '总广告费',
                     width : '5%',
+                    formatter: function(value,row,index){
+                        return parseFloat(value).toFixed(2);
+                    }
                 },
                 {
                     field: 'total_recharge',
