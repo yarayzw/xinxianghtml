@@ -5,7 +5,6 @@ $(document).ready(function() {
         $('#platform_menu').hide();
         $('#log').hide();
         $('#wechatConfig').hide();
-        $('#wechatConfigDay').hide();
         $('#wechatConfigTotal').hide();
     }
 });
