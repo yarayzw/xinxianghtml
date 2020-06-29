@@ -566,7 +566,7 @@
                     field: 'time',
                     align: 'center',
                     valign: 'middle',
-                    width : '5%',
+                    width : 100,
                 },
                 {
                     field: 'bind_user_name',
@@ -577,7 +577,7 @@
                 {
                     field: 'wechat_name',
                     title: '公众号',
-                    width : '5%',
+                    width : 100,
                     formatter: function(value,row,index){
                         return value;
                     }
@@ -586,12 +586,12 @@
                 {
                     field: 'new_fans_recharge',
                     title: '新用户充值',
-                    width : '5%',
+                    width : 80,
                 },
                 {
                     field: 'today_recharge',
                     title: '当日充值',
-                    width : '5%',
+                    width : 80,
                     formatter: function(value,row,index){
                         return '<span style="color: #39aef5">'+value+'</span>';
                     }
@@ -599,7 +599,7 @@
                 {
                     field: 'today_consume',
                     title: '当日消耗',
-                    width : '5%',
+                    width : 80,
                     formatter: function(value,row,index){
                         return '<span style="color: #00cc00">'+parseFloat(value).toFixed(2)+'</span>';
                     }
@@ -607,7 +607,7 @@
                 {
                     field: 'operate',
                     title: '操作',
-                    width : '10%',
+                    width : 80,
                     align: 'center',
                     formatter: function(value,row,index){
                         if(row.time === '合计')
