@@ -11,7 +11,7 @@ var requestCode = 0;
 var requestMessage = 0;
 let u_id = '0';
 
-function ajaxGo(url,msg = '请求错误' ,async = false) {
+function ajaxGo(url,msg = '请求错误' ,async = false , root = __ROOT__) {
     if(getCookie('token')){
         requestData.head = {
             "token": getCookie('token'),
@@ -22,7 +22,7 @@ function ajaxGo(url,msg = '请求错误' ,async = false) {
     }
 
     $.ajax({
-        url: __ROOT__ + url,
+        url: root + url,
         data:requestData,
         method:"POST",
         dataType:"json",

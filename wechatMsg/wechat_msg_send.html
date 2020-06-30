@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>筋斗云管理系统</title>
+    <link href="../css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="../css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="../css/animate.min.css" rel="stylesheet">
+    <link href="../css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <link href="../css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link href="../css/plugins/bootstrap-table/bootstrap-table.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../js/plugins/bootstrap-select-1.13.9/dist/css/bootstrap-select.css">
+
+</head>
+<style type="text/css">
+    .table {table-layout:fixed;}
+</style>
+<body>
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="row row-lg">
+            <div class="col-sm-12">
+                <div class="btn-group hidden-xs" id="wechatMsgSendToolbar" role="group">
+                </div>
+                <table id="wechatMsgSendTable" >
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div >
+    <div class="form-group">
+        <form id="list_search_faci">
+            <div class="col-sm-10">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="input-group m-b">
+                            <span class="input-group-addon" >计划名称</span>
+                            <input type="text" id="name" class="form-control" aria-label="..." placeholder="" >
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                         <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" onclick="fac_search()">搜索</button>
+                        </span>
+                    </div>
+<!--                    <div class="col-md-1">-->
+<!--                         <span class="input-group-btn">-->
+<!--                            <button class="btn btn-default" type="button" onclick="addWechatMsgSend()">添加</button>-->
+<!--                        </span>-->
+<!--                    </div>-->
+                </div>
+            </div>
+            <fieldset>
+
+                &nbsp;&nbsp;&nbsp;&nbsp;
+            </fieldset>
+        </form>
+    </div>
+</div>
+
+<div class="row" id="add" style="display: none">
+    <div class="ibox-content">
+        <form class="form-horizontal m-t" id="commentForm" method="post">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">公众号 :</label>
+                <div class="col-sm-8">
+                    <select id="wechat_config" class="selectpicker" data-live-search="true">
+
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">链接名称 :</label>
+                <div class="col-sm-8">
+                    <select id="wechat_msg_send" class="selectpicker" data-live-search="true">
+
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">链接地址 :</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="url" value=""  />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+
+<script src="../js/jquery.min.js?v=2.1.4"></script>
+
+<script src="../js/public.js"></script>
+<script src="../js/bootstrap.min.js?v=3.3.6"></script>
+<script src="../js/layer/layer.js"></script>
+<script src="../js/laydate/laydate.js"></script>
+
+<script src="../js/content.min.js"></script>
+<script src="../js/plugins/bootstrap-table/bootstrap-table.js"></script>
+<script src="../js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="../js/demo/bootstrap-table-demo.min.js"></script>
+<script src="../js/bootstrapValidator.js"></script>
+<script src="../js/bootstrapValidator.min.js"></script>
+<script src="../js/index.js"></script>
+<script src="../js/plugins/bootstrap-select-1.13.9/js/bootstrap-select.js"></script>
+
+
+<script>
+
+    $(document).ready(function () {
+        // setMaterial();
+        initTable();
+    });
+
+    function setMaterial() {
+        ajaxGo('admin/wechat_config/getListToSelect')
+        requestData.data.forEach((item,index,array)=>{
+            //执行代码
+            var html = "<option value='"+item.id+"'>"+item.wechat_name+"</option>";
+            $('#wechat_config').append(html);
+            $('#wechat_config_s').append(html);
+        });
+        $('#wechat_config').selectpicker('refresh');
+        $('#wechat_config_s').selectpicker('refresh');
+
+        //pc模版
+        requestData.data = {
+            'type' : 1
+        }
+        ajaxGo('admin/wechat_msg_config/getListToSelect')
+        requestData.data.forEach((item,index,array)=>{
+            //执行代码
+            var html = "<option value='"+item.id+"'>"+item.name+"</option>";
+            $('#wechat_msg_send').append(html);
+            $('#wechat_msg_send_s').append(html);
+        });
+        $('#wechat_msg_send').selectpicker('refresh');
+        $('#wechat_msg_send_s').selectpicker('refresh');
+    }
+
+
+    function initTable() {
+        $('#wechatMsgSendTable').bootstrapTable('destroy');
+        // $('#wechatDayToolbar').css("height", 300);
+        $("#wechatMsgSendTable").bootstrapTable({
+            url: __ROOT__ + 'admin/wechat_msg_send/getList', //获取数据的Servlet地址
+            striped: true,  //表格显示条纹
+            pagination: true, //启动分页
+            sortName: 'id',
+            sortOrder: 'desc',
+            pageSize: 10,  //每页显示的记录数
+            pageNumber:1, //当前第几页
+            pageList: [10, 15, 20, 25],  //记录数可选列表
+            search: false,
+            toolbar: '#list_search_faci',
+            showColumns: true,  //显示下拉框勾选要显示的列
+            showRefresh: true,  //显示刷新按钮
+            sidePagination: "server", //表示服务端请求
+            responseHandler:function(data){
+                return data.data;
+            },
+            queryParamsType : "undefined",
+            // method: 'post',
+            queryParams: function queryParams(params) {   //设置查询参数
+                params = {
+                    //这里是在ajax发送请求的时候设置一些参数 params有什么东西，自己看看源码就知道了
+                    pageNumber: params.pageNumber,
+                    pageSize: params.pageSize,
+                    sortName: params.sortName,
+                    sortOrder: params.sortOrder,
+                    // id : {$_GET['id']},
+                    head : {'token' : getCookie('token')},
+                    name : $('#name').val(),
+
+                };
+
+                return params;
+            },
+            onLoadSuccess: function(data){  //加载成功时执行
+
+            },
+            onLoadError: function(){  //加载失败时执行
+                layer.msg("加载数据失败", {time : 1500, icon : 2});
+            },
+            columns: [
+                {
+                    title: 'Id',
+                    field: 'id',
+                    align: 'center',
+                    valign: 'middle',
+                    width : 20,
+                },
+                {
+                    field: 'name',
+                    title: '计划名称',
+                    width : 20,
+                    align: 'center'
+                },
+                {
+                    field: 'view_name',
+                    title: '消息模版',
+                    width : 20,
+                    align: 'center'
+                },
+                {
+                    field: 'create_name',
+                    title: '创建人',
+                    width : 20,
+                    align: 'center'
+                },
+                {
+                    field: 'create_at',
+                    title: '创建时间',
+                    width : 100,
+                    align: 'center'
+                },
+                {
+                    field: 'timing',
+                    title: '定时时间',
+                    width : 20,
+                    align: 'center'
+                },
+                {
+                    field: 'is_ok',
+                    title: '状态',
+                    width : 20,
+                    align: 'center',
+                    formatter: function(value,row,index){
+                        if(value === 0){
+                            return  '未发送';
+                        }else if(value === 1) {
+                            return '发送中';
+                        }else if(value === 2){
+                            return '发送完成';
+                        }else {
+                            return '未知';
+                        }
+                    }
+                },
+                {
+                    field: 'operate',
+                    title: '操作',
+                    width : 20,
+                    align: 'center',
+                    formatter: function(value,row,index){
+                        // var a='<a href="#" mce_href="#" data_id="'+row.id+'" data_wechat_config_id = "'+row.wechat_config_id+'" data_msg_config_id = "'+row.msg_config_id+'" data_url = "'+row.url+'" onclick="editwechatMsgSend(this)" >编辑</a> ';
+                        var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="delWechatMsgSend(this)" >删除</a>';
+
+                        return f;
+                    }
+                }
+            ]
+        });
+    }
+
+
+    //搜索
+    function fac_search() {
+        $('#wechatMsgSendTable').bootstrapTable('refresh');
+    }
+
+    //添加
+    function addWechatMsgUrl() {
+        layer.open({
+            type: 1,
+            title: '添加',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['60%', '60%'],
+            content: $('#add'),
+            btn: ['确定', '取消'], // 按钮
+            yes: function(index, layero){
+                layer.msg('确定添加？', {
+                    time: 0 //不自动关闭
+                    ,btn: ['确定', '取消']
+                    ,yes: function(index){
+                        addWechatMsgUrlGo();
+                        if(requestCode === 0){
+                            fac_search();
+                            layer.close(index);
+                            layer.closeAll();
+                            layer.msg(requestMessage);
+                        }else {
+                            layer.msg(requestMessage);
+                        }
+                    }
+                });
+
+
+            }
+//            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
+        });
+
+    }
+
+    //提交落地页数据
+    function addWechatMsgUrlGo() {
+        requestData.data = {
+            'wechat_config_id' : $("#wechat_msg_send").selectpicker('val'),
+            'msg_config_id' : $("#wechat_msg_send").selectpicker('val'),
+            'url' :  $("input[name='url']").val(),
+        }
+        ajaxGo('admin/wechat_msg_send/addWechatMsgUrl')
+    }
+
+
+    //编辑
+    function editwechatMsgSend(obj) {
+        $("input[name='url']").val($(obj).attr('data_url'));
+        $('#wechat_config').selectpicker('val',($(obj).attr('data_wechat_config_id')));
+        $('#wechat_msg_send').selectpicker('val',($(obj).attr('data_msg_config_id')));
+
+        layer.open({
+            type: 1,
+            title: '编辑',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['60%', '60%'],
+            content: $('#add'),
+            btn: ['确定', '取消'], // 按钮
+            yes: function(index, layero){
+                layer.msg('确定修改？', {
+                    time: 0 //不自动关闭
+                    ,btn: ['确定', '取消']
+                    ,yes: function(index){
+                        editwechatMsgSendGo($(obj).attr('data_id'));
+                        if(requestCode === 0){
+                            fac_search();
+                            layer.close(index);
+                            layer.closeAll();
+                            layer.msg(requestMessage);
+                        }else {
+                            layer.msg(requestMessage);
+                        }
+                    }
+                });
+
+
+            }
+//            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
+        });
+
+    }
+
+    //修改
+    function editwechatMsgSendGo(id) {
+        requestData.data = {
+            'id' : id,
+            'wechat_config_id' : $("#wechat_msg_send").selectpicker('val'),
+            'msg_config_id' : $("#wechat_msg_send").selectpicker('val'),
+            'url' :  $("input[name='url']").val(),
+        }
+        ajaxGo('admin/wechat_msg_send/editWechatMsgUrl')
+
+    }
+
+    //删除
+    function delWechatMsgSend(obj) {
+        layer.msg('确定删除？', {
+            time: 0 //不自动关闭
+            ,btn: ['确定', '取消']
+            ,yes: function(index){
+                requestData.data = {
+                    'id' : $(obj).attr('data_id')
+                };
+                ajaxGo('admin/wechat_msg_send/delWechatMsgSend');
+                if(requestCode === 0){
+                    fac_search();
+                    layer.msg('删除成功!');
+                }else {
+                    layer.msg(requestMessage);
+                }
+            }
+        });
+    }
+</script>
+
+
