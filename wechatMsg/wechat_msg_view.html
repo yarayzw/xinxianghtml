@@ -128,11 +128,20 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-3 control-label">公众号 :</label>
-                <div class="col-sm-8">
-                    <select id="wechat_ids" class="selectpicker" data-live-search="true" multiple>
+                <label class="col-sm-3 control-label">公众号 :<br><br><span style="cursor:pointer;color: #39aef5" onclick="wechatIdSelect(1)">全选</span> | <span style="cursor:pointer;color: #39aef5" onclick="wechatIdSelect(2)">反选</span> | <span style="cursor:pointer;color: #39aef5" onclick="wechatIdSelect(3)">取消</span></label>
+                <div class="col-sm-8" id="wechat_ids">
 
-                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">支付状态 :</label>
+                <div class="col-sm-8">
+                    <label>
+                        <input type="radio" checked="" value="0" name="is_pay"> <i></i>全部</label>
+                    <label>
+                        <input type="radio" checked="" value="1" name="is_pay"> <i></i> 已支付</label>
+                    <label>
+                        <input type="radio" checked="" value="2" name="is_pay"> <i></i> 未支付</label>
                 </div>
             </div>
         </form>
@@ -164,6 +173,28 @@
 
 
 <script>
+
+    //公众号选择 1全选2反选3取消全选
+    function wechatIdSelect(type) {
+        console.log(type);
+        if(type === 1){
+            $('input[name="wechat_ids"]').prop('checked','true');
+        }else if(type === 2) {
+            $("input[name='wechat_ids']").each(function(){
+                if($(this).prop("checked"))
+                {
+                    $(this).removeAttr("checked");
+                }
+                else
+                {
+                    $(this).prop("checked","true");
+                }
+            })
+        }else {
+            $('input[name="wechat_ids"]').removeAttr("checked");
+        }
+    }
+
     var editor = new Simditor({
         toolbar: [ 'title', 'color', 'hr' ],
         textarea: '#editor',
@@ -207,10 +238,12 @@
         ajaxGo('admin/wechat_config/getListToSelect')
         requestData.data.forEach((item,index,array)=>{
             //执行代码
-            var html = "<option value='"+item.id+"'>"+item.wechat_name+"</option>";
+            var html = '<input type="checkbox"  name="wechat_ids" style="margin-left: 7px" value="'+item.id+'"> <i></i> '+item.wechat_name+'\n';
+
+            // var html = "<option value='"+item.id+"'>"+item.wechat_name+"</option>";
             $('#wechat_ids').append(html);
         });
-        $('#wechat_ids').selectpicker('refresh');
+        // $('#wechat_ids').selectpicker('refresh');
     }
 
     function getAllView() {
@@ -415,7 +448,7 @@
             title: '发送计划',
             shadeClose: true,
             shade: 0.8,
-            area: ['60%', '90%'],
+            area: ['80%', '90%'],
             content: $('#addSend'),
             btn: ['确定', '取消'], // 按钮
             yes: function(index, layero){
@@ -423,12 +456,16 @@
                     time: 0 //不自动关闭
                     ,btn: ['确定', '取消']
                     ,yes: function(index){
+                        let wechat_ids =[];//定义一个数组
+                        $('input[name="wechat_ids"]:checked').each(function(){
+                            wechat_ids.push($(this).val());
+                        });
                         requestData.data = {
                             'view_id' : id,
                             'name' : $("input[name='plan_name']").val(),
                             'timing' : $("input[name='timing']").val(),
-                            'wechat_ids' : $("#wechat_ids").selectpicker('val'),
-
+                            'wechat_ids' : wechat_ids,
+                            'is_pay' : $('input[name="is_pay"]:checked').val()
                         }
                         ajaxGo('admin/wechat_msg_send/addWechatMsgSend','',false,'http://tongji.chinaandun.com/')
                         if(requestCode === 0){
