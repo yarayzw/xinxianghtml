@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>筋斗云管理系统</title>
+    <link href="../css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="../css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="../css/animate.min.css" rel="stylesheet">
+    <link href="../css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <link href="../css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link href="../css/plugins/bootstrap-table/bootstrap-table.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../js/plugins/bootstrap-select-1.13.9/dist/css/bootstrap-select.css">
+
+</head>
+<style type="text/css">
+    .table {table-layout:fixed;}
+</style>
+<body>
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="row row-lg">
+            <div class="col-sm-12">
+                <div class="btn-group hidden-xs" id="promotionLinkToolbar" role="group">
+                </div>
+                <table id="promotionLinkTable" >
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div >
+    <div class="form-group">
+        <form id="list_search_faci">
+            <div class="col-sm-10">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="input-group m-b">
+                            <span class="input-group-addon" >公众号名称</span>
+                            <input type="text" id="channel_name" class="form-control" aria-label="..." placeholder="" >
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="input-group m-b">
+                            <span class="input-group-addon" >小说名称</span>
+                            <input type="text" id="novel_name" class="form-control" aria-label="..." placeholder="" >
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                         <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" onclick="fac_search()">搜索</button>
+                        </span>
+                    </div>
+                    <!--                    <div class="col-md-1">-->
+                    <!--                         <span class="input-group-btn">-->
+                    <!--                            <button class="btn btn-default" type="button" onclick="addpromotionLink()">添加</button>-->
+                    <!--                        </span>-->
+                    <!--                    </div>-->
+                </div>
+            </div>
+            <fieldset>
+
+                &nbsp;&nbsp;&nbsp;&nbsp;
+            </fieldset>
+        </form>
+    </div>
+</div>
+
+<div class="ibox float-e-margins" id="lookAll" style="display: none">
+    <div class="ibox-content">
+        <div class="row row-lg">
+            <div class="col-sm-12">
+                <div class="btn-group hidden-xs" id="promotionLinkDayToolbar" role="group">
+                    <div class="col-md-1">
+                         <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" onclick="reportGeneration()">生成报表</button>
+                        </span>
+                    </div>
+                </div>
+                <table id="promotionLinkDayTable" >
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" id="add" style="display: none">
+    <div class="ibox-content">
+        <form class="form-horizontal m-t" id="commentForm" method="post">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">关注人数 :</label>
+                <div class="col-sm-8">
+                    <input type="number" class="form-control" name="follow_num" value=""  />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">广告费 :</label>
+                <div class="col-sm-8">
+                    <input type="number" class="form-control" name="consum" value=""  />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row" id="bb" style="display: none">
+    <div class="ibox-content">
+        <form class="form-horizontal m-t" id="" method="post">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">报表名称 :</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="bb_name" value=""  />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">日期跨度 :</label>
+                <div class="col-sm-8">
+                    <input type="number" class="form-control" name="bb_time" value="0"  />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+
+<script src="../js/jquery.min.js?v=2.1.4"></script>
+
+<script src="../js/public.js"></script>
+<script src="../js/bootstrap.min.js?v=3.3.6"></script>
+<script src="../js/layer/layer.js"></script>
+<script src="../js/laydate/laydate.js"></script>
+
+<script src="../js/content.min.js"></script>
+<script src="../js/plugins/bootstrap-table/bootstrap-table.js"></script>
+<script src="../js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="../js/demo/bootstrap-table-demo.min.js"></script>
+<script src="../js/bootstrapValidator.js"></script>
+<script src="../js/bootstrapValidator.min.js"></script>
+<script src="../js/index.js"></script>
+<script src="../js/plugins/bootstrap-select-1.13.9/js/bootstrap-select.js"></script>
+
+
+<script>
+
+    $(document).ready(function () {
+        initTable();
+    });
+    
+
+    function initTable() {
+        $('#promotionLinkTable').bootstrapTable('destroy');
+        // $('#wechatDayToolbar').css("height", 300);
+        $("#promotionLinkTable").bootstrapTable({
+            url: __ROOT__ + 'admin/promotion_link/getList', //获取数据的Servlet地址
+            striped: true,  //表格显示条纹
+            pagination: true, //启动分页
+            sortName: 'id',
+            sortOrder: 'desc',
+            pageSize: 20,  //每页显示的记录数
+            pageNumber:1, //当前第几页
+            pageList: [20, 25, 30, 35],  //记录数可选列表
+            search: false,
+            toolbar: '#list_search_faci',
+            showColumns: true,  //显示下拉框勾选要显示的列
+            showRefresh: true,  //显示刷新按钮
+            sidePagination: "server", //表示服务端请求
+            responseHandler:function(data){
+                return data.data;
+            },
+            queryParamsType : "undefined",
+            // method: 'post',
+            queryParams: function queryParams(params) {   //设置查询参数
+                params = {
+                    //这里是在ajax发送请求的时候设置一些参数 params有什么东西，自己看看源码就知道了
+                    pageNumber: params.pageNumber,
+                    pageSize: params.pageSize,
+                    sortName: params.sortName,
+                    sortOrder: params.sortOrder,
+                    // id : {$_GET['id']},
+                    head : {'token' : getCookie('token')},
+                    channel_name : $('#channel_name').val(),
+                    novel_name : $('#novel_name').val(),
+                };
+
+                return params;
+            },
+            onLoadSuccess: function(data){  //加载成功时执行
+
+            },
+            onLoadError: function(){  //加载失败时执行
+                layer.msg("加载数据失败", {time : 1500, icon : 2});
+            },
+            columns: [
+                // {
+                //     title: 'Id',
+                //     field: 'id',
+                //     align: 'center',
+                //     valign: 'middle',
+                //     width : 20,
+                // },
+                {
+                    field: 'channel_name',
+                    title: '渠道名称',
+                    width : 20,
+                    align: 'center'
+                },
+                {
+                    field: 'referral_link_id',
+                    title: '推广链接',
+                    width : 40,
+                    align: 'center',
+                    formatter: function(value,row,index){
+                        return 'https://c'+row.channel_id_config+'.818tu.com/referrals/index/'+row.referral_link_id +'' +
+                            '<br/>首次支付时间:'+row.pay_time;
+                    }
+                },
+                {
+                    field: 'novel_name',
+                    title: '入口页面',
+                    width : 15,
+                    align: 'center'
+                },
+                {
+                    field: 'follow_num',
+                    title: '关注人数',
+                    width : 10,
+                    align: 'center'
+                },
+                {
+                    field: 'recharge',
+                    title: '充值金额',
+                    width : 10,
+                    align: 'center',
+                    sortable:true,
+                    formatter: function(value,row,index){
+                        return value / 100;
+                    }
+                },
+                {
+                    field: 'recharge_num',
+                    title: '充值笔数',
+                    width : 10,
+                    align: 'center'
+                },
+                {
+                    field: 'consum',
+                    title: '广告费',
+                    width : 10,
+                    align: 'center'
+                },
+                {
+                    field: 'recharge_num',
+                    title: '回本详情',
+                    width : 10,
+                    align: 'center',
+                    formatter: function(value,row,index){
+                        let html = '1日:' + row.one + '%'+
+                            '<br/>3日:' + row.three + '%'+
+                            '<br/>7日:' + row.seven + '%'+
+                            '<br/>30日:' + row.th + '%'+
+                            '<br/><a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="lookAll('+row.id+')" >更多</a>';
+                        return html;
+                    }
+                }
+            ]
+        });
+    }
+
+    function initDayTable() {
+        $('#promotionLinkDayTable').bootstrapTable('destroy');
+        // $('#wechatDayToolbar').css("height", 300);
+        $("#promotionLinkDayTable").bootstrapTable({
+            url: __ROOT__ + 'admin/promotion_link/getListDay', //获取数据的Servlet地址
+            striped: true,  //表格显示条纹
+            pagination: true, //启动分页
+            sortName: 'id',
+            sortOrder: 'desc',
+            pageSize: 20,  //每页显示的记录数
+            pageNumber:1, //当前第几页
+            pageList: [20, 25, 30, 35],  //记录数可选列表
+            search: false,
+            toolbar: '#promotionLinkToolbar',
+            showColumns: true,  //显示下拉框勾选要显示的列
+            showRefresh: true,  //显示刷新按钮
+            sidePagination: "server", //表示服务端请求
+            responseHandler:function(data){
+                return data.data;
+            },
+            queryParamsType : "undefined",
+            // method: 'post',
+            queryParams: function queryParams(params) {   //设置查询参数
+                params = {
+                    //这里是在ajax发送请求的时候设置一些参数 params有什么东西，自己看看源码就知道了
+                    pageNumber: params.pageNumber,
+                    pageSize: params.pageSize,
+                    sortName: params.sortName,
+                    sortOrder: params.sortOrder,
+                    // id : {$_GET['id']},
+                    head : {'token' : getCookie('token')},
+                    link_id : link_id
+                };
+
+                return params;
+            },
+            onLoadSuccess: function(data){  //加载成功时执行
+
+            },
+            onLoadError: function(){  //加载失败时执行
+                layer.msg("加载数据失败", {time : 1500, icon : 2});
+            },
+            columns: [
+                // {
+                //     title: 'Id',
+                //     field: 'id',
+                //     align: 'center',
+                //     valign: 'middle',
+                //     width : 20,
+                // },
+                {
+                    field: 'time',
+                    title: '日期',
+                    width : 20,
+                    align: 'center'
+                },
+                {
+                    field: 'follow_num',
+                    title: '关注人数',
+                    width : 10,
+                    align: 'center'
+                },
+                {
+                    field: 'recharge',
+                    title: '充值金额',
+                    width : 10,
+                    align: 'center',
+                    sortable:true,
+                    formatter: function(value,row,index){
+                        return value / 100;
+                    }
+                },
+                {
+                    field: 'recharge_num',
+                    title: '充值笔数',
+                    width : 10,
+                    align: 'center'
+                },
+                {
+                    field: 'consum',
+                    title: '广告费',
+                    width : 10,
+                    align: 'center'
+                },
+                {
+                    field: 'info',
+                    title: '回本详情',
+                    width : 10,
+                    align: 'center',
+                    formatter: function(value,row,index){
+                        if(row.consum === '0.00' && row.recharge !== 0){
+                            return  '100%';
+                        }else {
+                            let num = row.recharge / 100 / row.consum * 100;
+                            if(num.toFixed(2) === 'NaN'){
+                                return '<span >'+0.00+'%</span>';
+                            }else {
+                                return '<span >'+num.toFixed(2)+'%</span>';
+                            }
+                        }
+                    }
+                },
+                {
+                    field: 'operate',
+                    title: '操作',
+                    width : 20,
+                    align: 'center',
+                    formatter: function(value,row,index){
+                        var d='<a href="#" mce_href="#" data_id="'+row.id+'" data_consum="'+row.consum+'" data_follow_num="'+row.follow_num+'"   onclick="editDay(this)" >编辑</a> ';
+                        return d;
+                    }
+                }
+            ]
+        });
+    }
+
+    //搜索
+    function fac_search() {
+        $('#promotionLinkTable').bootstrapTable('refresh');
+    }
+
+    function fac_search_day() {
+        $('#promotionLinkDayTable').bootstrapTable('refresh');
+    }
+
+    //查看更多回本数据
+    let link_id = 0;
+    function lookAll(id) {
+        link_id = id;
+        initDayTable();
+        layer.open({
+            type: 1,
+            title: '查看',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['70%', '70%'],
+            content: $('#lookAll'),
+            btn: ['取消'],
+        });
+    }
+
+    //修改推广链接每日数据
+    function editDay(obj) {
+        $("input[name='follow_num']").val($(obj).attr('data_follow_num'));
+        $("input[name='consum']").val($(obj).attr('data_consum'));
+        let edit_l = layer.open({
+            type: 1,
+            title: '编辑',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['60%', '60%'],
+            content: $('#add'),
+            btn: ['确定', '取消'], // 按钮
+            yes: function(indexs, layero){
+                layer.msg('确定修改？', {
+                    time: 0 //不自动关闭
+                    ,btn: ['确定', '取消']
+                    ,yes: function(index){
+                        editDayGo($(obj).attr('data_id'));
+                        if(requestCode === 0){
+                            fac_search_day();
+                            layer.close(index);
+                            layer.close(indexs);
+                            layer.msg(requestMessage);
+                        }else {
+                            layer.msg(requestMessage);
+                        }
+                    }
+                });
+
+
+            }
+//            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
+        });
+    }
+
+    //修改
+    function editDayGo(id) {
+        requestData.data = {
+            'id' : id,
+            'follow_num' :  $("input[name='follow_num']").val(),
+            'consum' :  $("input[name='consum']").val(),
+        }
+        ajaxGo('admin/promotion_link/editLinkDay')
+
+    }
+
+    function reportGeneration() {
+        layer.open({
+            type: 1,
+            title: '生成报表',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['60%', '60%'],
+            content: $('#bb'),
+            btn: ['确定', '取消'], // 按钮
+            yes: function(indexs, layero){
+                layer.msg('确定修改？', {
+                    time: 0 //不自动关闭
+                    ,btn: ['确定', '取消']
+                    ,yes: function(index){
+                        reportGenerationGo();
+                        if(requestCode === 0){
+                            layer.close(index);
+                            layer.close(indexs);
+                            layer.msg(requestMessage);
+                        }else {
+                            layer.msg(requestMessage);
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    /**
+     * 生成单独报表
+     */
+    function reportGenerationGo() {
+        requestData.data = {
+            'link_id' : link_id,
+            'bb_name' :  $("input[name='bb_name']").val(),
+            'bb_time' :  $("input[name='bb_time']").val(),
+        }
+        ajaxGo('admin/promotion_link/reportGenerationOne')
+    }
+
+    //删除
+    function delpromotionLink(obj) {
+        layer.msg('确定删除？', {
+            time: 0 //不自动关闭
+            ,btn: ['确定', '取消']
+            ,yes: function(index){
+                requestData.data = {
+                    'id' : $(obj).attr('data_id')
+                };
+                ajaxGo('admin/promotion_link/delpromotionLink');
+                if(requestCode === 0){
+                    fac_search();
+                    layer.msg('删除成功!');
+                }else {
+                    layer.msg(requestMessage);
+                }
+            }
+        });
+    }
+</script>
+
+

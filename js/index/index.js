@@ -6,6 +6,10 @@ $(document).ready(function() {
         $('#log').hide();
         $('#wechatConfig').hide();
         $('#wechatConfigTotal').hide();
+        $('#promotionBB').hide();
+    }
+    if(u_id === '15' || u_id === '17'){
+        $('#promotionBB').show();
     }
 });
 

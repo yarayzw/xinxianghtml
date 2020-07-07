@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>报表</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type="text/css">
+        * {
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+        }
+
+        body,
+        html {
+            height: 100%;
+            font-family: sans-serif;
+        }
+
+        .limiter {
+            width: 100%;
+            margin: 0 auto;
+
+        }
+
+        .container-table100 {
+            max-width: 1766px;
+            margin: 0 auto;
+            min-height: 100vh;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            padding: 33px 100px;
+        }
+
+        .wrap-table100 {
+            width: 100%;
+        }
+
+        /*//////////////////////////////////////////////////////////////////
+      [ Table ]*/
+
+        .table100 {
+            background-color: #fff;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        th {
+            font-weight: bold;
+            text-align: left;
+            padding-right: 10px;
+        }
+
+        td {
+            font-weight: unset;
+            padding-right: 10px;
+        }
+
+        .column1 {
+            width: 100%;
+            padding-left: 40px;
+        }
+
+        .column2 {
+            width: 150px;
+            padding-left: 55px;
+            background: #fff3e0;
+        }
+
+        .column3 {
+            width: 100px;
+            padding-left: 55px;
+            background: #fff3e0;
+        }
+
+
+        .table100 th {
+            padding-top: 21px;
+            padding-bottom: 21px;
+        }
+
+        .table100 td {
+            padding-top: 6px;
+            padding-bottom: 6px;
+            height: 70px;
+        }
+
+        /*==================================================================
+      [ Fix col ]*/
+
+        .table100 {
+            width: 100%;
+            position: relative;
+        }
+
+        .table100-firstcol {
+            background-color: #fff;
+            position: absolute;
+            z-index: 1000;
+            width: 210px;
+            top: 0;
+            left: 0;
+        }
+
+        .table100-firstcol table {
+            background-color: #fff;
+        }
+
+        .wrap-table100-nextcols {
+            width: 100%;
+            overflow: auto;
+            padding-left: 210px;
+            padding-bottom: 28px;
+        }
+
+        .table100-nextcols table {
+            table-layout: fixed;
+        }
+
+        .shadow-table100-firstcol {
+            box-shadow: 8px 0px 10px 0px rgba(0, 0, 0, 0.05);
+            -moz-box-shadow: 8px 0px 10px 0px rgba(0, 0, 0, 0.05);
+            -webkit-box-shadow: 8px 0px 10px 0px rgba(0, 0, 0, 0.05);
+            -o-box-shadow: 8px 0px 10px 0px rgba(0, 0, 0, 0.05);
+            -ms-box-shadow: 8px 0px 10px 0px rgba(0, 0, 0, 0.05);
+        }
+
+        .table100-firstcol table {
+            background-color: transparent;
+        }
+
+        /*==================================================================
+      [ Ver1 ]*/
+
+        .table100.ver1 th {
+            font-family: Roboto-Bold;
+            font-size: 14px;
+            color: #333333;
+            line-height: 1.4;
+            text-transform: uppercase;
+        }
+
+        .table100.ver1 td {
+            font-family: Roboto-Medium;
+            font-size: 15px;
+            line-height: 1.4;
+        }
+
+        .table100.ver1 .table100-firstcol td {
+            color: #666666;
+        }
+
+        .table100.ver1 .table100-nextcols td {
+            color: #999999;
+        }
+
+        .table100.ver1 tr {
+            border-bottom: 1px solid #f2f2f2;
+        }
+
+        .tr_y {
+            background: #FCD5B4;
+        }
+
+        .tr_y1 {
+            background: #FFFF00;
+        }
+
+
+    </style>
+</head>
+
+<body>
+<div id="info">
+
+</div>
+<script src="../js/jquery.min.js?v=2.1.4"></script>
+
+<script src="../js/public.js"></script>
+</body>
+<script>
+    $(document).ready(function () {
+        requestData.data = {
+            'id' : getUrlParam('bb_id')
+        };
+        ajaxGo('admin/promotion_b_b/getPromotionBB');
+        $('#info').html(requestData.data.info);
+    });
+
+    //获取url中的参数
+    function getUrlParam(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+        var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+        if (r != null) return unescape(r[2]); return null; //返回参数值
+    }
+
+</script>
+</html>
