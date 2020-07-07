@@ -122,9 +122,9 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-3 control-label">定时发送(分钟) :</label>
+                <label class="col-sm-3 control-label">定时发送 :</label>
                 <div class="col-sm-8">
-                    <input type="number" class="form-control" name="timing" value=""  />
+                    <input type="text" class="form-control" name="timing" value=""  />
                 </div>
             </div>
             <div class="form-group">
@@ -508,5 +508,16 @@
 
 
 </script>
-
+<!--时间处理工具-->
+<script src="../js/moment.min.js"></script>
+<script>
+    $(function () {
+        laydate.render({
+            elem: 'input[name="timing"]',
+            type:'datetime',
+            min: moment().format('YYYY-MM-DD HH:mm:ss'),
+            value:moment().format('YYYY-MM-DD HH:mm:ss')
+        });
+    })
+</script>
 
