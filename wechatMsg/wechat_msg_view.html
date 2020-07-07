@@ -467,7 +467,7 @@
                             'wechat_ids' : wechat_ids,
                             'is_pay' : $('input[name="is_pay"]:checked').val()
                         }
-                        ajaxGo('admin/wechat_msg_send/addWechatMsgSend','',false,'http://tongji.chinaandun.com/')
+                        ajaxGo('admin/wechat_msg_send/addWechatMsgSend','',false,'http://tongji.chinaandun.com/');
                         if(requestCode === 0){
                             fac_search();
                             layer.close(index);
