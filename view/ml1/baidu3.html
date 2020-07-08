@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>{{title}}</title>
     <meta name="viewport"
-          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densitydpi=device-dpi" />
     <link rel="stylesheet" href="/static/ml/main.css?v=2.0"/>
     <link rel="stylesheet" href="/static/pc/font.css">
 
@@ -376,9 +376,12 @@
 
 <div id="gz_tc4" style="display: none;text-align: center;margin:0 5%;padding:5% 0.5% 20px 0.5%;;overflow: hidden;background: white;">
     <div id="wechat_go_other" style="display: block">
-        <img src="http://jindouyun-yara.oss-cn-beijing.aliyuncs.com/uploads/other/20200512/1589262934yanshi.gif"  alt="" >
-        <button style="border: #ccc 1px;width: 40%;color:#666666;background: #ccc;border-radius: 10px;height: 40px;margin-right: 3%;font-size: 1.1rem;margin-top: 4%" onclick="closeLayer()">取消</button>
-        <button style="border: #ccc 1px;width: 40%;color: white;background: #00cc00;font-size: 1.3rem;border-radius: 10px;height: 40px;margin-left: 3%;margin-top: 4%;" onclick="baiduappshare()" >前往关注</button>
+        <h2 style="font-size: 1.6rem;color: lightgray;">请选择您手机的阅读方式</h2>
+        <div style="margin-top: 2rem;">
+            <div onclick="baiduappshare()"><img src="/static/ml/baidu-read.jpg" alt="百度阅读"></div>
+            <div onclick="ucappshare()" style="margin-top: 1rem;"><img src="/static/ml/uc-read.jpg" alt="UC阅读"></div>
+            <div onclick="go_wechat()" style="margin-top: 1rem;">手机上都没有安装，点击进入微信</div>
+        </div>
     </div>
 </div>
 
