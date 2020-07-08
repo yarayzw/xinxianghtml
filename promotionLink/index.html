@@ -52,6 +52,11 @@
                             <button class="btn btn-default" type="button" onclick="fac_search()">搜索</button>
                         </span>
                     </div>
+                    <div class="col-md-1">
+                         <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" onclick="reportGenerationAll()">生成报表</button>
+                        </span>
+                    </div>
                     <!--                    <div class="col-md-1">-->
                     <!--                         <span class="input-group-btn">-->
                     <!--                            <button class="btn btn-default" type="button" onclick="addpromotionLink()">添加</button>-->
@@ -147,6 +152,55 @@
     $(document).ready(function () {
         initTable();
     });
+
+    //合并生成报表
+    function reportGenerationAll() {
+        let row = $("#promotionLinkTable").bootstrapTable('getSelections');
+        if (row.length === 0) {
+            layer.msg('请选择行');
+        }else {
+            let link_ids = [];
+            row.forEach((item,index,array)=>{
+                link_ids.push(item.id)
+            });
+            layer.open({
+                type: 1,
+                title: '合并生成报表',
+                shadeClose: true,
+                shade: 0.8,
+                area: ['60%', '60%'],
+                content: $('#bb'),
+                btn: ['确定', '取消'], // 按钮
+                yes: function(indexs, layero){
+                    layer.msg('确定生成？', {
+                        time: 0 //不自动关闭
+                        ,btn: ['确定', '取消']
+                        ,yes: function(index){
+                            reportGenerationAllGo(link_ids);
+                            if(requestCode === 0){
+                                layer.close(index);
+                                layer.close(indexs);
+                                layer.msg(requestMessage);
+                            }else {
+                                layer.msg(requestMessage);
+                            }
+                        }
+                    });
+                }
+            });
+
+        }
+    }
+
+    //提交报表生成
+    function reportGenerationAllGo(link_ids) {
+        requestData.data = {
+            'link_ids' : link_ids,
+            'bb_name' :  $("input[name='bb_name']").val(),
+            'bb_time' :  $("input[name='bb_time']").val(),
+        };
+        ajaxGo('admin/promotion_link/reportGenerationAll')
+    }
     
 
     function initTable() {
@@ -193,13 +247,14 @@
                 layer.msg("加载数据失败", {time : 1500, icon : 2});
             },
             columns: [
-                // {
-                //     title: 'Id',
-                //     field: 'id',
-                //     align: 'center',
-                //     valign: 'middle',
-                //     width : 20,
-                // },
+                {
+                    title: '',
+                    field: 'checkbox',
+                    align: 'center',
+                    checkbox : true,
+                    width : 5,
+                    singleSelect:true
+                },
                 {
                     field: 'channel_name',
                     title: '渠道名称',
@@ -465,7 +520,7 @@
             content: $('#bb'),
             btn: ['确定', '取消'], // 按钮
             yes: function(indexs, layero){
-                layer.msg('确定修改？', {
+                layer.msg('确定生成？', {
                     time: 0 //不自动关闭
                     ,btn: ['确定', '取消']
                     ,yes: function(index){
