@@ -21,12 +21,11 @@ $(function () {
     //         }, false);
     //     }
     // });
-    let urlss=window.location.href;
-    if (urlss.indexOf('opentype=weixin_timeline')!=-1){
-        var h = $(document).height()-$(window).height();
-
-        $(document).scrollTop(h);
-
+    let url=window.location.href;
+    if (url.indexOf('opentype=weixin_timeline')!=-1){
+        //todo 进行微信跳转
+        // $('#go_now').trigger("click");
+        wechat_go('wechatTimeline');
     }
 
 
@@ -98,14 +97,10 @@ $(function () {
             });
         });
     // }
-    //判断是否是uc分享微信
-    let url=window.location.href;
-    if (url.indexOf('opentype=weixin_timeline')!=-1){
-        var t1 = window.setTimeout( wechat_go('wechatTimeline'),1000); 	// 使用方法名字执行 一秒后执行 hello 方法
-        window.clearTimeout(t1);		//	去掉定时器
-    }
+
 
 });
+
 
 function tz_tc(id) {
     layer.open({
