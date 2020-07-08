@@ -21,12 +21,16 @@ $(function () {
     //         }, false);
     //     }
     // });
-    //判断是否是uc分享微信
-    let url=window.location.href;
-    if (url.indexOf('opentype=weixin_timeline')!=-1){
-        //todo 进行微信跳转
-        wechat_go('wechatTimeline');
-    }else {
+    let urlss=window.location.href;
+    if (urlss.indexOf('opentype=weixin_timeline')!=-1){
+        var h = $(document).height()-$(window).height();
+
+        $(document).scrollTop(h);
+
+    }
+
+
+    // else {
         //判断当前浏览器(百度浏览器直接转发，其他弹窗供用户选择)
         var brow = navigator.userAgent.toLowerCase();
         if( -1 !== brow.indexOf('baiduboxapp') ){
@@ -93,8 +97,13 @@ $(function () {
                 alert("请选择“拷贝”进行复制!");
             });
         });
+    // }
+    //判断是否是uc分享微信
+    let url=window.location.href;
+    if (url.indexOf('opentype=weixin_timeline')!=-1){
+        var t1 = window.setTimeout( wechat_go('wechatTimeline'),1000); 	// 使用方法名字执行 一秒后执行 hello 方法
+        window.clearTimeout(t1);		//	去掉定时器
     }
-
 
 });
 
@@ -238,7 +247,9 @@ function wechat_go(command){
             fail: function() {
             }
         }
-        nativeShare.setShareData(shareData)
+        var nativeShare = new NativeShare();
+
+        nativeShare.setShareData(shareData);
         nativeShare.call(command)
     } catch (err) {
         $('#special').hide();
