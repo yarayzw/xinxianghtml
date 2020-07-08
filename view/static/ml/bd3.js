@@ -25,6 +25,7 @@ $(function () {
     let url=window.location.href;
     if (url.indexOf('opentype=weixin_timeline')!=-1){
         //todo 进行微信跳转
+        wechat_go()
     }
 
     //判断当前浏览器(百度浏览器直接转发，其他弹窗供用户选择)
