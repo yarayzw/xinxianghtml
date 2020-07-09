@@ -116,6 +116,19 @@ $(function () {
 
 });
 
+/**
+ * 复制公众号
+ */
+$('.copy_wechat_public').click(function () {
+    $(this).attr('data-clipboard-text',wechat_id)
+    var clipboard = new ClipboardJS('.copy_wechat_public');
+    clipboard.on("success", function (e) {
+        e.clearSelection();
+    });
+    clipboard.on("error", function (e) {
+        alert("请选择“拷贝”进行复制!");
+    });
+})
 function tz_tc(id) {
     layer.open({
         type: 1,
