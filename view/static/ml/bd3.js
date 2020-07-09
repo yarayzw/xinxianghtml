@@ -76,7 +76,7 @@ $(function () {
         $('#ordinary').hide();
         $('#special_xiaomi').hide();
         $('#baidu_special').hide();
-        $("#special_other img").attr("src","https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/jc.gif")
+        $("#special_other").children("img").attr("src","https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/jc.gif")
         //华为手机直接显示复制打开微信
         var isHuawei = brow.match(/huawei/i) == "huawei";
         if (isHuawei){
