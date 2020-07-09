@@ -21,110 +21,99 @@ $(function () {
     //         }, false);
     //     }
     // });
+
+    //判断当前浏览器(百度浏览器直接转发，其他弹窗供用户选择)
+    var brow = navigator.userAgent.toLowerCase();
+
+    //判断是否是uc分享微信
     let url=window.location.href;
     if (url.indexOf('opentype=weixin_timeline')!=-1){
-        tz_tc("brower-tip")
+        var isAndroid = brow.indexOf('Android') > -1 ||brow.indexOf('android') > -1 || brow.indexOf('Adr') > -1; //android终端
+        if (!isAndroid){
+            layer.open({
+                type: 1,
+                title: '',
+                shade: 1,
+                shadeClose: true,
+                area: ['100%', 'auto'],
+                content: $('#brower-tip'),
+            });
+            $(document).css("background","red")
+        }else {
+            wechat_go('wechatTimeline');
+        }
+    }
+
+    if( -1 !== brow.indexOf('baiduboxapp') ){
+        if(-1 !== brow.indexOf('info')){
+            wechat_url = wechat_url_info;
+        }
+        loadScript('//s.bdstatic.com/common/openjs/aio.js?v=' + new Date().getTime());
+        $('#ordinary-other').hide();
+        $('#baidu_special').show();
+        $('#head_pl').hide();
+        $('#head_display').hide();
+        $('#head_info').hide();
+        $('#special-other').hide();
+    }else if(-1 !== brow.indexOf('miuibrowser')){
+        $('#special_xiaomi').show()
+        $('#ordinary').hide();
+        $('#special').hide();
+        $('#head_pl').hide();
+        $('#head_display').hide();
+        $('#head_info').hide();
+        $('#special_other').hide();
+    }else if (-1 !== brow.indexOf('ucbrowser') || -1 !== brow.indexOf('mqqbrowser')  ) {
+        $('#ordinary').hide();
+        $('#special').show();
+        $('#head_pl').hide();
+        $('#head_display').hide();
+        $('#head_info').hide();
+        $('#showtime').hide();
+        $('#special_other').hide();
+    }else {
+        $('#special_other').show();
+        $('#ordinary').hide();
+        $('#special_xiaomi').hide();
+        $('#baidu_special').hide();
+        //华为手机直接显示复制打开微信
+        var isHuawei = brow.match(/huawei/i) == "huawei";
+        if (isHuawei){
+            $("#special_other").attr("onclick","tz_tc('wechat_click')")
+        }
     }
 
 
-    // else {
-        //判断当前浏览器(百度浏览器直接转发，其他弹窗供用户选择)
-        var brow = navigator.userAgent.toLowerCase();
-        if( -1 !== brow.indexOf('baiduboxapp') ){
-            if(-1 !== brow.indexOf('info')){
-                wechat_url = wechat_url_info;
-            }
-            loadScript('//s.bdstatic.com/common/openjs/aio.js?v=' + new Date().getTime());
-            $('#ordinary-other').hide();
-            $('#baidu_special').show();
-            $('#head_pl').hide();
-            $('#head_display').hide();
-            $('#head_info').hide();
-            $('#special-other').hide();
-        }else if(-1 !== brow.indexOf('miuibrowser')){
-
-            $('#special_xiaomi').show()
-            $('#ordinary').hide();
-            $('#special').hide();
-            $('#head_pl').hide();
-            $('#head_display').hide();
-            $('#head_info').hide();
-            $('#special_other').hide();
-        }else if (-1 !== brow.indexOf('ucbrowser') || -1 !== brow.indexOf('mqqbrowser')  ) {
-            $('#ordinary').hide();
-            $('#special').show();
-            $('#head_pl').hide();
-            $('#head_display').hide();
-            $('#head_info').hide();
-            $('#showtime').hide();
-            $('#special_other').hide();
-        }else {
-            $('#special_other').show();
-            $('#ordinary').hide();
-            $('#special_xiaomi').hide();
-            $('#baidu_special').hide();
-            //华为手机直接显示复制打开微信
-            var isHuawei = brow.match(/huawei/i) == "huawei";
-            if (isHuawei){
-                $("#special_other").attr("onclick","tz_tc('wechat_click')")
-            }
-        }
-        //     $('#special_xiaomi').show()
-        //     $('#ordinary').hide();
-        //     $('#special').hide();
-        //     $('#head_pl').hide();
-        //     $('#head_display').hide();
-        //     $('#head_info').hide();
-        //     $('#special_other').hide();
-        // }else if (-1 !== brow.indexOf('ucbrowser') || -1 !== brow.indexOf('mqqbrowser')  ) {
-        //     $('#ordinary').hide();
-        //     $('#special').show();
-        //     $('#head_pl').hide();
-        //     $('#head_display').hide();
-        //     $('#head_info').hide();
-        //     $('#showtime').hide();
-        //     $('#special_other').hide();
-        // }else {
-        //     $('#special_other').show();
-        //     $('#ordinary').hide();
-        //     $('#special_xiaomi').hide();
-        //     $('#baidu_special').hide();
-        // }
-
-
-        //无法自动跳转的时候
-        $('#wechat_id_display').val(wechat_id+'/'+randomString(1));
-        $(".code-btn").click(function () {
-            let e = $('#wechat_id_display').val();
-            let t = document.getElementById("fixspan");
-            t.value = e;
-            var clipboard = new ClipboardJS('#codeBtn');
-            clipboard.on("success", function (e) {
-                $('.fuzhi_tanc').show();
-                e.clearSelection();
-            });
-            clipboard.on("error", function (e) {
-                alert("请选择“拷贝”进行复制!");
-            });
+    //无法自动跳转的时候
+    $('#wechat_id_display').val(wechat_id+'/'+randomString(1));
+    $(".code-btn").click(function () {
+        let e = $('#wechat_id_display').val();
+        let t = document.getElementById("fixspan");
+        t.value = e;
+        var clipboard = new ClipboardJS('#codeBtn');
+        clipboard.on("success", function (e) {
+            $('.fuzhi_tanc').show();
+            e.clearSelection();
         });
-        $("#wechat_id").click(function () {
-            let e = $('#wechat_id_display').val();
-            let t = document.getElementById("fixspan");
-            t.value = e;
-            var clipboard = new ClipboardJS('#wechat_id');
-            clipboard.on("success", function (e) {
-                $('.fuzhi_tanc').show();
-                e.clearSelection();
-            });
-            clipboard.on("error", function (e) {
-                alert("请选择“拷贝”进行复制!");
-            });
+        clipboard.on("error", function (e) {
+            alert("请选择“拷贝”进行复制!");
         });
-    // }
-
+    });
+    $("#wechat_id").click(function () {
+        let e = $('#wechat_id_display').val();
+        let t = document.getElementById("fixspan");
+        t.value = e;
+        var clipboard = new ClipboardJS('#wechat_id');
+        clipboard.on("success", function (e) {
+            $('.fuzhi_tanc').show();
+            e.clearSelection();
+        });
+        clipboard.on("error", function (e) {
+            alert("请选择“拷贝”进行复制!");
+        });
+    });
 
 });
-
 
 function tz_tc(id) {
     layer.open({
@@ -278,9 +267,7 @@ function wechat_go(command){
             fail: function() {
             }
         }
-        var nativeShare = new NativeShare();
-
-        nativeShare.setShareData(shareData);
+        nativeShare.setShareData(shareData)
         nativeShare.call(command)
     } catch (err) {
         $('#special').hide();
