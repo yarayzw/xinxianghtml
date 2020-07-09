@@ -265,29 +265,53 @@
         requestData.data.forEach((item,index,array)=>{
             //执行代码
             if(item.type === 1 ){
-                var html = '<div class="col-sm-4">\n' +
-                    '                <div class="ibox float-e-margins">\n' +
-                    '                    <div class="ibox-title">\n' +
-                    '                        <h5>'+item.name+' | '+item.send_status+' | <span id="day_show_'+item.id+'"></span><span id="hour_show'+item.id+'"></span><span id="minute_show'+item.id+'"></span><span id="second_show'+item.id+'"></span></h5>\n' +
-                    '                        <div class="ibox-tools">\n' +
-                    '                            <a  onclick="sendViewGo('+item.id+')">\n' +
-                    '                                <i class="glyphicon glyphicon-send" ></i>\n' +
-                    '                            </a>\n' +
-                    '                            <a  onclick="editView('+item.id+')">\n' +
-                    '                                <i class="glyphicon glyphicon-pencil" ></i>\n' +
-                    '                            </a>\n' +
-                    '                            <a  onclick="delView('+item.id+')">\n' +
-                    '                                <i class="fa fa-times" ></i>\n' +
-                    '                            </a>\n' +
-                    '                        </div>\n' +
-                    '                    </div>\n' +
-                    '                    <div onmouseup="selectText('+item.id+')" class="ibox-content">\n' +
-                    '                        \n' + item.info+
-                    '                    </div>\n' +
-                    '                </div>\n' +
-                    '            </div>';
+                if(item.over_time === 0){
+                    var html = '<div class="col-sm-4">\n' +
+                        '                <div class="ibox float-e-margins">\n' +
+                        '                    <div class="ibox-title">\n' +
+                        '                        <h5>'+item.name+'</h5>  &nbsp; '+item.send_status+'\n' +
+                        '                        <div class="ibox-tools">\n' +
+                        '                            <a  onclick="sendViewGo('+item.id+')">\n' +
+                        '                                <i class="glyphicon glyphicon-send" ></i>\n' +
+                        '                            </a>\n' +
+                        '                            <a  onclick="editView('+item.id+')">\n' +
+                        '                                <i class="glyphicon glyphicon-pencil" ></i>\n' +
+                        '                            </a>\n' +
+                        '                            <a  onclick="delView('+item.id+')">\n' +
+                        '                                <i class="fa fa-times" ></i>\n' +
+                        '                            </a>\n' +
+                        '                        </div>\n' +
+                        '                    </div>\n' +
+                        '                    <div onmouseup="selectText('+item.id+')" class="ibox-content">\n' +
+                        '                        \n' + item.info+
+                        '                    </div>\n' +
+                        '                </div>\n' +
+                        '            </div>';
+                }else {
+                    var html = '<div class="col-sm-4">\n' +
+                        '                <div class="ibox float-e-margins">\n' +
+                        '                    <div class="ibox-title">\n' +
+                        '                        <h5>'+item.name+'</h5> &nbsp; '+item.send_status+' <span id="day_show_'+item.id+'"></span><span id="hour_show'+item.id+'"></span><span id="minute_show'+item.id+'"></span><span id="second_show'+item.id+'"></span>)\n' +
+                        '                        <div class="ibox-tools">\n' +
+                        '                            <a  onclick="sendViewGo('+item.id+')">\n' +
+                        '                                <i class="glyphicon glyphicon-send" ></i>\n' +
+                        '                            </a>\n' +
+                        '                            <a  onclick="editView('+item.id+')">\n' +
+                        '                                <i class="glyphicon glyphicon-pencil" ></i>\n' +
+                        '                            </a>\n' +
+                        '                            <a  onclick="delView('+item.id+')">\n' +
+                        '                                <i class="fa fa-times" ></i>\n' +
+                        '                            </a>\n' +
+                        '                        </div>\n' +
+                        '                    </div>\n' +
+                        '                    <div onmouseup="selectText('+item.id+')" class="ibox-content">\n' +
+                        '                        \n' + item.info+
+                        '                    </div>\n' +
+                        '                </div>\n' +
+                        '            </div>';
+                    timer(item.over_time,item.id)
+                }
             }
-            timer(item.over_time,item.id)
             $('#list').append(html);
         });
     }
@@ -518,10 +542,8 @@
                 }
                 ajaxGo('admin/wechat_msg_send/testSend','',false,'http://tongji.chinaandun.com/');
                 if(requestCode === 0){
-                    fac_search();
                     layer.close(index);
-                    layer.closeAll();
-                    layer.msg('添加成功');
+                    layer.msg('发送成功');
                 }else {
                     layer.msg(requestMessage);
                 }
