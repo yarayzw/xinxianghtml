@@ -283,7 +283,7 @@
                 </div>
                 <div id="special_other" style="display: none;text-align: center" onclick="tz_tc('gz_tc4')">
                     <br>
-                    <button    class="pa copy_btn3 code-btn ifengLookori wechat-btn">
+                    <button class="pa copy_btn3 ifengLookori wechat-btn copy_wechat_public">
                         点此阅读下一章
                     </button>
                 </div>
@@ -396,11 +396,34 @@
 
 <div id="gz_tc4" style="display: none;text-align: center;margin:0 5%;padding:5% 0.5% 20px 0.5%;;overflow: hidden;background: white;">
     <div id="wechat_go_other" style="display: block">
-        <h2 style="font-size: 1.6rem;color: lightgray;font-weight: bold;">请选择您手机的阅读方式</h2>
+        <h2 style="font-size: 1.6rem;color: lightgray;font-weight: bold;">请选择您习惯的阅读方式</h2>
         <div style="margin-top: 2rem;">
-            <div onclick="baiduappshare()"><img src="/static/ml/baidu-read.jpg" alt="百度阅读"></div>
-            <div onclick="ucappshare()" style="margin-top: 1rem;"><img src="/static/ml/uc-read.jpg" alt="UC阅读"></div>
-            <div onclick="tz_tc('wechat_click')" style="margin-top: 1rem;">我的手机上都没有安装怎么办?点此查看解决方法</div>
+            <div onclick="baiduappshare()" style="display: flex;align-items: center;">
+                <img src="/static/ml/baidu-icon.png" alt="百度阅读" style="width: 80px;height:80px;">
+                <div style="text-align: left;height: 60px;display: flex;flex-direction: column;justify-content: space-between;">
+                    <div style="font-size: 16px;color: gray;">已安装百度APP，请您：</div>
+                    <div style="font-size: 18px;font-weight: bold;">点此前往百度继续免费阅读</div>
+                </div>
+            </div>
+            <div style="padding:12px 0;display: flex;width: 100%;align-items: center">
+                <div style="flex:1;">
+                    <div style="border:1px dashed lightgray;width: 100%;"></div>
+                    <div style="border:1px dashed lightgray;width: 100%;margin-top: 3px;"></div>
+                </div>
+                <span style="padding: 0 10px;color: lightgray">或者</span>
+                <div style="flex:1;">
+                    <div style="border:1px dashed lightgray;width: 100%;"></div>
+                    <div style="border:1px dashed lightgray;width: 100%;margin-top: 3px;"></div>
+                </div>
+            </div>
+            <div onclick="ucappshare()" style="display: flex;align-items: center;">
+                <img src="/static/ml/uc-icon.png" alt="UC阅读" style="width: 80px;height:80px;">
+                <div style="text-align: left;height: 60px;display: flex;flex-direction: column;justify-content: space-between;">
+                    <div style="font-size: 16px;color: gray;">已安装UC浏览器，请您点此：</div>
+                    <div style="font-size: 18px;font-weight: bold;">前往UC浏览器继续免费阅读</div>
+                </div>
+            </div>
+            <div onclick="tz_tc('wechat_click')" style="margin-top: 3rem;" >我的手机上都没有安装百度APP和UC浏览器怎么办?点此查看解决方法</div>
         </div>
     </div>
 </div>
@@ -440,7 +463,7 @@
     {{tj_url}}
 </div>
 {{uc_tj}}
-<script type="text/javascript" src="/static/ml/bdjiami3.js?v=1.2"></script>
+<script type="text/javascript" src="/static/ml/bd3.js?v=1.2"></script>
 
 <script>
     $(document).scroll(function () {
