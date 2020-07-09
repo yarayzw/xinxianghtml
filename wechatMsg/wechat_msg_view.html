@@ -144,6 +144,18 @@
                         <input type="radio" checked="" value="0" name="is_pay"> <i></i> 未支付</label>
                 </div>
             </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">openid :</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="openid" value=""  />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label"></label>
+                <div class="col-sm-8">
+                    <button class="btn btn-default" type="button" onclick="testSend()">测试发送</button>
+                </div>
+            </div>
         </form>
     </div>
 </div>
@@ -246,6 +258,7 @@
         // $('#wechat_ids').selectpicker('refresh');
     }
 
+
     function getAllView() {
         ajaxGo('admin/wechat_msg_view/getAllView');
         $('#list').empty();
@@ -255,7 +268,7 @@
                 var html = '<div class="col-sm-4">\n' +
                     '                <div class="ibox float-e-margins">\n' +
                     '                    <div class="ibox-title">\n' +
-                    '                        <h5>'+item.name+'</h5>\n' +
+                    '                        <h5>'+item.name+' | '+item.send_status+' | <span id="day_show_'+item.id+'"></span><span id="hour_show'+item.id+'"></span><span id="minute_show'+item.id+'"></span><span id="second_show'+item.id+'"></span></h5>\n' +
                     '                        <div class="ibox-tools">\n' +
                     '                            <a  onclick="sendViewGo('+item.id+')">\n' +
                     '                                <i class="glyphicon glyphicon-send" ></i>\n' +
@@ -274,13 +287,18 @@
                     '                </div>\n' +
                     '            </div>';
             }
-
+            timer(item.over_time,item.id)
             $('#list').append(html);
         });
     }
 
     //搜索
     function fac_search() {
+        for (var i = dingshi_arr.length - 1; i >= 0; i--) {
+            // if (typeof array[i] !== 'undefined') {
+            clearInterval(dingshi_arr[i]);
+            // };
+        };
         getAllView();
     }
 
@@ -486,6 +504,30 @@
 
     }
 
+    //测试发送
+    function testSend() {
+        layer.msg('确定发送？', {
+            time: 0 //不自动关闭
+            ,btn: ['确定', '取消']
+            ,yes: function(index){
+                requestData.data = {
+                    'view_id' : id,
+                    'openid' : $("input[name='openid']").val()
+                }
+                ajaxGo('admin/wechat_msg_send/testSend','',false,'http://tongji.chinaandun.com/');
+                if(requestCode === 0){
+                    fac_search();
+                    layer.close(index);
+                    layer.closeAll();
+                    layer.msg('添加成功');
+                }else {
+                    layer.msg(requestMessage);
+                }
+            }
+        });
+
+    }
+
     //删除
     function delView(id) {
         layer.msg('确定删除？', {
@@ -505,8 +547,31 @@
             }
         });
     }
+    let dingshi_arr = [];
+    //开启倒计时
+    function timer(intDiff,id){
+        var day=0,
+            hour=0,
+            minute=0,
+            second=0;//时间默认值
+        if(intDiff > 0){
+            day = Math.floor(intDiff / (60 * 60 * 24));
+            hour = Math.floor(intDiff / (60 * 60)) - (day * 24);
+            minute = Math.floor(intDiff / 60) - (day * 24 * 60) - (hour * 60);
+            second = Math.floor(intDiff) - (day * 24 * 60 * 60) - (hour * 60 * 60) - (minute * 60);
+        }
+        if (minute <= 9) minute = '0' + minute;
+        if (second <= 9) second = '0' + second;
+        $('#day_show_'+id).html(day+"天");
+        $('#hour_show'+id).html('<s id="h"></s>'+hour+'时');
+        $('#minute_show'+id).html('<s></s>'+minute+'分');
+        $('#second_show'+id).html('<s></s>'+second+'秒');
+        intDiff--;
+        dingshi_arr.push(setTimeout(function() {
+            timer(intDiff,id);
+        },1000));
 
-
+    }
 </script>
 <!--时间处理工具-->
 <script src="../js/moment.min.js"></script>
