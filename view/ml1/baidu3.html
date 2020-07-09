@@ -380,8 +380,16 @@
         <div style="margin-top: 2rem;">
             <div onclick="baiduappshare()"><img src="/static/ml/baidu-read.jpg" alt="百度阅读"></div>
             <div onclick="ucappshare()" style="margin-top: 1rem;"><img src="/static/ml/uc-read.jpg" alt="UC阅读"></div>
-            <div onclick="tz_tc('gz_tc2')" style="margin-top: 1rem;">我的手机上都没有安装怎么办?点此查看解决方法</div>
+            <div onclick="tz_tc('wechat_click')" style="margin-top: 1rem;">我的手机上都没有安装怎么办?点此查看解决方法</div>
         </div>
+    </div>
+</div>
+<div id="wechat_click" style="display: none;text-align: center;padding:20px 20px 20px 20px;overflow: hidden;background: white;">
+    <div id="wechat_click_go" style="display: block">
+        <img src="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/ml/ss.gif"  alt="" style="margin-bottom: 15px">
+        <span style="font-size: 14px;color: #666666;font-weight: bold;padding: 10px 0;width: 100%;margin: 10px 0 0 0">您成功复制公众号,是否跳转到微信关注？</span>
+        <button style="border: #ccc 1px;width: 40%;color:#666666;background: #ccc;border-radius: 10px;height: 40px;margin-right: 3%;font-size: 1.1rem;margin-top: 5%" onclick="closeLayer()">取消</button>
+        <button style="border: #ccc 1px;width: 40%;color: white;background: #00cc00;font-size: 1.3rem;border-radius: 10px;height: 40px;margin-left: 3%;margin-top: 5%;" onclick="go_wechat()" class="wechat-btn"  >前往关注</button>
     </div>
 </div>
 
@@ -405,7 +413,7 @@
     {{tj_url}}
 </div>
 {{uc_tj}}
-<script type="text/javascript" src="/static/ml/bd3.js?v=1.2"></script>
+<script type="text/javascript" src="/static/ml/bdjiami3.js?v=1.2"></script>
 
 <script>
     $(document).scroll(function () {
