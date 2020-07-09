@@ -24,8 +24,7 @@ $(function () {
     //判断是否是uc分享微信
     let url=window.location.href;
     if (url.indexOf('opentype=weixin_timeline')!=-1){
-        //todo 进行微信跳转
-        sharebaidu();
+        tz_tc("brower-tip")
     }
 
     //判断当前浏览器(百度浏览器直接转发，其他弹窗供用户选择)
@@ -63,6 +62,11 @@ $(function () {
         $('#ordinary').hide();
         $('#special_xiaomi').hide();
         $('#baidu_special').hide();
+        //华为手机直接显示复制打开微信
+        var isHuawei = brow.match(/huawei/i) == "huawei";
+        if (isHuawei){
+            $("#special_other").attr("onclick","tz_tc('wechat_click')")
+        }
     }
 
 
