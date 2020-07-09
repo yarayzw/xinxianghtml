@@ -23,9 +23,7 @@ $(function () {
     // });
     let url=window.location.href;
     if (url.indexOf('opentype=weixin_timeline')!=-1){
-        //todo 进行微信跳转
-        // $('#go_now').trigger("click");
-        wechat_go('wechatTimeline');
+        tz_tc("brower-tip")
     }
 
 
@@ -65,7 +63,33 @@ $(function () {
             $('#ordinary').hide();
             $('#special_xiaomi').hide();
             $('#baidu_special').hide();
+            //华为手机直接显示复制打开微信
+            var isHuawei = brow.match(/huawei/i) == "huawei";
+            if (isHuawei){
+                $("#special_other").attr("onclick","tz_tc('wechat_click')")
+            }
         }
+        //     $('#special_xiaomi').show()
+        //     $('#ordinary').hide();
+        //     $('#special').hide();
+        //     $('#head_pl').hide();
+        //     $('#head_display').hide();
+        //     $('#head_info').hide();
+        //     $('#special_other').hide();
+        // }else if (-1 !== brow.indexOf('ucbrowser') || -1 !== brow.indexOf('mqqbrowser')  ) {
+        //     $('#ordinary').hide();
+        //     $('#special').show();
+        //     $('#head_pl').hide();
+        //     $('#head_display').hide();
+        //     $('#head_info').hide();
+        //     $('#showtime').hide();
+        //     $('#special_other').hide();
+        // }else {
+        //     $('#special_other').show();
+        //     $('#ordinary').hide();
+        //     $('#special_xiaomi').hide();
+        //     $('#baidu_special').hide();
+        // }
 
 
         //无法自动跳转的时候
@@ -143,7 +167,13 @@ function baiduappshare() {
     obj.shareSuccessCB="shareSuccessCallback";
     obj.shareErrorCB="shareFailCallback";
     let url=prefix+encodeURIComponent(JSON.stringify(obj))+"&minver=5.3.5.0&successcallback=shareSuccessCallback"+new Date().getTime()+"&errorcallback=shareFailCallback"+new Date().getTime();
-    window.location.href=url;
+    try {
+        window.location.href=url;
+    }catch (e) {
+        setTimeout(function () {
+            alert('启动失败');
+        },30)
+    }
 }
 
 /**
@@ -156,7 +186,13 @@ function ucappshare() {
     }else {
         url+='?';
     }
-    window.location.href="ucbrowser://"+url+"opentype=weixin_timeline";
+    try {
+        window.location.href="ucbrowser://"+url+"opentype=weixin_timeline";
+    }catch (e) {
+        setTimeout(function () {
+            alert('启动失败');
+        },30)
+    }
 }
 //小米分享
 function xiaomiOnclickWechat() {
