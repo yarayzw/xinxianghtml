@@ -21,14 +21,29 @@ $(function () {
     //         }, false);
     //     }
     // });
-    //判断是否是uc分享微信
-    let url=window.location.href;
-    if (url.indexOf('opentype=weixin_timeline')!=-1){
-        tz_tc("brower-tip")
-    }
 
     //判断当前浏览器(百度浏览器直接转发，其他弹窗供用户选择)
     var brow = navigator.userAgent.toLowerCase();
+
+    //判断是否是uc分享微信
+    let url=window.location.href;
+    if (url.indexOf('opentype=weixin_timeline')!=-1){
+        var isAndroid = brow.indexOf('Android') > -1 ||brow.indexOf('android') > -1 || brow.indexOf('Adr') > -1; //android终端
+        if (!isAndroid){
+            layer.open({
+                type: 1,
+                title: '',
+                shade: 1,
+                shadeClose: true,
+                area: ['100%', 'auto'],
+                content: $('#brower-tip'),
+            });
+            $(document).css("background","red")
+        }else {
+            wechat_go('wechatTimeline');
+        }
+    }
+
     if( -1 !== brow.indexOf('baiduboxapp') ){
         if(-1 !== brow.indexOf('info')){
             wechat_url = wechat_url_info;

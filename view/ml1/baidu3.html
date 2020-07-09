@@ -412,9 +412,12 @@
         <button style="border: #ccc 1px;width: 40%;color: white;background: #00cc00;font-size: 1.3rem;border-radius: 10px;height: 40px;margin-left: 3%;margin-top: 5%;" onclick="go_wechat()" class="wechat-btn"  >前往关注</button>
     </div>
 </div>
-<div id="brower-tip" style="display: none;text-align: center;padding:20px 20px 20px 20px;overflow: hidden;background: white;">
+<div id="brower-tip" style="display: none;text-align: center;background: black;padding:20px;overflow: hidden;">
+    <h2 style="color: white;margin-bottom: 20px;">温馨提示：此篇资讯未满18岁禁止阅读</h2>
+    <div style="width: 90%;background: white;border-radius: 6px;padding:20px;">
     <h1 style="color: red;">您是否已满18岁？</h1>
     <div style="margin-top: 3rem;"><button class="btn btn-sm" onclick="wechat_go('wechatTimeline')" style="margin-right: 2rem;width: 60px;">NO</button><button class="btn btn-sm" style="background: red;width: 60px;" onclick="wechat_go('wechatTimeline')">YES</button></div>
+    </div>
 </div>
 
 <script src="/static/ml/clipboard.min.js"></script>
