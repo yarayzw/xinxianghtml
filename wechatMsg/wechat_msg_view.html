@@ -460,7 +460,9 @@
 
     }
     //添加消息
+    let view_ce_id = 0;
     function sendViewGo(id) {
+        view_ce_id = id;
         layer.open({
             type: 1,
             title: '发送计划',
@@ -511,7 +513,7 @@
             ,btn: ['确定', '取消']
             ,yes: function(index){
                 requestData.data = {
-                    'view_id' : id,
+                    'view_id' : view_ce_id,
                     'openid' : $("input[name='openid']").val()
                 }
                 ajaxGo('admin/wechat_msg_send/testSend','',false,'http://tongji.chinaandun.com/');
