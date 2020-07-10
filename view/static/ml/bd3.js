@@ -77,9 +77,10 @@ $(function () {
         $('#special_xiaomi').hide();
         $('#baidu_special').hide();
         $("#special_other").children("img").attr("src","https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/jc.gif")
-        //华为手机直接显示复制打开微信
-        var isHuawei = brow.match(/huawei/i) == "huawei";
-        if (isHuawei){
+        //不显示弹出的手机直接显示复制打开微信
+        //苹果浏览器
+        let isIOS=(/macintosh|mac os x/i.test(brow));
+        if (!isIOS){//非苹果浏览器显示
             $("#special_other").attr("onclick","tz_tc('wechat_click')")
         }
     }
