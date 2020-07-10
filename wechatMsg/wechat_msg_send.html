@@ -30,6 +30,19 @@
     </div>
 </div>
 
+<div class="ibox float-e-margins" id="send_info" style="display: none">
+    <div class="ibox-content">
+        <div class="row row-lg">
+            <div class="col-sm-12">
+                <div class="btn-group hidden-xs" id="wechatMsgSendInfoToolbar" role="group">
+                </div>
+                <table id="wechatMsgSendInfoTable" >
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div >
     <div class="form-group">
         <form id="list_search_faci">
@@ -272,15 +285,103 @@
                     align: 'center',
                     formatter: function(value,row,index){
                         // var a='<a href="#" mce_href="#" data_id="'+row.id+'" data_wechat_config_id = "'+row.wechat_config_id+'" data_msg_config_id = "'+row.msg_config_id+'" data_url = "'+row.url+'" onclick="editwechatMsgSend(this)" >编辑</a> ';
-                        var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="delWechatMsgSend(this)" >删除</a>';
+                        var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="delWechatMsgSend(this)" >删除</a> &nbsp;';
+                        var d='<a href="#" mce_href="#" "   onclick="initSendInfoTable('+row.id+')" >详情</a>';
 
-                        return f;
+                        return d+f;
                     }
                 }
             ]
         });
     }
 
+    function initSendInfoTable(send_id) {
+        layer.open({
+            type: 1,
+            title: '详情',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['80%', '60%'],
+            content: $('#send_info'),
+            btn: ['取消'], // 按钮
+
+//            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
+        });
+        $('#wechatMsgSendInfoTable').bootstrapTable('destroy');
+        // $('#wechatDayToolbar').css("height", 300);
+        $("#wechatMsgSendInfoTable").bootstrapTable({
+            url: __ROOT__ + 'admin/wechat_msg_send_info/getList', //获取数据的Servlet地址
+            striped: true,  //表格显示条纹
+            pagination: true, //启动分页
+            sortName: 'id',
+            sortOrder: 'desc',
+            pageSize: 10,  //每页显示的记录数
+            pageNumber:1, //当前第几页
+            pageList: [10, 15, 20, 25],  //记录数可选列表
+            search: false,
+            showColumns: true,  //显示下拉框勾选要显示的列
+            showRefresh: true,  //显示刷新按钮
+            sidePagination: "server", //表示服务端请求
+            responseHandler:function(data){
+                return data.data;
+            },
+            queryParamsType : "undefined",
+            // method: 'post',
+            queryParams: function queryParams(params) {   //设置查询参数
+                params = {
+                    //这里是在ajax发送请求的时候设置一些参数 params有什么东西，自己看看源码就知道了
+                    pageNumber: params.pageNumber,
+                    pageSize: params.pageSize,
+                    sortName: params.sortName,
+                    sortOrder: params.sortOrder,
+                    // id : {$_GET['id']},
+                    head : {'token' : getCookie('token')},
+                    send_id : send_id,
+
+                };
+
+                return params;
+            },
+            onLoadSuccess: function(data){  //加载成功时执行
+
+            },
+            onLoadError: function(){  //加载失败时执行
+                layer.msg("加载数据失败", {time : 1500, icon : 2});
+            },
+            columns: [
+                {
+                    field: 'wechat_name',
+                    title: '公众号名称',
+                    width : 20,
+                    align: 'center'
+                },
+                {
+                    field: 'create_at',
+                    title: '完成时间',
+                    width : 50,
+                    align: 'center'
+                },
+                {
+                    field: 'num',
+                    title: '发送人数',
+                    width : 20,
+                    align: 'center'
+                },
+                {
+                    field: 'success_num',
+                    title: '成功数',
+                    width : 20,
+                    align: 'center'
+                },
+                {
+                    field: 'error_num',
+                    title: '失败数',
+                    width : 20,
+                    align: 'center'
+                },
+            ]
+        });
+    }
 
     //搜索
     function fac_search() {
