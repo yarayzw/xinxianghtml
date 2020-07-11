@@ -5,12 +5,22 @@ $(document).ready(function () {
     initTable();
 
 });
-
+//折叠\展开
+$(function () {
+    $('.content-folding').click(function () {
+        if ($(this).prev("div").hasClass("overflow_hidden")){
+            $(this).prev("div").removeClass("overflow_hidden")
+        }else {
+            $(this).prev("div").addClass("overflow_hidden")
+        }
+    });
+});
 function setMaterial() {
     ajaxGo('admin/material_memo/getListToSelect')
     requestData.data.forEach((item,index,array)=>{
         //执行代码
-        var html = "<option value='"+item.id+"'>"+item.name+"</option>";
+        //var html = "<option value='"+item.id+"'>"+item.name+"</option>";
+        var html="<div class='radio-inline'><label><input type='radio' name='material' value='"+item.id+"'>"+item.name+"</label></div>";
         $('#material').append(html);
         $('#material_update').append(html);
     });
@@ -24,7 +34,8 @@ function setMaterial() {
     ajaxGo('admin/view/getListToSelect')
     requestData.data.forEach((item,index,array)=>{
         //执行代码
-        var html = "<option value='"+item.id+"'>"+item.name+"</option>";
+        //var html = "<option value='"+item.id+"'>"+item.name+"</option>";
+        var html="<div class='radio-inline'><label><input type='radio' name='view' value='"+item.id+"'>"+item.name+"</label></div>";
         $('#view').append(html);
         $('#view_update').append(html);
     });
@@ -38,7 +49,8 @@ function setMaterial() {
     ajaxGo('admin/view/getListToSelect')
     requestData.data.forEach((item,index,array)=>{
         //执行代码
-        var html = "<option value='"+item.id+"'>"+item.name+"</option>";
+        //var html = "<option value='"+item.id+"'>"+item.name+"</option>";
+        var html="<div class='radio-inline'><label><input type='radio' name='mobile_view' value='"+item.id+"'>"+item.name+"</label></div>";
         $('#mobile_view').append(html);
         $('#mobile_view_update').append(html);
     });
@@ -48,7 +60,8 @@ function setMaterial() {
     ajaxGo('admin/platform/getListToSelect')
     requestData.data.forEach((item,index,array)=>{
         //执行代码
-        var html = "<option value='"+item.id+"'>"+item.name+"</option>";
+        //var html = "<option value='"+item.id+"'>"+item.name+"</option>";
+        var html="<div class='radio-inline'><label><input type='radio' name='platform' value='"+item.id+"'>"+item.name+"</label></div>";
         $('#platform').append(html);
     });
     $('#platform').selectpicker('refresh');
@@ -257,6 +270,7 @@ function addCommodity() {
         title: '添加',
         shadeClose: true,
         shade: 0.8,
+        maxmin: true,
         area: ['90%', '90%'],
         content: $('#add'),
         btn: ['确定', '取消'], // 按钮
@@ -291,11 +305,17 @@ function editCommodity(obj) {
     }
     ajaxGo('admin/commodity/getCommodityInfo');
 
+    console.log(requestData.data)
     $("input[name='name']").val(requestData.data.name);
     $("input[name='title']").val(requestData.data.title);
     $("input[name='url']").val(requestData.data.url);
     $("input[name='tj_url']").val(requestData.data.tj_url);
     $("input[name='bottom_name']").val(requestData.data.bottom_name);
+
+    $("input[type=radio][name=material][value='"+requestData.data.material_id+"']").attr("checked",'checked')
+    $("input[type=radio][name=view][value='"+requestData.data.view_id+"']").attr("checked",'checked')
+    $("input[type=radio][name=mobile_view][value='"+requestData.data.mobile_view_id+"']").attr("checked",'checked')
+    $("input[type=radio][name=platform][value='"+requestData.data.platform_id+"']").attr("checked",'checked')
 
 
     let head_img =requestData.data.head_img.split('@@@');
@@ -342,6 +362,7 @@ function editCommodity(obj) {
         title: '编辑',
         shadeClose: true,
         shade: 0.8,
+        maxmin:true,
         area: ['90%', '90%'],
         content: $('#add'),
         btn: ['确定', '取消'], // 按钮
