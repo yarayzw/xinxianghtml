@@ -871,7 +871,7 @@ function searchHistory()
 
     requestData.data.forEach((item,index,array)=>{
         var html = '<div style="float: left;margin-right: 15px;margin-left: 5px">\n' +
-            '                    <span style="cursor:pointer" onclick="searchLog(this)" data_id = "'+item.log+'">'+item.log+'<div style="float:left;width:15px;height:15px;padding: 2px;position: relative;left: 44px;bottom:3px;color: #fff;cursor:pointer;border-radius: 50%;background: #ff0000;text-align: center;line-height: 12px" data_id = "'+item.id+'" onclick="delLog(this)">x</div>\n</span>\n' +
+            '                    <span style="cursor:pointer" onclick="searchLog(this)" data_id = "'+item.log+'">'+item.view+' - '+item.log+'<div style="float:left;width:15px;height:15px;padding: 2px;position: relative;left: 76px;bottom:3px;color: #fff;cursor:pointer;border-radius: 50%;background: #ff0000;text-align: center;line-height: 12px" data_id = "'+item.id+'" onclick="delLog(this)">x</div>\n</span>\n' +
             '                    ' +
             '                </div>';
         //执行代码
