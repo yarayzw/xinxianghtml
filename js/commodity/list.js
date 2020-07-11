@@ -73,6 +73,10 @@ function setMaterial() {
     //     $('#thirdparty_id').append(html);
     // });
     // $('#thirdparty_id').selectpicker('refresh');
+    $("input[name=platform]:eq(0)").prop("checked",'checked');
+    $("input[name=mobile_view]:eq(0)").prop("checked",'checked');
+    $("input[name=view]:eq(0)").prop("checked",'checked');
+    $("input[name=material]:eq(0)").prop("checked",'checked');
 }
 function initTable() {
 
