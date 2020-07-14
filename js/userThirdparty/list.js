@@ -1,7 +1,21 @@
 $(document).ready(function () {
     //调用函数，初始化表格
     initTable();
+    setPlatformItem();
 });
+function setPlatformItem() {
+    //设置平台
+    ajaxGo('admin/user_thirdparty_info/getPlatformList');
+    var rows=requestData.data.rows;
+    if (rows.length>0) {
+        for (var key in rows) {
+            var html = "<div class='radio-inline'><label><input type='radio' name='platform_id' value='" + rows[key].id + "'>" + rows[key].name + "</label></div>";
+
+            $("#platform").append(html)
+        }
+    }
+    $("input[name=platform_id]:eq(0)").attr("checked","checked")
+}
 function initTable() {
     $('#viewTable').bootstrapTable('destroy');
     $("#viewTable").bootstrapTable({
@@ -156,7 +170,20 @@ function addView() {
 //编辑
 function editView(obj) {
     $("input[name='pf_u_id']").val($(obj).attr('data_pf_u_id'));
-
+    var id=$(obj).attr('data_id');
+    requestData.data={
+        id:id
+    };
+    ajaxGo('admin/user_thirdparty_info/detail');
+    var data=requestData.data;
+    $("input[name='platform_id'][value="+data.platform_id+"]").attr('checked','checked');
+    $("input[name=name]").val(data.name);
+    $("input[name=page_id]").val(data.page_id);
+    $("input[name=token]").val(data.token);
+    $("input[name=cookie]").val(data.cookie);
+    $("input[name=a_c_d]").val(data.a_c_d);
+    $("input[name=domain]").val(data.domain);
+    $("input[name=copyright]").val(data.copyright);
     layer.open({
         type: 1,
         title: '编辑',
