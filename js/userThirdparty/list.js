@@ -89,6 +89,12 @@ function initTable() {
                 align: 'center'
             },
             {
+                field: 'platform_name',
+                title: '平台名称',
+                width : '10%',
+                align: 'center'
+            },
+            {
                 field: 'page_id',
                 title: '落地页id',
                 width : '10%',
