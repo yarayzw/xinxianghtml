@@ -37,6 +37,10 @@
         width: 100%;
         height: 100px;
     }
+
+    .simditor-body{
+        height: 800px;
+    }
 </style>
 <body>
 
@@ -62,34 +66,19 @@
                         <div style="margin-top: 10px;">
                             <hr>
                             <div style="float: left"><span><strong>前序标题</strong></span></div>
-                            <div style="float: right;color: red"><span><strong>添加前序</strong></span></div>
+                            <div style="float: right;color: red"><span style="cursor:pointer" onclick="addMaterial()"><strong>添加前序</strong></span></div>
                         </div>
                         <div >
                             <table class="table table-striped " >
-                                <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    </td>
-                                    <td><a data-toggle="tab" href="#contact-1" class="client-link">这是一个前序</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td><a data-toggle="tab" href="#contact-1" class="client-link">这是一个前序</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td><a data-toggle="tab" href="#contact-1" class="client-link">这是一个前序</a>
-                                    </td>
-                                </tr>
+                                <tbody id="sc_list">
+
                                 </tbody>
                             </table>
 
                         </div>
                     </div>
-                    <div class="col-sm-5 b-l" >
-                        <textarea name="comment" id="editor" ></textarea>
+                    <div class="col-sm-5" >
+                        <textarea name="comment" id="editor"></textarea>
                     </div>
                 </div>
             </div>
@@ -97,13 +86,16 @@
     </div>
 </div>
 
-<div class="row" id="addLable" style="display: none">
+
+
+
+<div class="row" id="addMaterial" style="display: none">
     <div class="ibox-content">
         <form class="form-horizontal m-t"  method="post">
             <div class="form-group">
-                <label class="col-sm-3 control-label">标签名称 :</label>
+                <label class="col-sm-3 control-label">前序标题 :</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control" name="label_name" id="label_name" value=""  />
+                    <input type="text" class="form-control" name="material_info" id="material_info" value=""  />
                     <!--                            required="" aria-required="false"-->
                 </div>
             </div>
@@ -143,8 +135,7 @@
 
     var editor = new Simditor({
         toolbar: [ 'title', 'bold', 'italic', 'underline', 'strikethrough','fontScale',
-            'color', '|', 'ol', 'ul', 'blockquote', 'code', 'table', '|',
-            'link', 'image', 'hr', '|', 'indent', 'outdent' ],
+            'color'],
         textarea: '#editor',
         placeholder: '写点什么...',
         // defaultImage: '/static/home/images/logo.png',
@@ -178,9 +169,9 @@
             //执行代码
             //var html = "<option value='"+item.id+"'>"+item.name+"</option>";
             if(item.id === Label_id){
-                var html = '<span class="label_list label_checked" onclick="changeLabel(this)" data_id = "'+item.id+'" >'+item.name+'</span>';
+                var html = '<span class="label_list label_checked" style="cursor:pointer" onclick="changeLabel(this)" data_id = "'+item.id+'" >'+item.name+'</span>';
             }else {
-                var html = '<span class="label_list" onclick="changeLabel(this)" data_id = "'+item.id+'" >'+item.name+'</span>';
+                var html = '<span class="label_list" onclick="changeLabel(this)" style="cursor:pointer" data_id = "'+item.id+'" >'+item.name+'</span>';
             }
             $('#label_list').append(html);
         });
@@ -265,59 +256,74 @@
     {
         requestData.data = {
             'tag_id' : Label_id,
-            'type': 2,
+            'type': 1,
         };
         ajaxGo('admin/material_library/getListToSelect');
-        $('#img_list').empty();
+        $('#sc_list').empty();
         requestData.data.forEach((item,index,array)=>{
             //执行代码
             //var html = "<option value='"+item.id+"'>"+item.name+"</option>";
-            var html = '<div class="col-sm-4 img_div">\n' +
-                '            <div>\n' +
-                '                <img class="img_s" src="'+__IMG__+item.img_url+'" alt="">\n' +
-                '            </div>\n' +
-                '            <div class="right_font">\n' +
-                '                <span style="margin-right: 10px" onclick="delImgMaterIal('+item.id+')">删除</span>\n' +
-                '                <span onclick="checkedImg('+item.id+')">使用此图!</span>\n' +
-                '            </div>\n' +
-                '        </div>';
-            $('#img_list').append(html);
+            var html = ' <tr>\n' +
+                '                                    <td>'+item.id+'</td>\n' +
+                '                                    </td>\n' +
+                '                                    <td><a data-toggle="tab" href="#contact-1" class="client-link" onclick="checkedMaterial('+item.id+')">'+item.title+'</a>\n' +
+                '                                    <span id="display_'+item.id+'" style="display:none;">'+item.info+'</span></td>\n' +
+                '                                </tr>';
+            $('#sc_list').append(html);
         });
+    }
+
+    //将选中的前言渲染到编辑器内
+    function checkedMaterial(id){
+        editor.setValue($('#display_'+id).html());
     }
 
     //图片上传插件初始化
     $('#upload-img').click(function(event) {
         $("#picker-img").find('input').click();
     });
-    setTimeout(function(){
-        var uploader = WebUploader.create({
-            auto: true,// 选完文件后，是否自动上传。
-            // swf: 'https://cdn.bootcss.com/webuploader/0.1.1/Uploader.swf',// swf文件路径
-            server: __ROOT__ + 'thirdparty/oss/upload',// 文件接收服务端。
-            dnd: '#upload-img',
-            pick: '#picker-img',// 内部根据当前运行是创建，可能是input元素，也可能是flash. 这里是div的id
-            multiple: true, // 选择多个
-            chunked: true,// 开起分片上传。
-            threads: 5, // 上传并发数。允许同时最大上传进程数。
-            method: 'POST', // 文件上传方式，POST或者GET。
-            fileSizeLimit: 1024*1024*100*100, //验证文件总大小是否超出限制, 超出则不允许加入队列。
-            fileSingleSizeLimit: 1024*1024*100, //验证单个文件大小是否超出限制, 超出则不允许加入队列。
-            fileVal:'upload', // [默认值：'file'] 设置文件上传域的name。
-        });
-        uploader.on('uploadSuccess', function(file, response) {
-            if(0 === Label_id){
-                layer.msg('请选择标签')
-            }else {
-                requestData.data = {
-                    'img_url' : response.path[0],
-                    'tag_id' : Label_id,
-                    'type': 2,
-                };
-                ajaxGo('admin/material_library/addMaterialLibrary');
-                layer.msg('上传成功');
-                getMaterialList();
-            }
-        });
-    },3000);
+
+
+    //添加前序
+    function addMaterial() {
+        if(Label_id === 0){
+            layer.msg('请选择标签')
+        }else {
+            layer.open({
+                type: 1,
+                title: '添加前序',
+                shadeClose: true,
+                shade: 0.8,
+                area: ['60%', '50%'],
+                content: $('#addMaterial'),
+                btn: ['确定', '取消'], // 按钮
+                yes: function(index, layero){
+                    layer.msg('确定添加？', {
+                        time: 0 //不自动关闭
+                        ,btn: ['确定', '取消']
+                        ,yes: function(index){
+                            var content = $(".simditor-body").html();
+                            requestData.data = {
+                                'title' : $('#material_info').val(),
+                                'info' : content,
+                                'type' : 1,
+                                'tag_id' : Label_id
+                            };
+                            ajaxGo('admin/material_library/addMaterialLibrary');
+                            if(requestCode === 0){
+                                getMaterialList();
+                                layer.close(index);
+                                layer.closeAll();
+                                layer.msg('添加成功');
+                            }else {
+                                layer.msg(requestMessage);
+                            }
+                        }
+                    });
+                }
+            });
+        }
+    }
+
 
 </script>

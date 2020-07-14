@@ -136,9 +136,9 @@
             //执行代码
             //var html = "<option value='"+item.id+"'>"+item.name+"</option>";
             if(item.id === Label_id){
-                var html = '<span class="label_list label_checked" onclick="changeLabel(this)" data_id = "'+item.id+'" >'+item.name+'</span>';
+                var html = '<span class="label_list label_checked" style="cursor:pointer" onclick="changeLabel(this)" data_id = "'+item.id+'" >'+item.name+'</span>';
             }else {
-                var html = '<span class="label_list" onclick="changeLabel(this)" data_id = "'+item.id+'" >'+item.name+'</span>';
+                var html = '<span class="label_list" style="cursor:pointer" onclick="changeLabel(this)" data_id = "'+item.id+'" >'+item.name+'</span>';
             }
             $('#label_list').append(html);
         });

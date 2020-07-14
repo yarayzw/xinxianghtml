@@ -100,10 +100,23 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label class="col-sm-3 control-label">第三方小说id :</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="thirdparty_m_id" value=""  />
+                            <!--                            required="" aria-required="false"-->
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="col-sm-3 control-label">简称 :</label>
                         <div class="col-sm-8">
                             <input type="text" class="form-control" name="short_name" value=""  />
                             <!--                            required="" aria-required="false"-->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">章节 :</label>
+                        <div class="col-sm-8">
+                            <input type="number" class="form-control" name="chapter" value="" min="1" max="10" />
                         </div>
                     </div>
                     <div class="form-group">
@@ -116,13 +129,17 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label">头部图片：</label>
                         <div class="col-sm-8">
-                            <div id="upload-container">
-                                <span>点击上传</span>
+                            <div id="upload-container" style="cursor:pointer;float: left">
+                                <span >点击上传</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </div>
+                            <div style="float: right">
+                                <span style="cursor:pointer" onclick="openMaterial()">选择素材</span>
                             </div>
                             <div id="upload-list">
 
                             </div>
                             <button id="picker" style="display: none;">点击上传文件</button>
+
                         </div>
                     </div>
                     <div class="form-group">
@@ -138,6 +155,80 @@
     </div>
 </div>
 <input type="text" id="copyText" style="display: none">
+
+<!--大图素材库-->
+<style>
+
+    .label_list{
+        color: black;
+        margin-left: 10px;
+    }
+    .label_checked{
+        background: black;
+        color: white;
+        padding: 2px 2px;
+        border-radius:5px;
+    }
+
+    .right_font{
+        text-align: right;
+    }
+
+    .img_s{
+        width: 100%;
+        height: 100px;
+    }
+</style>
+
+<div class="row" style="display: none" id="big_img">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>大图素材 </h5>
+                <div class="ibox-tools">
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div class="row">
+                    <div class="col-sm-7 b-r" style="height: 160px">
+                        <span style="color: black">标签:</span>
+                        <span id="label_list">
+
+                        </span>
+                        <div class="right_font" style="margin-top: 120px">
+                            <span style="margin-right: 10px;cursor:pointer" onclick="editLabel()" >编辑</span>
+                            <span onclick="addLabel()" style="cursor:pointer">添加标签</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 b-l" >
+                        <p class="text-center" >
+                            <button id="picker-img" style="background: rgb(255, 255, 255);"><i class="glyphicon glyphicon-circle-arrow-up  big-icon"  id="upload-img"></i></button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-9" id="img_list">
+
+    </div>
+</div>
+
+<div class="row" id="addLable" style="display: none">
+    <div class="ibox-content">
+        <form class="form-horizontal m-t"  method="post">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">标签名称 :</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="label_name" id="label_name" value=""  />
+                    <!--                            required="" aria-required="false"-->
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!--大图素材库end-->
 
 </body>
 
@@ -163,3 +254,216 @@
 <script src="../js/material/material.js?v=1.1"></script>
 <script src="../js/material/addMaterial.js"></script>
 
+<script>
+
+    $(document).ready(function () {
+        getListLabel();
+        getMaterialList();
+    });
+
+    //打开素材库
+    function openMaterial()
+    {
+        layer.open({
+            type: 1,
+            title: '大图素材',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['85%', '80%'],
+            content: $('#big_img'),
+            btn: [ '取消'], // 按钮
+        });
+
+    }
+
+    //切换标签
+    let Label_id = 0;
+    function changeLabel(obj) {
+        $('span').removeClass('label_checked');
+        $(obj).addClass('label_checked');
+        Label_id = parseInt($(obj).attr('data_id'));
+        getMaterialList();
+    }
+
+    //获取用户所有标签
+    function getListLabel() {
+        requestData.data = {};
+        ajaxGo('admin/source_tag/getAllList');
+        $('#label_list').empty();
+        requestData.data.forEach((item,index,array)=>{
+            //执行代码
+            //var html = "<option value='"+item.id+"'>"+item.name+"</option>";
+            if(item.id === Label_id){
+                var html = '<span class="label_list label_checked" style="cursor:pointer" onclick="changeLabel(this)" data_id = "'+item.id+'" >'+item.name+'</span>';
+            }else {
+                var html = '<span class="label_list" style="cursor:pointer" onclick="changeLabel(this)" data_id = "'+item.id+'" >'+item.name+'</span>';
+            }
+            $('#label_list').append(html);
+        });
+    }
+
+    //添加标签
+    function addLabel(){
+        layer.open({
+            type: 1,
+            title: '添加标签',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['60%', '50%'],
+            content: $('#addLable'),
+            btn: ['确定', '取消'], // 按钮
+            yes: function(index, layero){
+                layer.msg('确定添加？', {
+                    time: 0 //不自动关闭
+                    ,btn: ['确定', '取消']
+                    ,yes: function(index){
+                        requestData.data = {
+                            'name' : $('#label_name').val(),
+                            'sort_order' : 0
+                        };
+                        ajaxGo('admin/source_tag/add');
+                        if(requestCode === 0){
+                            getListLabel();
+                            layer.close(index);
+                            layer.closeAll();
+                            layer.msg('添加成功');
+                        }else {
+                            layer.msg(requestMessage);
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    //添加标签
+    function editLabel(){
+        if(0 === Label_id){
+            layer.msg('请选择标签')
+        }else {
+            layer.open({
+                type: 1,
+                title: '修改标签',
+                shadeClose: true,
+                shade: 0.8,
+                area: ['60%', '50%'],
+                content: $('#addLable'),
+                btn: ['确定', '取消'], // 按钮
+                yes: function(index, layero){
+                    layer.msg('确定修改？', {
+                        time: 0 //不自动关闭
+                        ,btn: ['确定', '取消']
+                        ,yes: function(index){
+                            requestData.data = {
+                                'id' : Label_id,
+                                'name' : $('#label_name').val(),
+                                'sort_order' : 0
+                            };
+                            ajaxGo('admin/source_tag/edit');
+                            if(requestCode === 0){
+                                getListLabel();
+                                layer.close(index);
+                                layer.closeAll();
+                                layer.msg('修改成功');
+                            }else {
+                                layer.msg(requestMessage);
+                            }
+                        }
+                    });
+                }
+            });
+
+        }
+    }
+
+    //获取素材内容
+    function getMaterialList()
+    {
+        requestData.data = {
+            'tag_id' : Label_id,
+            'type': 2,
+        };
+        ajaxGo('admin/material_library/getListToSelect');
+        $('#img_list').empty();
+        requestData.data.forEach((item,index,array)=>{
+            //执行代码
+            //var html = "<option value='"+item.id+"'>"+item.name+"</option>";
+            var html = '<div class="col-sm-4 img_div">\n' +
+                '            <div>\n' +
+                '                <img class="img_s" src="'+__IMG__+item.img_url+'" alt="">\n' +
+                '            </div>\n' +
+                '            <div class="right_font">\n' +
+                '                <span style="margin-right: 10px" onclick="delImgMaterIal('+item.id+')">删除</span>\n' +
+                '                <span onclick="checkedImg('+item.id+')">使用此图!</span>\n' +
+                '                <input id="m_d_'+item.id+'" style="display: none" value="'+item.img_url+'" />\n' +
+                '            </div>\n' +
+                '        </div>';
+            $('#img_list').append(html);
+        });
+    }
+
+    //选择素材插入
+    function checkedImg(id) {
+        let img_url = $('#m_d_'+id).val();
+        var html = '<div  onclick="delImg(this)" ><img name="head_img" data_name="'+__IMG__+ img_url+'" src="'+__IMG__+ img_url+'"></div>';
+        $('#upload-list').append(html);
+        layer.msg('插入成功');
+    }
+
+    //删除素材
+    function delImgMaterIal(id)
+    {
+        layer.msg('确定删除？', {
+            time: 0 //不自动关闭
+            ,btn: ['确定', '取消']
+            ,yes: function(index){
+                requestData.data = {
+                    'id' : id
+                };
+                ajaxGo('admin/material_library/delMaterialLibrary');
+                if(requestCode === 0){
+                    fac_search();
+                    layer.msg('删除成功!');
+                }else {
+                    layer.msg(requestMessage);
+                }
+            }
+        });
+    }
+
+    //图片上传插件初始化
+    $('#upload-img').click(function(event) {
+        $("#picker-img").find('input').click();
+    });
+    setTimeout(function(){
+        var uploader = WebUploader.create({
+            auto: true,// 选完文件后，是否自动上传。
+            // swf: 'https://cdn.bootcss.com/webuploader/0.1.1/Uploader.swf',// swf文件路径
+            server: __ROOT__ + 'thirdparty/oss/upload',// 文件接收服务端。
+            dnd: '#upload-img',
+            pick: '#picker-img',// 内部根据当前运行是创建，可能是input元素，也可能是flash. 这里是div的id
+            multiple: true, // 选择多个
+            chunked: true,// 开起分片上传。
+            threads: 5, // 上传并发数。允许同时最大上传进程数。
+            method: 'POST', // 文件上传方式，POST或者GET。
+            fileSizeLimit: 1024*1024*100*100, //验证文件总大小是否超出限制, 超出则不允许加入队列。
+            fileSingleSizeLimit: 1024*1024*100, //验证单个文件大小是否超出限制, 超出则不允许加入队列。
+            fileVal:'upload', // [默认值：'file'] 设置文件上传域的name。
+        });
+        uploader.on('uploadSuccess', function(file, response) {
+            if(0 === Label_id){
+                layer.msg('请选择标签')
+            }else {
+                requestData.data = {
+                    'img_url' : response.path[0],
+                    'tag_id' : Label_id,
+                    'type': 2,
+                };
+                ajaxGo('admin/material_library/addMaterialLibrary');
+                layer.msg('上传成功');
+                getMaterialList();
+            }
+        });
+    },3000);
+
+</script>
