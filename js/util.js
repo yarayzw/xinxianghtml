@@ -5,6 +5,26 @@ modal_status = {
     WARNING: "warning"
 };
 (function ($) {
+    $.fn.serializeJson=function(){
+        var serializeObj={};
+        var array=this.serializeArray();
+        $(array).each(function(){
+            if(serializeObj[this.name]){
+                if($.isArray(serializeObj[this.name])&&this .value!=""){
+                    serializeObj[this.name].push(this.value);
+                }else {
+                    if(this .value!=""){
+                        serializeObj[this.name]=[serializeObj[this.name],this.value];
+                    }
+                }
+            }else{
+                if(this .value!=""){
+                    serializeObj[this.name]=this.value;
+                }
+            }
+        });
+        return serializeObj;
+    };
     // 弹出层封装处理
     $.extend({
         modal: {
@@ -288,4 +308,90 @@ function eyeImage(url) {
             ]
         }, anim: 5 //0-6的选择，指定弹出图片动画类型，默认随机
     });
+}
+
+/**
+ * 请求
+ * @param url
+ * @param data
+ * @param method
+ * @param contentType
+ * @returns {Promise<any>}
+ */
+function request(url, data = {}, method = "GET", contentType = "application/json") {
+    if(getCookie('token')){
+        data.head = {
+            "token": getCookie('token'),
+            "time": (new Date()).getTime(),
+            "version": "1.2.0",
+            "recode": "",
+        };
+    }
+    return new Promise(function (resolve, reject) {
+        $.ajax({
+            url:url,
+            type:method,
+            data:data,
+            contentType:contentType,
+            async:false,//异步请求
+            success:function (res) {
+                if (res.token) {
+                    setCookie('token', res.token);
+                }
+                resolve(res);
+            },
+            error:function (res) {
+                reject(res);
+            },
+            complete:function (res) {
+
+            }
+        })
+    });
+}
+
+function getQueryString(url, name) {
+    var reg = new RegExp('(^|&|/?)' + name + '=([^&|/?]*)(&|/?|$)', 'i')
+    var r = url.substr(1).match(reg)
+    if (r != null) {
+        return r[2]
+    }
+    return null;
+}
+
+/**
+ * cookie存值
+ * @param name
+ * @param value
+ * @param seconds
+ */
+function setCookie(name, value, seconds = 0) {
+    seconds = seconds || 0;   //seconds有值就直接赋值，没有为0，这个根php不一样。
+    var expires = "";
+    if (seconds !== 0 ) {      //设置cookie生存时间
+        var date = new Date();
+        date.setTime(date.getTime()+(seconds*1000));
+        expires = "; expires="+date.toGMTString();
+    }
+    document.cookie = name+"="+escape(value)+expires+"; path=/";   //转码并赋值
+}
+
+/**
+ * cookie取值
+ * @param name
+ * @returns {*}
+ */
+function getCookie(name) {
+    var nameEQ = name + '='
+    var ca = document.cookie.split(';') // 把cookie分割成组
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i] // 取得字符串
+        while (c.charAt(0) == ' ') { // 判断一下字符串有没有前导空格
+            c = c.substring(1, c.length) // 有的话，从第二位开始取
+        }
+        if (c.indexOf(nameEQ) == 0) { // 如果含有我们要的name
+            return unescape(c.substring(nameEQ.length, c.length)) // 解码并截取我们要值
+        }
+    }
+    return false;
 }
