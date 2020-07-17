@@ -76,11 +76,12 @@ function addMaterialGo() {
     requestData.data = {
         'name' : $("input[name='name']").val(),
         'title': $("input[name='title']").val(),
+        'thirdparty_m_id' : $("input[name='thirdparty_m_id']").val(),
+        'chapter' : $("input[name='chapter']").val(),
         'head_img' : head_img,
         'comment' : content,
         'short_name' : $("input[name='short_name']").val(),
-        'thirdparty_m_id' : $("input[name='thirdparty_m_id']").val(),
-        'chapter' : $("input[name='chapter']").val(),
+
     }
     ajaxGo('admin/material/addMaterial')
 
@@ -102,11 +103,12 @@ function editMaterialGo(id) {
         'id' : id,
         'name' : $("input[name='name']").val(),
         'title': $("input[name='title']").val(),
+        'thirdparty_m_id' : $("input[name='thirdparty_m_id']").val(),
+        'chapter' : $("input[name='chapter']").val(),
         'head_img' : head_img,
         'comment' : content,
         'short_name' : $("input[name='short_name']").val(),
-        'thirdparty_m_id' : $("input[name='thirdparty_m_id']").val(),
-        'chapter' : $("input[name='chapter']").val(),
+
     }
     ajaxGo('admin/material/editMaterial')
 

@@ -12,8 +12,11 @@ function addViewGo() {
         'app_id' : $("input[name='app_id']").val(),
         'app_secret' : $("input[name='app_secret']").val(),
         'bind_user_id' : $("#bind_user_id").selectpicker('val'),
-        'zzy_channel_id' : $("input[name='zzy_channel_id']").val()
-    }
+        'zzy_channel_id' : $("input[name='zzy_channel_id']").val(),
+        'channel_account' : $("input[name='channel_account']").val(),
+        'channel_password' : $("input[name='channel_password']").val(),
+        'channel_config_id':  $("input[type=radio][name=channel_config_id]:checked").val(),
+    };
     ajaxGo('admin/wechat_config/addWechatConfig')
 }
 
@@ -31,6 +34,9 @@ function editViewGo(id) {
         'app_id' : $("input[name='app_id']").val(),
         'app_secret' : $("input[name='app_secret']").val(),
         'zzy_channel_id' : $("input[name='zzy_channel_id']").val(),
+        'channel_account' : $("input[name='channel_account']").val(),
+        'channel_password' : $("input[name='channel_password']").val(),
+        'channel_config_id':  $("input[type=radio][name=channel_config_id]:checked").val(),
     }
     ajaxGo('admin/wechat_config/editWechatConfig')
 
