@@ -13,6 +13,15 @@ function setMaterial() {
         $('#bind_user_id').append(html);
     });
     $('#bind_user_id').selectpicker('refresh');
+
+    //获取渠道平台类型
+    ajaxGo('admin/channel_config/getListToSelect')
+    requestData.data.forEach((item,index,array)=>{
+        //执行代码
+        //var html = "<option value='"+item.id+"'>"+item.name+"</option>";
+        var html = '<div class="radio-inline"><label><input  type="radio" name="channel_config_id" value="'+item.id+'" />'+item.name+'</label></div>';
+        $('#channel_config_id').append(html);
+    });
 }
 
 function initTable() {
@@ -193,7 +202,13 @@ function editView(obj) {
     $("input[name='app_id']").val(requestData.data.app_id);
     $("input[name='app_secret']").val(requestData.data.app_secret);
     $("input[name='zzy_channel_id']").val(requestData.data.zzy_channel_id);
+    // $("input[name='cookie']").val(requestData.data.cookie);
+    $("input[name='channel_account']").val(requestData.data.channel_account);
+    $("input[name='channel_password']").val(requestData.data.channel_password);
     $('#bind_user_id').selectpicker('val',(requestData.data.bind_user_id));
+
+    $("input[type=radio][name=channel_config_id][value='"+requestData.data.channel_config_id+"']").attr("checked",'checked');
+
 
     layer.open({
         type: 1,

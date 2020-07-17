@@ -20,7 +20,7 @@ setTimeout(function(){
         fileVal:'upload', // [默认值：'file'] 设置文件上传域的name。
     });
     uploader.on('uploadSuccess', function(file, response) {
-        var html = '<div  onclick="delImg(this)" style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"><img name="qr_img" data_name="'+__IMG__+ response.path[0]+'" src="'+__IMG__+ response.path[0]+'"></div>';
+        var html = '<div  onclick="delImg(this)" style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"><img style="width: 180px;height: 180px" name="qr_img" data_name="'+__IMG__+ response.path[0]+'" src="'+__IMG__+ response.path[0]+'"></div>';
         $('#upload-list').append(html);
     });
 },3000);
@@ -90,9 +90,10 @@ function addCommodityGo() {
         'title' : $("input[name='title']").val(),
         //'view_id':  $("#view").selectpicker('val'),
         'view_id':  $("input[type=radio][name=view]:checked").val(),
-        //'platform_id':  $("#platform").selectpicker('val'),
-        'platform_id':  $("input[type=radio][name=platform]:checked").val(),
-        // 'thirdparty_id':  $("#thirdparty_id").selectpicker('val'),
+        'platform_id':  0,
+        // 'platform_id':  $("input[type=radio][name=platform]:checked").val(),
+        'thirdparty_id':  $("input[type=radio][name=thirdparty_info]:checked").val(),
+        'wechat_config_id':  $("input[type=radio][name=wechat_config_id]:checked").val(),
         'type':  1,
         'wechat_name' : $("input[name='we_chat_name']").val(),
         'wechat_url' : $("input[name='we_chat_url']").val(),
@@ -121,9 +122,6 @@ function editCommodityGo(id) {
         head_img[index] = $(el).attr('data_name')
     });
 
-    //富文本值
-    var content = $(".simditor-body").html();
-
     requestData.data = {
         'id' : id,
         'name' : $("input[name='name']").val(),
@@ -135,9 +133,10 @@ function editCommodityGo(id) {
         'head_img': head_img,
         'title' : $("input[name='title']").val(),
         //'view_id':  $("#view").selectpicker('val'),
+        'platform_id':  0,
         'view_id':  $("input[type=radio][name=view]:checked").val(),
-        //'platform_id':  $("#platform").selectpicker('val'),
-        'platform_id':  $("input[type=radio][name=platform]:checked").val(),
+        'thirdparty_id':  $("input[type=radio][name=thirdparty_info]:checked").val(),
+        'wechat_config_id':  $("input[type=radio][name=wechat_config_id]:checked").val(),
         'type':  1,
         'wechat_name' : $("input[name='we_chat_name']").val(),
         'wechat_url' : $("input[name='we_chat_url']").val(),
@@ -150,9 +149,8 @@ function editCommodityGo(id) {
         'uc_tj' : $("input[name='uc_tj']").val(),
         // 'thirdparty_id':  $("#thirdparty_id").selectpicker('val')
     }
-    console.log(requestData.data)
     ajaxGo('admin/commodity/editCommodity')
-
+    layer.msg(requestMessage);
 }
 
 //修改落地页模版
