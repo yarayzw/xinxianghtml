@@ -376,7 +376,22 @@
     });
 </script>
 <script src="/static/mltjjm.js?v=1.3"></script>
+<script>
+    if(-1 !== brow.indexOf('ucbrowser')){
+        removeUChref();
+    }
 
+    function removeUChref(){
+        var hrefArr = $('a')
+        for (var i=0;i<hrefArr.length;i++){
+            var uca = hrefArr[i].href
+            if(uca.indexOf('uc.cn')>=0){
+                uca.attr("style","")
+                uca.attr("href","")
+            }
+        }
+    }
+</script>
 <div id="lastOne"></div>
 
 </body>

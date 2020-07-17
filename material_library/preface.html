@@ -17,114 +17,7 @@
 
 </head>
 <style>
-    /**字符串过长 转化为 。。。**/
-    table{
-        table-layout:fixed;/* 只有定义了表格的布局算法为fixed，下面td的定义才能起作用。 */
-    }
-    td{
-        max-width: 58px;
-        overflow: hidden;
-        text-overflow:ellipsis;
-        white-space: nowrap;
-    }
 
-    table td:hover {
-
-        overflow: auto;
-        white-space: pre-wrap;
-    }
-</style>
-<body>
-<div class="ibox float-e-margins">
-    <div class="ibox-content">
-        <div class="row row-lg">
-            <div class="col-sm-12">
-                <!-- Example Toolbar -->
-                <div class="example-wrap">
-                    <div class="example">
-                        <div class="btn-group hidden-xs" id="materialToolbar" role="group">
-                        </div>
-                        <table class="table table-hover" id="materialTable"
-                               data-pagination="true"
-                               data-show-refresh="true"
-                               data-show-toggle="true"
-                               data-showColumns="true">
-                        </table>
-                    </div>
-                </div>
-                <!-- End Example Toolbar -->
-            </div>
-        </div>
-    </div>
-</div>
-
-<div >
-    <form id="list_search_faci">
-        <fieldset>
-            <div class="input-group">
-                 <span class="input-group-btn">
-                    <button class="btn btn-primary dropdown-toggle" type="button" onclick="addMaterialMemo(this);">添加</button>
-                 </span>
-                <span class="input-group-btn">
-                    <button class="btn btn-default" type="button" onclick="fac_search()">搜索</button>
-                 </span>
-                <input type="text" id="name" class="form-control" aria-label="..." placeholder="名称" style="width: 120px">
-
-            </div>
-
-
-            &nbsp;&nbsp;&nbsp;&nbsp;
-        </fieldset>
-    </form>
-</div>
-
-<div class="row" id="add" style="display: none">
-    <div class="col-sm-12">
-        <div class="ibox float-e-margins">
-            <div class="ibox-title">
-                <h5>添加素材扩展信息</h5>
-                <div class="ibox-tools">
-                    <a class="collapse-link">
-                        <i class="fa fa-chevron-up"></i>
-                    </a>
-                    <a class="close-link">
-                        <i class="fa fa-times"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="ibox-content">
-                <form class="form-horizontal m-t" id="commentForm" method="post">
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">名称 :</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" name="name" value=""  />
-                            <!--                            required="" aria-required="false"-->
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">小说 :</label>
-                        <div class="col-sm-6">
-                            <select id="material_id" class="selectpicker" data-live-search="true">
-
-                            </select>
-                            <span style="cursor:pointer;margin-left: 50px" onclick="openMaterial()">选择素材</span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">扩展内容：</label>
-                        <div class="col-sm-8">
-                            <textarea name="text" id="editor"></textarea>
-                        </div>
-                    </div>
-
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<input type="text" id="copyText" style="display: none">
-
-<style>
     .label_list{
         color: black;
         margin-left: 10px;
@@ -149,8 +42,10 @@
         height: 800px;
     }
 </style>
-<div class="row" style="display: none" id="preface">
-    <div class="col-sm-12">
+<body>
+
+<div class="row">
+    <div class="col-sm-9">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
                 <h5>前序素材 </h5>
@@ -183,7 +78,7 @@
                         </div>
                     </div>
                     <div class="col-sm-5" >
-                        <textarea name="comment" id="editors"></textarea>
+                        <textarea name="comment" id="editor"></textarea>
                     </div>
                 </div>
             </div>
@@ -208,6 +103,7 @@
     </div>
 </div>
 
+
 </body>
 
 <script src="../js/jquery.min.js?v=2.1.4"></script>
@@ -230,9 +126,6 @@
 <!--<script src="../js/demo/webuploader-demo.min.js"></script>-->
 <script src="../js/plugins/bootstrap-select-1.13.9/js/bootstrap-select.js"></script>
 
-<script src="../js/materialMemo/materialMemo.js"></script>
-<script src="../js/materialMemo/addMaterialMemo.js"></script>
-
 <script>
 
     $(document).ready(function () {
@@ -240,25 +133,10 @@
         getMaterialList();
     });
 
-    //打开素材库
-    function openMaterial()
-    {
-        layer.open({
-            type: 1,
-            title: '大图素材',
-            shadeClose: true,
-            shade: 0.8,
-            area: ['85%', '80%'],
-            content: $('#preface'),
-            btn: [ '取消'], // 按钮
-        });
-
-    }
-
-    var editors = new Simditor({
+    var editor = new Simditor({
         toolbar: [ 'title', 'bold', 'italic', 'underline', 'strikethrough','fontScale',
             'color'],
-        textarea: '#editors',
+        textarea: '#editor',
         placeholder: '写点什么...',
         // defaultImage: '/static/home/images/logo.png',
         imageButton: ['upload'],
@@ -390,7 +268,6 @@
                 '                                    </td>\n' +
                 '                                    <td><a data-toggle="tab" href="#contact-1" class="client-link" onclick="checkedMaterial('+item.id+')">'+item.title+'</a>\n' +
                 '                                    <span id="display_'+item.id+'" style="display:none;">'+item.info+'</span></td>\n' +
-                '                                    <td><span onclick="checkedImg('+item.id+')">使用此素材</span></td>\n' +
                 '                                </tr>';
             $('#sc_list').append(html);
         });
@@ -398,12 +275,7 @@
 
     //将选中的前言渲染到编辑器内
     function checkedMaterial(id){
-        editors.setValue($('#display_'+id).html());
-    }
-
-    function checkedImg(id){
         editor.setValue($('#display_'+id).html());
-        layer.msg('使用成功!');
     }
 
     //图片上传插件初始化
@@ -425,13 +297,12 @@
                 area: ['60%', '50%'],
                 content: $('#addMaterial'),
                 btn: ['确定', '取消'], // 按钮
-                yes: function(index1, layero){
+                yes: function(index, layero){
                     layer.msg('确定添加？', {
                         time: 0 //不自动关闭
                         ,btn: ['确定', '取消']
                         ,yes: function(index){
-                            var content = editors.getValue();
-
+                            var content = $(".simditor-body").html();
                             requestData.data = {
                                 'title' : $('#material_info').val(),
                                 'info' : content,
@@ -442,7 +313,7 @@
                             if(requestCode === 0){
                                 getMaterialList();
                                 layer.close(index);
-                                layer.close(index1);
+                                layer.closeAll();
                                 layer.msg('添加成功');
                             }else {
                                 layer.msg(requestMessage);
@@ -456,4 +327,3 @@
 
 
 </script>
-

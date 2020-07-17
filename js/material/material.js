@@ -228,6 +228,8 @@ function lookMaterial(obj) {
     $("input[name='name']").val(requestData.data.name);
     $("input[name='title']").val(requestData.data.title);
     $("input[name='short_name']").val(requestData.data.short_name);
+    $("input[name='chapter']").val(requestData.data.chapter);
+    $("input[name='thirdparty_m_id']").val(requestData.data.thirdparty_m_id);
 
     let head_img =requestData.data.head_img.split('@@@');
     $('#upload-list').empty();

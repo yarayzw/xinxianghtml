@@ -56,6 +56,7 @@ function delImg(i) {
         ,btn: ['确定', '取消']
         ,yes: function(index){
             i.remove();
+            layer.close(index);
         }
     });
 }
@@ -77,7 +78,9 @@ function addMaterialGo() {
         'title': $("input[name='title']").val(),
         'head_img' : head_img,
         'comment' : content,
-        'short_name' : $("input[name='short_name']").val()
+        'short_name' : $("input[name='short_name']").val(),
+        'thirdparty_m_id' : $("input[name='thirdparty_m_id']").val(),
+        'chapter' : $("input[name='chapter']").val(),
     }
     ajaxGo('admin/material/addMaterial')
 
@@ -101,7 +104,9 @@ function editMaterialGo(id) {
         'title': $("input[name='title']").val(),
         'head_img' : head_img,
         'comment' : content,
-        'short_name' : $("input[name='short_name']").val()
+        'short_name' : $("input[name='short_name']").val(),
+        'thirdparty_m_id' : $("input[name='thirdparty_m_id']").val(),
+        'chapter' : $("input[name='chapter']").val(),
     }
     ajaxGo('admin/material/editMaterial')
 

@@ -13,150 +13,9 @@
     <link rel="stylesheet" href="../js/simditor-2.3.28/styles/simditor.css">
     <link rel="stylesheet" type="text/css" href="../css/plugins/webuploader/webuploader.css">
     <link rel="stylesheet" type="text/css" href="../css/demo/webuploader-demo.min.css">
+    <link rel="stylesheet" type="text/css" href="../js/plugins/bootstrap-select-1.13.9/dist/css/bootstrap-select.css">
+
 </head>
-<style>
-    /**字符串过长 转化为 。。。**/
-    table{
-        table-layout:fixed;/* 只有定义了表格的布局算法为fixed，下面td的定义才能起作用。 */
-    }
-    td{
-        max-width: 58px;
-        overflow: hidden;
-        text-overflow:ellipsis;
-        white-space: nowrap;
-    }
-
-    table td:hover {
-
-        overflow: auto;
-        white-space: pre-wrap;
-    }
-</style>
-<body>
-<div class="ibox float-e-margins">
-    <div class="ibox-content">
-        <div class="row row-lg">
-            <div class="col-sm-12">
-                <!-- Example Toolbar -->
-                <div class="example-wrap">
-                    <div class="example">
-                        <div class="btn-group hidden-xs" id="materialToolbar" role="group">
-                        </div>
-                        <table class="table table-hover" id="materialTable"
-                               data-pagination="true"
-                               data-show-refresh="true"
-                               data-show-toggle="true"
-                               data-showColumns="true">
-                        </table>
-                    </div>
-                </div>
-                <!-- End Example Toolbar -->
-            </div>
-        </div>
-    </div>
-</div>
-
-<div >
-    <form id="list_search_faci">
-        <fieldset>
-            <div class="input-group">
-                 <span class="input-group-btn" id="add_btn">
-                    <button class="btn btn-primary dropdown-toggle" type="button" onclick="addMaterial(this);">添加</button>
-                 </span>
-                <span class="input-group-btn">
-                    <button class="btn btn-default" type="button" onclick="fac_search()">搜索</button>
-                 </span>
-                <input type="text" id="name" class="form-control" aria-label="..." placeholder="名称" style="width: 120px">
-
-            </div>
-
-
-            &nbsp;&nbsp;&nbsp;&nbsp;
-        </fieldset>
-    </form>
-</div>
-
-<div class="row" id="add" style="display: none">
-    <div class="col-sm-12">
-        <div class="ibox float-e-margins">
-            <div class="ibox-title">
-                <h5>添加素材</h5>
-                <div class="ibox-tools">
-                    <a class="collapse-link">
-                        <i class="fa fa-chevron-up"></i>
-                    </a>
-                    <a class="close-link">
-                        <i class="fa fa-times"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="ibox-content">
-                <form class="form-horizontal m-t" id="commentForm" method="post">
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">名称 :</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" name="name" value=""  />
-                            <!--                            required="" aria-required="false"-->
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">第三方小说id :</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" name="thirdparty_m_id" value=""  />
-                            <!--                            required="" aria-required="false"-->
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">简称 :</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" name="short_name" value=""  />
-                            <!--                            required="" aria-required="false"-->
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">章节 :</label>
-                        <div class="col-sm-8">
-                            <input type="number" class="form-control" name="chapter" value="" min="1" max="10" />
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">标题 :</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" name="title" value=""  />
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">头部图片：</label>
-                        <div class="col-sm-8">
-                            <div id="upload-container" style="cursor:pointer;float: left">
-                                <span >点击上传</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            </div>
-                            <div style="float: right">
-                                <span style="cursor:pointer" onclick="openMaterial()">选择素材</span>
-                            </div>
-                            <div id="upload-list">
-
-                            </div>
-                            <button id="picker" style="display: none;">点击上传文件</button>
-
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">页面内容：</label>
-                        <div class="col-sm-8">
-                            <textarea name="comment" id="editor"></textarea>
-                        </div>
-                    </div>
-
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<input type="text" id="copyText" style="display: none">
-
-<!--大图素材库-->
 <style>
 
     .label_list{
@@ -179,9 +38,10 @@
         height: 100px;
     }
 </style>
+<body>
 
-<div class="row" style="display: none" id="big_img">
-    <div class="col-sm-12">
+<div class="row">
+    <div class="col-sm-9">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
                 <h5>大图素材 </h5>
@@ -201,9 +61,9 @@
                         </div>
                     </div>
                     <div class="col-sm-2 b-l" >
-                        <p class="text-center" >
-                            <button id="picker-img" style="background: rgb(255, 255, 255);"><i class="glyphicon glyphicon-circle-arrow-up  big-icon"  id="upload-img"></i></button>
-                        </p>
+                            <p class="text-center" >
+                                <button id="picker-img" style="background: rgb(255, 255, 255);"><i class="glyphicon glyphicon-circle-arrow-up  big-icon"  id="upload-img"></i></button>
+                            </p>
                     </div>
                 </div>
             </div>
@@ -228,7 +88,6 @@
     </div>
 </div>
 
-<!--大图素材库end-->
 
 </body>
 
@@ -250,9 +109,7 @@
 <script src="../js/simditor-2.3.28/lib/simditor.js"></script>
 <script src="../js/plugins/webuploader/webuploader.min.js"></script>
 <!--<script src="../js/demo/webuploader-demo.min.js"></script>-->
-
-<script src="../js/material/material.js?v=1.1"></script>
-<script src="../js/material/addMaterial.js"></script>
+<script src="../js/plugins/bootstrap-select-1.13.9/js/bootstrap-select.js"></script>
 
 <script>
 
@@ -260,21 +117,6 @@
         getListLabel();
         getMaterialList();
     });
-
-    //打开素材库
-    function openMaterial()
-    {
-        layer.open({
-            type: 1,
-            title: '大图素材',
-            shadeClose: true,
-            shade: 0.8,
-            area: ['85%', '80%'],
-            content: $('#big_img'),
-            btn: [ '取消'], // 按钮
-        });
-
-    }
 
     //切换标签
     let Label_id = 0;
@@ -395,39 +237,9 @@
                 '            <div class="right_font">\n' +
                 '                <span style="margin-right: 10px" onclick="delImgMaterIal('+item.id+')">删除</span>\n' +
                 '                <span onclick="checkedImg('+item.id+')">使用此图!</span>\n' +
-                '                <input id="m_d_'+item.id+'" style="display: none" value="'+item.img_url+'" />\n' +
                 '            </div>\n' +
                 '        </div>';
             $('#img_list').append(html);
-        });
-    }
-
-    //选择素材插入
-    function checkedImg(id) {
-        let img_url = $('#m_d_'+id).val();
-        var html = '<div  onclick="delImg(this)" ><img name="head_img" data_name="'+__IMG__+ img_url+'" src="'+__IMG__+ img_url+'"></div>';
-        $('#upload-list').append(html);
-        layer.msg('插入成功');
-    }
-
-    //删除素材
-    function delImgMaterIal(id)
-    {
-        layer.msg('确定删除？', {
-            time: 0 //不自动关闭
-            ,btn: ['确定', '取消']
-            ,yes: function(index){
-                requestData.data = {
-                    'id' : id
-                };
-                ajaxGo('admin/material_library/delMaterialLibrary');
-                if(requestCode === 0){
-                    fac_search();
-                    layer.msg('删除成功!');
-                }else {
-                    layer.msg(requestMessage);
-                }
-            }
         });
     }
 
