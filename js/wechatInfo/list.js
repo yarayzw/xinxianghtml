@@ -127,7 +127,19 @@ function initTable() {
             },
             {
                 field: 'zzy_channel_id',
-                title: '掌中云渠道id'
+                title: '渠道id'
+            },
+            {
+                field: 'channel_type',
+                title: '渠道类型'
+            },
+            {
+                field: 'channel_account',
+                title: '渠道账号'
+            },
+            {
+                field: 'channel_password',
+                title: '渠道密码'
             },
             {
                 field: 'operate',
