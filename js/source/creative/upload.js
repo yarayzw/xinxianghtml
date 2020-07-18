@@ -15,8 +15,8 @@ $(function() {
                 //这里是在ajax发送请求的时候设置一些参数 params有什么东西，自己看看源码就知道了
                 pageNumber: params.pageNumber,
                 pageSize: params.pageSize,
-                sortName: params.sortName,
-                sortOrder: params.sortOrder,
+                sortName: "id",
+                sortOrder: "desc",
                 head : {'token' : getCookie('token')},
             };
             if (Label_id){
