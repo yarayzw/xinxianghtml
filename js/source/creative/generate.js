@@ -161,6 +161,18 @@ function recycle() {
     };
     $('#recycle-grid').bootstrapTable(options);
 }
+
+function add() {
+    layer.open({
+        type: 2,
+        title: '添加',
+        shadeClose: true,
+        shade: 0.8,
+        maxmin:true,
+        area: ['90%', '90%'],
+        content: '../../../source/creative/upload.html',
+    });
+}
 function remove(id) {
     layer.msg('确定删除？', {
         time: 0 //不自动关闭
