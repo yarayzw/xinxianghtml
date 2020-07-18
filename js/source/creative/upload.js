@@ -19,7 +19,9 @@ $(function() {
                 sortOrder: params.sortOrder,
                 head : {'token' : getCookie('token')},
             };
-
+            if (Label_id){
+                params.tag_id=Label_id;
+            }
             return params;
         },
         responseHandler:function(data){
@@ -90,6 +92,8 @@ function edit(id) {
     $('#edit').find("input[name='contentimg']").val(data.contentimg);
     $('#edit').find("input[name='alt']").val(data.alt);
     $('#edit').find("input[name='img_type'][value="+data.img_type+"]").attr('checked','checked');
+    $('#edit').find("input[name='tag_id'][value="+data.tag_id+"]").attr('checked','checked');
+
     layer.open({
         type: 1,
         title: '编辑',
@@ -184,19 +188,27 @@ function toRemove(id) {
  * 选择落地页
  */
 function selectLandingPage(obj) {
-    layer.open({
-        title: '选择落地页'
-        ,area:'80%'
-        ,content: '<select class="select-land-page" style = "width : 100%"></select>'
-        ,yes:function (index,layero) {
-            var val=$(".select-land-page").select2('val');
-            $(obj).parent().find("input").val(val);
-            layer.close(index)
+    try {
+        var accountId=$('input[name=account_id]').val();
+        if (!accountId||accountId==undefined){
+            throw new Error('请选择360账户');
         }
-    });
+        layer.open({
+            title: '选择落地页'
+            ,area:'80%'
+            ,content: '<select class="select-land-page" style = "width : 100%;"></select>'
+            ,yes:function (index,layero) {
+                var val=$(".select-land-page").select2('val');
+                $(obj).parent().find("input").val(val);
+                layer.close(index)
+            }
+        });
+    }catch (e) {
+        $.modal.alertWarning(e.message);
+    }
     $(".select-land-page").select2({
         language:'zh-CN',
-        placeholder:'请选择落地页',
+        placeholder:'请选择页面',
         closeOnSelect: false,
         allowClear : true,
         ajax: {
@@ -213,7 +225,8 @@ function selectLandingPage(obj) {
                     sortOrder: "desc",
                     head : {'token' : getCookie('token')},
                     type:1,
-                    search_id:0
+                    search_id:0,
+                    thirdparty_id:accountId
                 };
             },
             processResults: function(data, params) {
@@ -344,3 +357,115 @@ $("#uploadBatchBtn").click(function () {
 
 
 });
+$(function () {
+    getListLabel();
+    setTagList();
+});
+function setTagList()
+{
+    requestData.data = {};
+    ajaxGo('admin/source_tag/getAllList');
+    requestData.data.forEach((item,index,array)=>{
+        var html='<div class="radio-inline"><label><input type="radio" name="tag_id" value="'+item.id+'">'+item.name+'</label></div>';
+        $(".tags-wrap").append(html);
+    });
+    $('input[type=radio][name=tag_id]:eq(0)').attr('checked','checked');
+}
+//切换标签
+let Label_id = 0;
+function changeLabel(obj) {
+    $('span').removeClass('label_checked');
+    $(obj).addClass('label_checked');
+    Label_id = parseInt($(obj).attr('data_id'));
+    $('#grid').bootstrapTable('refresh',{ query: {pageSize: 5,pageNum:1,head : {'token' : getCookie('token')},filter:' and tag_id='+Label_id}});
+}
+//获取用户所有标签
+function getListLabel() {
+    requestData.data = {};
+    ajaxGo('admin/source_tag/getAllList');
+    $('#label_list').empty();
+    requestData.data.forEach((item,index,array)=>{
+        //执行代码
+        //var html = "<option value='"+item.id+"'>"+item.name+"</option>";
+        if(item.id === Label_id){
+            var html = '<span class="label_list label_checked" style="cursor:pointer" onclick="changeLabel(this)" data_id = "'+item.id+'" >'+item.name+'</span>';
+        }else {
+            var html = '<span class="label_list" onclick="changeLabel(this)" style="cursor:pointer" data_id = "'+item.id+'" >'+item.name+'</span>';
+        }
+        $('#label_list').append(html);
+    });
+}
+
+//添加标签
+function addLabel(){
+    layer.open({
+        type: 1,
+        title: '添加标签',
+        shadeClose: true,
+        shade: 0.8,
+        area: ['60%', '50%'],
+        content: $('#addLable'),
+        btn: ['确定', '取消'], // 按钮
+        yes: function(index, layero){
+            layer.msg('确定添加？', {
+                time: 0 //不自动关闭
+                ,btn: ['确定', '取消']
+                ,yes: function(index){
+                    requestData.data = {
+                        'name' : $('#label_name').val(),
+                        'sort_order' : 0
+                    };
+                    ajaxGo('admin/source_tag/add');
+                    if(requestCode === 0){
+                        getListLabel();
+                        layer.close(index);
+                        layer.closeAll();
+                        layer.msg('添加成功');
+                    }else {
+                        layer.msg(requestMessage);
+                    }
+                }
+            });
+        }
+    });
+}
+
+//编辑标签
+function editLabel(){
+    if(0 === Label_id){
+        layer.msg('请选择标签')
+    }else {
+        layer.open({
+            type: 1,
+            title: '修改标签',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['60%', '50%'],
+            content: $('#addLable'),
+            btn: ['确定', '取消'], // 按钮
+            yes: function(index, layero){
+                layer.msg('确定修改？', {
+                    time: 0 //不自动关闭
+                    ,btn: ['确定', '取消']
+                    ,yes: function(index){
+                        requestData.data = {
+                            'id' : Label_id,
+                            'name' : $('#label_name').val(),
+                            'sort_order' : 0
+                        };
+                        ajaxGo('admin/source_tag/edit');
+                        if(requestCode === 0){
+                            getListLabel();
+                            layer.close(index);
+                            layer.closeAll();
+                            layer.msg('修改成功');
+                        }else {
+                            layer.msg(requestMessage);
+                        }
+                    }
+                });
+            }
+        });
+
+    }
+}
