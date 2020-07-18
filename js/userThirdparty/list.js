@@ -150,6 +150,14 @@ function addView() {
         btn: ['确定', '取消'], // 按钮
         yes: function(index, layero){
 
+            var certName=$('input[name=cert_name]').val();
+            if (!certName||certName==''){
+                layer.msg('资质名称不能为空',{icon:0,shift:6});
+                return;
+            }else if (certName.length>6){
+                layer.msg('资质名称不能超过6位',{icon:0,shift:6});
+                return;
+            }
             layer.msg('确定添加？', {
                 time: 0 //不自动关闭
                 ,btn: ['确定', '取消']
@@ -190,6 +198,7 @@ function editView(obj) {
     $("input[name=a_c_d]").val(data.a_c_d);
     $("input[name=domain]").val(data.domain);
     $("input[name=copyright]").val(data.copyright);
+    $("input[name=cert_name]").val(data.cert_name);
     layer.open({
         type: 1,
         title: '编辑',
