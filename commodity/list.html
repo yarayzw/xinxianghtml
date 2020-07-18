@@ -195,31 +195,16 @@
                         </div>
                     </div>
                     <hr>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">公众号 :</label>
-                            <div class="col-sm-8">
-                                <!--<select id="platform" class="selectpicker" data-live-search="true">
 
-                                </select>-->
-                                <div>
-                                    <div id="wechat_config_info" class="overflow_hidden"></div>
-                                    <a href="#" class="content-folding">折叠/展开</a>
-                                </div>
-                            </div>
-                        </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">二维码：</label>
                             <div class="col-sm-8">
-                                <div id="upload-container" style="cursor:pointer;float: left">
-                                    <span >点击上传</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                </div>
-                                <div style="float: right" id="add_qr_code">
-                                    <span style="cursor:pointer" onclick="addQrCode()">生成二维码</span>
+                                <div  style="cursor:pointer;float: left">
+                                    <span onclick="checkQrCode()">点击选择</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 </div>
                                 <div id="upload-list">
 
                                 </div>
-                                <button id="picker" style="display: none;">点击上传文件</button>
 
                             </div>
                         </div>
@@ -451,7 +436,10 @@
                     </div>
                     <div class="col-sm-2 b-l" >
                         <p class="text-center" >
-                            <button id="picker-img" style="background: rgb(255, 255, 255);"><i class="glyphicon glyphicon-circle-arrow-up  big-icon"  id="upload-img"></i></button>
+                        <div id="upload-big" style="cursor:pointer;float: left">
+                            <i class="glyphicon glyphicon-circle-arrow-up  big-icon"  id="upload-img"></i>&nbsp;&nbsp;&nbsp;
+                        </div>
+                        <button id="picker-big" style="display: none;">点击上传文件</button>
                         </p>
                     </div>
                 </div>
@@ -478,6 +466,58 @@
 </div>
 
 <!--大图素材end-->
+
+<!--二维码-->
+<div class="ibox float-e-margins" id="qr_code_div" style="display: none">
+    <div class="ibox-content">
+        <div class="row row-lg">
+            <div class="col-sm-12">
+                <div class="btn-group hidden-xs" id="linkToolbar" role="group">
+                </div>
+                <table id="linkTable" >
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div style="display: none">
+    <div class="form-group">
+        <form id="list_search_faci_qr_code">
+            <div class="col-sm-10">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="input-group m-b">
+                            <select id="wechat_config_s" class="selectpicker" data-live-search="true">
+                                <option value="-1">全部公众号</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="input-group m-b">
+                            <select id="material_memo_s" class="selectpicker" data-live-search="true">
+                                <option value="-1">全部小说前序</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-1">
+                         <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" onclick="fac_search()">搜索</button>
+                        </span>
+                    </div>
+                    <div class="col-md-1">
+                         <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" onclick="addLinkOnGo()">自动生成</button>
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+<!--二维码end-->
 
 
 </body>
@@ -528,6 +568,7 @@
             }
         });
     });
+
     function setMaterial() {
         ajaxGo('admin/material_memo/getListToSelect')
         requestData.data.forEach((item,index,array)=>{
@@ -536,7 +577,13 @@
             var html="<div class='radio-inline'><label><input type='radio' name='material' value='"+item.id+"'>"+item.name+"</label></div>";
             $('#material').append(html);
             $('#material_update').append(html);
+
+            //执行代码 二维码
+            var html = "<option value='"+item.id+"'>"+item.name+"</option>";
+            $('#material_memo_s').append(html)
+
         });
+        $('#material_memo_s').selectpicker('refresh');
 
         //pc模版
         requestData.data = {
@@ -577,7 +624,13 @@
             //执行代码
             var html = '<div class="radio-inline"><label><input  type="radio" name="wechat_config_id" value="'+item.id+'" />'+item.wechat_name+'</label></div>';
             $('#wechat_config_info').append(html);
+
+            //二维码的
+            var html = "<option value='"+item.id+"'>"+item.wechat_name+"</option>";
+            $('#wechat_config_s').append(html);
+
         });
+        $('#wechat_config_s').selectpicker('refresh');
 
         // ajaxGo('admin/user_thirdparty_info/getListToSelect')
         // requestData.data.forEach((item,index,array)=>{
@@ -838,7 +891,7 @@
         $("input[type=radio][name=view][value='"+requestData.data.view_id+"']").attr("checked",'checked');
         $("input[type=radio][name=mobile_view][value='"+requestData.data.mobile_view_id+"']").attr("checked",'checked');
         $("input[type=radio][name=thirdparty_info][value='"+requestData.data.thirdparty_id+"']").attr("checked",'checked');
-        $("input[type=radio][name=wechat_config_info][value='"+requestData.data.wechat_config_id+"']").attr("checked",'checked');
+        $("input[type=radio][name=wechat_config_id][value='"+requestData.data.wechat_config_id+"']").attr("checked",'checked');
 
 
         let head_img =requestData.data.head_img.split('@@@');
@@ -849,18 +902,18 @@
             $('#upload-list-head').append(html);
         });
 
-        let qr_img =requestData.data.qr_code.split('@@@');
+        // let qr_img =requestData.data.qr_code_link.split('@@@');
         $('#upload-list').empty();
-        qr_img.forEach((item,index,array)=>{
+        requestData.data.qr_code_link.forEach((item,index,array)=>{
             //执行代码
             if(requestData.data.code_num === (index+1) ){
-                var html = '<div style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"  onclick="delImg(this)" ><div><img name="qr_img" data_name="'+item+'" src="'+item+'"></div><div style="color: red;text-align: center">使用中</div></div>';
+                var html = '<div style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"  onclick="delImg(this)" ><div><img name="qr_img" style="width:150px;height:150px" data_link_id="'+item.link_id+'" data_name="'+item.url+'" src="'+item.url+'"></div><div style="color: red;text-align: center">使用中</div></div>';
             }
             if(requestData.data.code_num < (index+1) ){
-                var html = '<div style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"  onclick="delImg(this)" ><div><img name="qr_img" data_name="'+item+'" src="'+item+'"></div><div style="color: #5fc55e;text-align: center">待使用</div></div>';
+                var html = '<div style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"  onclick="delImg(this)" ><div><img name="qr_img" style="width: 150px;height: 150px" data_link_id="'+item.link_id+'" data_name="'+item.url+'" src="'+item.url+'"></div><div style="color: #5fc55e;text-align: center">待使用</div></div>';
             }
             if(requestData.data.code_num > (index+1) ){
-                var html = '<div style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"  onclick="delImg(this)" ><div><img name="qr_img" data_name="'+item+'" src="'+item+'"></div><div style="color: #ccc;text-align: center">已使用</div></div>';
+                var html = '<div style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"  onclick="delImg(this)" ><div><img name="qr_img" style="width: 150px;height: 150px" data_link_id="'+item.link_id+'" data_name="'+item.url+'" src="'+item.url+'"></div><div style="color: #ccc;text-align: center">已使用</div></div>';
             }
             $('#upload-list').append(html);
         });
@@ -1606,14 +1659,11 @@
 
 <script>
 
-    $(document).ready(function () {
-        getListLabel();
-        getMaterialList();
-    });
-
     //打开素材库
     function openMaterial()
     {
+        getListLabel();
+        getMaterialList();
         layer.open({
             type: 1,
             title: '大图素材',
@@ -1772,7 +1822,7 @@
                 };
                 ajaxGo('admin/material_library/delMaterialLibrary');
                 if(requestCode === 0){
-                    fac_search();
+                    getMaterialList();
                     layer.msg('删除成功!');
                 }else {
                     layer.msg(requestMessage);
@@ -1781,61 +1831,176 @@
         });
     }
 
-    //图片上传插件初始化
-    $('#upload-img').click(function(event) {
-        $("#picker-img").find('input').click();
-    });
-    setTimeout(function(){
-        var uploader = WebUploader.create({
-            auto: true,// 选完文件后，是否自动上传。
-            // swf: 'https://cdn.bootcss.com/webuploader/0.1.1/Uploader.swf',// swf文件路径
-            server: __ROOT__ + 'thirdparty/oss/upload',// 文件接收服务端。
-            dnd: '#upload-img',
-            pick: '#picker-img',// 内部根据当前运行是创建，可能是input元素，也可能是flash. 这里是div的id
-            multiple: true, // 选择多个
-            chunked: true,// 开起分片上传。
-            threads: 5, // 上传并发数。允许同时最大上传进程数。
-            method: 'POST', // 文件上传方式，POST或者GET。
-            fileSizeLimit: 1024*1024*100*100, //验证文件总大小是否超出限制, 超出则不允许加入队列。
-            fileSingleSizeLimit: 1024*1024*100, //验证单个文件大小是否超出限制, 超出则不允许加入队列。
-            fileVal:'upload', // [默认值：'file'] 设置文件上传域的name。
-        });
-        uploader.on('uploadSuccess', function(file, response) {
-            if(0 === Label_id){
-                layer.msg('请选择标签')
-            }else {
-                requestData.data = {
-                    'img_url' : response.path[0],
-                    'tag_id' : Label_id,
-                    'type': 2,
-                };
-                ajaxGo('admin/material_library/addMaterialLibrary');
-                layer.msg('上传成功');
-                getMaterialList();
-            }
-        });
-    },3000);
 
-    //根据落地页id生成微信二维码
-    function addQrCode() {
-        layer.msg('确定获取？', {
-            time: 0 //不自动关闭
-            ,btn: ['确定', '取消']
-            ,yes: function(addQrCode){
-                requestData.data = {
-                    'page_id' : commodity_id,
-                };
-                ajaxGo('admin/commodity/addQrCode');
-                if(requestCode === 0){
-                    var html = '<div  onclick="delImg(this)" style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"><img style="width: 180px;height: 180px" name="qr_img" data_name="'+__IMG__+'/'+ requestData.data.url+'" src="'+__IMG__+'/'+ requestData.data.url+'"></div>';
-                    $('#upload-list').append(html);
-                    layer.close(addQrCode);
-                    layer.msg('获取成功');
+</script>
+
+<script>
+    //选择二维码
+    function checkQrCode() {
+        initQrCodeTable();
+        layer.open({
+            type: 1,
+            title: '二维码库',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['80%', '80%'],
+            content: $('#qr_code_div'),
+            btn: ['确定', '取消'], // 按钮
+            yes: function(indexs, layero){
+                let row = $("#linkTable").bootstrapTable('getSelections');
+                if (row.length === 0) {
+                    layer.msg('请选择行');
                 }else {
-                    layer.msg(requestMessage);
+                    layer.msg('确定选择？', {
+                        time: 0 //不自动关闭
+                        ,btn: ['确定', '取消']
+                        ,yes: function(index) {
+                            row.forEach((item,index,array)=>{
+                                //执行代码
+                                var html = '<div style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"  onclick="delImg(this)" ><div><img style="width: 150px;height: 150px" name="qr_img" data_link_id="'+item.id+'" data_name="'+__IMG__+'/'+item.img_url+'" src="'+__IMG__+'/'+item.img_url+'"></div></div>';
+                                $('#upload-list').append(html);
+                            });
+                            layer.close(index);
+                            layer.close(indexs);
+                        }
+                    });
                 }
+
             }
         });
+    }
+
+    function initQrCodeTable() {
+        $('#linkTable').bootstrapTable('destroy');
+        // $('#wechatDayToolbar').css("height", 300);
+        $("#linkTable").bootstrapTable({
+            url: __ROOT__ + 'admin/link/getList', //获取数据的Servlet地址
+            striped: true,  //表格显示条纹
+            pagination: true, //启动分页
+            sortName: 'id',
+            pageSize: 10,  //每页显示的记录数
+            pageNumber:1, //当前第几页
+            pageList: [10, 15, 20, 25],  //记录数可选列表
+            search: false,
+            toolbar: '#list_search_faci_qr_code',
+            showColumns: true,  //显示下拉框勾选要显示的列
+            showRefresh: true,  //显示刷新按钮
+            sidePagination: "server", //表示服务端请求
+            responseHandler:function(data){
+                return data.data;
+            },
+            queryParamsType : "undefined",
+            // method: 'post',
+            queryParams: function queryParams(params) {   //设置查询参数
+                params = {
+                    //这里是在ajax发送请求的时候设置一些参数 params有什么东西，自己看看源码就知道了
+                    pageNumber: params.pageNumber,
+                    pageSize: params.pageSize,
+                    sortName: params.sortName,
+                    sortOrder: params.sortOrder,
+                    // id : {$_GET['id']},
+                    head : {'token' : getCookie('token')},
+                    name : $('#name').val(),
+                    wechat_config_id : $("#wechat_config_s").selectpicker('val'),
+                    material_memo_id : $("#material_memo_s").selectpicker('val'),
+                    type : 0,
+                };
+
+                return params;
+            },
+            onLoadSuccess: function(data){  //加载成功时执行
+
+            },
+            onLoadError: function(){  //加载失败时执行
+                layer.msg("加载数据失败", {time : 1500, icon : 2});
+            },
+            columns: [
+                {
+                    title: '',
+                    field: 'checkbox',
+                    align: 'center',
+                    checkbox : true,
+                    width : 10,
+                    singleSelect:true
+                },
+                {
+                    title: 'Id',
+                    field: 'id',
+                    align: 'center',
+                    width : 20,
+                },
+                {
+                    field: 'create_user_name',
+                    title: '创建人',
+                    width : 20,
+                    align: 'center'
+                },
+                {
+                    field: 'description',
+                    title: '备注名称',
+                    width : 20,
+                    align: 'center'
+                },
+                {
+                    field: 'link_id',
+                    title: '第三方链接id',
+                    width : 20,
+                    align: 'center'
+                },
+                {
+                    field: 'url',
+                    title: '链接地址',
+                    width : 100,
+                    align: 'center'
+                },
+                {
+                    field: 'type',
+                    title: '状态',
+                    width : 10,
+                    align: 'center',
+                    formatter: function(value,row,index){
+                        if(value === 0){
+                            return '未使用';
+                        }else {
+                            return '已使用';
+                        }
+                    }
+                },
+            ]
+        });
+    }
+
+
+    //搜索
+    function fac_search_link() {
+        $('#linkTable').bootstrapTable('refresh');
+    }
+
+    //自动生成二维码
+    function addLinkOnGo() {
+        let wechat_config_id = $("#wechat_config_s").selectpicker('val');
+        let material_memo_id = $("#material_memo_s").selectpicker('val');
+        if(wechat_config_id === '-1' || material_memo_id === '-1'){
+            layer.msg('请选择公众号和小说前序');
+        }else {
+            layer.msg('确定创建二维码？', {
+                time: 0 //不自动关闭
+                ,btn: ['确定', '取消']
+                ,yes: function(index){
+                    requestData.data = {
+                        'wechat_config_id' :  wechat_config_id,
+                        'material_memo_id' :  material_memo_id,
+                    };
+                    ajaxGo('admin/link/addZZYLinkOn');
+                    if(requestCode === 0){
+                        fac_search_link();
+                        layer.msg('删除成功!');
+                    }else {
+                        layer.msg(requestMessage);
+                    }
+                }
+            });
+        }
     }
 
 </script>
