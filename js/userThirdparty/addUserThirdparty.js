@@ -10,6 +10,7 @@ function addViewGo() {
         'page_id' : $("input[name='page_id']").val(),
         'domain' : $("input[name='domain']").val(),
         'copyright' : $("input[name='copyright']").val(),
+        'cert_name' : $("input[name='cert_name']").val(),
     }
     ajaxGo('admin/user_thirdparty_info/addUserThirdpartyInfo')
 }
@@ -27,6 +28,7 @@ function editViewGo(id) {
         'page_id' : $("input[name='page_id']").val(),
         'domain' : $("input[name='domain']").val(),
         'copyright' : $("input[name='copyright']").val(),
+        'cert_name' : $("input[name='cert_name']").val(),
     }
     console.log(requestData.data)
     ajaxGo('admin/user_thirdparty_info/editUserThirdpartyInfo')
