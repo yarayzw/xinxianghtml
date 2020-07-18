@@ -11,10 +11,21 @@
     <link href="../css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
     <link href="../css/plugins/bootstrap-table/bootstrap-table.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../js/plugins/bootstrap-select-1.13.9/dist/css/bootstrap-select.css">
+    <link rel="stylesheet" type="text/css" href="../css/plugins/webuploader/webuploader.css">
+    <link rel="stylesheet" type="text/css" href="../css/demo/webuploader-demo.min.css">
 
 </head>
 <style type="text/css">
     .table {table-layout:fixed;}
+    .overflow_hidden{
+        display: -webkit-box;
+        overflow: hidden;
+        white-space: normal;
+        text-overflow: ellipsis;
+        word-wrap: break-word;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
 </style>
 <body>
 <div class="ibox float-e-margins">
@@ -126,13 +137,14 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label">二维码：</label>
                 <div class="col-sm-8">
-                    <div id="upload-container" style="cursor:pointer;float: left">
+                    <div id="upload-container-head" style="cursor:pointer;float: left">
                         <span >点击上传</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     </div>
-                    <div id="upload-list">
+                    <div id="upload-list-head">
 
                     </div>
-                    <button id="picker" style="display: none;">点击上传文件</button>
+                    <button id="picker-head" style="display: none;">点击上传文件</button>
+
                 </div>
             </div>
         </form>
@@ -154,35 +166,47 @@
 <script src="../js/demo/bootstrap-table-demo.min.js"></script>
 <script src="../js/bootstrapValidator.js"></script>
 <script src="../js/bootstrapValidator.min.js"></script>
+<script src="../js/plugins/simditor/module.js"></script>
+<script src="../js/plugins/simditor/uploader.js"></script>
+<script src="../js/plugins/simditor/hotkeys.js"></script>
+<script src="../js/simditor-2.3.28/lib/simditor.js"></script>
+<script src="../js/plugins/webuploader/webuploader.min.js"></script>
 <script src="../js/index.js"></script>
 <script src="../js/plugins/bootstrap-select-1.13.9/js/bootstrap-select.js"></script>
 
 
 <script>
+
+
+
     //图片上传插件初始化
-    $('#upload-container').click(function(event) {
-        $("#picker").find('input').click();
+    $('#upload-container-head').click(function(event) {
+        $("#picker-head").find('input').click();
     });
     setTimeout(function(){
-        var uploader = WebUploader.create({
-            auto: true,// 选完文件后，是否自动上传。
-            // swf: 'https://cdn.bootcss.com/webuploader/0.1.1/Uploader.swf',// swf文件路径
-            server: __ROOT__ + 'thirdparty/oss/upload',// 文件接收服务端。
-            dnd: '#upload-container',
-            pick: '#picker',// 内部根据当前运行是创建，可能是input元素，也可能是flash. 这里是div的id
-            multiple: false, // 选择多个
-            chunked: true,// 开起分片上传。
-            threads: 5, // 上传并发数。允许同时最大上传进程数。
-            method: 'POST', // 文件上传方式，POST或者GET。
-            fileSizeLimit: 1024*1024*100*100, //验证文件总大小是否超出限制, 超出则不允许加入队列。
-            fileSingleSizeLimit: 1024*1024*100, //验证单个文件大小是否超出限制, 超出则不允许加入队列。
-            fileVal:'upload', // [默认值：'file'] 设置文件上传域的name。
-        });
-        uploader.on('uploadSuccess', function(file, response) {
+        // var uploader_head_obj = new WebUploader;
+        var uploader_head =  WebUploader.create(
+            {
+                auto: true,// 选完文件后，是否自动上传。
+                // swf: 'https://cdn.bootcss.com/webuploader/0.1.1/Uploader.swf',// swf文件路径
+                server: __ROOT__ + 'thirdparty/oss/upload',// 文件接收服务端。
+                dnd: '#upload-container-head',
+                pick: '#picker-head',// 内部根据当前运行是创建，可能是input元素，也可能是flash. 这里是div的id
+                multiple: true, // 选择多个
+                chunked: true,// 开起分片上传。
+                threads: 5, // 上传并发数。允许同时最大上传进程数。
+                method: 'POST', // 文件上传方式，POST或者GET。
+                fileSizeLimit: 1024*1024*100*100, //验证文件总大小是否超出限制, 超出则不允许加入队列。
+                fileSingleSizeLimit: 1024*1024*100, //验证单个文件大小是否超出限制, 超出则不允许加入队列。
+                fileVal:'upload', // [默认值：'file'] 设置文件上传域的name。
+            }
+        );
+        uploader_head.on("uploadSuccess", function(file, response) {
             var html = '<div  onclick="delImg(this)" style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"><img style="width: 180px;height: 180px" name="qr_img" data_link_id="0" data_name="'+__IMG__+ response.path[0]+'" src="'+__IMG__+ response.path[0]+'"></div>';
-            $('#upload-list').append(html);
+            $('#upload-list-head').append(html);
         });
     },3000);
+
 
     function delImg(i) {
         layer.msg('确定删除？', {
@@ -245,6 +269,7 @@
             striped: true,  //表格显示条纹
             pagination: true, //启动分页
             sortName: 'id',
+            sortOrder:'desc',
             pageSize: 10,  //每页显示的记录数
             pageNumber:1, //当前第几页
             pageList: [10, 15, 20, 25],  //记录数可选列表
@@ -353,7 +378,7 @@
             title: '添加',
             shadeClose: true,
             shade: 0.8,
-            area: ['60%', '60%'],
+            area: ['80%', '80%'],
             content: $('#add'),
             btn: ['确定', '取消'], // 按钮
             yes: function(index, layero){
