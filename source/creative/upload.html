@@ -37,6 +37,11 @@
     .select2-container{
         z-index: 9999999999999;
     }
+    label{
+        display: block;
+        font-weight: inherit;
+        margin-bottom:0px;
+    }
 </style>
 <style>
 
@@ -80,10 +85,12 @@
                         <!-- Example Toolbar -->
                         <div class="example-wrap">
                             <div class="example">
-                                <div class="btn-group" id="toolbar" role="group">
+                                <div class="" id="toolbar" role="group">
                                     <a class="btn btn-success" onclick="add()">
                                         <i class="fa fa-plus"></i> 添加
                                     </a>
+                                    <a style="margin-left: 10px;" onclick="changeImgType(1)">180*100</a>
+                                    <a style="margin-left: 10px;" onclick="changeImgType(2)">660*220</a>
                                 </div>
                                 <table class="table table-hover" id="grid"
                                        data-pagination="true"
@@ -105,24 +112,39 @@
                             </div>
                             <div class="row" style="padding: 20px;">
                                 <div class="col-sm-12" style="margin: 10px 0px;display: flex;align-items: center;">
-                                    <div style="flex:1;margin-right: 10px;"><input type="text" class="form-control" name="landingPageIds[]" readonly></div>
+                                    <div style="flex:1;margin-right: 10px;"><input type="text" class="form-control" name="landingPageIds[]"></div>
                                     <span class="glyphicon glyphicon-plus" onclick="selectLandingPage(this)"></span>
+                                    <ul class="dropdown-menu" role="menu">
+                                    </ul>
+                                    <span class="glyphicon glyphicon-arrow-up" title="上传" style="margin-left: 10px;display: none;" onclick="uploadSingle(this)"></span>
                                 </div>
                                 <div class="col-sm-12" style="margin: 10px 0px;display: flex;align-items: center;">
-                                    <div style="flex:1;margin-right: 10px;"><input type="text" class="form-control" name="landingPageIds[]" readonly></div>
+                                    <div style="flex:1;margin-right: 10px;"><input type="text" class="form-control" name="landingPageIds[]"></div>
                                     <span class="glyphicon glyphicon-plus" onclick="selectLandingPage(this)"></span>
+                                    <ul class="dropdown-menu" role="menu">
+                                    </ul>
+                                    <span class="glyphicon glyphicon-arrow-up" title="上传" style="margin-left: 10px;display: none;" onclick="uploadSingle(this)"></span>
                                 </div>
                                 <div class="col-sm-12" style="margin: 10px 0px;display: flex;align-items: center;">
-                                    <div style="flex:1;margin-right: 10px;"><input type="text" class="form-control" name="landingPageIds[]" readonly></div>
+                                    <div style="flex:1;margin-right: 10px;"><input type="text" class="form-control" name="landingPageIds[]"></div>
                                     <span class="glyphicon glyphicon-plus" onclick="selectLandingPage(this)"></span>
+                                    <ul class="dropdown-menu" role="menu">
+                                    </ul>
+                                    <span class="glyphicon glyphicon-arrow-up" title="上传" style="margin-left: 10px;display: none;" onclick="uploadSingle(this)"></span>
                                 </div>
                                 <div class="col-sm-12" style="margin: 10px 0px;display: flex;align-items: center;">
-                                    <div style="flex:1;margin-right: 10px;"><input type="text" class="form-control" name="landingPageIds[]" readonly></div>
+                                    <div style="flex:1;margin-right: 10px;"><input type="text" class="form-control" name="landingPageIds[]"></div>
                                     <span class="glyphicon glyphicon-plus" onclick="selectLandingPage(this)"></span>
+                                    <ul class="dropdown-menu" role="menu">
+                                    </ul>
+                                    <span class="glyphicon glyphicon-arrow-up" title="上传" style="margin-left: 10px;display: none;" onclick="uploadSingle(this)"></span>
                                 </div>
                                 <div class="col-sm-12" style="margin: 10px 0px;display: flex;align-items: center;">
-                                    <div style="flex:1;margin-right: 10px;"><input type="text" class="form-control" name="landingPageIds[]" readonly></div>
+                                    <div style="flex:1;margin-right: 10px;"><input type="text" class="form-control" name="landingPageIds[]"></div>
                                     <span class="glyphicon glyphicon-plus" onclick="selectLandingPage(this)"></span>
+                                    <ul class="dropdown-menu" role="menu">
+                                    </ul>
+                                    <span class="glyphicon glyphicon-arrow-up" title="上传" style="margin-left: 10px;display: none;" onclick="uploadSingle(this)"></span>
                                 </div>
                             </div>
                             <div class="row" style="padding: 0px 20px 20px;">
