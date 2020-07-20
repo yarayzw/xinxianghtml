@@ -11,6 +11,8 @@ function addViewGo() {
         'domain' : $("input[name='domain']").val(),
         'copyright' : $("input[name='copyright']").val(),
         'cert_name' : $("input[name='cert_name']").val(),
+        'account' : $("input[name='account']").val(),
+        'password' : $("input[name='password']").val(),
     }
     ajaxGo('admin/user_thirdparty_info/addUserThirdpartyInfo')
 }
@@ -29,6 +31,8 @@ function editViewGo(id) {
         'domain' : $("input[name='domain']").val(),
         'copyright' : $("input[name='copyright']").val(),
         'cert_name' : $("input[name='cert_name']").val(),
+        'account' : $("input[name='account']").val(),
+        'password' : $("input[name='password']").val(),
     }
     console.log(requestData.data)
     ajaxGo('admin/user_thirdparty_info/editUserThirdpartyInfo')

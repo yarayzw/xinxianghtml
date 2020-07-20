@@ -115,6 +115,14 @@ function initTable() {
                 field: 'a_c_d',
                 title: 'UC平台a_c_d'
             },
+            {
+                field: 'account',
+                title: '账号'
+            },
+            {
+                field: 'password',
+                title: '密码'
+            },
 
             {
                 field: 'operate',
@@ -199,6 +207,8 @@ function editView(obj) {
     $("input[name=domain]").val(data.domain);
     $("input[name=copyright]").val(data.copyright);
     $("input[name=cert_name]").val(data.cert_name);
+    $("input[name=account]").val(data.account);
+    $("input[name=password]").val(data.password);
     layer.open({
         type: 1,
         title: '编辑',
