@@ -35,13 +35,23 @@ $(function() {
                     var actions = [];
                     actions.push('<a class="btn btn-success btn-xs" href="javascript:void(0)" onclick="edit(\'' + row.id + '\')"><i class="fa fa-edit"></i>编辑</a>&nbsp;');
                     actions.push('<a class="btn btn-danger btn-xs" href="javascript:void(0)" onclick="remove(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a>&nbsp;');
-                    var html='<div style="display: flex"><div><img src="'+row.contentimg+'" style="width: auto;height: 80px;"></div><div style="flex: 1;margin-left: 10px;display: flex;flex-direction: column;justify-content: space-between;"><div style="width: 100%;">'+value+'</div><div style="display: flex;"><div>尺寸：'+(row.img_type==1?'180*100':'660*220')+'</div><div style="flex: 1;display: flex;justify-content: flex-end;"><div style="margin-right: 10px;line-height: 2em;"><input type="radio" name="id" value="'+row.id+'"></div><div>'+actions.join('')+'</div></div></div></div></div>';
+                    var html='<label><div style="display: flex"><div><img src="'+row.contentimg+'" style="width: auto;height: 80px;"></div><div style="flex: 1;margin-left: 10px;display: flex;flex-direction: column;justify-content: space-between;"><div style="width: 100%;">'+value+'</div><div style="display: flex;"><div>尺寸：'+(row.img_type==1?'180*100':'660*220')+'</div><div style="flex: 1;display: flex;justify-content: flex-end;"><div style="margin-right: 10px;line-height: 2em;"><input type="radio" name="id" value="'+row.id+'"></div><div>'+actions.join('')+'</div></div></div></div></div></label>';
                     return html;
                 }
             }]
     };
     $('#grid').bootstrapTable(options);
 
+    $(document).on('input change','input[type=text][name="landingPageIds[]"]',function () {
+        console.log($(this).val())
+        var val= $(this).val();
+        if (val==''){
+            $(this).parent().nextAll('span:eq(1)').hide();
+        } else {
+            $(this).parent().nextAll('span:eq(1)').show();
+        }
+
+    });
 
 
 });
@@ -193,7 +203,8 @@ function selectLandingPage(obj) {
         if (!accountId||accountId==undefined){
             throw new Error('请选择360账户');
         }
-        layer.open({
+        //第一个方案弹窗
+        /*layer.open({
             title: '选择落地页'
             ,area:'80%'
             ,content: '<select class="select-land-page" style = "width : 100%;"></select>'
@@ -202,11 +213,29 @@ function selectLandingPage(obj) {
                 $(obj).parent().find("input").val(val);
                 layer.close(index)
             }
+        });*/
+        //第二个方案菜单按钮
+        $(obj).addClass('dropdown-toggle').attr('data-toggle','dropdown');
+        requestData={
+            pageNumber:1 ,//分页：当前页码
+            pageSize: 10,
+            sortName: "id",
+            sortOrder: "desc",
+            type:1,
+            search_id:0,
+            thirdparty_id:accountId
+        };
+        ajaxGo('admin/source_creative/getLandingPageList');
+        var rows=requestData.data.rows;
+        var childHtml='';
+        rows.forEach(function (e) {
+            childHtml+=('<li><a href="javascript:(0)">'+e.id+'</a></li>');
         });
+        $(obj).next('.dropdown-menu').html(childHtml);
     }catch (e) {
         $.modal.alertWarning(e.message);
     }
-    $(".select-land-page").select2({
+    /*$(".select-land-page").select2({
         language:'zh-CN',
         placeholder:'请选择页面',
         closeOnSelect: false,
@@ -252,8 +281,15 @@ function selectLandingPage(obj) {
         templateSelection: function (repo) {
             return repo.id;
         }
-    });
+    });*/
 }
+$(function () {
+    $(document).on('click','.dropdown-menu a',function () {
+        var dom=$(this).parents('.dropdown-menu').prevAll('div').find('input');
+        dom.val($(this).text());
+        dom.change();
+    })
+});
 
 /**
  * 选择360账号
@@ -320,16 +356,21 @@ function select360Account(obj) {
         }
     });
 }
+//计划ID
+var Campaignid=0;
 /**
  * 上传提交
  */
 $("#uploadBatchBtn").click(function () {
     try {
+        if ($(this).attr('disabled')){
+            return false;
+        }
        var creativeId=$('input[type=radio][name=id]:checked').val();
         if (!creativeId){
             throw new Error('请选择创意');
         }
-        var landingPage=$('input[name="landingPageIds[]"]');
+        var landingPage=$('input[name="landingPageIds[]"]').not('[readonly]');
         var landingPageIds=[];
         for (var i=0;i<landingPage.length;i++){
             var val=$(landingPage[i]).val();
@@ -345,11 +386,16 @@ $("#uploadBatchBtn").click(function () {
         requestData.data={
             creativeId:creativeId,
             landingPageIds:JSON.stringify(landingPageIds),
-            accountId:accountId
+            accountId:accountId,
+            campaignid:Campaignid,
         };
         ajaxGo('admin/source_creative/uploadSubmit');
         var data=requestData.data;
         console.log(data)
+        landingPage.parent().parent().find('.glyphicon').hide();
+        landingPage.parent().parent().append('<span class="upload-tips" style="color: green;">上传成功</span>');
+        landingPage.attr('readonly','readonly');
+        $(this).attr('disabled','disabled');
         $.modal.alertSuccess(requestMessage);
     }catch (e) {
         $.modal.alertWarning(e.message);
@@ -357,6 +403,55 @@ $("#uploadBatchBtn").click(function () {
 
 
 });
+
+/**
+ * 单个上传
+ */
+function uploadSingle(obj) {
+    try {
+        $(obj).parent().find('.glyphicon').hide();
+        $(obj).parent().append('<span class="upload-tips" style="color: green;">上传中...</span>');
+        var creativeId=$('input[type=radio][name=id]:checked').val();
+        if (!creativeId){
+            throw new Error('请选择创意');
+        }
+        var landingPageId=$(obj).parent().find('input[name="landingPageIds[]"]').val();
+        if (!landingPageId||landingPageId==''){
+            throw new Error('落地页错误');
+        }
+        var accountId=$('input[name=account_id]').val();
+        if (!accountId||accountId==undefined){
+            throw new Error('请选择360账户');
+        }
+        requestData.data={
+            creativeId:creativeId,
+            landingPageId:landingPageId,
+            accountId:accountId,
+            campaignid:Campaignid,
+        };
+        console.log(requestData)
+        ajaxGo('admin/source_creative/uploadSingle');
+        var data=requestData.data;
+        if (data.campaignid) {
+            Campaignid=data.campaignid;
+        }
+        $(obj).parent().find('.glyphicon').hide();
+        $(obj).parent().find('input[name="landingPageIds[]"]').attr('readonly','readonly');
+        $(obj).parent().find('.upload-tips').text('上传成功');
+        $.modal.alertSuccess(requestMessage);
+    }catch (e) {
+        $.modal.alertWarning(e.message);
+        $(obj).parent().find('.glyphicon').show();
+        $(obj).parent().removeChild('.upload-tips');
+    }
+}
+/**
+ * 切换图片尺寸
+ */
+function changeImgType(imgType)
+{
+    $('#grid').bootstrapTable('refresh',{ query: {pageSize: 5,pageNum:1,head : {'token' : getCookie('token')},filter:' and img_type='+imgType}});
+}
 $(function () {
     getListLabel();
     setTagList();
