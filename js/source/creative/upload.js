@@ -379,6 +379,10 @@ $("#uploadBatchBtn").click(function () {
             }
             landingPageIds.push(val);
         }
+        if (landingPageIds<1){
+            throw new Error('已全部上传成功');
+            $(this).attr('disabled','disabled');
+        }
         var accountId=$('input[name=account_id]').val();
         if (!accountId||accountId==undefined){
             throw new Error('请选择360账户');
