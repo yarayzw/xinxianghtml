@@ -358,6 +358,8 @@ function select360Account(obj) {
 }
 //计划ID
 var Campaignid=0;
+//生成信息ID
+var GenId=0;
 /**
  * 上传提交
  */
@@ -392,6 +394,7 @@ $("#uploadBatchBtn").click(function () {
             landingPageIds:JSON.stringify(landingPageIds),
             accountId:accountId,
             campaignid:Campaignid,
+            gen_id:GenId
         };
         ajaxGo('admin/source_creative/uploadSubmit');
         var data=requestData.data;
@@ -432,12 +435,14 @@ function uploadSingle(obj) {
             landingPageId:landingPageId,
             accountId:accountId,
             campaignid:Campaignid,
+            gen_id:GenId
         };
         console.log(requestData)
         ajaxGo('admin/source_creative/uploadSingle');
         var data=requestData.data;
         if (data.campaignid) {
             Campaignid=data.campaignid;
+            GenId=data.gen_id;
         }
         $(obj).parent().find('.glyphicon').hide();
         $(obj).parent().find('input[name="landingPageIds[]"]').attr('readonly','readonly');
