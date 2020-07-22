@@ -360,6 +360,14 @@ function select360Account(obj) {
 var Campaignid=0;
 //生成信息ID
 var GenId=0;
+//计划名称
+var campaignName=null;
+function setCampaignName(){
+    layer.prompt({title: '请填写计划名', formType: 2}, function(text, index){
+        layer.close(index);
+        campaignName=text;
+    });
+}
 /**
  * 上传提交
  */
@@ -367,6 +375,10 @@ $("#uploadBatchBtn").click(function () {
     try {
         if ($(this).attr('disabled')){
             return false;
+        }
+        if (!campaignName){
+            setCampaignName();
+            return;
         }
        var creativeId=$('input[type=radio][name=id]:checked').val();
         if (!creativeId){
@@ -394,11 +406,16 @@ $("#uploadBatchBtn").click(function () {
             landingPageIds:JSON.stringify(landingPageIds),
             accountId:accountId,
             campaignid:Campaignid,
-            gen_id:GenId
+            gen_id:GenId,
+            campaignName:campaignName,
         };
         ajaxGo('admin/source_creative/uploadSubmit');
+        if (requestCode!=0){
+            throw new Error(requestMessage);
+        }
         var data=requestData.data;
         console.log(data)
+        console.log(requestCode)
         landingPage.parent().parent().find('.glyphicon').hide();
         landingPage.parent().parent().append('<span class="upload-tips" style="color: green;">上传成功</span>');
         landingPage.attr('readonly','readonly');
@@ -416,8 +433,11 @@ $("#uploadBatchBtn").click(function () {
  */
 function uploadSingle(obj) {
     try {
+        if (!campaignName){
+            setCampaignName();
+            return;
+        }
         $(obj).parent().find('.glyphicon').hide();
-        $(obj).parent().append('<span class="upload-tips" style="color: green;">上传中...</span>');
         var creativeId=$('input[type=radio][name=id]:checked').val();
         if (!creativeId){
             throw new Error('请选择创意');
@@ -435,23 +455,27 @@ function uploadSingle(obj) {
             landingPageId:landingPageId,
             accountId:accountId,
             campaignid:Campaignid,
-            gen_id:GenId
+            gen_id:GenId,
+            campaignName:campaignName,
         };
         console.log(requestData)
         ajaxGo('admin/source_creative/uploadSingle');
+        if (requestCode!=0){
+            throw new Error(requestMessage);
+        }
         var data=requestData.data;
+
         if (data.campaignid) {
             Campaignid=data.campaignid;
             GenId=data.gen_id;
         }
         $(obj).parent().find('.glyphicon').hide();
         $(obj).parent().find('input[name="landingPageIds[]"]').attr('readonly','readonly');
-        $(obj).parent().find('.upload-tips').text('上传成功');
+        $(obj).parent().append('<span class="upload-tips" style="color: green;">上传成功</span>');;
         $.modal.alertSuccess(requestMessage);
     }catch (e) {
         $.modal.alertWarning(e.message);
         $(obj).parent().find('.glyphicon').show();
-        $(obj).parent().removeChild('.upload-tips');
     }
 }
 /**
@@ -481,13 +505,17 @@ function changeLabel(obj) {
     $('span').removeClass('label_checked');
     $(obj).addClass('label_checked');
     Label_id = parseInt($(obj).attr('data_id'));
-    $('#grid').bootstrapTable('refresh',{ query: {pageSize: 5,pageNum:1,head : {'token' : getCookie('token')},filter:' and tag_id='+Label_id}});
+    if ($('#big_img').attr('style').indexOf('display: none')==-1){
+        getMaterialList();
+    }else {
+        $('#grid').bootstrapTable('refresh',{ query: {pageSize: 5,pageNum:1,head : {'token' : getCookie('token')},filter:' and tag_id='+Label_id}});
+    }
 }
 //获取用户所有标签
 function getListLabel() {
     requestData.data = {};
     ajaxGo('admin/source_tag/getAllList');
-    $('#label_list').empty();
+    $('.label_list_wrap').empty();
     requestData.data.forEach((item,index,array)=>{
         //执行代码
         //var html = "<option value='"+item.id+"'>"+item.name+"</option>";
@@ -496,7 +524,7 @@ function getListLabel() {
         }else {
             var html = '<span class="label_list" onclick="changeLabel(this)" style="cursor:pointer" data_id = "'+item.id+'" >'+item.name+'</span>';
         }
-        $('#label_list').append(html);
+        $('.label_list_wrap').append(html);
     });
 }
 
@@ -573,3 +601,109 @@ function editLabel(){
 
     }
 }
+//打开图片素材
+function openMaterial()
+{
+    var index=layer.open({
+        type: 1,
+        title: '大图素材',
+        shadeClose: true,
+        shade: 0.8,
+        area: ['85%', '80%'],
+        content: $('#big_img'),
+        btn: [ '取消'], // 按钮
+    });
+    $('input[name=contentimg]').change(function () {
+        layer.close(index)
+    })
+}
+$(function () {
+    getMaterialList();
+});
+//获取素材内容
+function getMaterialList()
+{
+    requestData.data = {
+        'tag_id' : Label_id,
+        'type': 2,
+    };
+    ajaxGo('admin/material_library/getListToSelect');
+    $('#img_list').empty();
+    requestData.data.forEach((item,index,array)=>{
+        //执行代码
+        //var html = "<option value='"+item.id+"'>"+item.name+"</option>";
+        var html = '<div class="col-sm-4 img_div">\n' +
+            '            <div>\n' +
+            '                <img class="img_s" src="'+__IMG__+item.img_url+'" alt="">\n' +
+            '            </div>\n' +
+            '            <div class="right_font">\n' +
+            '                <span style="margin-right: 10px" onclick="delImgMaterIal('+item.id+')">删除</span>\n' +
+            '                <a href="javascript:void(0);" style="color: rgb(103,103,103);" onclick="checkedImg('+item.id+')">使用此图!</a>\n' +
+            '                <input id="m_d_'+item.id+'" type="hidden" value="'+item.img_url+'" />\n' +
+            '            </div>\n' +
+            '        </div>';
+        $('#img_list').append(html);
+    });
+}
+//选择素材插入
+function checkedImg(id) {
+    let img_url = __IMG__+$('#m_d_'+id).val();
+    $('input[name=contentimg]').val(img_url).trigger('change');
+    $.modal.msgSuccess('选择成功');
+}
+
+//删除素材
+function delImgMaterIal(id)
+{
+    layer.msg('确定删除？', {
+        time: 0 //不自动关闭
+        ,btn: ['确定', '取消']
+        ,yes: function(index){
+            requestData.data = {
+                'id' : id
+            };
+            ajaxGo('admin/material_library/delMaterialLibrary');
+            if(requestCode === 0){
+                fac_search();
+                layer.msg('删除成功!');
+            }else {
+                layer.msg(requestMessage);
+            }
+        }
+    });
+}
+
+//图片上传插件初始化
+$('#upload-img').click(function(event) {
+    $("#picker-img").find('input').click();
+});
+setTimeout(function(){
+    var uploader = WebUploader.create({
+        auto: true,// 选完文件后，是否自动上传。
+        // swf: 'https://cdn.bootcss.com/webuploader/0.1.1/Uploader.swf',// swf文件路径
+        server: __ROOT__ + 'thirdparty/oss/upload',// 文件接收服务端。
+        dnd: '#upload-img',
+        pick: '#picker-img',// 内部根据当前运行是创建，可能是input元素，也可能是flash. 这里是div的id
+        multiple: true, // 选择多个
+        chunked: true,// 开起分片上传。
+        threads: 5, // 上传并发数。允许同时最大上传进程数。
+        method: 'POST', // 文件上传方式，POST或者GET。
+        fileSizeLimit: 1024*1024*100*100, //验证文件总大小是否超出限制, 超出则不允许加入队列。
+        fileSingleSizeLimit: 1024*1024*100, //验证单个文件大小是否超出限制, 超出则不允许加入队列。
+        fileVal:'upload', // [默认值：'file'] 设置文件上传域的name。
+    });
+    uploader.on('uploadSuccess', function(file, response) {
+        if(0 === Label_id){
+            layer.msg('请选择标签')
+        }else {
+            requestData.data = {
+                'img_url' : response.path[0],
+                'tag_id' : Label_id,
+                'type': 2,
+            };
+            ajaxGo('admin/material_library/addMaterialLibrary');
+            layer.msg('上传成功');
+            getMaterialList();
+        }
+    });
+},3000);
