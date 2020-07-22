@@ -430,6 +430,7 @@
 
                         </span>
                         <div class="right_font" style="margin-top: 120px">
+                            <span style="margin-right: 10px;cursor:pointer" onclick="delLabel()" >删除</span>
                             <span style="margin-right: 10px;cursor:pointer" onclick="editLabel()" >编辑</span>
                             <span onclick="addLabel()" style="cursor:pointer">添加标签</span>
                         </div>
@@ -1792,6 +1793,34 @@
                 }
             });
 
+        }
+    }
+
+    //删除标签
+    function delLabel() {
+        if(0 === Label_id){
+            layer.msg('请选择标签')
+        }else {
+            layer.msg('确定删除标签？', {
+                time: 0 //不自动关闭
+                ,btn: ['确定', '取消']
+                ,yes: function(index){
+                    requestData.data = {
+                        'id' : Label_id,
+                        'name' : $('#label_name').val(),
+                        'sort_order' : 0
+                    };
+                    ajaxGo('admin/source_tag/remove');
+                    if(requestCode === 0){
+                        getListLabel();
+                        layer.close(index);
+                        layer.msg('删除成功');
+                    }else {
+                        layer.msg(requestMessage);
+                    }
+                }
+            });
+            Label_id = 0;
         }
     }
 
