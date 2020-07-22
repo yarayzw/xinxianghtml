@@ -554,7 +554,9 @@ function changeLabel(obj) {
 }
 //获取用户所有标签
 function getListLabel() {
-    requestData.data = {};
+    requestData.data = {
+        'type' : 3
+    };
     ajaxGo('admin/source_tag/getAllList');
     $('.label_list_wrap').empty();
     requestData.data.forEach((item,index,array)=>{

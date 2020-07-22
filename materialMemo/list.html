@@ -181,8 +181,6 @@
                                 </tbody>
                             </table>
 
-
-
                         </div>
                     </div>
                     <div class="col-sm-5" >
@@ -253,7 +251,6 @@
 <script>
 
     $(document).ready(function () {
-        getListLabel();
         getMaterialList();
     });
 
@@ -263,6 +260,7 @@
     function openMaterial()
     {
         Label_type = 1;
+        getListLabel();
         layer.open({
             type: 1,
             title: '前言素材',

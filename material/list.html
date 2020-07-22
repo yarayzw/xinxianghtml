@@ -256,7 +256,6 @@
 <script>
 
     $(document).ready(function () {
-        getListLabel();
         getMaterialList();
     });
 
@@ -266,6 +265,7 @@
     function openMaterial()
     {
         Label_type = 2;
+        getListLabel();
         layer.open({
             type: 1,
             title: '大图素材',
