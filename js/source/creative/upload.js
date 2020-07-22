@@ -473,6 +473,9 @@ $("#uploadBatchBtn").click(function () {
  * 单个上传
  */
 function uploadSingle(obj) {
+    var load = layer.load(1, {
+        shade: [0.1,'#fff'] //0.1透明度的白色背景
+    });
     try {
         if (!campaignName){
             setCampaignName();
@@ -514,6 +517,7 @@ function uploadSingle(obj) {
         $(obj).parent().find('input[name="landingPageIds[]"]').attr('readonly','readonly');
         $(obj).parent().append('<span class="upload-tips" style="color: green;">上传成功</span>');;
         $.modal.alertSuccess(requestMessage);
+        layer.close(load);
     }catch (e) {
         $.modal.alertWarning(e.message);
         $(obj).parent().find('.glyphicon').show();
