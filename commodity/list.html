@@ -517,6 +517,20 @@
     </div>
 </div>
 
+<div class="row" id="addLink" style="display: none">
+    <div class="ibox-content">
+        <form class="form-horizontal m-t"  method="post">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">备注 :</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="description" id="description" value=""  />
+                    <!--                            required="" aria-required="false"-->
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
 <!--二维码end-->
 
 
@@ -1712,7 +1726,7 @@
             area: ['60%', '50%'],
             content: $('#addLable'),
             btn: ['确定', '取消'], // 按钮
-            yes: function(index, layero){
+            yes: function(addLabel, layero){
                 layer.msg('确定添加？', {
                     time: 0 //不自动关闭
                     ,btn: ['确定', '取消']
@@ -1725,7 +1739,7 @@
                         if(requestCode === 0){
                             getListLabel();
                             layer.close(index);
-                            layer.closeAll();
+                            layer.close(addLabel);
                             layer.msg('添加成功');
                         }else {
                             layer.msg(requestMessage);
@@ -1736,7 +1750,7 @@
         });
     }
 
-    //添加标签
+    //编辑标签
     function editLabel(){
         if(0 === Label_id){
             layer.msg('请选择标签')
@@ -1749,7 +1763,7 @@
                 area: ['60%', '50%'],
                 content: $('#addLable'),
                 btn: ['确定', '取消'], // 按钮
-                yes: function(index, layero){
+                yes: function(editLabel, layero){
                     layer.msg('确定修改？', {
                         time: 0 //不自动关闭
                         ,btn: ['确定', '取消']
@@ -1763,7 +1777,7 @@
                             if(requestCode === 0){
                                 getListLabel();
                                 layer.close(index);
-                                layer.closeAll();
+                                layer.close(editLabel);
                                 layer.msg('修改成功');
                             }else {
                                 layer.msg(requestMessage);
@@ -1790,7 +1804,7 @@
             //var html = "<option value='"+item.id+"'>"+item.name+"</option>";
             var html = '<div class="col-sm-4 img_div">\n' +
                 '            <div>\n' +
-                '                <img class="img_s" src="'+__IMG__+item.img_url+'" alt="">\n' +
+                '                <img  class="img_s" src="'+__IMG__+item.img_url+'" alt="" onclick="checkedImg('+item.id+')">\n' +
                 '            </div>\n' +
                 '            <div class="right_font">\n' +
                 '                <span style="margin-right: 10px" onclick="delImgMaterIal('+item.id+')">删除</span>\n' +
@@ -1804,6 +1818,7 @@
 
     //选择素材插入
     function checkedImg(id) {
+        $('#upload-list-head').empty();
         let img_url = $('#m_d_'+id).val();
         var html = '<div  onclick="delImg(this)" ><img name="head_img" data_name="'+__IMG__+ img_url+'" src="'+__IMG__+ img_url+'"></div>';
         $('#upload-list-head').append(html);
@@ -1984,23 +1999,37 @@
         if(wechat_config_id === '-1' || material_memo_id === '-1'){
             layer.msg('请选择公众号和小说前序');
         }else {
-            layer.msg('确定创建二维码？', {
-                time: 0 //不自动关闭
-                ,btn: ['确定', '取消']
-                ,yes: function(index){
-                    requestData.data = {
-                        'wechat_config_id' :  wechat_config_id,
-                        'material_memo_id' :  material_memo_id,
-                    };
-                    ajaxGo('admin/link/addZZYLinkOn');
-                    if(requestCode === 0){
-                        fac_search_link();
-                        layer.msg('删除成功!');
-                    }else {
-                        layer.msg(requestMessage);
-                    }
+            layer.open({
+                type: 1,
+                title: '备注',
+                shadeClose: true,
+                shade: 0.8,
+                area: ['80%', '80%'],
+                content: $('#addLink'),
+                btn: ['确定', '取消'], // 按钮
+                yes: function(addLink, layero){
+                    layer.msg('确定创建二维码？', {
+                        time: 0 //不自动关闭
+                        ,btn: ['确定', '取消']
+                        ,yes: function(index){
+                            requestData.data = {
+                                'wechat_config_id' :  wechat_config_id,
+                                'material_memo_id' :  material_memo_id,
+                                'name' : $('#description').val()
+                            };
+                            ajaxGo('admin/link/addZZYLinkOn');
+                            if(requestCode === 0){
+                                fac_search_link();
+                                layer.msg('创建成功!');
+                                layer.close(index);
+                            }else {
+                                layer.msg(requestMessage);
+                            }
+                        }
+                    });
                 }
             });
+
         }
     }
 

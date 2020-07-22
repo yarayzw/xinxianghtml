@@ -183,11 +183,6 @@
 <div class="row" style="display: none" id="big_img">
     <div class="col-sm-12">
         <div class="ibox float-e-margins">
-            <div class="ibox-title">
-                <h5>大图素材 </h5>
-                <div class="ibox-tools">
-                </div>
-            </div>
             <div class="ibox-content">
                 <div class="row">
                     <div class="col-sm-7 b-r" style="height: 160px">
@@ -315,7 +310,7 @@
             area: ['60%', '50%'],
             content: $('#addLable'),
             btn: ['确定', '取消'], // 按钮
-            yes: function(index, layero){
+            yes: function(addLabel, layero){
                 layer.msg('确定添加？', {
                     time: 0 //不自动关闭
                     ,btn: ['确定', '取消']
@@ -328,7 +323,7 @@
                         if(requestCode === 0){
                             getListLabel();
                             layer.close(index);
-                            layer.closeAll();
+                            layer.close(addLabel);
                             layer.msg('添加成功');
                         }else {
                             layer.msg(requestMessage);
@@ -339,7 +334,7 @@
         });
     }
 
-    //添加标签
+    //编辑标签
     function editLabel(){
         if(0 === Label_id){
             layer.msg('请选择标签')
@@ -352,7 +347,7 @@
                 area: ['60%', '50%'],
                 content: $('#addLable'),
                 btn: ['确定', '取消'], // 按钮
-                yes: function(index, layero){
+                yes: function(editLabel, layero){
                     layer.msg('确定修改？', {
                         time: 0 //不自动关闭
                         ,btn: ['确定', '取消']
@@ -366,7 +361,7 @@
                             if(requestCode === 0){
                                 getListLabel();
                                 layer.close(index);
-                                layer.closeAll();
+                                layer.close(editLabel);
                                 layer.msg('修改成功');
                             }else {
                                 layer.msg(requestMessage);
@@ -393,7 +388,7 @@
             //var html = "<option value='"+item.id+"'>"+item.name+"</option>";
             var html = '<div class="col-sm-4 img_div">\n' +
                 '            <div>\n' +
-                '                <img class="img_s" src="'+__IMG__+item.img_url+'" alt="">\n' +
+                '                <img class="img_s" src="'+__IMG__+item.img_url+'" alt="" onclick="checkedImg('+item.id+')">\n' +
                 '            </div>\n' +
                 '            <div class="right_font">\n' +
                 '                <span style="margin-right: 10px" onclick="delImgMaterIal('+item.id+')">删除</span>\n' +
@@ -407,6 +402,7 @@
 
     //选择素材插入
     function checkedImg(id) {
+        $('#upload-list').empty();
         let img_url = $('#m_d_'+id).val();
         var html = '<div  onclick="delImg(this)" ><img name="head_img" data_name="'+__IMG__+ img_url+'" src="'+__IMG__+ img_url+'"></div>';
         $('#upload-list').append(html);

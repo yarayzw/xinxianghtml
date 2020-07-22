@@ -151,6 +151,20 @@
     </div>
 </div>
 
+<div class="row" id="addLink" style="display: none">
+    <div class="ibox-content">
+        <form class="form-horizontal m-t"  method="post">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">备注 :</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="description" id="description" value=""  />
+                    <!--                            required="" aria-required="false"-->
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
 </body>
 
 <script src="../js/jquery.min.js?v=2.1.4"></script>
@@ -446,23 +460,37 @@
         if(wechat_config_id === '-1' || material_memo_id === '-1'){
             layer.msg('请选择公众号和小说前序');
         }else {
-            layer.msg('确定创建二维码？', {
-                time: 0 //不自动关闭
-                ,btn: ['确定', '取消']
-                ,yes: function(index){
-                    requestData.data = {
-                        'wechat_config_id' :  wechat_config_id,
-                        'material_memo_id' :  material_memo_id,
-                    };
-                    ajaxGo('admin/link/addZZYLinkOn');
-                    if(requestCode === 0){
-                        fac_search();
-                        layer.msg('生成成功!');
-                    }else {
-                        layer.msg(requestMessage);
-                    }
+            layer.open({
+                type: 1,
+                title: '备注',
+                shadeClose: true,
+                shade: 0.8,
+                area: ['80%', '80%'],
+                content: $('#addLink'),
+                btn: ['确定', '取消'], // 按钮
+                yes: function(addLink, layero){
+                    layer.msg('确定创建二维码？', {
+                        time: 0 //不自动关闭
+                        ,btn: ['确定', '取消']
+                        ,yes: function(index){
+                            requestData.data = {
+                                'wechat_config_id' :  wechat_config_id,
+                                'material_memo_id' :  material_memo_id,
+                                'name' : $('#description').val()
+                            };
+                            ajaxGo('admin/link/addZZYLinkOn');
+                            if(requestCode === 0){
+                                fac_search_link();
+                                layer.msg('创建成功!');
+                                layer.close(index);
+                            }else {
+                                layer.msg(requestMessage);
+                            }
+                        }
+                    });
                 }
             });
+
         }
     }
 
