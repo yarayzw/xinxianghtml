@@ -13,6 +13,7 @@ function addViewGo() {
         'cert_name' : $("input[name='cert_name']").val(),
         'account' : $("input[name='account']").val(),
         'password' : $("input[name='password']").val(),
+        'reb_rate' : $("input[name='reb_rate']").val(),
     }
     ajaxGo('admin/user_thirdparty_info/addUserThirdpartyInfo')
 }
@@ -33,6 +34,7 @@ function editViewGo(id) {
         'cert_name' : $("input[name='cert_name']").val(),
         'account' : $("input[name='account']").val(),
         'password' : $("input[name='password']").val(),
+        'reb_rate' : $("input[name='reb_rate']").val(),
     }
     console.log(requestData.data)
     ajaxGo('admin/user_thirdparty_info/editUserThirdpartyInfo')
