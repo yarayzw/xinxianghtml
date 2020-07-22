@@ -77,18 +77,32 @@ function initTable() {
             },
             {
                 field: 'name',
-                title: '素材名称',
+                title: '小说名称',
                 width : '10%',
                 align: 'center'
             },
             {
                 field: 'short_name',
-                title: '素材简称',
+                title: '小说简称',
                 align: 'center'
             },
             {
                 field: 'title',
-                title: '素材标题',
+                title: '小说标题',
+                formatter: function(value,row,index){
+                    return value;
+                }
+            },
+            {
+                field: 'thirdparty_m_id',
+                title: '第三方id',
+                formatter: function(value,row,index){
+                    return value;
+                }
+            },
+            {
+                field: 'chapter',
+                title: '第三方章节',
                 formatter: function(value,row,index){
                     return value;
                 }
@@ -173,6 +187,8 @@ function editMaterial(obj) {
     $("input[name='name']").val(requestData.data.name);
     $("input[name='title']").val(requestData.data.title);
     $("input[name='short_name']").val(requestData.data.short_name);
+    $("input[name='thirdparty_m_id']").val(requestData.data.thirdparty_m_id);
+    $("input[name='chapter']").val(requestData.data.chapter);
 
     let head_img =requestData.data.head_img.split('@@@');
     $('#upload-list').empty();
