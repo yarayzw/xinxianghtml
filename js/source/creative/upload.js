@@ -72,15 +72,35 @@ function add() {
                 time: 0 //不自动关闭
                 ,btn: ['确定', '取消']
                 ,yes: function(index){
-                    toAdd();
-                    if(requestCode === 0){
-                        layer.close(index);
-                        layer.closeAll();
-                        layer.msg(requestMessage);
-                        window.location.reload();
-                    }else {
-                        layer.msg(requestMessage);
-                    }
+                    requestData.data = $("#add").find("form").serializeJson();
+                    var img_type=requestData.data.img_type;
+                    var contentimg=requestData.data.contentimg;
+                    var imgObj=new Image();
+                    imgObj.src=contentimg;
+                    imgObj.onload=function () {
+                        var w=imgObj.width;
+                        var h=imgObj.height;
+                        if (img_type==1){//180*100
+                            if (w!=180||h!==100){
+                                $.modal.msgError('图片不符合规定');
+                                return;
+                            }
+                        }else {
+                            if (w!=660||h!==220){
+                                $.modal.msgError('图片不符合规定');
+                                return;
+                            }
+                        }
+                        ajaxGo('admin/source_creative/add');
+                        if(requestCode === 0){
+                            layer.close(index);
+                            layer.closeAll();
+                            layer.msg(requestMessage);
+                            window.location.reload();
+                        }else {
+                            layer.msg(requestMessage);
+                        }
+                    };
                 }
             });
 
@@ -120,15 +140,36 @@ function edit(id) {
                 time: 0 //不自动关闭
                 ,btn: ['确定', '取消']
                 ,yes: function(index){
-                    toEdit(id);
-                    if(requestCode === 0){
-                        layer.close(index);
-                        layer.closeAll();
-                        layer.msg(requestMessage);
-                        $window.location.reload();
-                    }else {
-                        layer.msg(requestMessage);
-                    }
+                    requestData.data = $("#edit").find("form").serializeJson();
+                    requestData.data.id=id;
+                    var img_type=requestData.data.img_type;
+                    var contentimg=requestData.data.contentimg;
+                    var imgObj=new Image();
+                    imgObj.src=contentimg;
+                    imgObj.onload=function () {
+                        var w=imgObj.width;
+                        var h=imgObj.height;
+                        if (img_type==1){//180*100
+                            if (w!=180||h!==100){
+                                $.modal.msgError('图片不符合规定');
+                                return;
+                            }
+                        }else {
+                            if (w!=660||h!==220){
+                                $.modal.msgError('图片不符合规定');
+                                return;
+                            }
+                        }
+                        ajaxGo('admin/source_creative/edit');
+                        if(requestCode === 0){
+                            layer.close(index);
+                            layer.closeAll();
+                            layer.msg(requestMessage);
+                            window.location.reload();
+                        }else {
+                            layer.msg(requestMessage);
+                        }
+                    };
                 }
             });
 
@@ -649,8 +690,23 @@ function getMaterialList()
 function checkedImg(id) {
     let img_url = __IMG__+$('#m_d_'+id).val();
     $('input[name=contentimg]').val(img_url).trigger('change');
+
     $.modal.msgSuccess('选择成功');
 }
+//检查图片尺寸
+$(function () {
+    $('input[name=contentimg]').change(function () {
+        var src=$(this).val();
+        var imgObj=new Image();
+        imgObj.src=src;
+        imgObj.onload=function () {
+            var w=imgObj.width;
+            var h=imgObj.height;
+            console.log(w);
+            console.log(h)
+        }
+    });
+});
 
 //删除素材
 function delImgMaterIal(id)
