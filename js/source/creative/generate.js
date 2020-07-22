@@ -52,6 +52,10 @@ $(function() {
                 }
             },
             {
+                title: '公众号',
+                field: 'wechat_names',
+            },
+            {
                 title: '数据报表',
                 formatter:function(value,row,index){
                     return '<a href="../../../source/creative/report.html?id='+row.id+'" target="_blank">查看</a>';
