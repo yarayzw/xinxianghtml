@@ -260,8 +260,11 @@
     });
 
     //打开素材库
+    let Label_type = 0;
+
     function openMaterial()
     {
+        Label_type = 2;
         layer.open({
             type: 1,
             title: '大图素材',
@@ -285,7 +288,9 @@
 
     //获取用户所有标签
     function getListLabel() {
-        requestData.data = {};
+        requestData.data = {
+            'type' : Label_type
+        };
         ajaxGo('admin/source_tag/getAllList');
         $('#label_list').empty();
         requestData.data.forEach((item,index,array)=>{
@@ -317,7 +322,8 @@
                     ,yes: function(index){
                         requestData.data = {
                             'name' : $('#label_name').val(),
-                            'sort_order' : 0
+                            'sort_order' : 0,
+                            'type' : Label_type
                         };
                         ajaxGo('admin/source_tag/add');
                         if(requestCode === 0){
