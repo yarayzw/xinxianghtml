@@ -421,6 +421,9 @@ $("#uploadBatchBtn").click(function () {
             setCampaignName();
             return;
         }
+        var load = layer.load(1, {
+            shade: [0.1,'#fff'] //0.1透明度的白色背景
+        });
        var creativeId=$('input[type=radio][name=id]:checked').val();
         if (!creativeId){
             throw new Error('请选择创意');
@@ -462,8 +465,10 @@ $("#uploadBatchBtn").click(function () {
         landingPage.attr('readonly','readonly');
         $(this).attr('disabled','disabled');
         $.modal.alertSuccess(requestMessage);
+        layer.close(load);
     }catch (e) {
         $.modal.alertWarning(e.message);
+        layer.close(load);
     }
 
 
@@ -521,6 +526,7 @@ function uploadSingle(obj) {
     }catch (e) {
         $.modal.alertWarning(e.message);
         $(obj).parent().find('.glyphicon').show();
+        layer.close(load);
     }
 }
 /**
@@ -536,7 +542,9 @@ $(function () {
 });
 function setTagList()
 {
-    requestData.data = {};
+    requestData.data = {
+        type:3
+    };
     ajaxGo('admin/source_tag/getAllList');
     requestData.data.forEach((item,index,array)=>{
         var html='<div class="radio-inline"><label><input type="radio" name="tag_id" value="'+item.id+'">'+item.name+'</label></div>';
