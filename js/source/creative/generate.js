@@ -38,33 +38,23 @@ $(function() {
                 title: '名字',
                 width:550,
                 formatter:function(value,row,index){
-                    var html='<a href="'+row.link+'" target="_blank" style="color: black;"><div style="display: flex"><div><img src="'+row.contentimg+'" style="width: auto;height: 80px;"></div><div style="flex: 1;margin-left: 10px;display: flex;flex-direction: column;justify-content: space-between;"><div style="width: 100%;">'+value+'</div><div style="display: flex;"><div>尺寸：'+(row.img_type==1?'180*100':'660*220')+'</div><div style="flex: 1;display: flex;justify-content: flex-end;">时间：'+row.create_at+'</div></div></div></div></a>';
+                    var html='<div style="display: flex"><div><img src="'+row.contentimg+'" style="width: auto;height: 80px;"></div><div style="flex: 1;margin-left: 10px;display: flex;flex-direction: column;justify-content: space-between;"><div style="width: 100%;">'+value+'</div><div style="display: flex;"><div>尺寸：'+(row.img_type==1?'180*100':'660*220')+'</div><div style="flex: 1;display: flex;justify-content: flex-end;">时间：'+row.create_at+'</div></div></div></div>';
                     return html;
                 }
             },
             {
-                field: 'account',
-                title: '360账户'
-            },
-            {
-                field: 'alt',
-                title: '公众号'
+                title: '360账户',
+                formatter:function (value,row,index) {
+                    var thirdpartyInfo=row.thirdpartyInfo;
+                    if (thirdpartyInfo) {
+                        return thirdpartyInfo.name;
+                    }
+                }
             },
             {
                 title: '数据报表',
                 formatter:function(value,row,index){
                     return '<a href="../../../source/creative/report.html?id='+row.id+'" target="_blank">查看</a>';
-                }
-            },
-            {
-                field:'status',
-                title: '状态',
-                formatter:function(value,row,index){
-                    var html='<span style="color: green;">已开启</span>';
-                    if (value==1){
-                        html='<span style="color: red;">已关闭</span>';
-                    }
-                    return html;
                 }
             },
             {
