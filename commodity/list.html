@@ -588,9 +588,9 @@
         ajaxGo('admin/material_memo/getListToSelect')
         requestData.data.forEach((item,index,array)=>{
             //执行代码
-            //var html = "<option value='"+item.id+"'>"+item.name+"</option>";
             var html="<div class='radio-inline'><label><input type='radio' name='material' value='"+item.id+"'>"+item.name+"</label></div>";
             $('#material').append(html);
+            var html = "<option value='"+item.id+"'>"+item.name+"</option>";
             $('#material_update').append(html);
 
             //执行代码 二维码
@@ -599,6 +599,7 @@
 
         });
         $('#material_memo_s').selectpicker('refresh');
+        $('#material_update').selectpicker('refresh');
 
         //pc模版
         requestData.data = {
@@ -607,11 +608,12 @@
         ajaxGo('admin/view/getListToSelect')
         requestData.data.forEach((item,index,array)=>{
             //执行代码
-            //var html = "<option value='"+item.id+"'>"+item.name+"</option>";
             var html="<div class='radio-inline'><label><input type='radio' name='view' value='"+item.id+"'>"+item.name+"</label></div>";
             $('#view').append(html);
+            var html = "<option value='"+item.id+"'>"+item.name+"</option>";
             $('#view_update').append(html);
         });
+        $('#view_update').selectpicker('refresh');
 
         //移动模版
         requestData.data = {
@@ -620,11 +622,13 @@
         ajaxGo('admin/view/getListToSelect')
         requestData.data.forEach((item,index,array)=>{
             //执行代码
-            //var html = "<option value='"+item.id+"'>"+item.name+"</option>";
             var html="<div class='radio-inline'><label><input type='radio' name='mobile_view' value='"+item.id+"'>"+item.name+"</label></div>";
             $('#mobile_view').append(html);
+            var html = "<option value='"+item.id+"'>"+item.name+"</option>";
             $('#mobile_view_update').append(html);
         });
+        $('#mobile_view_update').selectpicker('refresh');
+
 
         ajaxGo('admin/user_thirdparty_info/getListToSelect')
         requestData.data.forEach((item,index,array)=>{
@@ -768,7 +772,7 @@
                 },
                 {
                     field: 'material_name',
-                    title: '素材名称',
+                    title: '前序名称',
                     formatter: function(value,row,index){
                         var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="updateMaterial(this)" >'+value+'</a>';
                         return f;
@@ -787,15 +791,11 @@
                     field: 'tj_url',
                     title: '统计',
                     align: 'center',
-                    width : '4%',
+                    width : '6%',
                     formatter: function(value,row,index){
-                        var t='<a  data_id="'+row.id+'" data_platform_id="'+row.platform_id+'" onclick="lookTj(this)" >查看</a>';
-                        return t;
-                        // if(value !== ''){
-                        //     return  '有'+f;
-                        // }else {
-                        //     return '无';
-                        // }
+                        var t='<a  data_id="'+row.id+'" data_platform_id="'+row.platform_id+'" onclick="lookTj(this)" >查看</a> ';
+                        var f='<a href="../../../source/creative/report.html?page_id='+row.id+'" target="_blank">报表</a>';
+                        return t+f;
                     }
                 },
 
