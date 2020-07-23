@@ -125,6 +125,11 @@ function initTable() {
             },
 
             {
+                field: 'reb_rate',
+                title: '返点比例（%）'
+            },
+
+            {
                 field: 'operate',
                 title: '操作',
                 width : '10%',
@@ -209,6 +214,7 @@ function editView(obj) {
     $("input[name=cert_name]").val(data.cert_name);
     $("input[name=account]").val(data.account);
     $("input[name=password]").val(data.password);
+    $("input[name=reb_rate]").val(data.reb_rate);
     layer.open({
         type: 1,
         title: '编辑',
