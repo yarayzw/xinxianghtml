@@ -58,7 +58,7 @@ $(function() {
             {
                 title: '数据报表',
                 formatter:function(value,row,index){
-                    return '<a href="../../../source/creative/report.html?id='+row.id+'" target="_blank">查看</a>';
+                    return '<a href="../../../source/creative/report.html?gen_id='+row.id+'" target="_blank">查看</a>';
                 }
             },
             {
