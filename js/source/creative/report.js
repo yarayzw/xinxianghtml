@@ -1,6 +1,8 @@
-var id=0;
+var genId=0;
+var pageId=0;
 $(function() {
-    id=getQueryString(window.location.href,"id");
+    genId=getQueryString(window.location.href,"gen_id");
+    pageId=getQueryString(window.location.href,"page_id");
     var options = {
         url: __ROOT__+"admin/source_report/getList",
         pagination: true, //启动分页
@@ -38,8 +40,10 @@ $(function() {
                 sortOrder: "desc",
                 head : {'token' : getCookie('token')},
             };
-            if (id){
-                params.filter=' and gen_id='+id+' and is_master=1';
+            if (pageId){
+                params.filter=' and page_id='+pageId+' and is_master=1';
+            }else if (genId){
+                params.filter=' and gen_id='+genId+' and is_master=1';
             }
             return params;
         },
@@ -190,8 +194,10 @@ $(function() {
                 sortOrder: "desc",
                 head : {'token' : getCookie('token')},
             };
-            if (id){
-                params.filter=' and gen_id='+id+' and is_master=0';
+            if (pageId){
+                params.filter=' and page_id='+pageId+' and is_master=0';
+            }else if (genId){
+                params.filter=' and gen_id='+genId+' and is_master=0';
             }
             return params;
         },
@@ -288,9 +294,12 @@ $(function() {
  */
 function getNewData() {
     try {
-        requestData.data={
-            gen_id:id
+        var data={
+            gen_id:genId,
+            page_id: pageId
         };
+        requestData.data=data;
+        console.log(data)
         ajaxGo('admin/source_report/getNewData');
         var data=requestData.data;
         console.log(data)

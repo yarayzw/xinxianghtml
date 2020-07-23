@@ -478,14 +478,14 @@ $("#uploadBatchBtn").click(function () {
  * 单个上传
  */
 function uploadSingle(obj) {
-    var load = layer.load(1, {
-        shade: [0.1,'#fff'] //0.1透明度的白色背景
-    });
     try {
         if (!campaignName){
             setCampaignName();
             return;
         }
+        var load = layer.load(1, {
+            shade: [0.1,'#fff'] //0.1透明度的白色背景
+        });
         $(obj).parent().find('.glyphicon').hide();
         var creativeId=$('input[type=radio][name=id]:checked').val();
         if (!creativeId){
