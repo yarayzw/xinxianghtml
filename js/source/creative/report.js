@@ -3,6 +3,23 @@ var pageId=0;
 $(function() {
     genId=getQueryString(window.location.href,"gen_id");
     pageId=getQueryString(window.location.href,"page_id");
+    //获取表头数据
+    requestData.data={
+        page_id:pageId,
+        gen_id:genId
+    };
+    ajaxGo('admin/source_report/getTitleInfo');
+    if (requestCode==0) {
+        var data = requestData.data;
+        var $header = $('<div class="col-sm-12" style="color:red;font-weight: bold;font-size: 2rem;"></div>');
+        $header.append('<span>360账户：' + data.thirdpatry_accounts + '</span>');
+        $header.append('<span style="margin-left: 30px;">运营：' + data.oper_user_names + '</span>');
+        $header.append('<span style="margin-left: 30px;">小说：' + data.material_names + '</span>');
+        $header.append('<span style="margin-left: 30px;">公众号：' + data.wechat_names + '</span>');
+        $(".row .col-sm-12:eq(0)").before($header);
+        console.log($header.toString())
+
+    }
     var options = {
         url: __ROOT__+"admin/source_report/getList",
         pagination: true, //启动分页
@@ -29,7 +46,12 @@ $(function() {
                     var data=requestData.data;
                     console.log(data)
                 }
-            })
+            });
+            $('[data-field="fup"]').attr('style','color:red;');
+            $('[data-field="rer"]').attr('style','color:red;');
+            $('[data-field="hex"]').attr('style','color:red;');
+            $('[data-field="hif"]').attr('style','color:red;');
+            $('[data-field="hup"]').attr('style','color:red;');
         },
         queryParams: function queryParams(params) {   //设置查询参数
             params = {
@@ -118,11 +140,14 @@ $(function() {
             },
             {
                 field: 'fup',
-                title: '粉丝单价'
+                title: '粉丝单价',
+                cellStyle:{css:{color:'red'}}
+
             },
             {
                 field: 'rer',
-                title: '回本率'
+                title: '回本率',
+                cellStyle:{css:{color:'red'}}
             },
             {
                 field: 'sfr',
@@ -134,15 +159,18 @@ $(function() {
             },
             {
                 field: 'hex',
-                title: '时消耗'
+                title: '时消耗',
+                cellStyle:{css:{color:'red'}}
             },
             {
                 field: 'hif',
-                title: '时进粉'
+                title: '时进粉',
+                cellStyle:{css:{color:'red'}}
             },
             {
                 field: 'hup',
-                title: '时单价'
+                title: '时单价',
+                cellStyle:{css:{color:'red'}}
             },/*
             {
                 title: '状态',
@@ -178,10 +206,10 @@ $(function() {
     $('#grid').bootstrapTable(options);
 
     //table2
-    var options = {
+    var options2 = {
         url: __ROOT__+"admin/source_report/getList",
         pagination: true, //启动分页
-        pageList: [5, 10, 15, 20],  //记录数可选列表
+        pageList: [50, 100, 150, 200],  //记录数可选列表
         sidePagination: "server", //表示服务端请求
         queryParamsType : "undefined",
         showToggle:false,
@@ -259,11 +287,13 @@ $(function() {
             },
             {
                 field: 'fup',
-                title: '粉丝单价'
+                title: '粉丝单价',
+                cellStyle:{css:{color:'red'}}
             },
             {
                 field: 'rer',
-                title: '回本率'
+                title: '回本率',
+                cellStyle:{css:{color:'red'}}
             },
             {
                 field: 'sfr',
@@ -275,18 +305,21 @@ $(function() {
             },
             {
                 field: 'hex',
-                title: '时消耗'
+                title: '时消耗',
+                cellStyle:{css:{color:'red'}}
             },
             {
                 field: 'hif',
-                title: '时进粉'
+                title: '时进粉',
+                cellStyle:{css:{color:'red'}}
             },
             {
                 field: 'hup',
-                title: '时单价'
+                title: '时单价',
+                cellStyle:{css:{color:'red'}}
             }]
     };
-    $('#grid2').bootstrapTable(options);
+    $('#grid2').bootstrapTable(options2);
 });
 
 /**
