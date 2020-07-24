@@ -127,11 +127,31 @@
                     <input type="text" class="form-control" name="timing" value=""  />
                 </div>
             </div>
-            <div class="form-group">
+            <!--<div class="form-group">
                 <label class="col-sm-3 control-label">公众号 :<br><br><span style="cursor:pointer;color: #39aef5" onclick="wechatIdSelect(1)">全选</span> | <span style="cursor:pointer;color: #39aef5" onclick="wechatIdSelect(2)">反选</span> | <span style="cursor:pointer;color: #39aef5" onclick="wechatIdSelect(3)">取消</span></label>
                 <div class="col-sm-8" id="wechat_ids">
-
                 </div>
+            </div>-->
+            <div class="form-group">
+                <label class="col-sm-3 control-label">
+                    公众号(未使用) :<br/><br/>
+                    <a href="javascript:void(0);" class="select-wechat-all">全选</a>|<a href="javascript:void(0);" class="select-wechat-invert">反选</a>|<a href="javascript:void(0);" class="select-wechat-cancel">取消</a>
+                </label>
+                <div class="col-sm-8" id="wechat_ids_1"></div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">
+                    公众号(使用中) :<br/><br/>
+                    <a href="javascript:void(0);" class="select-wechat-all">全选</a>|<a href="javascript:void(0);" class="select-wechat-invert">反选</a>|<a href="javascript:void(0);" class="select-wechat-cancel">取消</a>
+                </label>
+                <div class="col-sm-8" id="wechat_ids_2"></div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">
+                    公众号(已打满) :<br/><br/>
+                    <a href="javascript:void(0);" class="select-wechat-all">全选</a>|<a href="javascript:void(0);" class="select-wechat-invert">反选</a>|<a href="javascript:void(0);" class="select-wechat-cancel">取消</a>
+                </label>
+                <div class="col-sm-8" id="wechat_ids_3"></div>
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label">支付状态 :</label>
@@ -158,13 +178,10 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label">openid :</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control" name="openid" value=""  />
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label"></label>
-                <div class="col-sm-8">
-                    <button class="btn btn-default" type="button" onclick="testSend()">测试发送</button>
+                    <div class="row">
+                        <div class="col-lg-8 col-sm-8 col-xs-8"><input type="text" class="form-control" name="openid" value=""  /></div>
+                        <div class="col-lg-4 col-sm-4 col-xs-4"><button class="btn btn-default" type="button" onclick="testSend()">测试发送</button></div>
+                    </div>
                 </div>
             </div>
         </form>
@@ -194,7 +211,29 @@
 <script src="../js/index.js"></script>
 <script src="../js/plugins/bootstrap-select-1.13.9/js/bootstrap-select.js"></script>
 
-
+<script>
+    $(function () {
+        //全选
+        $(document).on('click','.select-wechat-all',function () {
+            $(this).parent('label').next('div').find('input').prop('checked','checked');
+        });
+        //反选
+        $(document).on('click','.select-wechat-invert',function () {
+            $(this).parent('label').next('div').find('input').each(function () {
+                if($(this).prop("checked"))
+                {
+                    $(this).prop("checked",false);
+                }else{
+                    $(this).prop("checked",true);
+                }
+            });
+        });
+        //取消
+        $(document).on('click','.select-wechat-cancel',function () {
+            $(this).parent('label').next('div').find('input').prop('checked',false);
+        });
+    });
+</script>
 <script>
 
     //公众号选择 1全选2反选3取消全选
@@ -254,17 +293,28 @@
         });
         $('#wechat_msg_config_id').selectpicker('refresh');
 
+
+        setWechatIds(1);
+        setWechatIds(2);
+        setWechatIds(3);
+    }
+
+    /**
+     * 设置选择公众号
+     */
+    function setWechatIds(status) {
         //公众号
         requestData.data = {
-            'type' : 1
+            'type' : 1,
+            status:status,
         };
         ajaxGo('admin/wechat_config/getListToSelect')
         requestData.data.forEach((item,index,array)=>{
             //执行代码
-            var html = '<input type="checkbox"  name="wechat_ids" style="margin-left: 7px" value="'+item.id+'"> <i></i> '+item.wechat_name+'\n';
+            var html = '<label style="font-weight: normal;"><input type="checkbox"  name="wechat_ids" style="margin-left: 7px" value="'+item.id+'"> <i></i> '+item.wechat_name+'\n'+'</label>';
 
             // var html = "<option value='"+item.id+"'>"+item.wechat_name+"</option>";
-            $('#wechat_ids').append(html);
+            $('#wechat_ids_'+status).append(html);
         });
         // $('#wechat_ids').selectpicker('refresh');
     }

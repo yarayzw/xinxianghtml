@@ -142,6 +142,20 @@ function initTable() {
                 title: '渠道密码'
             },
             {
+                field: 'status',
+                title: '状态',
+                formatter: function(value,row,index){
+                    switch (value) {
+                        case 1:
+                            return '未使用';
+                        case 2:
+                            return '使用中';
+                        case 3:
+                            return '已打满';
+                    }
+                }
+            },
+            {
                 field: 'operate',
                 title: '操作',
                 width : '10%',
@@ -205,6 +219,7 @@ function editView(obj) {
     }
     ajaxGo('admin/wechat_config/getConfigInfo');
 
+    console.log(requestData.data)
     $("input[name='wechat_name']").val(requestData.data.wechat_name);
     $("input[name='name']").val(requestData.data.name);
     $("input[name='regtime']").val(requestData.data.regtime);
@@ -219,7 +234,8 @@ function editView(obj) {
     $("input[name='channel_password']").val(requestData.data.channel_password);
     $('#bind_user_id').selectpicker('val',(requestData.data.bind_user_id));
 
-    $("input[type=radio][name=channel_config_id][value='"+requestData.data.channel_config_id+"']").attr("checked",'checked');
+    $("input[type=radio][name=channel_config_id][value='"+requestData.data.channel_config_id+"']").prop("checked",'checked');
+    $("input[name=status][value='"+requestData.data.status+"']").prop("checked",'checked');
 
 
     layer.open({
