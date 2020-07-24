@@ -448,6 +448,8 @@
         $("input[name='name']").val(requestData.data.name);
         $('#type').selectpicker('val',(requestData.data.type));
         editor.setValue(requestData.data.info);
+        //$("#editor").text(requestData.data.info)
+        $(".simditor-body").html(requestData.data.info)
 
         layer.open({
             type: 1,
@@ -620,5 +622,39 @@
             value:moment().format('YYYY-MM-DD HH:mm:ss')
         });
     })
+</script>
+<script src="../js/util.js"></script>
+<script src="../js/plugins/art-template/template-web.min.js"></script>
+<script id="icon-wrap" type="text/html">
+    <table class="table table-bordered emoji-wrap">
+        <tbody>
+            {{each rows val key}}
+                {{if ((key%20)==0)}}<tr>{{/if}}
+                    <td><a href="javascript:void(0)"><img data-fonticon-id="{{val.id}}"  src="{{val.pic}}" class="img-thumbnail"></a></td>
+                {{if (((key+1)%20)==0)}}</tr>{{/if}}
+            {{/each}}
+        </tbody>
+    </table>
+</script>
+<script>
+    $(function () {
+        requestData={
+            pageNumber:1,
+            pageSize:200,
+            sortName:'id',
+            sortOrder:'desc'
+        };
+        ajaxGo('admin/font_icon/getList');
+        var data=requestData.data;
+        var html=template('icon-wrap',data);
+        //insertContent("插入emoji");
+       $('.simditor').before(html)
+        $(document).on('click','.emoji-wrap img',function () {
+            editor.focus();
+            var src=$(this).attr('src');
+            var id=$(this).attr('data-fonticon-id');
+            insertContent('<img data-fonticon-id="'+id+'" src="'+src+'" style="width: 50px;height: auto;"/>');
+        });
+    });
 </script>
 
