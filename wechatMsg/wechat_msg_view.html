@@ -70,14 +70,14 @@
                     <!--                            required="" aria-required="false"-->
                 </div>
             </div>
-            <div class="form-group">
+            <!--<div class="form-group">
                 <label class="col-sm-3 control-label">类型 :</label>
                 <div class="col-sm-8">
                     <select id="type" class="selectpicker" data-live-search="true">
                         <option value="1">文字</option>
                     </select>
                 </div>
-            </div>
+            </div>-->
             <div class="form-group">
                 <label class="col-sm-3 control-label">模版内容：</label>
                 <div class="col-sm-8">
@@ -377,7 +377,8 @@
 
         requestData.data = {
             'name' : $("input[name='name']").val(),
-            'type': $("#type").selectpicker('val'),
+            //'type': $("#type").selectpicker('val'),
+            type:1,
             'info' : content,
         }
         ajaxGo('admin/wechat_msg_view/addWechatMsgView')
@@ -446,7 +447,7 @@
         }
         ajaxGo('admin/wechat_msg_view/findInfoById')
         $("input[name='name']").val(requestData.data.name);
-        $('#type').selectpicker('val',(requestData.data.type));
+        //$('#type').selectpicker('val',(requestData.data.type));
         editor.setValue(requestData.data.info);
         //$("#editor").text(requestData.data.info)
         $(".simditor-body").html(requestData.data.info)
@@ -489,7 +490,8 @@
 
         requestData.data = {
             'id' : id,
-            'type' : $("#type").selectpicker('val'),
+            //'type' : $("#type").selectpicker('val'),
+            'type' : 1,
             'txt' :content,
             'name' :  $("input[name='name']").val(),
         }
