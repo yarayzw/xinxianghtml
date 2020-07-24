@@ -41,7 +41,7 @@
                             </div>
                             <div class="col-md-1">
                          <span class="input-group-btn">
-                            <button class="btn btn-default" type="button" onclick="addWechatMsgView()">添加</button>
+                            <button class="btn btn-primary" type="button" onclick="addWechatMsgView()">添加</button>
                         </span>
                             </div>
                         </div>
@@ -629,9 +629,9 @@
     <table class="table table-bordered emoji-wrap">
         <tbody>
             {{each rows val key}}
-                {{if ((key%20)==0)}}<tr>{{/if}}
-                    <td><a href="javascript:void(0)"><img data-fonticon-id="{{val.id}}"  src="{{val.pic}}" class="img-thumbnail"></a></td>
-                {{if (((key+1)%20)==0)}}</tr>{{/if}}
+                {{if ((key%15)==0)}}<tr>{{/if}}
+                    <td style="padding: 4px;" width="30" height="30" align="center"><a href="javascript:void(0)"><img data-fonticon-id="{{val.id}}"  src="{{val.pic}}" style="max-width: 30px;width: 100%;height: auto;margin:0 auto;"></a></td>
+                {{if (((key+1)%15)==0)}}</tr>{{/if}}
             {{/each}}
         </tbody>
     </table>
@@ -653,7 +653,8 @@
             editor.focus();
             var src=$(this).attr('src');
             var id=$(this).attr('data-fonticon-id');
-            insertContent('<img data-fonticon-id="'+id+'" src="'+src+'" style="width: 50px;height: auto;"/>');
+            insertContent('<img data-fonticon-id="'+id+'" src="'+src+'" style="width: 26px;height: auto;"/>');
+            $('.simditor-placeholder').text("");
         });
     });
 </script>
