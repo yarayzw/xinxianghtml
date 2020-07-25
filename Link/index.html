@@ -371,8 +371,9 @@
                     width : 20,
                     align: 'center',
                     formatter: function(value,row,index){
+                        var e='<a href="'+row.qr_code+'" target="view_window"  >查看二维码</a> ';
                         var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="delLink(this)" >删除</a>';
-                        return f;
+                        return e+f;
                     }
                 }
             ]
