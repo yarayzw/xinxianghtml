@@ -23,6 +23,7 @@ $(function() {
     var options = {
         url: __ROOT__+"admin/source_report/getList",
         pagination: true, //启动分页
+        pageSize:500,
         pageList: [500, 800, 1000, 1500],  //记录数可选列表
         toolbar:"#toolbar",
         sidePagination: "server", //表示服务端请求
