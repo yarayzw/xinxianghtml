@@ -422,11 +422,15 @@
 
     //提交落地页数据
     function addLinkGo() {
+        let qr_img='';
+        $("*[name='qr_img']").each(function(index,el){
+            qr_img = $(el).attr('data_name');
+        });
         requestData.data = {
             'description' :  $("input[name='description']").val(),
             'link_id' :  $("input[name='link_id']").val(),
             'url' :  $("input[name='url']").val(),
-            'img_url' :  $("input[name='qr_img']").attr('data_name'),
+            'img_url' :  qr_img,
             'wechat_config_id' :  $("input[type=radio][name=wechat_config_id]:checked").val(),
             'material_memo_id' :  $("input[type=radio][name=material_memo_id]:checked").val(),
         };
