@@ -799,17 +799,6 @@
                 },
 
                 {
-                    field: 'tj_url',
-                    title: '报表',
-                    align: 'center',
-                    width : '6%',
-                    formatter: function(value,row,index){
-                        var f='<a href="../../../source/creative/report.html?page_id='+row.id+'" target="_blank">报表</a>';
-                        return f;
-                    }
-                },
-
-                {
                     field: 'view_name',
                     title: 'pc模版',
                     align: 'center',
@@ -842,9 +831,10 @@
                         var a='<a mce_href="#" data_id="'+row.id+'" data_name="'+row.name+'" data_title="'+row.title+'" data_url="'+row.url+'"  onclick="editCommodity(this)" >编辑</a> ';
                         var e='<a mce_href="#" " data_url="'+row.url+'/'+row.pc_url+'""  onclick="preview(this)" >预览</a> ';
                         var d='<a mce_href="#" " data_url="'+row.url+'/'+row.ml_url+'"  onclick="preview(this)" >手机版</a> ';
-                        var f='<a mce_href="#" " data_id="'+row.id+'"  onclick="del(this)" >删除</a>';
+                        var f='<a mce_href="#" " data_id="'+row.id+'"  onclick="del(this)" >删除</a> ';
+                        var g='<a href="../../../source/creative/report.html?page_id='+row.id+'" target="_blank">报表</a>';
 
-                        return a+e+d+f;
+                        return a+e+d+f+g;
                     }
                 }
             ]
