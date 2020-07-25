@@ -37,8 +37,12 @@ $(function() {
                 }
             }
             if (masterNum>1) {
-                $('#grid').bootstrapTable('mergeCells', {index: 0, field: 'date', rowspan: masterNum});
-                $('#grid').bootstrapTable('mergeCells', {index: 0, field: 'time', rowspan: masterNum});
+                var mergeNum=((rows.length)/masterNum);
+                for (var i=1;i<=mergeNum;i++){
+                    var mergeIndex=(masterNum*i-1);
+                    $('#grid').bootstrapTable('mergeCells', {index:mergeIndex, field: 'date', rowspan: 2});
+                    $('#grid').bootstrapTable('mergeCells', {index:mergeIndex, field: 'time', rowspan: 2});
+                }
             }
             $('.switch').bootstrapSwitch({    //初始化按钮
                 onText:"开",
