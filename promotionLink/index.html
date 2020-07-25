@@ -274,7 +274,7 @@
                     align: 'center',
                     formatter: function(value,row,index){
                         return 'https://c'+row.channel_id_config+'.818tu.com/referrals/index/'+row.referral_link_id +'' +
-                            '<br/>首次支付时间:'+row.pay_time;
+                            '<br/>创建时间:'+row.link_create_time;
                     }
                 },
                 {
@@ -287,6 +287,7 @@
                     field: 'follow_num',
                     title: '关注人数',
                     width : 10,
+                    sortable:true,
                     align: 'center'
                 },
                 {
@@ -296,12 +297,13 @@
                     align: 'center',
                     sortable:true,
                     formatter: function(value,row,index){
-                        return value / 100;
+                        return value ;
                     }
                 },
                 {
                     field: 'recharge_num',
                     title: '充值笔数',
+                    sortable:true,
                     width : 10,
                     align: 'center'
                 },
@@ -309,6 +311,7 @@
                     field: 'consum',
                     title: '广告费',
                     width : 10,
+                    sortable:true,
                     align: 'center'
                 },
                 {
@@ -398,7 +401,7 @@
                     align: 'center',
                     sortable:true,
                     formatter: function(value,row,index){
-                        return value / 100;
+                        return value ;
                     }
                 },
                 {
