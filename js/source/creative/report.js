@@ -31,8 +31,8 @@ $(function() {
         onLoadSuccess: function (data) {
             var masterNum=0;
             var rows=data.rows;
-            for (var i=0;i<data.total;i++){
-                if ((rows[i].is_master)==1){
+            for (var i=0;i<rows.length;i++){
+                if ((rows[i]['is_master'])==1){
                     masterNum++;
                 }
             }
