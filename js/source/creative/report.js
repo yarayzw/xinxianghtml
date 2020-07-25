@@ -39,11 +39,12 @@ $(function() {
             if (masterNum>1) {
                 var mergeNum=((rows.length)/masterNum);
                 for (var i=1;i<=mergeNum;i++){
-                    var mergeIndex=(masterNum*i-1);
-                    $('#grid').bootstrapTable('mergeCells', {index:mergeIndex, field: 'date', rowspan: 2});
-                    $('#grid').bootstrapTable('mergeCells', {index:mergeIndex, field: 'time', rowspan: 2});
+                    var mergeIndex=(masterNum*i-masterNum);
+                    $('#grid').bootstrapTable('mergeCells', {index:mergeIndex, field: 'date', rowspan: masterNum});
+                    $('#grid').bootstrapTable('mergeCells', {index:mergeIndex, field: 'time', rowspan: masterNum});
                 }
             }
+
             $('.switch').bootstrapSwitch({    //初始化按钮
                 onText:"开",
                 offText:"关",
