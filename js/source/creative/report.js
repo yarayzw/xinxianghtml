@@ -23,14 +23,23 @@ $(function() {
     var options = {
         url: __ROOT__+"admin/source_report/getList",
         pagination: true, //启动分页
-        pageList: [5, 10, 15, 20],  //记录数可选列表
+        pageList: [200, 500, 700, 1000],  //记录数可选列表
         toolbar:"#toolbar",
         sidePagination: "server", //表示服务端请求
         queryParamsType : "undefined",
         showToggle:false,
         onLoadSuccess: function (data) {
-            $('#grid').bootstrapTable('mergeCells', {index: 0, field: 'date', rowspan: data.total});
-            $('#grid').bootstrapTable('mergeCells', {index: 0, field: 'time', rowspan: data.total});
+            var masterNum=0;
+            var rows=data.rows;
+            for (var i=0;i<data.total;i++){
+                if ((rows[i].is_master)==1){
+                    masterNum++;
+                }
+            }
+            if (masterNum>1) {
+                $('#grid').bootstrapTable('mergeCells', {index: 0, field: 'date', rowspan: masterNum});
+                $('#grid').bootstrapTable('mergeCells', {index: 0, field: 'time', rowspan: masterNum});
+            }
             $('.switch').bootstrapSwitch({    //初始化按钮
                 onText:"开",
                 offText:"关",
@@ -58,14 +67,14 @@ $(function() {
                 //这里是在ajax发送请求的时候设置一些参数 params有什么东西，自己看看源码就知道了
                 pageNumber: params.pageNumber,
                 pageSize: params.pageSize,
-                sortName: "id",
+                sortName: "is_master desc,id",
                 sortOrder: "desc",
                 head : {'token' : getCookie('token')},
             };
             if (pageId){
-                params.filter=' and page_id='+pageId+' and is_master=1';
+                params.filter=' and page_id='+pageId;
             }else if (genId){
-                params.filter=' and gen_id='+genId+' and is_master=1';
+                params.filter=' and gen_id='+genId;
             }
             return params;
         },
@@ -189,20 +198,22 @@ $(function() {
                 align: 'center',
                 width:90,
                 formatter: function(value, row, index) {
-                    var actions = [];
-                    var switchHtml="<input type='checkbox' class='switch' data-id='"+row.id+"'>";
-                    if (row.switchData==0){
-                        switchHtml="<input type='checkbox' class='switch' data-id='"+row.id+"' checked>";
+                    if (row.is_master==1) {
+                        var actions = [];
+                        var switchHtml = "<input type='checkbox' class='switch' data-id='" + row.id + "'>";
+                        if (row.switchData == 0) {
+                            switchHtml = "<input type='checkbox' class='switch' data-id='" + row.id + "' checked>";
+                        }
+                        actions.push(switchHtml);
+                        return actions.join('');
                     }
-                    actions.push(switchHtml);
-                    return actions.join('');
                 }
             }]
     };
     $('#grid').bootstrapTable(options);
 
     //table2
-    var options2 = {
+    /*var options2 = {
         url: __ROOT__+"admin/source_report/getList",
         pagination: true, //启动分页
         pageList: [50, 100, 150, 200],  //记录数可选列表
@@ -311,7 +322,7 @@ $(function() {
                 cellStyle:{css:{color:'red'}}
             }]
     };
-    $('#grid2').bootstrapTable(options2);
+    $('#grid2').bootstrapTable(options2);*/
 });
 
 /**
