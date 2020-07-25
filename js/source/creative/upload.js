@@ -567,7 +567,7 @@ function changeLabel(obj) {
 //获取用户所有标签
 function getListLabel() {
     requestData.data = {
-        'type' : 3
+        'type' : 2
     };
     ajaxGo('admin/source_tag/getAllList');
     $('.label_list_wrap').empty();
