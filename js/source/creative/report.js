@@ -23,7 +23,7 @@ $(function() {
     var options = {
         url: __ROOT__+"admin/source_report/getList",
         pagination: true, //启动分页
-        pageList: [200, 500, 700, 1000],  //记录数可选列表
+        pageList: [500, 800, 1000, 1500],  //记录数可选列表
         toolbar:"#toolbar",
         sidePagination: "server", //表示服务端请求
         queryParamsType : "undefined",
@@ -68,10 +68,12 @@ $(function() {
             $('[data-field="hup"]').attr('style','color:red;');
         },
         queryParams: function queryParams(params) {   //设置查询参数
+            console.log(params)
             params = {
                 //这里是在ajax发送请求的时候设置一些参数 params有什么东西，自己看看源码就知道了
                 pageNumber: params.pageNumber,
-                pageSize: params.pageSize,
+                //pageSize: params.pageSize,
+                pageSize: 500,
                 sortName: "is_master desc,id",
                 sortOrder: "desc",
                 head : {'token' : getCookie('token')},
