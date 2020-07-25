@@ -131,10 +131,6 @@ $(function() {
                 title: '订单'
             },
             {
-                field: 'on',
-                title: '订单'
-            },
-            {
                 field: 'rp',
                 title: '充值'
             },
@@ -272,10 +268,6 @@ $(function() {
             {
                 field: 'fn',
                 title: '关注'
-            },
-            {
-                field: 'on',
-                title: '订单'
             },
             {
                 field: 'on',
