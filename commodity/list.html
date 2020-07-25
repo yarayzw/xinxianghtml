@@ -794,8 +794,18 @@
                     width : '6%',
                     formatter: function(value,row,index){
                         var t='<a  data_id="'+row.id+'" data_platform_id="'+row.platform_id+'" onclick="lookTj(this)" >查看</a> ';
+                        return t;
+                    }
+                },
+
+                {
+                    field: 'tj_url',
+                    title: '报表',
+                    align: 'center',
+                    width : '6%',
+                    formatter: function(value,row,index){
                         var f='<a href="../../../source/creative/report.html?page_id='+row.id+'" target="_blank">报表</a>';
-                        return t+f;
+                        return f;
                     }
                 },
 
