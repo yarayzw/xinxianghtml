@@ -566,21 +566,26 @@ function changeLabel(obj) {
 }
 //获取用户所有标签
 function getListLabel() {
-    requestData.data = {
-        'type' : 3
+    var getList=function(type){
+        requestData.data = {
+            'type' : type
+        };
+        ajaxGo('admin/source_tag/getAllList');
+        console.log('==>'+requestData.data)
+        $('.label_list_wrap').empty();
+        requestData.data.forEach((item,index,array)=>{
+            //执行代码
+            //var html = "<option value='"+item.id+"'>"+item.name+"</option>";
+            if(item.id === Label_id){
+                var html = '<span class="label_list label_checked" style="cursor:pointer" onclick="changeLabel(this)" data_id = "'+item.id+'" >'+item.name+'</span>';
+            }else {
+                var html = '<span class="label_list" onclick="changeLabel(this)" style="cursor:pointer" data_id = "'+item.id+'" >'+item.name+'</span>';
+            }
+            $('.label_list_wrap_'+type).append(html);
+        });
     };
-    ajaxGo('admin/source_tag/getAllList');
-    $('.label_list_wrap').empty();
-    requestData.data.forEach((item,index,array)=>{
-        //执行代码
-        //var html = "<option value='"+item.id+"'>"+item.name+"</option>";
-        if(item.id === Label_id){
-            var html = '<span class="label_list label_checked" style="cursor:pointer" onclick="changeLabel(this)" data_id = "'+item.id+'" >'+item.name+'</span>';
-        }else {
-            var html = '<span class="label_list" onclick="changeLabel(this)" style="cursor:pointer" data_id = "'+item.id+'" >'+item.name+'</span>';
-        }
-        $('.label_list_wrap').append(html);
-    });
+    getList(2);
+    getList(3);
 }
 
 //添加标签
