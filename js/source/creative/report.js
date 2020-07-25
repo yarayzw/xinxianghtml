@@ -68,7 +68,6 @@ $(function() {
             $('[data-field="hup"]').attr('style','color:red;');
         },
         queryParams: function queryParams(params) {   //设置查询参数
-            console.log(params)
             params = {
                 //这里是在ajax发送请求的时候设置一些参数 params有什么东西，自己看看源码就知道了
                 pageNumber: params.pageNumber,
