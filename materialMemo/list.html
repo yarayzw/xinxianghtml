@@ -436,7 +436,7 @@
             var html = ' <tr>\n' +
                 '                                    <td>'+item.id+'</td>\n' +
                 '                                    </td>\n' +
-                '                                    <td><span style="cursor:pointer" onclick="checkedMaterial('+item.id+')">'+item.title+'</span> <span id="display_'+item.id+'" style="display:none;">'+item.info+'</span></td>\n' +
+                '                                    <td><span style="cursor:pointer" onclick="checkedMaterial('+item.id+')">'+item.title+'</span> <span id="display_'+item.id+'" data_title="'+item.title+'" style="display:none;">'+item.info+'</span></td>\n' +
                 '                                    <td><span style="cursor:pointer" onclick="checkedImg('+item.id+')">使用此素材</span></td>\n' +
                 '                                    <td><span style="cursor:pointer" onclick="updateMaterialSc('+item.id+')">保存编辑</span></td>\n' +
                 '                                    <td><span style="cursor:pointer" onclick="delMaterialSc('+item.id+')">删除</span></td>\n' +
@@ -452,6 +452,7 @@
 
     function checkedImg(id){
         editor.setValue($('#display_'+id).html());
+        $("input[name='name']").val($('#display_'+id).attr('data_title'));
         layer.msg('使用成功!');
     }
 
