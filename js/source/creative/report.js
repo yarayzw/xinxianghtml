@@ -3,6 +3,11 @@ var pageId=0;
 $(function() {
     genId=getQueryString(window.location.href,"gen_id");
     pageId=getQueryString(window.location.href,"page_id");
+    if (pageId>0){
+        $('#toolbar').append('<a class="btn btn-primary" onclick="add()">\n' +
+            '                                <i class="fa fa-plus"></i> 新增\n' +
+            '                            </a>');
+    }
     //获取表头数据
     requestData.data={
         page_id:pageId,
@@ -44,6 +49,22 @@ $(function() {
                     $('#grid').bootstrapTable('mergeCells', {index:mergeIndex, field: 'date', rowspan: masterNum});
                     $('#grid').bootstrapTable('mergeCells', {index:mergeIndex, field: 'time', rowspan: masterNum});
                 }
+            }
+            //设置背景
+            if (masterNum>1) {
+                $('.bootstrap-table tbody tr td[rowspan]').each(function () {
+                    var index = parseInt($(this).parent('tr').attr('data-index'));
+                    if (index % (masterNum * 2) != 0) {
+                        $(this).parents('tbody').children('tr').slice(index, index + masterNum).attr('style', 'background:lightyellow;');
+                    }
+                });
+            }else {
+                $('.bootstrap-table tbody tr').each(function () {
+                    var index = parseInt($(this).attr('data-index'));
+                    if (index%2!=0){
+                        $(this).attr('style', 'background:lightyellow;');
+                    }
+                });
             }
 
             $('.switch').bootstrapSwitch({    //初始化按钮
@@ -207,9 +228,12 @@ $(function() {
                 formatter: function(value, row, index) {
                     if (row.is_master==1) {
                         var actions = [];
-                        var switchHtml = "<input type='checkbox' class='switch' data-id='" + row.id + "'>";
                         if (row.switchData == 0) {
                             switchHtml = "<input type='checkbox' class='switch' data-id='" + row.id + "' checked>";
+                        }else if (row.switchData==1){
+                            var switchHtml = "<input type='checkbox' class='switch' data-id='" + row.id + "'>";
+                        }else {
+                            var switchHtml = "<input type='checkbox' class='switch' data-id='" + row.id + "' disabled>";
                         }
                         actions.push(switchHtml);
                         return actions.join('');
@@ -218,118 +242,6 @@ $(function() {
             }]
     };
     $('#grid').bootstrapTable(options);
-
-    //table2
-    /*var options2 = {
-        url: __ROOT__+"admin/source_report/getList",
-        pagination: true, //启动分页
-        pageList: [50, 100, 150, 200],  //记录数可选列表
-        sidePagination: "server", //表示服务端请求
-        queryParamsType : "undefined",
-        showToggle:false,
-        queryParams: function queryParams(params) {   //设置查询参数
-            params = {
-                //这里是在ajax发送请求的时候设置一些参数 params有什么东西，自己看看源码就知道了
-                pageNumber: params.pageNumber,
-                pageSize: params.pageSize,
-                sortName: "id",
-                sortOrder: "desc",
-                head : {'token' : getCookie('token')},
-            };
-            if (pageId){
-                params.filter=' and page_id='+pageId+' and is_master=0';
-            }else if (genId){
-                params.filter=' and gen_id='+genId+' and is_master=0';
-            }
-            return params;
-        },
-        responseHandler:function(data){
-            return data.data;
-        },
-        columns: [
-            {
-                field:'create_at',
-                title: '时间'
-            },
-            {
-                field: 'page_id',
-                title: '素材序号'
-            },
-            {
-                field: 'pe',
-                title: '平台消耗'
-            },
-            {
-                field: 'ae',
-                title: '实际消耗'
-            },
-            {
-                field: 'ns',
-                title: '展现数'
-            },
-            {
-                field: 'nc',
-                title: '点击数'
-            },
-            {
-                field: 'ctr',
-                title: '点击率'
-            },
-            {
-                field: 'op',
-                title: '出价'
-            },
-            {
-                field: 'cp',
-                title: '点击价'
-            },
-            {
-                field: 'fn',
-                title: '关注'
-            },
-            {
-                field: 'on',
-                title: '订单'
-            },
-            {
-                field: 'rp',
-                title: '充值'
-            },
-            {
-                field: 'fup',
-                title: '粉丝单价',
-                cellStyle:{css:{color:'red'}}
-            },
-            {
-                field: 'rer',
-                title: '回本率',
-                cellStyle:{css:{color:'red'}}
-            },
-            {
-                field: 'sfr',
-                title: '软关率'
-            },
-            {
-                field: 'rpr',
-                title: '充值比'
-            },
-            {
-                field: 'hex',
-                title: '时消耗',
-                cellStyle:{css:{color:'red'}}
-            },
-            {
-                field: 'hif',
-                title: '时进粉',
-                cellStyle:{css:{color:'red'}}
-            },
-            {
-                field: 'hup',
-                title: '时单价',
-                cellStyle:{css:{color:'red'}}
-            }]
-    };
-    $('#grid2').bootstrapTable(options2);*/
 });
 
 /**
@@ -354,19 +266,25 @@ function getNewData() {
 }
 
 function remove(id) {
-    layer.msg('确定删除？', {
-        time: 0 //不自动关闭
-        , btn: ['确定', '取消']
-        , yes: function (index) {
-            toRemove(id);
-            if(requestCode === 0){
-                layer.close(index);
-                layer.closeAll();
-                layer.msg(requestMessage);
-                window.location.reload();
-            }else {
-                layer.msg(requestMessage);
+    layer.open({
+        title:'操作提示'
+        ,content: '此操作将删除此数据及其历史记录，是否继续？'
+        ,btn: ['是', '否']
+        ,icon:3
+        ,yes: function(index, layero){
+            //按钮【按钮一】的回调
+            requestData.data={
+                id:id
             }
+            ajaxGo('admin/source_report/removeBatch');
+            if (requestCode!=0){
+                $.modal.msgError(requestMessage);
+            }else {
+                $.modal.msgSuccess(requestMessage);
+            }
+            $('#grid').bootstrapTable('refresh');
+        }
+        ,btn2: function(index, layero){
         }
     });
 }
@@ -384,19 +302,45 @@ $(function () {
     });
 
 });
+function add() {
+    var html=template('form-container',{});
+    layer.open({
+        type: 1,
+        title: '添加',
+        shadeClose: true,
+        shade: 0.8,
+        area: ['60%', '60%'],
+        content: html,
+        btn: ['确定', '取消'], // 按钮
+        yes: function(index, layero){
+            if(!$('#form').validate().form()) {
+                return;
+            }
+            if (pageId<1){
+                $.modal.msgError('禁止添加');
+                return;
+            }
+            layer.msg('确定添加？', {
+                time: 0 //不自动关闭
+                ,btn: ['确定', '取消']
+                ,yes: function(){
+                    requestData.data = $('#form').serializeJson();
+                    requestData.data.page_id=pageId;
+                    ajaxGo('admin/source_report/add');
+                    if (requestCode!=0){
+                        $.modal.alertWarning(requestMessage);
+                    }else {
+                        $.modal.alertSuccess(requestMessage);
+                    }
+                    $('#grid').bootstrapTable('refresh');
+                    layer.close(index);
+                }
+            });
 
-/**添加
- */
-function toAdd() {
-    requestData.data = $("#add").find("form").serializeJson();
-    ajaxGo('admin/source_creative/add');
-}
-/**编辑
- */
-function toEdit(id) {
-    requestData.data = $("#edit").find("form").serializeJson();
-    requestData.data.id=id;
-    ajaxGo('admin/source_creative/edit');
+
+        }
+    });
+
 }
 
 /**
@@ -407,4 +351,40 @@ function toRemove(id) {
         id:id,
     }
     ajaxGo('admin/source_creative/remove');
+}
+
+/**
+ * 清除历史记录
+ */
+function removeNotMaster() {
+    layer.open({
+        title:'操作提示'
+        ,content: '此操作将清空所有历史记录，是否继续？'
+        ,btn: ['是', '否']
+        ,icon:3
+        ,yes: function(index, layero){
+            //按钮【按钮一】的回调
+            var list=$('#grid').bootstrapTable('getData');
+            var masterIdList=[];
+            for (var i=0;i<list.length;i++){
+                if (list[i].is_master==1){
+                    masterIdList.push(list[i].id);
+                }else {
+                    break;
+                }
+            }
+            requestData.data={
+                master_ids:masterIdList.join(',')
+            }
+            ajaxGo('admin/source_report/removeBatch');
+            if (requestCode!=0){
+                $.modal.msgError(requestMessage);
+            }else {
+                $.modal.msgSuccess(requestMessage);
+            }
+            $('#grid').bootstrapTable('refresh');
+        }
+        ,btn2: function(index, layero){
+        }
+    });
 }
