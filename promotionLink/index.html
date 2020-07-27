@@ -463,15 +463,15 @@
                 },
                 {
                     field: 'recharge_num',
-                    title: '总回本',
+                    title: '总回本率',
                     width : 10,
                     align: 'center',
                     formatter: function(value,row,index){
                         let num = row.consum / row.recharge;
                         if(num.toFixed(2) === 'NaN'){
-                            return '0.00';
+                            return '0.00%';
                         }else {
-                            return num.toFixed(2);
+                            return num.toFixed(2)+'%';
                         }
                     }
                 },
