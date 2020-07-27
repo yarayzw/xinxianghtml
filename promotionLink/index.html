@@ -99,12 +99,12 @@
                     </div>
                     <div class="col-md-1">
                          <span class="input-group-btn">
-                            <button class="btn btn-default" type="button" onclick="fac_search()">搜索</button>
+                            <button class="btn btn-success" type="button" onclick="fac_search()">搜索</button>
                         </span>
                     </div>
                     <div class="col-md-1" id="qx_bb_1" style="display: none">
                          <span class="input-group-btn">
-                            <button class="btn btn-default" type="button" onclick="reportGenerationAll()">生成报表</button>
+                            <button class="btn btn-primary" type="button" onclick="reportGenerationAll()">生成报表</button>
                         </span>
                     </div>
                     <!--                    <div class="col-md-1">-->
@@ -364,8 +364,9 @@
                 search: false,
                 // method: 'post',
                 toolbar: '#list_search_faci',
-                showColumns: true,  //显示下拉框勾选要显示的列
-                showRefresh: true,  //显示刷新按钮
+                showColumns: false,  //显示下拉框勾选要显示的列
+                showRefresh: false,  //显示刷新按钮
+                showToggle:false,
                 sidePagination: "server", //表示服务端请求
                 responseHandler:function(data){
                     return data.data;
@@ -487,7 +488,7 @@
                         width : 30,
                         align: 'center',
                         formatter: function(value,row,index){
-                            let html=('<div style="display: flex;justify-content: center;"><div style="text-align: right;"><div style="margin-bottom: 6px;">1日：'+row.one.toFixed(2)+'%</div><div>7日：'+row.seven.toFixed(2)+'%</div></div><div><div style="margin-bottom: 6px;">&nbsp;|&nbsp;</div><div>&nbsp;|&nbsp;</div></div><div style="text-align: left;"><div style="margin-bottom: 6px;">3日：'+row.three.toFixed(2)+'%</div><div>30日：'+row.th.toFixed(2)+'%</div></div></div>');
+                            let html=('<div style="display: flex;justify-content: center;"><div style="text-align: left;"><div style="margin-bottom: 8px;">01日：'+row.one.toFixed(2)+'%</div><div>07日：'+row.seven.toFixed(2)+'%</div></div><div><div style="margin-bottom: 8px;">&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;</div></div><div style="text-align: left;"><div style="margin-bottom: 8px;">03日：'+row.three.toFixed(2)+'%</div><div>30日：'+row.th.toFixed(2)+'%</div></div></div>');
                             /*let html = '1日:' + row.one.toFixed(2) + '%'+
                                 ' ｜ 3日:' + row.three.toFixed(2) + '%'+
                                 '<br/>7日:' + row.seven.toFixed(2) + '%'+
@@ -525,7 +526,7 @@
                             }else {
                                 a = '<a  onclick="updatePromotionLink('+row.id+',0)" >开启采集</a>';
                             }
-                            let html = ' <a  data_id="'+row.id+'"  onclick="lookAll(this)" >报表</a>';
+                            let html = ' <a  data_id="'+row.id+'"  onclick="lookAll(this)"  style="margin-top: 8px;display: block">数据报表</a>';
                             return a+html;
                         }
                     }
@@ -545,8 +546,9 @@
                 search: false,
                 // method: 'post',
                 toolbar: '#list_search_faci',
-                showColumns: true,  //显示下拉框勾选要显示的列
-                showRefresh: true,  //显示刷新按钮
+                showColumns: false,  //显示下拉框勾选要显示的列
+                showRefresh: false,  //显示刷新按钮
+                showToggle:true,
                 sidePagination: "server", //表示服务端请求
                 responseHandler:function(data){
                     return data.data;
@@ -674,6 +676,7 @@
             search: false,
             toolbar: '#promotionLinkToolbar',
             showColumns: true,  //显示下拉框勾选要显示的列
+            showToggle:false,
             showRefresh: true,  //显示刷新按钮
             sidePagination: "server", //表示服务端请求
             responseHandler:function(data){
