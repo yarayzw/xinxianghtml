@@ -9,7 +9,7 @@ $(document).ready(function() {
         $('#promotionBB').hide();
     }
     if(u_id === '15' || u_id === '17'){
-        $('#promotionBB').show();
+        // $('#promotionBB').show();
     }
 });
 

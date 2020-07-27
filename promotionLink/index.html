@@ -64,7 +64,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-sm-3">
+                        <div class="col-sm-4">
                             <label class="control-label">采集状态 :</label>
 
                             <div class="radio-inline">
@@ -81,7 +81,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-sm-3">
+                        <div class="col-sm-4">
                             <label class="control-label">回本状态 :</label>
 
                             <div class="radio-inline">
@@ -215,34 +215,7 @@
     let start_time = getDay(-29, '-');
     let end_time = getDay(-1, '-');
     let link_create_time = getDay(-1, '-');
-    laydate.render({
-        elem: '#start_time' //指定元素
-        ,event:"focus",
-        value: getDay(-29, '-'),
-        done: function(value, date, endDate){
-            start_time = value;
-            var startDate = new Date(value).getTime();
-            var endTime = new Date($('#end_time').val()).getTime();
-            if(endTime < startDate) {
-                layer.msg('结束时间不能小于开始时间');
-                $('#start_time').val($('#end_time').val());
-            }
-        }
-    });
-    laydate.render({
-        elem: '#end_time' //指定元素
-        ,event:"focus",
-        value: getDay(-1, '-'),
-        done: function(value, date, endDate){
-            end_time = value;
-            var startDate = new Date($('#start_time').val()).getTime();
-            var endTime = new Date(value).getTime();
-            if(endTime < startDate) {
-                layer.msg('结束时间不能小于开始时间');
-                $('#end_time').val($('#start_time').val());
-            }
-        }
-    });
+
 
     //开始推广时间选择器
     laydate.render({
@@ -257,9 +230,67 @@
 
     $(document).ready(function () {
         let u_id = getCookie('u_id');
-        if(u_id === '5' || u_id === '15' || u_id === '17'){
+        if(u_id === '5' ){
             $('#qx_bb_1').show();
             $('#qx_bb_2').show();
+            laydate.render({
+                elem: '#start_time' //指定元素
+                ,event:"focus",
+                value: getDay(-29, '-'),
+                done: function(value, date, endDate){
+                    start_time = value;
+                    var startDate = new Date(value).getTime();
+                    var endTime = new Date($('#end_time').val()).getTime();
+                    if(endTime < startDate) {
+                        layer.msg('结束时间不能小于开始时间');
+                        $('#start_time').val($('#end_time').val());
+                    }
+                }
+            });
+            laydate.render({
+                elem: '#end_time' //指定元素
+                ,event:"focus",
+                value: getDay(-1, '-'),
+                done: function(value, date, endDate){
+                    end_time = value;
+                    var startDate = new Date($('#start_time').val()).getTime();
+                    var endTime = new Date(value).getTime();
+                    if(endTime < startDate) {
+                        layer.msg('结束时间不能小于开始时间');
+                        $('#end_time').val($('#start_time').val());
+                    }
+                }
+            });
+        }else {
+            laydate.render({
+                elem: '#start_time' //指定元素
+                ,event:"focus",
+                value: getDay(-15, '-'),
+                min: getDay(-15, '-'),
+                done: function(value, date, endDate){
+                    start_time = value;
+                    var startDate = new Date(value).getTime();
+                    var endTime = new Date($('#end_time').val()).getTime();
+                    if(endTime < startDate) {
+                        layer.msg('结束时间不能小于开始时间');
+                        $('#start_time').val($('#end_time').val());
+                    }
+                }
+            });
+            laydate.render({
+                elem: '#end_time' //指定元素
+                ,event:"focus",
+                value: getDay(-1, '-'),
+                done: function(value, date, endDate){
+                    end_time = value;
+                    var startDate = new Date($('#start_time').val()).getTime();
+                    var endTime = new Date(value).getTime();
+                    if(endTime < startDate) {
+                        layer.msg('结束时间不能小于开始时间');
+                        $('#end_time').val($('#start_time').val());
+                    }
+                }
+            });
         }
 
         initTable();
@@ -318,179 +349,312 @@
     function initTable() {
         $('#promotionLinkTable').bootstrapTable('destroy');
         // $('#wechatDayToolbar').css("height", 300);
-        $("#promotionLinkTable").bootstrapTable({
-            url: __ROOT__ + 'admin/promotion_link/getList', //获取数据的Servlet地址
-            striped: true,  //表格显示条纹
-            pagination: true, //启动分页
-            sortName: 'id',
-            sortOrder: 'desc',
-            pageSize: 20,  //每页显示的记录数
-            pageNumber:1, //当前第几页
-            pageList: [20, 25, 30, 35],  //记录数可选列表
-            search: false,
-            // method: 'post',
-            toolbar: '#list_search_faci',
-            showColumns: true,  //显示下拉框勾选要显示的列
-            showRefresh: true,  //显示刷新按钮
-            sidePagination: "server", //表示服务端请求
-            responseHandler:function(data){
-                return data.data;
-            },
-            queryParamsType : "undefined",
-            // method: 'post',
-            queryParams: function queryParams(params) {   //设置查询参数
-                params = {
-                    //这里是在ajax发送请求的时候设置一些参数 params有什么东西，自己看看源码就知道了
-                    pageNumber: params.pageNumber,
-                    pageSize: params.pageSize,
-                    sortName: params.sortName,
-                    sortOrder: params.sortOrder,
-                    // id : {$_GET['id']},
-                    head : {'token' : getCookie('token')},
-                    channel_name : $('#channel_name').val(),
-                    novel_name : $('#novel_name').val(),
-                    remarks : $('#remarks').val(),
-                    start_time : start_time,
-                    end_time : end_time,
-                    is_gather:  $("input[type=radio][name=is_gather_s]:checked").val(),
-                    is_back:  $("input[type=radio][name=is_back_s]:checked").val(),
-                };
+        if(u_id === '5' ) {
+            $("#promotionLinkTable").bootstrapTable({
+                height:800,
+                url: __ROOT__ + 'admin/promotion_link/getList', //获取数据的Servlet地址
+                striped: true,  //表格显示条纹
+                pagination: true, //启动分页
+                sortName: 'id',
+                sortOrder: 'desc',
+                pageSize: 20,  //每页显示的记录数
+                pageNumber:1, //当前第几页
+                pageList: [20, 25, 30, 35],  //记录数可选列表
+                search: false,
+                // method: 'post',
+                toolbar: '#list_search_faci',
+                showColumns: true,  //显示下拉框勾选要显示的列
+                showRefresh: true,  //显示刷新按钮
+                sidePagination: "server", //表示服务端请求
+                responseHandler:function(data){
+                    return data.data;
+                },
+                queryParamsType : "undefined",
+                // method: 'post',
+                queryParams: function queryParams(params) {   //设置查询参数
+                    params = {
+                        //这里是在ajax发送请求的时候设置一些参数 params有什么东西，自己看看源码就知道了
+                        pageNumber: params.pageNumber,
+                        pageSize: params.pageSize,
+                        sortName: params.sortName,
+                        sortOrder: params.sortOrder,
+                        // id : {$_GET['id']},
+                        head : {'token' : getCookie('token')},
+                        channel_name : $('#channel_name').val(),
+                        novel_name : $('#novel_name').val(),
+                        remarks : $('#remarks').val(),
+                        start_time : start_time,
+                        end_time : end_time,
+                        is_gather:  $("input[type=radio][name=is_gather_s]:checked").val(),
+                        is_back:  $("input[type=radio][name=is_back_s]:checked").val(),
+                    };
 
-                return params;
-            },
-            onLoadSuccess: function(data){  //加载成功时执行
+                    return params;
+                },
+                onLoadSuccess: function(data){  //加载成功时执行
 
-            },
-            onLoadError: function(){  //加载失败时执行
-            },
-            columns: [
-                {
-                    title: '',
-                    field: 'checkbox',
-                    align: 'center',
-                    checkbox : true,
-                    width : 5,
-                    singleSelect:true
                 },
-                {
-                    field: 'referral_link_id',
-                    title: '推广链接',
-                    width : 30,
-                    formatter: function(value,row,index){
-                        return '<span style="color: #393939">'+row.remarks + '</span>'+
-                            '<br/><span style="color: #1654cc">https://c'+row.channel_id_config+'.818tu.com/referrals/index/'+row.referral_link_id +'</span>' +
-                            '<br/><span style="color: #777">创建时间:'+row.start_time+'</span>';
-                    }
+                onLoadError: function(){  //加载失败时执行
                 },
-                {
-                    field: 'novel_name',
-                    title: '入口页面',
-                    width : 15,
-                    formatter: function(value,row,index){
-                        return '<span style="color: #333">'+row.novel_name + '</span>'+
-                            '<br/><span style="color: #393939">' + row.novel_name_1 +'</span>'+
-                            '<br/><span style="color: #777">' + row.novel_name_2 +'</span>';
-                    }
-                },
-                {
-                    field: 'channel_name',
-                    title: '渠道名称',
-                    width : 8,
-                    align: 'center'
-                },
-                {
-                    field: 'follow_num',
-                    title: '新增关注',
-                    width : 10,
-                    sortable:true,
-                    align: 'center'
-                },
-                {
-                    field: 'recharge',
-                    title: '充值金额',
-                    width : 10,
-                    align: 'center',
-                    sortable:true,
-                    formatter: function(value,row,index){
-                        return value ;
-                    }
-                },
-                {
-                    field: 'recharge',
-                    title: '粉丝单价',
-                    width : 10,
-                    align: 'center',
-                    formatter: function(value,row,index){
-                        let num = row.consum / row.follow_num;
-                        if(num.toFixed(2) === 'NaN'){
-                            return '0.00';
-                        }else {
-                            return num.toFixed(2);
+                columns: [
+                    {
+                        title: '',
+                        field: 'checkbox',
+                        align: 'center',
+                        checkbox : true,
+                        width : 5,
+                        singleSelect:true
+                    },
+                    {
+                        field: 'referral_link_id',
+                        title: '推广链接',
+                        width : 30,
+                        formatter: function(value,row,index){
+                            return '<span style="color: #393939">'+row.remarks + '</span>'+
+                                '<br/><span style="color: #1654cc">https://c'+row.channel_id_config+'.818tu.com/referrals/index/'+row.referral_link_id +'</span>' +
+                                '<br/><span style="color: #777">创建时间:'+row.start_time+'</span>';
+                        }
+                    },
+                    {
+                        field: 'novel_name',
+                        title: '入口页面',
+                        width : 15,
+                        formatter: function(value,row,index){
+                            return '<span style="color: #333">'+row.novel_name + '</span>'+
+                                '<br/><span style="color: #393939">' + row.novel_name_1 +'</span>'+
+                                '<br/><span style="color: #777">' + row.novel_name_2 +'</span>';
+                        }
+                    },
+                    {
+                        field: 'channel_name',
+                        title: '渠道名称',
+                        width : 8,
+                        align: 'center'
+                    },
+                    {
+                        field: 'follow_num',
+                        title: '新增关注',
+                        width : 10,
+                        sortable:true,
+                        align: 'center'
+                    },
+                    {
+                        field: 'recharge',
+                        title: '充值金额',
+                        width : 10,
+                        align: 'center',
+                        sortable:true,
+                        formatter: function(value,row,index){
+                            return value ;
+                        }
+                    },
+                    {
+                        field: 'recharge',
+                        title: '粉丝单价',
+                        width : 10,
+                        align: 'center',
+                        formatter: function(value,row,index){
+                            let num = row.consum / row.follow_num;
+                            if(num.toFixed(2) === 'NaN'){
+                                return '0.00';
+                            }else {
+                                return num.toFixed(2);
+                            }
+                        }
+                    },
+                    {
+                        field: 'recharge_num',
+                        title: '充值笔数',
+                        sortable:true,
+                        width : 10,
+                        align: 'center'
+                    },
+                    {
+                        field: 'consum',
+                        title: '成本',
+                        width : 10,
+                        sortable:true,
+                        align: 'center',
+                        formatter: function(value,row,index){
+                            let html = '<a  onclick="editConsum('+row.id+','+row.consum+',\''+row.link_create_time+'\')" >'+value+'</a>';
+                            return html;
+                        }
+                    },
+                    {
+                        field: 'recharge_num',
+                        title: '回本详情',
+                        width : 20,
+                        align: 'center',
+                        formatter: function(value,row,index){
+                            let html = '1日:' + row.one.toFixed(2) + '%'+
+                                ' ｜ 3日:' + row.three.toFixed(2) + '%'+
+                                '<br/>7日:' + row.seven.toFixed(2) + '%'+
+                                ' ｜ 30日:' + row.th.toFixed(2) + '%';
+                            return html;
+                        }
+                    },
+                    {
+                        field: 'recharge_num',
+                        title: '总回本率',
+                        width : 10,
+                        align: 'center',
+                        formatter: function(value,row,index){
+                            let num = row.consum / row.recharge;
+                            if(num.toFixed(2) === 'NaN'){
+                                return '<span style="color: red">0.00%</span>';
+                            }else {
+                                if(num.toFixed(2) > 100){
+                                    return '<span style="color: green">'+num.toFixed(2)+'%'+'</span>';
+                                }else {
+                                    return '<span style="color: red">'+num.toFixed(2)+'%'+'</span>';
+                                }
+                            }
+                        }
+                    },
+                    {
+                        field: 'recharge_num',
+                        title: '操作',
+                        width : 10,
+                        align: 'center',
+                        formatter: function(value,row,index){
+                            let a = '';
+                            if(row.is_gather === 0){
+                                a = '<a   onclick="updatePromotionLink('+row.id+',1)" >关闭采集</a>';
+                            }else {
+                                a = '<a  onclick="updatePromotionLink('+row.id+',0)" >开启采集</a>';
+                            }
+                            let html = ' <a  data_id="'+row.id+'"  onclick="lookAll(this)" >报表</a>';
+                            return a+html;
                         }
                     }
+                ]
+            });
+        }else {
+            $("#promotionLinkTable").bootstrapTable({
+                height:800,
+                url: __ROOT__ + 'admin/promotion_link/getList', //获取数据的Servlet地址
+                striped: true,  //表格显示条纹
+                pagination: true, //启动分页
+                sortName: 'id',
+                sortOrder: 'desc',
+                pageSize: 20,  //每页显示的记录数
+                pageNumber:1, //当前第几页
+                pageList: [20, 25, 30, 35],  //记录数可选列表
+                search: false,
+                // method: 'post',
+                toolbar: '#list_search_faci',
+                showColumns: true,  //显示下拉框勾选要显示的列
+                showRefresh: true,  //显示刷新按钮
+                sidePagination: "server", //表示服务端请求
+                responseHandler:function(data){
+                    return data.data;
                 },
-                {
-                    field: 'recharge_num',
-                    title: '充值笔数',
-                    sortable:true,
-                    width : 10,
-                    align: 'center'
+                queryParamsType : "undefined",
+                // method: 'post',
+                queryParams: function queryParams(params) {   //设置查询参数
+                    params = {
+                        //这里是在ajax发送请求的时候设置一些参数 params有什么东西，自己看看源码就知道了
+                        pageNumber: params.pageNumber,
+                        pageSize: params.pageSize,
+                        sortName: params.sortName,
+                        sortOrder: params.sortOrder,
+                        // id : {$_GET['id']},
+                        head : {'token' : getCookie('token')},
+                        channel_name : $('#channel_name').val(),
+                        novel_name : $('#novel_name').val(),
+                        remarks : $('#remarks').val(),
+                        start_time : start_time,
+                        end_time : end_time,
+                        is_gather:  $("input[type=radio][name=is_gather_s]:checked").val(),
+                        is_back:  $("input[type=radio][name=is_back_s]:checked").val(),
+                    };
+
+                    return params;
                 },
-                {
-                    field: 'consum',
-                    title: '成本',
-                    width : 10,
-                    sortable:true,
-                    align: 'center',
-                    formatter: function(value,row,index){
-                        let html = '<a  onclick="editConsum('+row.id+','+row.consum+',\''+row.link_create_time+'\')" >'+value+'</a>';
-                        return html;
-                    }
+                onLoadSuccess: function(data){  //加载成功时执行
+
                 },
-                {
-                    field: 'recharge_num',
-                    title: '回本详情',
-                    width : 20,
-                    align: 'center',
-                    formatter: function(value,row,index){
-                        let html = '1日:' + row.one.toFixed(2) + '%'+
-                            ' ｜ 3日:' + row.three.toFixed(2) + '%'+
-                            '<br/>7日:' + row.seven.toFixed(2) + '%'+
-                            ' ｜ 30日:' + row.th.toFixed(2) + '%';
-                        return html;
-                    }
+                onLoadError: function(){  //加载失败时执行
                 },
-                {
-                    field: 'recharge_num',
-                    title: '总回本率',
-                    width : 10,
-                    align: 'center',
-                    formatter: function(value,row,index){
-                        let num = row.consum / row.recharge;
-                        if(num.toFixed(2) === 'NaN'){
-                            return '0.00%';
-                        }else {
-                            return num.toFixed(2)+'%';
+                columns: [
+                    {
+                        field: 'referral_link_id',
+                        title: '推广链接',
+                        width : 30,
+                        formatter: function(value,row,index){
+                            return '<span style="color: #393939">'+row.remarks + '</span>'+
+                                '<br/><span style="color: #1654cc">https://c'+row.channel_id_config+'.818tu.com/referrals/index/'+row.referral_link_id +'</span>' +
+                                '<br/><span style="color: #777">创建时间:'+row.start_time+'</span>';
                         }
-                    }
-                },
-                {
-                    field: 'recharge_num',
-                    title: '操作',
-                    width : 10,
-                    align: 'center',
-                    formatter: function(value,row,index){
-                        if(row.is_gather === 0){
-                            let a = '<a   onclick="updatePromotionLink('+row.id+',1)" >关闭采集</a>';
-                        }else {
-                            let a = '<a  onclick="updatePromotionLink('+row.id+',0)" >开启采集</a>';
+                    },
+                    {
+                        field: 'novel_name',
+                        title: '入口页面',
+                        width : 15,
+                        formatter: function(value,row,index){
+                            return '<span style="color: #333">'+row.novel_name + '</span>'+
+                                '<br/><span style="color: #393939">' + row.novel_name_1 +'</span>'+
+                                '<br/><span style="color: #777">' + row.novel_name_2 +'</span>';
                         }
-                        let html = '<a  data_id="'+row.id+'"  onclick="lookAll(this)" >报表</a>';
-                        return html;
-                    }
-                }
-            ]
-        });
+                    },
+                    {
+                        field: 'channel_name',
+                        title: '渠道名称',
+                        width : 8,
+                        align: 'center'
+                    },
+                    {
+                        field: 'follow_num',
+                        title: '新增关注',
+                        width : 10,
+                        sortable:true,
+                        align: 'center'
+                    },
+                    {
+                        field: 'recharge',
+                        title: '充值金额',
+                        width : 10,
+                        align: 'center',
+                        sortable:true,
+                        formatter: function(value,row,index){
+                            return value ;
+                        }
+                    },
+                    {
+                        field: 'recharge',
+                        title: '粉丝单价',
+                        width : 10,
+                        align: 'center',
+                        formatter: function(value,row,index){
+                            let num = row.consum / row.follow_num;
+                            if(num.toFixed(2) === 'NaN'){
+                                return '0.00';
+                            }else {
+                                return num.toFixed(2);
+                            }
+                        }
+                    },
+                    {
+                        field: 'recharge_num',
+                        title: '充值笔数',
+                        sortable:true,
+                        width : 10,
+                        align: 'center'
+                    },
+                    {
+                        field: 'consum',
+                        title: '成本',
+                        width : 10,
+                        sortable:true,
+                        align: 'center',
+                        formatter: function(value,row,index){
+                            let html = '<a  onclick="editConsum('+row.id+','+row.consum+',\''+row.link_create_time+'\')" >'+value+'</a>';
+                            return html;
+                        }
+                    },
+                ]
+            });
+        }
     }
 
     function initDayTable() {
