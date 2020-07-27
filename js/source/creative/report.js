@@ -16,13 +16,20 @@ $(function() {
     ajaxGo('admin/source_report/getTitleInfo');
     if (requestCode==0) {
         var data = requestData.data;
-        var $header = $('<div class="col-sm-12" style="color:red;font-weight: bold;font-size: 2rem;"></div>');
-        $header.append('<span>360账户：' + data.thirdpatry_accounts + '</span>');
-        $header.append('<span style="margin-left: 30px;">运营：' + data.oper_user_names + '</span>');
-        $header.append('<span style="margin-left: 30px;">小说：' + data.material_names + '</span>');
-        $header.append('<span style="margin-left: 30px;">公众号：' + data.wechat_names + '</span>');
+        var $header = $('<div class="col-sm-12 row" style="color:red;font-weight: bold;font-size: 2rem;"></div>');
+        var $left=$('<div class="col-sm-8"></div>');
+        var $right=$('<div class="col-sm-4"></div>');
+        $left.append('<span>360账户：' + data.thirdpatry_accounts + '</span>');
+        $left.append('<span style="margin-left: 30px;">运营：' + data.oper_user_names + '</span>');
+        $left.append('<span style="margin-left: 30px;">小说：' + data.material_names + '</span>');
+        $left.append('<span style="margin-left: 30px;">公众号：' + data.wechat_names + '</span>');
+        if (data.pageInfo){
+            $right.append('<span style="display: flex;justify-content: flex-end;font-size: 1.6rem;font-weight: normal;color: black;"><img src="'+data.pageInfo.head_img+'" style="width: 120px;height: auto;"><div></div><div style="width: 140px;">'+data.pageInfo.title+'</div></span>')
+        }
+        $header.append($left);
+        $header.append($right);
         $(".row .col-sm-12:eq(0)").before($header);
-        console.log($header.toString())
+        console.log(data)
 
     }
     var options = {
@@ -34,6 +41,7 @@ $(function() {
         sidePagination: "server", //表示服务端请求
         queryParamsType : "undefined",
         showToggle:false,
+        showRefresh: false,  //显示刷新按钮
         onLoadSuccess: function (data) {
             var masterNum=0;
             var rows=data.rows;
