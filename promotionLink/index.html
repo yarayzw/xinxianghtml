@@ -212,13 +212,13 @@
         if (oDay.length <= 1) oDay = '0' + oDay;
         return oYear + str + oMoth + str + oDay;
     }
-    let start_time = getDay(-1, '-');
+    let start_time = getDay(-29, '-');
     let end_time = getDay(-1, '-');
     let link_create_time = getDay(-1, '-');
     laydate.render({
         elem: '#start_time' //指定元素
         ,event:"focus",
-        value: getDay(-1, '-'),
+        value: getDay(-29, '-'),
         done: function(value, date, endDate){
             start_time = value;
             var startDate = new Date(value).getTime();
@@ -362,7 +362,6 @@
 
             },
             onLoadError: function(){  //加载失败时执行
-                layer.msg("加载数据失败", {time : 1500, icon : 2});
             },
             columns: [
                 {
