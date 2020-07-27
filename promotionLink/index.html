@@ -484,13 +484,14 @@
                     {
                         field: 'recharge_num',
                         title: '回本详情',
-                        width : 20,
+                        width : 30,
                         align: 'center',
                         formatter: function(value,row,index){
-                            let html = '1日:' + row.one.toFixed(2) + '%'+
+                            let html=('<div style="display: flex;justify-content: center;"><div style="text-align: right;"><div style="margin-bottom: 6px;">1日：'+row.one.toFixed(2)+'%</div><div>7日：'+row.seven.toFixed(2)+'%</div></div><div><div style="margin-bottom: 6px;">&nbsp;|&nbsp;</div><div>&nbsp;|&nbsp;</div></div><div style="text-align: left;"><div style="margin-bottom: 6px;">3日：'+row.three.toFixed(2)+'%</div><div>30日：'+row.th.toFixed(2)+'%</div></div></div>');
+                            /*let html = '1日:' + row.one.toFixed(2) + '%'+
                                 ' ｜ 3日:' + row.three.toFixed(2) + '%'+
                                 '<br/>7日:' + row.seven.toFixed(2) + '%'+
-                                ' ｜ 30日:' + row.th.toFixed(2) + '%';
+                                ' ｜ 30日:' + row.th.toFixed(2) + '%';*/
                             return html;
                         }
                     },
