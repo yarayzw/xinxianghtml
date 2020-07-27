@@ -43,8 +43,58 @@
                     </div>
                     <div class="col-md-2">
                         <div class="input-group m-b">
+                            <span class="input-group-addon" >备注</span>
+                            <input type="text" id="remarks" class="form-control" aria-label="..." placeholder="" >
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="input-group m-b">
                             <span class="input-group-addon" >小说名称</span>
                             <input type="text" id="novel_name" class="form-control" aria-label="..." placeholder="" >
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="input-group m-b"><span class="input-group-addon">开始时间</span>
+                            <input type="text" class="laydate-icon form-control layer-date" name="start_time" id="start_time" value=""  />
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="input-group m-b"><span class="input-group-addon">结束时间</span>
+                            <input type="text" class="laydate-icon form-control layer-date" name="end_time" id="end_time" value=""  />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3">
+                            <label class="control-label">采集状态 :</label>
+
+                            <div class="radio-inline">
+                                <label class="radio-inline">
+                                    <input type="radio" value="2" name="is_gather_s" checked>全部
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" value="0" name="is_gather_s">正常
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" value="1" name="is_gather_s">暂停
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3">
+                            <label class="control-label">回本状态 :</label>
+
+                            <div class="radio-inline">
+                                <label class="radio-inline">
+                                    <input type="radio" value="2" name="is_back_s" checked>全部
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" value="0" name="is_back_s">未回本
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" value="1" name="is_back_s">已回本
+                                </label>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-1">
@@ -94,15 +144,16 @@
     <div class="ibox-content">
         <form class="form-horizontal m-t" id="commentForm" method="post">
             <div class="form-group">
-                <label class="col-sm-3 control-label">关注人数 :</label>
-                <div class="col-sm-8">
-                    <input type="number" class="form-control" name="follow_num" value=""  />
-                </div>
-            </div>
-            <div class="form-group">
                 <label class="col-sm-3 control-label">广告费 :</label>
                 <div class="col-sm-8">
                     <input type="number" class="form-control" name="consum" value=""  />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">开始推广时间 :</label>
+                <div class="col-sm-8">
+                    <input type="text" class="laydate-icon form-control layer-date" name="link_create_time" id="link_create_time" value=""  />
+
                 </div>
             </div>
         </form>
@@ -145,9 +196,64 @@
 <script src="../js/bootstrapValidator.min.js"></script>
 <script src="../js/index.js"></script>
 <script src="../js/plugins/bootstrap-select-1.13.9/js/bootstrap-select.js"></script>
+<script src="../js/moment.min.js"></script>
 
 
 <script>
+    function getDay(num, str) {
+        var today = new Date();
+        var nowTime = today.getTime();
+        var ms = 24*3600*1000*num;
+        today.setTime(parseInt(nowTime + ms));
+        var oYear = today.getFullYear();
+        var oMoth = (today.getMonth() + 1).toString();
+        if (oMoth.length <= 1) oMoth = '0' + oMoth;
+        var oDay = today.getDate().toString();
+        if (oDay.length <= 1) oDay = '0' + oDay;
+        return oYear + str + oMoth + str + oDay;
+    }
+    let start_time = getDay(-1, '-');
+    let end_time = getDay(-1, '-');
+    let link_create_time = getDay(-1, '-');
+    laydate.render({
+        elem: '#start_time' //指定元素
+        ,event:"focus",
+        value: getDay(-1, '-'),
+        done: function(value, date, endDate){
+            start_time = value;
+            var startDate = new Date(value).getTime();
+            var endTime = new Date($('#end_time').val()).getTime();
+            if(endTime < startDate) {
+                layer.msg('结束时间不能小于开始时间');
+                $('#start_time').val($('#end_time').val());
+            }
+        }
+    });
+    laydate.render({
+        elem: '#end_time' //指定元素
+        ,event:"focus",
+        value: getDay(-1, '-'),
+        done: function(value, date, endDate){
+            end_time = value;
+            var startDate = new Date($('#start_time').val()).getTime();
+            var endTime = new Date(value).getTime();
+            if(endTime < startDate) {
+                layer.msg('结束时间不能小于开始时间');
+                $('#end_time').val($('#start_time').val());
+            }
+        }
+    });
+
+    //开始推广时间选择器
+    laydate.render({
+        elem: '#link_create_time',
+        type:'datetime',
+        value:moment().format('YYYY-MM-DD HH:mm:ss'),
+        done: function(value, date, endDate){
+            link_create_time = value;
+        }
+    });
+
 
     $(document).ready(function () {
         let u_id = getCookie('u_id');
@@ -222,6 +328,7 @@
             pageNumber:1, //当前第几页
             pageList: [20, 25, 30, 35],  //记录数可选列表
             search: false,
+            // method: 'post',
             toolbar: '#list_search_faci',
             showColumns: true,  //显示下拉框勾选要显示的列
             showRefresh: true,  //显示刷新按钮
@@ -242,6 +349,11 @@
                     head : {'token' : getCookie('token')},
                     channel_name : $('#channel_name').val(),
                     novel_name : $('#novel_name').val(),
+                    remarks : $('#remarks').val(),
+                    start_time : start_time,
+                    end_time : end_time,
+                    is_gather:  $("input[type=radio][name=is_gather_s]:checked").val(),
+                    is_back:  $("input[type=radio][name=is_back_s]:checked").val(),
                 };
 
                 return params;
@@ -264,28 +376,34 @@
                 {
                     field: 'channel_name',
                     title: '渠道名称',
-                    width : 20,
+                    width : 8,
                     align: 'center'
                 },
                 {
                     field: 'referral_link_id',
                     title: '推广链接',
-                    width : 40,
+                    width : 25,
                     align: 'center',
                     formatter: function(value,row,index){
-                        return 'https://c'+row.channel_id_config+'.818tu.com/referrals/index/'+row.referral_link_id +'' +
-                            '<br/>创建时间:'+row.link_create_time;
+                        return row.remarks +
+                            '<br/>https://c'+row.channel_id_config+'.818tu.com/referrals/index/'+row.referral_link_id +'' +
+                            '<br/>创建时间:'+row.start_time;
                     }
                 },
                 {
                     field: 'novel_name',
                     title: '入口页面',
                     width : 15,
-                    align: 'center'
+                    align: 'center',
+                    formatter: function(value,row,index){
+                        return row.novel_name +
+                            '<br/>' + row.novel_name_1 +
+                            '<br/>' + row.novel_name_2 ;
+                    }
                 },
                 {
                     field: 'follow_num',
-                    title: '关注人数',
+                    title: '新增关注',
                     width : 10,
                     sortable:true,
                     align: 'center'
@@ -301,6 +419,20 @@
                     }
                 },
                 {
+                    field: 'recharge',
+                    title: '粉丝单价',
+                    width : 10,
+                    align: 'center',
+                    formatter: function(value,row,index){
+                        let num = row.consum / row.follow_num;
+                        if(num.toFixed(2) === 'NaN'){
+                            return '0.00';
+                        }else {
+                            return num.toFixed(2);
+                        }
+                    }
+                },
+                {
                     field: 'recharge_num',
                     title: '充值笔数',
                     sortable:true,
@@ -309,10 +441,14 @@
                 },
                 {
                     field: 'consum',
-                    title: '广告费',
+                    title: '成本',
                     width : 10,
                     sortable:true,
-                    align: 'center'
+                    align: 'center',
+                    formatter: function(value,row,index){
+                        let html = '<a  onclick="editConsum('+row.id+','+row.consum+',\''+row.link_create_time+'\')" >'+value+'</a>';
+                        return html;
+                    }
                 },
                 {
                     field: 'recharge_num',
@@ -324,7 +460,7 @@
                             '<br/>3日:' + row.three + '%'+
                             '<br/>7日:' + row.seven + '%'+
                             '<br/>30日:' + row.th + '%'+
-                            '<br/><a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="lookAll('+row.id+')" >更多</a>';
+                            '<br/><a  data_id="'+row.id+'"  onclick="lookAll(this)" >更多</a>';
                         return html;
                     }
                 }
@@ -459,18 +595,20 @@
 
     //查看更多回本数据
     let link_id = 0;
-    function lookAll(id) {
-        link_id = id;
-        initDayTable();
-        layer.open({
-            type: 1,
-            title: '查看',
-            shadeClose: true,
-            shade: 0.8,
-            area: ['70%', '70%'],
-            content: $('#lookAll'),
-            btn: ['取消'],
-        });
+    function lookAll(obj) {
+        window.open('http://zjz.chinaandun.com/promotionLink/look.html?type=1&bb_id='+$(obj).attr('data_id'), '_blank').location;
+
+        // link_id = id;
+        // initDayTable();
+        // layer.open({
+        //     type: 1,
+        //     title: '查看',
+        //     shadeClose: true,
+        //     shade: 0.8,
+        //     area: ['70%', '70%'],
+        //     content: $('#lookAll'),
+        //     btn: ['取消'],
+        // });
     }
 
     //修改推广链接每日数据
@@ -575,6 +713,44 @@
                 }else {
                     layer.msg(requestMessage);
                 }
+            }
+        });
+    }
+
+    //修改推广链接的广告费
+    function editConsum(id,consum,link_create_time) {
+        console.log(consum);
+        $("input[name='consum']").val(consum);
+        $("input[name='link_create_time']").val(link_create_time);
+        layer.open({
+            type: 1,
+            title: '编辑',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['60%', '40%'],
+            content: $('#add'),
+            btn: ['确定', '取消'], // 按钮
+            yes: function(indexs, layero){
+                layer.msg('确定修改？', {
+                    time: 0 //不自动关闭
+                    ,btn: ['确定', '取消']
+                    ,yes: function(index){
+                        requestData.data = {
+                            'id' : id,
+                            'link_create_time' :  $("input[name='link_create_time']").val(),
+                            'consum' :  $("input[name='consum']").val(),
+                        }
+                        ajaxGo('admin/promotion_link/editConsum');
+                        if(requestCode === 0){
+                            fac_search();
+                            layer.close(index);
+                            layer.close(indexs);
+                            layer.msg('修改成功!');
+                        }else {
+                            layer.msg(requestMessage);
+                        }
+                    }
+                });
             }
         });
     }

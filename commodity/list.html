@@ -1128,6 +1128,7 @@
                 'page_id' : page_id
             };
             ajaxGo('admin/commodity/getCommodityStaticByUc');
+            layer.msg(requestMessage);
             $("#all_num").text(requestData.data.now_time); //一分钟内独立访客
 
             //今日最高

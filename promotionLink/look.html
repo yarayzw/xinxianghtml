@@ -190,7 +190,8 @@
 <script>
     $(document).ready(function () {
         requestData.data = {
-            'id' : getUrlParam('bb_id')
+            'id' : getUrlParam('bb_id'),
+            'type': getUrlParam('type')
         };
         ajaxGo('admin/promotion_b_b/getPromotionBB');
         $('#info').html(requestData.data.info);
