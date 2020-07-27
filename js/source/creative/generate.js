@@ -43,6 +43,10 @@ $(function() {
                 }
             },
             {
+                title: '计划ID',
+                field: 'campaign_id',
+            },
+            {
                 title: '360账户',
                 formatter:function (value,row,index) {
                     var thirdpartyInfo=row.thirdpartyInfo;
