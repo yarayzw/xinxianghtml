@@ -551,7 +551,7 @@
                         formatter: function(value,row,index){
                             let a = '';
                             if(row.is_gather === 0){
-                                a = '<a   onclick="updatePromotionLink('+row.id+',1)" >关闭采集</a>';
+                                a = '<a  onclick="updatePromotionLink('+row.id+',1)" style="color: rgb(26,179,148);">关闭采集</a>';
                             }else {
                                 a = '<a  onclick="updatePromotionLink('+row.id+',0)" >开启采集</a>';
                             }
