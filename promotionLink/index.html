@@ -290,6 +290,7 @@
                     }
                 }
             });
+
             // laydate.render({
             //     elem: '#start_time' //指定元素
             //     ,event:"focus",
@@ -472,14 +473,11 @@
                         field: 'recharge',
                         title: '充值金额',
                         width : 10,
-                        align: 'center',
                         sortable:true,
-                        formatter: function(value,row,index){
-                            return value ;
-                        }
+                        align: 'center',
                     },
                     {
-                        field: 'recharge',
+                        field: 'recharges',
                         title: '粉丝单价',
                         width : 10,
                         align: 'center',
@@ -512,7 +510,7 @@
                         }
                     },
                     {
-                        field: 'recharge_num',
+                        field: 'recharge_nums',
                         title: '回本详情',
                         width : 30,
                         align: 'center',
@@ -526,7 +524,7 @@
                         }
                     },
                     {
-                        field: 'recharge_num',
+                        field: 'recharge_nums',
                         title: '总回本率',
                         width : 10,
                         align: 'center',
@@ -544,7 +542,7 @@
                         }
                     },
                     {
-                        field: 'recharge_num',
+                        field: 'recharge_nums',
                         title: '操作',
                         width : 10,
                         align: 'center',
