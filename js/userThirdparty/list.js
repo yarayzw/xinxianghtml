@@ -126,7 +126,7 @@ function initTable() {
 
             {
                 field: 'reb_rate',
-                title: '返点比例（%）'
+                title: '返点比例'
             },
 
             {
