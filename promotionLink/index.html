@@ -265,8 +265,7 @@
             laydate.render({
                 elem: '#start_time' //指定元素
                 ,event:"focus",
-                value: getDay(-15, '-'),
-                min: getDay(-15, '-'),
+                value: getDay(-29, '-'),
                 done: function(value, date, endDate){
                     start_time = value;
                     var startDate = new Date(value).getTime();
@@ -291,6 +290,35 @@
                     }
                 }
             });
+            // laydate.render({
+            //     elem: '#start_time' //指定元素
+            //     ,event:"focus",
+            //     value: getDay(-15, '-'),
+            //     min: getDay(-15, '-'),
+            //     done: function(value, date, endDate){
+            //         start_time = value;
+            //         var startDate = new Date(value).getTime();
+            //         var endTime = new Date($('#end_time').val()).getTime();
+            //         if(endTime < startDate) {
+            //             layer.msg('结束时间不能小于开始时间');
+            //             $('#start_time').val($('#end_time').val());
+            //         }
+            //     }
+            // });
+            // laydate.render({
+            //     elem: '#end_time' //指定元素
+            //     ,event:"focus",
+            //     value: getDay(-1, '-'),
+            //     done: function(value, date, endDate){
+            //         end_time = value;
+            //         var startDate = new Date($('#start_time').val()).getTime();
+            //         var endTime = new Date(value).getTime();
+            //         if(endTime < startDate) {
+            //             layer.msg('结束时间不能小于开始时间');
+            //             $('#end_time').val($('#start_time').val());
+            //         }
+            //     }
+            // });
         }
 
         initTable();
