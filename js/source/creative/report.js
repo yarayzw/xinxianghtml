@@ -23,8 +23,8 @@ $(function() {
         $left.append('<span style="margin-left: 30px;">运营：' + data.oper_user_names + '</span>');
         $left.append('<span style="margin-left: 30px;">小说：' + data.material_names + '</span>');
         $left.append('<span style="margin-left: 30px;">公众号：' + data.wechat_names + '</span>');
-        if (data.pageInfo){
-            $right.append('<span style="display: flex;justify-content: flex-end;font-size: 1.6rem;font-weight: normal;color: black;"><img src="'+data.pageInfo.head_img+'" style="width: 120px;height: auto;"><div></div><div style="width: 140px;">'+data.pageInfo.title+'</div></span>')
+        if (data.info){
+            $right.append('<span style="display: flex;justify-content: flex-end;font-size: 1.6rem;font-weight: normal;color: black;"><img src="'+data.info.pic+'" style="width: 120px;height: auto;"><div></div><div style="width: 140px;">'+data.info.title+'</div></span>')
         }
         $header.append($left);
         $header.append($right);
@@ -103,7 +103,7 @@ $(function() {
                 pageNumber: params.pageNumber,
                 //pageSize: params.pageSize,
                 pageSize: 500,
-                sortName: "is_master desc,id",
+                sortName: "is_master desc,create_at desc,page_id",
                 sortOrder: "desc",
                 head : {'token' : getCookie('token')},
             };
