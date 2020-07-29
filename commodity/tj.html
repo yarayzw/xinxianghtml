@@ -18,7 +18,10 @@
     <link rel="stylesheet" type="text/css" href="../js/plugins/bootstrap-select-1.13.9/dist/css/bootstrap-select.css">
 
 <body>
-<div id="tj_div" style="margin: 20px 5%">
+<div id="tj_div" style="margin: 20px 12%">
+    <div style="text-align: center;height: 40px;line-height: 40px;font-size: 18px;margin-bottom: 10px;background: #2E91DA;color: white" id="title">
+
+    </div>
     <div style="float: left;width: 60%">
         <div style="float: left;width: 34%;height:320px;text-align: center;border-right: #ccc solid 1px">
             <div style="text-align: center">
@@ -100,7 +103,6 @@
 <script src="../js/public.js"></script>
 <script src="../js/bootstrap.min.js?v=3.3.6"></script>
 <script src="../js/layer/layer.js"></script>
-<script src="../js/content.min.js"></script>
 <script src="../js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
 <script src="../js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
 <script src="../js/demo/bootstrap-table-demo.min.js"></script>
@@ -143,6 +145,8 @@
                 'page_id' : page_id
             };
             ajaxGo('admin/commodity/getCommodityStaticByUc');
+            $('#title').text(requestData.data.title);
+            $(document).attr('title',requestData.data.title  + ' - 筋斗云管理系统');
             layer.msg(requestMessage);
             $("#all_num").text(requestData.data.now_time); //一分钟内独立访客
 
@@ -244,16 +248,16 @@
             myChartzx.setOption(option);
 
             //右侧列表
-            let html = '<tr style=" font-size:12px;font-weight:bold; width: 100%; line-height: 25px; background:#E9E9E9;">\n' +
-                '                    <td style="text-align: right; width: 25%; padding-left:2%; text-align:left;">素材id</td>\n' +
-                '                    <td style=" width: 15%; text-align:center;">消费</td>\n' +
-                '                    <td style=" width: 15%; text-align:center;">转化成本</td>\n' +
-                '                    <td style=" width: 15%; text-align:center;">点击单价</td>\n' +
-                '                    <td style=" width: 15%; text-align:center;">Chm占比</td>\n' +
-                '                    <td style=" width: 15%; text-align:center;">uc占比</td>\n' +
-                '                    <td style=" width: 15%; text-align:center;">转化数</td>\n' +
-                '                    <td style=" width: 15%; text-align:center;">运行状态</td>\n' +
-                '                    <td style=" width: 15%; text-align:center;">留存</td>\n' +
+            let html = '<tr style=" font-size:12px;font-weight:bold; line-height: 25px; background:#E9E9E9;">\n' +
+                '                    <td style="text-align: right;  padding-left:2%; text-align:left;">素材id</td>\n' +
+                '                    <td style="  text-align:center;">消费</td>\n' +
+                '                    <td style=" text-align:center;">转化成本</td>\n' +
+                '                    <td style="  text-align:center;">点击单价</td>\n' +
+                '                    <td style=" text-align:center;">Chm占比</td>\n' +
+                '                    <td style="  text-align:center;">uc占比</td>\n' +
+                '                    <td style="  text-align:center;">转化数</td>\n' +
+                '                    <td style="  text-align:center;">运行状态</td>\n' +
+                '                    <td style="  text-align:center;">留存</td>\n' +
                 '                </tr>';
 
             $('#all_list').empty();
@@ -262,39 +266,39 @@
                 if(item.creativeState === '暂停'){
                     var html = '<tr class="layer1" style="width: 100%; line-height: 23px;">\n' +
                         '                    <td  onclick="getTjUCId('+item.creative_id+',this)" style="font-size:12px;text-align: right; color: #999; width: 70px; padding-left:2%; text-align:left;">'+item.creative_id+'</td>\n' +
-                        '                    <td style=" font-size:10px;color: #2e91da; width: 18%; text-align:center;">'+item.consume+'</td>\n' +
-                        '                    <td style=" font-size:10px;color: #2e91da; width: 18%; text-align:center;">'+item.bindingCpa+'</td>\n' +
-                        '                    <td style=" font-size:10px;color: #2e91da; width: 18%; text-align:center;">'+item.acp+'</td>\n' +
-                        '                    <td style=" font-size:10px;color: #2e91da; width: 18%; text-align:center;">'+item.zb+'%</td>\n' +
-                        '                    <td style=" font-size:10px;color: #2e91da; width: 18%; text-align:center;">'+item.uc_zb+'%</td>\n' +
-                        '                    <td style=" font-size:10px;color: #2e91da; width: 18%; text-align:center;">'+item.bindingConversion+'</td>\n' +
-                        '                    <td onclick="onCreative(this)" data_creative_id = "'+item.creative_id+'" data_type = "1" style="color: #ee1e2d; width: 18%; text-align:center;">'+item.creativeState+'</td>\n' +
-                        '                    <td onclick="setInfoReserve(this)" data_creative_id = "'+item.creative_id+'" data_page_id = "'+page_id+'" style=" width: 18%; text-align:center;">'+item.is_reserve+'</td>\n' +
+                        '                    <td style=" font-size:10px;color: #2e91da;  text-align:center;">'+item.consume+'</td>\n' +
+                        '                    <td style=" font-size:10px;color: #2e91da;  text-align:center;">'+item.bindingCpa+'</td>\n' +
+                        '                    <td style=" font-size:10px;color: #2e91da;  text-align:center;">'+item.acp+'</td>\n' +
+                        '                    <td style=" font-size:10px;color: #2e91da;  text-align:center;">'+item.zb+'%</td>\n' +
+                        '                    <td style=" font-size:10px;color: #2e91da;  text-align:center;">'+item.uc_zb+'%</td>\n' +
+                        '                    <td style=" font-size:10px;color: #2e91da;  text-align:center;">'+item.bindingConversion+'</td>\n' +
+                        '                    <td onclick="onCreative(this)" data_creative_id = "'+item.creative_id+'" data_type = "1" style="color: #ee1e2d;  text-align:center;">'+item.creativeState+'</td>\n' +
+                        '                    <td onclick="setInfoReserve(this)" data_creative_id = "'+item.creative_id+'" data_page_id = "'+page_id+'" style="  text-align:center;">'+item.is_reserve+'</td>\n' +
                         '                </tr>'//执行代码
                 }else if(item.creativeState === '审核中'){
                     var html = '<tr class="layer1" style="width: 100%; line-height: 23px;">\n' +
                         '                    <td  onclick="getTjUCId('+item.creative_id+',this)" style="font-size:12px;text-align: right; color: #999; width: 70px; padding-left:2%; text-align:left;">'+item.creative_id+'</td>\n' +
-                        '                    <td style="font-size:10px;color: #2e91da; width: 18%; text-align:center;">'+item.consume+'</td>\n' +
-                        '                    <td style="font-size:10px;color: #2e91da; width: 18%; text-align:center;">'+item.bindingCpa+'</td>\n' +
-                        '                    <td style="font-size:10px;color: #2e91da; width: 18%; text-align:center;">'+item.acp+'</td>\n' +
-                        '                    <td style="font-size:10px; color: #2e91da; width: 18%; text-align:center;">'+item.zb+'%</td>\n' +
-                        '                    <td style=" font-size:10px;color: #2e91da; width: 18%; text-align:center;">'+item.uc_zb+'%</td>\n' +
-                        '                    <td style=" font-size:10px;color: #2e91da; width: 18%; text-align:center;">'+item.bindingConversion+'</td>\n' +
-                        '                    <td style="font-size:10px; color: orange; width: 18%; text-align:center;">'+item.creativeState+'</td>\n' +
-                        '                    <td onclick="setInfoReserve(this)" data_creative_id = "'+item.creative_id+'" data_page_id = "'+page_id+'" style=" width: 18%; text-align:center;">'+item.is_reserve+'</td>\n' +
+                        '                    <td style="font-size:10px;color: #2e91da;  text-align:center;">'+item.consume+'</td>\n' +
+                        '                    <td style="font-size:10px;color: #2e91da;  text-align:center;">'+item.bindingCpa+'</td>\n' +
+                        '                    <td style="font-size:10px;color: #2e91da;  text-align:center;">'+item.acp+'</td>\n' +
+                        '                    <td style="font-size:10px; color: #2e91da;  text-align:center;">'+item.zb+'%</td>\n' +
+                        '                    <td style=" font-size:10px;color: #2e91da;  text-align:center;">'+item.uc_zb+'%</td>\n' +
+                        '                    <td style=" font-size:10px;color: #2e91da;  text-align:center;">'+item.bindingConversion+'</td>\n' +
+                        '                    <td style="font-size:10px; color: orange;  text-align:center;">'+item.creativeState+'</td>\n' +
+                        '                    <td onclick="setInfoReserve(this)" data_creative_id = "'+item.creative_id+'" data_page_id = "'+page_id+'" style="  text-align:center;">'+item.is_reserve+'</td>\n' +
                         '                </tr>'//执行代码
                 }
                 else {
                     var html = '<tr class="layer1" style="width: 100%; line-height: 23px;">\n' +
                         '                    <td onclick="getTjUCId('+item.creative_id+',this)" style="font-size:12px;text-align: right; color: #999; width: 70px; padding-left:2%; text-align:left;">'+item.creative_id+'</td>\n' +
-                        '                    <td style="font-size:10px;color: #2e91da; width: 18%; text-align:center;">'+item.consume+'</td>\n' +
-                        '                    <td style="font-size:10px;color: #2e91da; width: 18%; text-align:center;">'+item.bindingCpa+'</td>\n' +
-                        '                    <td style="font-size:10px;color: #2e91da; width: 18%; text-align:center;">'+item.acp+'</td>\n' +
-                        '                    <td style=" font-size:10px;color: #2e91da; width: 18%; text-align:center;">'+item.zb+'%</td>\n' +
-                        '                    <td style=" font-size:10px;color: #2e91da; width: 18%; text-align:center;">'+item.uc_zb+'%</td>\n' +
-                        '                    <td style=" font-size:10px;color: #2e91da; width: 18%; text-align:center;">'+item.bindingConversion+'</td>\n' +
-                        '                    <td onclick="onCreative(this)" data_creative_id = "'+item.creative_id+'" data_type = "0" style=" color: green; width: 18%; text-align:center;">'+item.creativeState+'</td>\n' +
-                        '                    <td onclick="setInfoReserve(this)" data_creative_id = "'+item.creative_id+'" data_page_id = "'+page_id+'" style=" width: 18%; text-align:center;">'+item.is_reserve+'</td>\n' +
+                        '                    <td style="font-size:10px;color: #2e91da;  text-align:center;">'+item.consume+'</td>\n' +
+                        '                    <td style="font-size:10px;color: #2e91da;  text-align:center;">'+item.bindingCpa+'</td>\n' +
+                        '                    <td style="font-size:10px;color: #2e91da;  text-align:center;">'+item.acp+'</td>\n' +
+                        '                    <td style=" font-size:10px;color: #2e91da;  text-align:center;">'+item.zb+'%</td>\n' +
+                        '                    <td style=" font-size:10px;color: #2e91da;  text-align:center;">'+item.uc_zb+'%</td>\n' +
+                        '                    <td style=" font-size:10px;color: #2e91da;  text-align:center;">'+item.bindingConversion+'</td>\n' +
+                        '                    <td onclick="onCreative(this)" data_creative_id = "'+item.creative_id+'" data_type = "0" style=" color: green;  text-align:center;">'+item.creativeState+'</td>\n' +
+                        '                    <td onclick="setInfoReserve(this)" data_creative_id = "'+item.creative_id+'" data_page_id = "'+page_id+'" style="  text-align:center;">'+item.is_reserve+'</td>\n' +
                         '                </tr>'//执行代码
                 }
 
@@ -310,6 +314,8 @@
                 'page_id' : page_id
             };
             ajaxGo('admin/commodity/getCommodityStatic');
+            $('#title').text(requestData.data.title);
+            $(document).attr('title',requestData.data.title + ' - 筋斗云管理系统');
 
             $("#all_num").text(requestData.data.now_time); //一分钟内独立访客
 
@@ -447,7 +453,7 @@
             let html = '<tr style=" font-size:12px;font-weight:bold; width: 100%; line-height: 25px; background:#E9E9E9;">\n' +
                 '                    <td style="text-align: right; width: 35%; padding-left:2%; text-align:left;">来路域名</td>\n' +
                 '                    <td style="text-align: left; width: 25%; text-align:left;">次数</td>\n' +
-                '                    <td style="text-align: right; width: 18%; text-align:left;">占比</td>\n' +
+                '                    <td style="text-align: right;  text-align:left;">占比</td>\n' +
                 '                </tr>';
 
             $('#all_list').empty();
@@ -459,7 +465,7 @@
                 var html = '<tr class="layer1" style="font-size:12px;width: 100%; line-height: 23px;">\n' +
                     '                    <td style="text-align: right; color: #999; width: 100px; padding-left:2%; text-align:left;">'+item.url+'</td>\n' +
                     '                    <td style="text-align: left; color: #999; width: 25%; text-align:left;">'+item.count+'</td>\n' +
-                    '                    <td style="text-align: right; color: #2e91da; width: 18%; text-align:left;">'+((item.count/all_num)*100).toFixed(2)+'%</td>\n' +
+                    '                    <td style="text-align: right; color: #2e91da;  text-align:left;">'+((item.count/all_num)*100).toFixed(2)+'%</td>\n' +
                     '                </tr>'//执行代码
                 $('#all_list').append(html);
             });
