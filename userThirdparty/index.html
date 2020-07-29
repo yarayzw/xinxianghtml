@@ -65,6 +65,10 @@
                 <span class="input-group-btn">
                     <button class="btn btn-default" type="button" onclick="fac_search()">搜索</button>
                  </span>
+                <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" onclick="setBucket()">更新白名单</button>
+                        </span>
+
                 <input type="text" id="name" class="form-control" aria-label="..." placeholder="名称" style="width: 120px">
 
             </div>
@@ -205,4 +209,13 @@
 
 <script src="../js/userThirdparty/addUserThirdparty.js"></script>
 <script src="../js/userThirdparty/list.js"></script>
+
+<script>
+    //更新阿里白名单
+    function setBucket() {
+        requestData.data = {};
+        ajaxGo('admin/a_li_bucket/setBucket');
+        layer.msg(requestMessage);
+    }
+</script>
 
