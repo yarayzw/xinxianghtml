@@ -571,7 +571,7 @@
                         width : 10,
                         align: 'center',
                         formatter: function(value,row,index){
-                            let num = row.consum / row.recharge;
+                            let num = row.recharge / row.consum  * 100;
                             if(num.toFixed(2) === 'NaN'){
                                 return '<span style="color: red">0.00%</span>';
                             }else {

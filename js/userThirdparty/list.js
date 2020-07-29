@@ -155,7 +155,9 @@ function initTable() {
             },
             {
                 field: 'domain',
-                title: '域名'
+                title: '域名',
+                width : '20%',
+
             },
             {
                 field: 'operate',
