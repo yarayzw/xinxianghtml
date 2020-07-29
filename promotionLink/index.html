@@ -172,7 +172,19 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label">日期跨度 :</label>
                 <div class="col-sm-8">
-                    <input type="number" class="form-control" name="bb_time" value="0"  />
+                    <input type="number" class="form-control" id="bb_time" name="bb_time" value="1" min="1" onkeyup="emmm(this)"  />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">起始日期 :</label>
+                <div class="col-sm-8">
+                    <input type="text" disabled="disabled" class="form-control" id="start_time_bb"   />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">最大跨度 :</label>
+                <div class="col-sm-8">
+                    <input type="text" disabled="disabled" class="form-control" id="bb_time_max"   />
                 </div>
             </div>
         </form>
@@ -200,6 +212,16 @@
 
 
 <script>
+    let min = 1;
+    let max = 1;
+    function emmm(obj) {
+        if($(obj).val() < min){
+            $(obj).val(min);
+        }
+        if($(obj).val() > max){
+            $(obj).val(max);
+        }
+    }
     function getDay(num, str) {
         var today = new Date();
         var nowTime = today.getTime();
@@ -325,6 +347,13 @@
         initTable();
     });
 
+    function  getDaysBetween(dateString1,dateString2){
+        var  startDate = Date.parse(dateString1);
+        var  endDate = Date.parse(dateString2);
+        var days=(endDate - startDate)/(1*24*60*60*1000);
+        // alert(days);
+        return  days;
+    }
     //合并生成报表
     function reportGenerationAll() {
         let row = $("#promotionLinkTable").bootstrapTable('getSelections');
@@ -332,9 +361,22 @@
             layer.msg('请选择行');
         }else {
             let link_ids = [];
+            let bb_time_min = '';
             row.forEach((item,index,array)=>{
                 link_ids.push(item.id)
+                if(bb_time_min === ''){
+                    bb_time_min = item.link_create_time;
+                }else {
+                    if(item.link_create_time < bb_time_min){
+                        bb_time_min = item.link_create_time;
+                    }
+                }
             });
+            $('#start_time_bb').val(bb_time_min);
+            let num = Math.ceil(getDaysBetween(bb_time_min,getDay(0,'-')));
+            $('#bb_time_max').val(num);
+            $('#bb_time').attr('max',num);
+            max = num;
             layer.open({
                 type: 1,
                 title: '合并生成报表',
