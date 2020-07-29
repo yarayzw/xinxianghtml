@@ -117,7 +117,7 @@
                 <div class="col-sm-8">
                     <div>
                         <div id="wechat_config_info" class="overflow_hidden"></div>
-                        <a href="#" class="content-folding">折叠/展开</a>
+                        <a href="javascript:void(0)" class="content-folding">折叠/展开</a>
                     </div>
                 </div>
             </div>
@@ -130,7 +130,7 @@
                     <div>
                         <div id="material_memo" class="overflow_hidden">
                         </div>
-                        <a href="#" class="content-folding">折叠/展开</a>
+                        <a href="javascript:void(0)" class="content-folding">折叠/展开</a>
                     </div>
                 </div>
             </div>
@@ -151,7 +151,7 @@
     </div>
 </div>
 
-<div class="row" id="addLink" style="display: none">
+<div class="row" id="edit_div" style="display: none">
     <div class="ibox-content">
         <form class="form-horizontal m-t"  method="post">
             <div class="form-group">
@@ -335,6 +335,12 @@
                     align: 'center'
                 },
                 {
+                    field: 'landing_page_id',
+                    title: '落地页id',
+                    width : 20,
+                    align: 'center'
+                },
+                {
                     field: 'description',
                     title: '备注名称',
                     width : 20,
@@ -349,7 +355,7 @@
                 {
                     field: 'url',
                     title: '链接地址',
-                    width : 100,
+                    width : 60,
                     align: 'center'
                 },
                 {
@@ -372,8 +378,9 @@
                     align: 'center',
                     formatter: function(value,row,index){
                         var e='<a href="'+row.qr_code+'" target="view_window"  >查看二维码</a> ';
-                        var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="delLink(this)" >删除</a>';
-                        return e+f;
+                        var d='<a href="javascript:void(0)"   onclick="editLink('+row.id+',\''+row.description+'\')" >编辑备注</a> ';
+                        var f='<a href="javascript:void(0)"   data_id="'+row.id+'"  onclick="delLink(this)" >删除</a>';
+                        return e+d+f;
                     }
                 }
             ]
@@ -437,6 +444,41 @@
         ajaxGo('admin/link/addLink');
     }
 
+    //编辑备注
+    function editLink(id,description) {
+        $('#description').val(description);
+        layer.open({
+            type: 1,
+            title: '编辑',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['60%', '60%'],
+            content: $('#edit_div'),
+            btn: ['确定', '取消'], // 按钮
+            yes: function(index, layero){
+                layer.msg('确定添加？', {
+                    time: 0 //不自动关闭
+                    ,btn: ['确定', '取消']
+                    ,yes: function(index){
+                        requestData.data = {
+                            'description' : $('#description').val(),
+                            'id' : id
+                        };
+                        ajaxGo('admin/link/editLink');
+                        if(requestCode === 0){
+                            fac_search();
+                            layer.close(index);
+                            layer.closeAll();
+                            layer.msg(requestMessage);
+                        }else {
+                            layer.msg(requestMessage);
+                        }
+                    }
+                });
+            }
+//            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
+        });
+    }
 
     //删除
     function delLink(obj) {
