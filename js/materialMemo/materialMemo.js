@@ -93,8 +93,8 @@ function initTable() {
                 width : '10%',
                 align: 'center',
                 formatter: function(value,row,index){
-                    var d='<a href="#" mce_href="#" data_id="'+row.id+'"  onclick="editMaterialMemo(this)" >编辑</a> ';
-                    var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="delMaterialMemo(this)" >删除</a>';
+                    var d='<a href="javascript:void(0)" mce_href="#" data_id="'+row.id+'"  onclick="editMaterialMemo(this)" >编辑</a> ';
+                    var f='<a href="javascript:void(0)" mce_href="#" " data_id="'+row.id+'"  onclick="delMaterialMemo(this)" >删除</a>';
                     return d+f;
                 }
             }

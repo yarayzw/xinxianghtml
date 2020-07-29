@@ -547,7 +547,7 @@
                         sortable:true,
                         align: 'center',
                         formatter: function(value,row,index){
-                            let html = '<a  onclick="editConsum('+row.id+','+row.consum+',\''+row.link_create_time+'\')" >'+value+'</a>';
+                            let html = '<a href="javascript:void(0)"  onclick="editConsum('+row.id+','+row.consum+',\''+row.link_create_time+'\')" >'+value+'</a>';
                             return html;
                         }
                     },
@@ -591,11 +591,11 @@
                         formatter: function(value,row,index){
                             let a = '';
                             if(row.is_gather === 0){
-                                a = '<a  onclick="updatePromotionLink('+row.id+',1)" style="color: rgb(26,179,148);">关闭采集</a>';
+                                a = '<a href="javascript:void(0)"  onclick="updatePromotionLink('+row.id+',1)" style="color: rgb(26,179,148);">关闭采集</a>';
                             }else {
-                                a = '<a  onclick="updatePromotionLink('+row.id+',0)" >开启采集</a>';
+                                a = '<a href="javascript:void(0)"  onclick="updatePromotionLink('+row.id+',0)" >开启采集</a>';
                             }
-                            let html = ' <a  data_id="'+row.id+'"  onclick="lookAll(this)"  style="margin-top: 8px;display: block">数据报表</a>';
+                            let html = ' <a href="javascript:void(0)"  data_id="'+row.id+'"  onclick="lookAll(this)"  style="margin-top: 8px;display: block">数据报表</a>';
                             return a+html;
                         }
                     }
@@ -721,7 +721,7 @@
                         sortable:true,
                         align: 'center',
                         formatter: function(value,row,index){
-                            let html = '<a  onclick="editConsum('+row.id+','+row.consum+',\''+row.link_create_time+'\')" >'+value+'</a>';
+                            let html = '<a href="javascript:void(0)"  onclick="editConsum('+row.id+','+row.consum+',\''+row.link_create_time+'\')" >'+value+'</a>';
                             return html;
                         }
                     },
@@ -839,7 +839,7 @@
                     width : 20,
                     align: 'center',
                     formatter: function(value,row,index){
-                        var d='<a href="#" mce_href="#" data_id="'+row.id+'" data_consum="'+row.consum+'" data_follow_num="'+row.follow_num+'"   onclick="editDay(this)" >编辑</a> ';
+                        var d='<a href="javascript:void(0)" href="#" mce_href="#" data_id="'+row.id+'" data_consum="'+row.consum+'" data_follow_num="'+row.follow_num+'"   onclick="editDay(this)" >编辑</a> ';
                         return d;
                     }
                 }
