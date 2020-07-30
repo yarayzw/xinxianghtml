@@ -157,7 +157,7 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label">备注 :</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control" name="description" id="description" value=""  />
+                    <input type="text" class="form-control" name="description_update" id="description_update" value=""  />
                     <!--                            required="" aria-required="false"-->
                 </div>
             </div>
@@ -165,6 +165,19 @@
     </div>
 </div>
 
+<div class="row" id="addLink" style="display: none">
+    <div class="ibox-content">
+        <form class="form-horizontal m-t"  method="post">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">备注 :</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="description" id="description" value=""  />
+                    <!--                            required="" aria-required="false"-->
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 </body>
 
 <script src="../js/jquery.min.js?v=2.1.4"></script>
@@ -446,7 +459,7 @@
 
     //编辑备注
     function editLink(id,description) {
-        $('#description').val(description);
+        $('#description_update').val(description);
         layer.open({
             type: 1,
             title: '编辑',
@@ -461,7 +474,7 @@
                     ,btn: ['确定', '取消']
                     ,yes: function(index){
                         requestData.data = {
-                            'description' : $('#description').val(),
+                            'description' : $('#description_update').val(),
                             'id' : id
                         };
                         ajaxGo('admin/link/editLink');
