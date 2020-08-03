@@ -1,17 +1,26 @@
 $(function () {
     //判断是否是允许的域名
-    const allowDomains=[];
+    const allowDomainStr=(typeof allowDomains!='undefined'&&allowDomains)?allowDomains:'';
+    var allowDomainStrDecode;
+    try {//解密
+        allowDomainStrDecode=(window.atob(window.atob(allowDomainStr).split("").reverse().join("")))
+    }catch (e) {}
+    const allowDomainList=allowDomainStrDecode!=''?allowDomainStrDecode.split(','):["@abn&dsn&sadfcs"];
     const href=window.location.href;
+    var allVisit=false;//允许访问
+    allowDomainList.forEach(function (val) {
+        if (href.indexOf(val)>-1) {
+            allVisit=true;
+        }
+    });
+    if (!allVisit){
+        $('*').html('<h3 style="text-align: center;color: #8e8b8b;">非法访问:(</h3>');
+        return false;
+    }
     //关闭页面标志
     const CLOSE_FLAG='closed_flag';
     const SAW_FLAG='saw_flag';
     if (typeof showList!='undefined'&&showList) {
-        allowDomains.forEach(function (val) {
-            if (href.indexOf(val)<0) {
-                $('body').html('非法访问');
-                return false;
-            }
-        });
         //设置模糊
         $('#main>:not(.blur0)').css('filter','blur(20px)');
         $('#body>:not(#header,#main,#ex)').css('filter','blur(20px)');
@@ -35,6 +44,7 @@ $(function () {
                 $('html').css('height','').css('overflow','');
                 $('#main .blur0 img').attr('src','/static/img/zjnx.jpg');
                 $('#main .blur0 p').text('儿子去世，托梦给母亲说在水里难受，隔天母亲抽干池塘，瘫坐在地！');
+                $('#main .blur0').attr('href','/static/list/zjnx.html#');
             }
         },1000);
     }else {
