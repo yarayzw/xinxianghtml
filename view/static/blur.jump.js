@@ -22,11 +22,17 @@ $(function () {
     const SAW_FLAG='saw_flag';
     if (typeof showList!='undefined'&&showList) {
         //设置模糊
-        $('#main>:not(.blur0)').css('filter','blur(20px)');
-        $('#body>:not(#header,#main,#ex)').css('filter','blur(20px)');
-        /*$('#body>:not(#main)').css('filter','blur(20px)');
-        $('#header').css('filter','blur(20px)');*/
-        $('a:not(.blur0)').attr('onclick','return false;');
+        if (href.indexOf('?_v=2')<0){
+            $('#main>:not(.blur0)').css('filter','blur(20px)');
+            $('#body>:not(#header,#main,#ex)').css('filter','blur(20px)');
+            /*$('#body>:not(#main)').css('filter','blur(20px)');
+            $('#header').css('filter','blur(20px)');*/
+            $('a:not(.blur0)').attr('onclick','return false;');
+        }else {
+            $('#main .blur0 img').attr('src','/static/img/zjnx.jpg');
+            $('#main .blur0 p').text('儿子去世，托梦给母亲说在水里难受，隔天母亲抽干池塘，瘫坐在地！');
+            $('#main .blur0').attr('href','/static/list/zjnx.html#');
+        }
         setTimeout(function () {
             window.scrollTo(0,0);//回到顶部
         },200);
@@ -37,14 +43,17 @@ $(function () {
             var closeFlag=localStorage.getItem(CLOSE_FLAG);
             var sawFlag=localStorage.getItem(SAW_FLAG);
             if (closeFlag==null&&sawFlag==0) {
-                $('#main>:not(.blur0)').css('filter','');
+                if (href.indexOf('?_v=2')<0){
+                    window.location.href=href+'?_v=2';
+                }
+                /*$('#main>:not(.blur0)').css('filter','');
                 $('#body>:not(#main)').css('filter','');
                 $('#header').css('filter','');
                 $('a:not(.blur0)').removeAttr('onclick');
                 $('html').css('height','').css('overflow','');
                 $('#main .blur0 img').attr('src','/static/img/zjnx.jpg');
                 $('#main .blur0 p').text('儿子去世，托梦给母亲说在水里难受，隔天母亲抽干池塘，瘫坐在地！');
-                $('#main .blur0').attr('href','/static/list/zjnx.html#');
+                $('#main .blur0').attr('href','/static/list/zjnx.html#');*/
             }
         },1000);
     }else {
