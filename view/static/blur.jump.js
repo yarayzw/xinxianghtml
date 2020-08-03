@@ -33,6 +33,8 @@ $(function () {
                 $('#header').css('filter','');
                 $('a:not(.blur0)').removeAttr('onclick');
                 $('html').css('height','').css('overflow','');
+                $('#main .blur0 img').attr('src','/static/img/zjnx.jpg');
+                $('#main .blur0 p').text('儿子去世，托梦给母亲说在水里难受，隔天母亲抽干池塘，瘫坐在地！');
             }
         },1000);
     }else {
