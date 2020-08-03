@@ -394,7 +394,7 @@
             title: '添加',
             shadeClose: true,
             shade: 0.8,
-            area: ['80%', '80%'],
+            area: ['80%', '96%'],
             maxmin:true,
             content: $('#add'),
             btn: ['确定', '取消'], // 按钮
@@ -460,7 +460,7 @@
             title: '添加链接',
             shadeClose: true,
             shade: 0.8,
-            area: ['60%', '90%'],
+            area: ['60%', '60%'],
             content: $('#addLine'),
             btn: ['确定', '取消'], // 按钮
             yes: function(index, layero){
@@ -508,7 +508,7 @@
             title: '编辑',
             shadeClose: true,
             shade: 0.8,
-            area: ['60%', '90%'],
+            area: ['80%', '96%'],
             maxmin:true,
             content: $('#add'),
             btn: ['确定', '取消'], // 按钮
@@ -684,7 +684,7 @@
         <tbody>
             {{each rows val key}}
                 {{if ((key%15)==0)}}<tr>{{/if}}
-                    <td style="padding: 4px;" width="30" height="30" align="center"><a href="javascript:void(0)"><img data-fonticon-id="{{val.id}}"  src="{{val.pic}}" style="max-width: 30px;width: 100%;height: auto;margin:0 auto;"></a></td>
+                    <td style="padding: 4px;" width="30" height="30" align="center"><a href="javascript:void(0)"><img data-fonticon-id="{{val.id}}"  src="{{val.pic}}" style="max-width: 20px;width: 100%;height: auto;margin:0 auto;"></a></td>
                 {{if (((key+1)%15)==0)}}</tr>{{/if}}
             {{/each}}
         </tbody>
