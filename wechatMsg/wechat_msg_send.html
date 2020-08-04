@@ -530,7 +530,7 @@
                 requestData.data = {
                     'id' : $(obj).attr('data_id')
                 };
-                ajaxGo('admin/wechat_msg_send/delWechatMsgSend');
+                ajaxGo('admin/wechat_msg_send/delWechatMsgSend','',false,'http://tongji.chinaandun.com/');
                 if(requestCode === 0){
                     fac_search();
                     layer.msg('删除成功!');
