@@ -20,23 +20,7 @@ $(function () {
     //关闭页面标志
     const CLOSE_FLAG='closed_flag';
     const SAW_FLAG='saw_flag';
-    if (typeof showList!='undefined'&&showList) {
-        //设置模糊
-        if (href.indexOf('?_v=2')<0){
-            $('#shandow-wrap').show();
-            $('#main>:not(.blur0)').css('filter','blur(20px)');
-            $('#body>:not(#header,#main,#ex)').css('filter','blur(20px)');
-            $('a:not(.blur0)').attr('onclick','return false;');
-            $('html').css('height','100%').css('overflow','hidden');
-        }else {
-            $('#shandow-wrap').hide();
-            $('#main .blur0 img').attr('src','/static/img/zjnx.jpg');
-            $('#main .blur0 p').text('儿子去世，托梦给母亲说在水里难受，隔天母亲抽干池塘，瘫坐在地！');
-            $('#main .blur0').attr('href','/static/list/zjnx.html#');
-        }
-        setTimeout(function () {
-            window.scrollTo(0,0);//回到顶部
-        },200);
+    if (href.indexOf('#')<0&&href.indexOf('?_v=')<0) {
         localStorage.setItem(CLOSE_FLAG,0);
         localStorage.setItem(SAW_FLAG,0);
         window.setInterval(function () {
@@ -44,16 +28,16 @@ $(function () {
             var sawFlag=localStorage.getItem(SAW_FLAG);
             if (closeFlag==null&&sawFlag==0) {
                 if (href.indexOf('?_v=2')<0){
-                    window.location.href=href+'?_v=2';
+                    window.location.href=href.split('?')[0]+'?_v=2';
                 }
             }
             if (closeFlag==null&&sawFlag==1){
                 if (href.indexOf('?_v=1')<0){
-                    window.location.href=href+'?_v=1';
+                    window.location.href=href.split('?')[0]+'?_v=1';
                 }
             }
         },1000);
-    }else {
+    }else if (href.indexOf('#')>-1) {
         document.addEventListener('scroll',function(){//监听页面滑动
             //浏览器高
             var innerHeight=window.innerHeight;
