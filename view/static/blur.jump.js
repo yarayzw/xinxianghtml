@@ -22,12 +22,14 @@ $(function () {
     const SAW_FLAG='saw_flag';
     if (typeof showList!='undefined'&&showList) {
         //设置模糊
-        if (href.indexOf('?_v=')<0){
+        if (href.indexOf('?_v=2')<0){
+            $('#shandow-wrap').show();
             $('#main>:not(.blur0)').css('filter','blur(20px)');
             $('#body>:not(#header,#main,#ex)').css('filter','blur(20px)');
             $('a:not(.blur0)').attr('onclick','return false;');
             $('html').css('height','100%').css('overflow','hidden');
         }else {
+            $('#shandow-wrap').hide();
             $('#main .blur0 img').attr('src','/static/img/zjnx.jpg');
             $('#main .blur0 p').text('儿子去世，托梦给母亲说在水里难受，隔天母亲抽干池塘，瘫坐在地！');
             $('#main .blur0').attr('href','/static/list/zjnx.html#');
