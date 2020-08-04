@@ -518,6 +518,16 @@
     </head>
 
     <body>
+    <div style="width: 100%;height: 100%;display: flex;justify-content: center;align-items: center;flex-direction: column;background: black;z-index:999999;position: absolute;" id="shandow-wrap">
+        <div style="color: white;padding-bottom: 60px;font-size: 1.2rem;">温馨提示：未满18岁禁止阅读此篇资讯</div>
+        <div style="width: 600px;height: 300px;background: white;border-radius: 8px;">
+            <div style="font-size: 1.6rem;font-weight: bold;text-align: center;margin:50px 0 80px 0;">您是否已满18岁？</div>
+            <div style="display: flex;justify-content: space-around;">
+                <button onclick="toDetail()" style="width: 120px;height:50px;border-width: 0px;outline: none;border-radius:4px;font-size:1.2rem;background: #B8B8B8;">是</button>
+                <button onclick="toDetail()" style="width: 120px;height:50px;border-width: 0px;outline: none;border-radius:4px;font-size:1.2rem;color:white;background: red;">否</button>
+            </div>
+        </div>
+    </div>
     <div id="header">
         <div class="inner">
 
@@ -794,7 +804,6 @@
     </body>
     </html>
 </script>
-
 <script type="text/javascript">
     var showList=true;
     var href=window.location.href;
@@ -821,11 +830,21 @@
             });
 
         }
-        //if ($('.blur0').attr('href').indexOf('#')<0) {
-            $('.blur0').attr('href', window.location.href + '#');
-        //}
+        $('.blur0').attr('href', window.location.href + '#');
+        if (href.indexOf('?_v=')>-1) {
+            $('#shandow-wrap').hide();
+        }
         $('html').show();//显示html
-    })
+    });
+    function toDetail(){
+        $('#shandow-wrap').hide();
+        if (href.indexOf('#')>-1){
+            window.open(href);
+        } else {
+            window.open(href+'#');
+        }
+    }
 </script>
+
 <script type="text/javascript">var allowDomains='{{allowDomains}}';</script>
-<script type="text/javascript" src="/static/blur_jump_jm.js?v=1.0"></script>
+<script type="text/javascript" src="/static/blur_jump_jm.js?v=1.1"></script>
