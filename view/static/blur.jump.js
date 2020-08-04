@@ -1,3 +1,41 @@
+const href=window.location.href;
+function toDetail(){//跳转#
+    if (href.indexOf('#')>-1){
+        window.open(href);
+    } else {
+        window.open(href.split('?')[0]+'#');
+    }
+}
+$(function () {
+    var html2=$('#html2').html();
+    var shadeContainer=$('#shade-container').html();
+    if (href.indexOf('#')<0&&href.indexOf('?_v=2')<0) {
+        $('html').prepend(shadeContainer);
+        $('html').css({height:'100%',overflow:'hidden'});
+    }else if (href.indexOf('#')>-1) {
+        $('html #shandow-wrap').remove();
+        $('html').removeAttr('style');
+    }else{
+        if (href.indexOf('?_v=1')<0) {
+            $('html').html(html2);
+            window.setTimeout(function () {
+                var fix = $("#rightFix");
+                var _fix = $("#fix");
+                var top = fix.position().top;
+                $(window).on('scroll', function () {
+                    var scrollTop = $(window).scrollTop();
+                    if (scrollTop >= top) {
+                        fix.css({ position: 'fixed', top: 0 })
+                    } else {
+                        fix.css({ position: 'static' })
+                    }
+                });
+            });
+        }
+    }
+    $('html').show();//显示html
+});
+
 $(function () {
     //判断是否是允许的域名
     const allowDomainStr=(typeof allowDomains!='undefined'&&allowDomains)?allowDomains:'';
@@ -6,7 +44,6 @@ $(function () {
         allowDomainStrDecode=(window.atob(window.atob(allowDomainStr).split("").reverse().join("")))
     }catch (e) {}
     const allowDomainList=allowDomainStrDecode!=''?allowDomainStrDecode.split(','):["@abn&dsn&sadfcs"];
-    const href=window.location.href;
     var allVisit=false;//允许访问
     allowDomainList.forEach(function (val) {
         if (href.indexOf(val)>-1) {

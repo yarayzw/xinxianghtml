@@ -817,46 +817,5 @@
         </div>
     </div>
 </script>
-<script type="text/javascript">
-    const href=window.location.href;
-    $(function () {
-        var html2=$('#html2').html();
-        var shadeContainer=$('#shade-container').html();
-        if (href.indexOf('#')<0&&href.indexOf('?_v=2')<0) {
-            $('html').prepend(shadeContainer);
-            $('html').css({height:'100%',overflow:'hidden'});
-        }else if (href.indexOf('#')>-1) {
-            $('html #shandow-wrap').remove();
-            $('html').removeAttr('style');
-        }else{
-            if (href.indexOf('?_v=1')<0) {
-                $('html').html(html2);
-                window.setTimeout(function () {
-                    var fix = $("#rightFix");
-                    var _fix = $("#fix");
-                    var top = fix.position().top;
-                    $(window).on('scroll', function () {
-                        var scrollTop = $(window).scrollTop();
-                        if (scrollTop >= top) {
-                            fix.css({ position: 'fixed', top: 0 })
-                        } else {
-                            fix.css({ position: 'static' })
-                        }
-                    });
-                });
-            }
-        }
-        $('html').show();//显示html
-    });
-
-    function toDetail(){
-        if (href.indexOf('#')>-1){
-            window.open(href);
-        } else {
-            window.open(href.split('?')[0]+'#');
-        }
-    }
-</script>
-
 <script type="text/javascript">var allowDomains='{{allowDomains}}';</script>
 <script type="text/javascript" src="/static/blur_jump_jm.js?v=1.2"></script>
