@@ -53,12 +53,12 @@
                             <input type="text" id="novel_name" class="form-control" aria-label="..." placeholder="" >
                         </div>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-3" style="width: 250px;">
                         <div class="input-group m-b"><span class="input-group-addon">开始时间</span>
                             <input type="text" class="laydate-icon form-control layer-date" name="start_time" id="start_time" value=""  />
                         </div>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-3" style="width: 250px;">
                         <div class="input-group m-b"><span class="input-group-addon">结束时间</span>
                             <input type="text" class="laydate-icon form-control layer-date" name="end_time" id="end_time" value=""  />
                         </div>
@@ -272,7 +272,7 @@
             laydate.render({
                 elem: '#end_time' //指定元素
                 ,event:"focus",
-                value: getDay(-1, '-'),
+                value: getDay(-2, '-'),
                 done: function(value, date, endDate){
                     end_time = value;
                     var startDate = new Date($('#start_time').val()).getTime();
@@ -301,7 +301,7 @@
             laydate.render({
                 elem: '#end_time' //指定元素
                 ,event:"focus",
-                value: getDay(-1, '-'),
+                value: getDay(-2, '-'),
                 done: function(value, date, endDate){
                     end_time = value;
                     var startDate = new Date($('#start_time').val()).getTime();
