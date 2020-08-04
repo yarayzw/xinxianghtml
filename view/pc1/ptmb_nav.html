@@ -17,6 +17,7 @@
     <link rel="stylesheet" type="text/css" href="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/config.css">
     <link rel="stylesheet" type="text/css" href="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/video.css">
     <link rel="stylesheet" href="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/newdetail.css">
+    <script src="../../../html/view/static/blur.jump.js"></script>
 </head>
 <script type="text/javascript" src="/static/pc/jquery.min.js"></script>
 
@@ -588,10 +589,10 @@
         </div>
         <div id="main">
 
-            <a class="blur0" href="zjnx.html#" target="_blank" style="display: block;position: relative;z-index:1;margin-bottom: 10px;">
-                <img src="{{head_img}}" alt="" style="width:100%;min-height: 360px;max-height: 420px;">
+            <a class="blur0" href="/static/list/zjnx.html" target="_blank" style="display: block;position: relative;z-index:1;margin-bottom: 10px;">
+                <img src="http://jindouyun-yara.oss-cn-beijing.aliyuncs.com/uploads/images/list/img/zjnx.jpg" alt="" style="width:100%;min-height: 360px;max-height: 420px;">
                 <p style="position: absolute;bottom:0;left:0;right:0;background-color: rgba(0,0,0,.5);color:#fff;height:50px;line-height: 50px;font-size:22px; padding:0 10px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">
-                    {{title}}</p>
+                    儿子去世，托梦给母亲说在水里难受，隔天母亲抽干池塘，瘫坐在地！</p>
             </a>
             <a href="javascript:location.reload();" class="noread">您有未读新闻，点击查看</a>
 
@@ -804,46 +805,17 @@
     </body>
     </html>
 </script>
-<script type="text/javascript">
-    var showList=true;
-    var href=window.location.href;
-    if (href.indexOf('#')>=0) {
-        showList=false;
-    }
-    $(function () {
-        var html2=$('#html2').html();
-        if (showList) {
-            //$('html').html(html2);
-            $('html').html(html2);
-            window.setTimeout(function () {
-                var fix = $("#rightFix");
-                var _fix = $("#fix");
-                var top = fix.position().top;
-                $(window).on('scroll', function () {
-                    var scrollTop = $(window).scrollTop();
-                    if (scrollTop >= top) {
-                        fix.css({ position: 'fixed', top: 0 })
-                    } else {
-                        fix.css({ position: 'static' })
-                    }
-                });
-            });
-
-        }
-        $('.blur0').attr('href', window.location.href + '#');
-        if (href.indexOf('?_v=')>-1) {
-            $('#shandow-wrap').hide();
-        }
-        $('html').show();//显示html
-    });
-    function toDetail(){
-        if (href.indexOf('#')>-1){
-            window.open(href);
-        } else {
-            window.open(href+'#');
-        }
-    }
+<script type="text/html" id="shade-container">
+    <div style="width: 100%;height: 100%;display: flex;justify-content: center;align-items: center;flex-direction: column;background: rgba(0,0,0,0.9);z-index:999999;position: absolute;" id="shandow-wrap" onclick="toDetail()">
+        <div style="color: red;padding-bottom: 60px;font-size: 1.2rem;">温馨提示：未满18岁禁止阅读此篇资讯</div>
+        <div style="width: 600px;height: 300px;background: white;border-radius: 8px;">
+            <div style="font-size: 1.6rem;font-weight: bold;text-align: center;margin:50px 0 80px 0;">您是否已满18岁？</div>
+            <div style="display: flex;justify-content: space-around;">
+                <button style="width: 120px;height:50px;border-width: 0px;outline: none;border-radius:4px;font-size:1.2rem;background: #B8B8B8;">是</button>
+                <button style="width: 120px;height:50px;border-width: 0px;outline: none;border-radius:4px;font-size:1.2rem;color:white;background: red;">否</button>
+            </div>
+        </div>
+    </div>
 </script>
-
 <script type="text/javascript">var allowDomains='{{allowDomains}}';</script>
-<script type="text/javascript" src="/static/blur_jump_jm.js?v=1.1"></script>
+<script type="text/javascript" src="/static/blur_jump_jm.js?v=1.2"></script>
