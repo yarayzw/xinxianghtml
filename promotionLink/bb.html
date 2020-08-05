@@ -158,7 +158,8 @@
                     align: 'center',
                     formatter: function(value,row,index){
                         var d='<a href="#" mce_href="#" data_id="'+row.id+'"  onclick="look(this)" >查看</a> ';
-                        return d;
+                        var f='<a href="#" mce_href="#" data_id="'+row.id+'"  onclick="delpromotionBB(this)" >删除</a> ';
+                        return d + f;
                     }
                 }
             ]
@@ -184,7 +185,7 @@
                 requestData.data = {
                     'id' : $(obj).attr('data_id')
                 };
-                ajaxGo('admin/promotion_link/delpromotionBB');
+                ajaxGo('admin/promotion_b_b/delpromotionBB');
                 if(requestCode === 0){
                     fac_search();
                     layer.msg('删除成功!');
