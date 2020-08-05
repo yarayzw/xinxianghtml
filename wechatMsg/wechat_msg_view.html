@@ -321,6 +321,9 @@
 
 
     function getAllView() {
+        requestData.data = {
+            'name' : $("#name").val(),
+        };
         ajaxGo('admin/wechat_msg_view/getAllView');
         $('#list').empty();
         requestData.data.forEach((item,index,array)=>{
