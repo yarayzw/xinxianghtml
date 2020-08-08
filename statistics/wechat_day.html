@@ -25,6 +25,7 @@
                 </div>
                 <table id="wechatDayTable" >
                 </table>
+                <div id="update_user_no" style="margin-top: 20px;color: red;font-size: 18px"></div>
             </div>
         </div>
     </div>
@@ -230,6 +231,7 @@
         fac_search();
     }
     function initTable() {
+        getTodayNoUpdateUser();
         $('#wechatDayToolbar').bootstrapTable('destroy');
         // $('#wechatDayToolbar').css("height", 300);
         $("#wechatDayToolbar").bootstrapTable({
@@ -243,8 +245,8 @@
             pageList: [10, 15, 20, 25],  //记录数可选列表
             search: false,
             toolbar: '#list_search_faci',
-            showColumns: true,  //显示下拉框勾选要显示的列
-            showRefresh: true,  //显示刷新按钮
+            showColumns: false,  //显示下拉框勾选要显示的列
+            showRefresh: false,  //显示刷新按钮
             sidePagination: "server", //表示服务端请求
             //设置为undefined可以获取pageNumber，pageSize，searchText，sortName，sortOrder
             //设置为limit可以获取limit, offset, search, sort, order
@@ -520,8 +522,8 @@
             pageList: [10, 15, 20, 25],  //记录数可选列表
             search: false,
             toolbar: '#list_search_faci',
-            showColumns: true,  //显示下拉框勾选要显示的列
-            showRefresh: true,  //显示刷新按钮
+            showColumns: false,  //显示下拉框勾选要显示的列
+            showRefresh: false,  //显示刷新按钮
             sidePagination: "server", //表示服务端请求
             //设置为undefined可以获取pageNumber，pageSize，searchText，sortName，sortOrder
             //设置为limit可以获取limit, offset, search, sort, order
@@ -632,6 +634,8 @@
 
     //搜索
     function fac_search() {
+        getTodayNoUpdateUser();
+
         $('#wechatDayToolbar').bootstrapTable('refresh');
     }
 
@@ -681,7 +685,13 @@
             'today_consume' : $("input[name='today_consume']").val(),
         }
         ajaxGo('admin/statistics/editWechatDay')
+    }
 
+    function getTodayNoUpdateUser() {
+        requestData.data = {
+        };
+        ajaxGo('admin/statistics/getTodayUpdateUser');
+        $('#update_user_no').html(requestData.data.msg);
     }
 </script>
 
