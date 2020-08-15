@@ -63,7 +63,7 @@
                             <input type="text" class="laydate-icon form-control layer-date" name="end_time" id="end_time" value=""  />
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" id="cjzt">
                         <div class="col-sm-4">
                             <label class="control-label">采集状态 :</label>
 
@@ -80,7 +80,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" id="hbzt">
                         <div class="col-sm-4">
                             <label class="control-label">回本状态 :</label>
 
@@ -284,10 +284,12 @@
                 }
             });
         }else {
+            $('#hbzt').hide();
+            $('#cjzt').hide();
             laydate.render({
                 elem: '#start_time' //指定元素
                 ,event:"focus",
-                value: getDay(-29, '-'),
+                value: getDay(-15, '-'),
                 done: function(value, date, endDate){
                     start_time = value;
                     var startDate = new Date(value).getTime();
