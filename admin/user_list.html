@@ -45,7 +45,7 @@
                             <button class="btn btn-default" type="button" onclick="fac_search()">搜索</button>
                         </span>
                     </div>
-                    <div class="col-md-1">
+                    <div class="col-md-1" id="add_button">
                          <span class="input-group-btn">
                             <button class="btn btn-default" type="button" onclick="addUser()">添加</button>
                         </span>
@@ -111,6 +111,38 @@
                             <!--                            required="" aria-required="false"-->
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                            适用平台 :<br/><br/>
+                            </label>
+                        <div class="col-sm-8" id="platform">
+                            <label style="font-weight: normal;"><input type="radio"  name="platform_id" style="margin-left: 7px" value="0"> <i></i>全部</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                            部门 :<br/><br/>
+                        </label>
+                        <div class="col-sm-8" id="department">
+                            <label style="font-weight: normal;"><input type="radio"  name="department_id" style="margin-left: 7px" value="0"> <i></i>筋斗云</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                            部门管理者 :<br/><br/>
+                        </label>
+                        <div class="col-sm-8" >
+                            <label style="font-weight: normal;"><input type="radio"  name="is_leader" style="margin-left: 7px" value="0"> <i></i>否</label>
+                            <label style="font-weight: normal;"><input type="radio"  name="is_leader" style="margin-left: 7px" value="1"> <i></i>是</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                            角色 :<br/><br/>
+                            <a href="javascript:void(0);" class="role-all">全选</a>|<a href="javascript:void(0);" class="role-invert">反选</a>|<a href="javascript:void(0);" class="role-cancel">取消</a>
+                        </label>
+                        <div class="col-sm-8" id="role_ids_1"></div>
+                    </div>
                 </form>
             </div>
         </div>
@@ -134,7 +166,59 @@
 <script src="../js/bootstrapValidator.min.js"></script>
 <script src="../js/index.js"></script>
 <script src="../js/plugins/bootstrap-select-1.13.9/js/bootstrap-select.js"></script>
+<script>
+    $(function () {
+        if($.inArray('admin/user_info/adduser',u_role_url) === -1){
+            $('#add_button').hide();
+        }
+        //全选
+        $(document).on('click','.role-all',function () {
+            $(this).parent('label').next('div').find('input').prop('checked','checked');
+        });
+        //反选
+        $(document).on('click','.role-invert',function () {
+            $(this).parent('label').next('div').find('input').each(function () {
+                if($(this).prop("checked"))
+                {
+                    $(this).prop("checked",false);
+                }else{
+                    $(this).prop("checked",true);
+                }
+            });
+        });
+        //取消
+        $(document).on('click','.role-cancel',function () {
+            $(this).parent('label').next('div').find('input').prop('checked',false);
+        });
+        setAuthGroupIds();
 
+    });
+
+    function setAuthGroupIds(status) {
+        //平台
+        requestData.data = {
+        };
+        ajaxGo('admin/auth_group/getList')
+        requestData.data.rows.forEach((item,index,array)=>{
+            //执行代码
+            var html = '<label style="font-weight: normal;"><input type="checkbox"  name="role_id" style="margin-left: 7px" value="'+item.id+'"> <i></i> '+item.title+'\n'+'</label>';
+
+            // var html = "<option value='"+item.id+"'>"+item.wechat_name+"</option>";
+            $('#role_ids_1').append(html);
+        });
+
+        //部门
+        requestData.data = {
+        };
+        ajaxGo('admin/department/getList')
+        requestData.data.rows.forEach((item,index,array)=>{
+            //执行代码
+            var html = '<label style="font-weight: normal;"><input type="radio"  name="department_id" style="margin-left: 7px" value="'+item.id+'"> <i></i> '+item.name+'\n'+'</label>';
+            // var html = "<option value='"+item.id+"'>"+item.wechat_name+"</option>";
+            $('#department').append(html);
+        });
+    }
+</script>
 
 <!--<script src="../js/demo/webuploader-demo.min.js"></script>-->
 <!--//下拉框js-->
@@ -160,7 +244,22 @@
     $(document).ready(function () {
         //调用函数，初始化表格
         initTable();
+        setPlatformIds();
     });
+
+    //渲染平台条件
+    function setPlatformIds()
+    {
+        requestData.data = {
+        };
+        ajaxGo('admin/platform/getListToSelect');
+        requestData.data.forEach((item,index,array)=>{
+            //执行代码
+            var html = '<label style="font-weight: normal;"><input type="radio"  name="platform_id" style="margin-left: 7px" value="'+item.id+'"> <i></i> '+item.name+'\n'+'</label>';
+            // var html = "<option value='"+item.id+"'>"+item.wechat_name+"</option>";
+            $('#platform').append(html);
+        });
+    }
 
     function initTable() {
         $('#userToolbar').bootstrapTable('destroy');
@@ -238,24 +337,33 @@
                     field: 'name',
                     align: 'center',
                     valign: 'middle',
-                    width : 200,
+                    width : 50,
                 },
                 {
                     field: 'phone',
                     title: '手机号',
-                    width : 200,
+                    width : 150,
                     align: 'center'
                 },
                 {
                     field: 'status',
                     align: 'center',
                     title: '状态',
-                    width : 200,
+                    width : 100,
                     formatter: function(value,row,index){
-                        if(value === 0){
-                            var f='<a href="javascript:void(0)"  onclick="setUserStatus('+row.id+',1)" >正常</a> ';
+                        let f;
+                        if($.inArray('admin/user_info/setuserstatus',u_role_url) !== -1){
+                            if(value === 0){
+                                f='<a href="javascript:void(0)"  onclick="setUserStatus('+row.id+',1)" >正常</a> ';
+                            }else {
+                                f='<a href="javascript:void(0)"  onclick="setUserStatus('+row.id+',0)" >禁用</a> ';
+                            }
                         }else {
-                            var f='<a href="javascript:void(0)"  onclick="setUserStatus('+row.id+',0)" >禁用</a> ';
+                            if(value === 0){
+                                f='正常';
+                            }else {
+                                f='禁用';
+                            }
                         }
                         return f;
                     }
@@ -263,17 +371,36 @@
                 {
                     field: 'view',
                     title: '落地页文件夹',
+                    width : 50,
+                    align: 'center'
+                },
+                {
+                    field: 'role_names',
+                    title: '角色',
                     width : 200,
+                    align: 'center'
+                },
+                {
+                    field: 'platform_name',
+                    title: '所属平台',
+                    width : 50,
                     align: 'center'
                 },
                 {
                     field: 'operate',
                     title: '操作',
-                    width : 200,
+                    width : 100,
                     align: 'center',
                     formatter: function(value,row,index){
-                        var d='<a href="javascript:void(0)" data_id="'+row.id+'" data_name="'+row.name+'" data_phone="'+row.phone+'" data_view="'+row.view+'"  onclick="editUser(this)" >编辑</a> ';
-                        var f='<a href="javascript:void(0)" data_id="'+row.id+'" onclick="delUser(this)" >删除</a> ';
+                        let d = '';
+                        if($.inArray('admin/user_info/edituser',u_role_url) !== -1){
+                            d='<a href="javascript:void(0)" data_id="'+row.id+'"  onclick="editUser(this)" >编辑</a> ';
+                        }
+                        let f = '';
+                        if($.inArray('admin/user_info/deluser',u_role_url) !== -1){
+                            f='<a href="javascript:void(0)" data_id="'+row.id+'" onclick="delUser(this)" >删除</a> ';
+                        }
+
                         return d+f;
                     }
                 }
@@ -288,9 +415,20 @@
 
     //编辑
     function editUser(obj) {
-        $("input[name='name']").val($(obj).attr('data_name'));
-        $("input[name='phone']").val($(obj).attr('data_phone'));
-        $("input[name='view']").val($(obj).attr('data_view'));
+        requestData.data = {
+            'id' : $(obj).attr('data_id'),
+        };
+        ajaxGo('admin/user_info/getUserInfo');
+
+        $("input[name='name']").val(requestData.data.name);
+        $("input[name='phone']").val(requestData.data.phone);
+        $("input[name='view']").val(requestData.data.view);
+        $("input[name=platform_id][value="+requestData.data.platform_id+"]").attr('checked','true');
+        $("input[name=department_id][value="+requestData.data.department_id+"]").attr('checked','true');
+        $("input[name=is_leader][value="+requestData.data.is_leader+"]").attr('checked','true');
+        requestData.data.role_ids.forEach((item,index,array)=>{
+            $("input[name=role_id][value="+item+"]").attr('checked','true');
+        });
         layer.open({
             type: 1,
             title: '编辑',
@@ -323,12 +461,23 @@
 
     //修改
     function editUserGo(id) {
+        let role_ids =[];//定义一个数组
+        $('input[name="role_id"]:checked').each(function(){
+            role_ids.push($(this).val());
+        });
+        let platform_id = $("input[name='platform_id']:checked").val();
+        let department_id = $("input[name='department_id']:checked").val();
+        let is_leader = $("input[name='is_leader']:checked").val();
         requestData.data = {
             'id' : id,
             'name' : $("input[name='name']").val(),
             'phone' : $("input[name='phone']").val(),
             'password' : $("input[name='password']").val(),
             'view' : $("input[name='view']").val(),
+            'role_ids' : role_ids,
+            'platform_id':platform_id,
+            'is_leader' : is_leader,
+            'department_id':department_id
         }
         ajaxGo('admin/user_info/editUser')
     }
@@ -385,14 +534,25 @@
 
     }
 
-    //修改
+
     function addUserGo(id) {
+        let role_ids =[];//定义一个数组
+        $('input[name="role_id"]:checked').each(function(){
+            role_ids.push($(this).val());
+        });
+        let platform_id = $("input[name='platform_id']:checked").val();
+        let department_id = $("input[name='department_id']:checked").val();
+        let is_leader = $("input[name='is_leader']:checked").val();
         requestData.data = {
             'id' : id,
             'name' : $("input[name='name']").val(),
             'phone' : $("input[name='phone']").val(),
             'password' : $("input[name='password']").val(),
             'view' : $("input[name='view']").val(),
+            'role_ids' : role_ids,
+            'platform_id' :platform_id,
+            'is_leader' : is_leader,
+            'department_id':department_id
         };
         ajaxGo('admin/user_info/addUser')
     }

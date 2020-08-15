@@ -46,10 +46,6 @@
 
                 </div>
             </div>
-            <fieldset>
-
-                &nbsp;&nbsp;&nbsp;&nbsp;
-            </fieldset>
         </form>
     </div>
 </div>
@@ -71,21 +67,14 @@
             <div class="ibox-content">
                 <form class="form-horizontal m-t" id="commentForm" method="post">
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">权限名称 :</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" id="title" name="title" value=""  />
-                            <!--                            required="" aria-required="false"-->
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">路径 :</label>
+                        <label class="col-sm-3 control-label">部门名称 :</label>
                         <div class="col-sm-8">
                             <input type="text" class="form-control" id="name" name="name" value=""  />
                             <!--                            required="" aria-required="false"-->
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">父级权限 :</label>
+                        <label class="col-sm-3 control-label">父级部门 :</label>
                         <div class="col-sm-8">
                             <ul id="tree" class="ztree" style="width:260px; overflow:auto;"></ul>
                         </div>
@@ -113,20 +102,26 @@
             <div class="ibox-content">
                 <form class="form-horizontal m-t" id="commentForm2" method="post">
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">权限名称 :</label>
+                        <label class="col-sm-3 control-label">部门名称 :</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="title2" name="title" value=""  />
-                            <!--                            required="" aria-required="false"-->
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">路径 :</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" id="name2" name="name" value=""  />
+                            <input type="text" class="form-control" id="name2" name="name2" value=""  />
                             <!--                            required="" aria-required="false"-->
                         </div>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="ibox float-e-margins" id="qr_code_div" style="display: none">
+    <div class="ibox-content">
+        <div class="row row-lg">
+            <div class="col-sm-12">
+                <div class="btn-group hidden-xs" id="userToolbar" role="group">
+                </div>
+                <table id="userTable" >
+                </table>
             </div>
         </div>
     </div>
@@ -151,7 +146,7 @@
     var $table = $('#table');
     var $tree = $('#tree');
     $(function() {
-        if($.inArray('admin/auth_rule/addauthrule',u_role_url) === -1){
+        if($.inArray('admin/department/adddepartment',u_role_url) === -1){
             $('#add_button').hide();
         }
         initTableYy();
@@ -159,7 +154,7 @@
     function initTableYy() {
         $table.bootstrapTable('destroy');
         $table.bootstrapTable({
-            url: __ROOT__ + 'admin/auth_rule/getList', //获取数据的Servlet地址
+            url: __ROOT__ + 'admin/department/getList', //获取数据的Servlet地址
             striped: true,  //表格显示条纹
             pagination: false, //启动分页
             sortName: 'id',
@@ -186,53 +181,37 @@
             },
             columns: [
                 {
-                    field: 'title',
-                    title: '名称' ,
-                    width:'30%'
-                },
-                {
                     field: 'name',
-                    title: '路径',
+                    title: '部门名称' ,
                     width:'30%'
                 },
                 {
-                    field: 'status',
-                    title: '状态',
-                    formatter: function(value,row,index){
-                        let f;
-                        if($.inArray('admin/auth_rule/setauthrulestatus',u_role_url) !== -1){
-                            if(value === 0){
-                                f='<a href="javascript:void(0)"  onclick="setStatus('+row.id+',1)" >正常</a> ';
-                            }else {
-                                f='<a href="javascript:void(0)"  onclick="setStatus('+row.id+',0)" >禁用</a> ';
-                            }
-                        }else {
-                            if(value === 0){
-                                f='正常';
-                            }else {
-                                f='禁用';
-                            }
-                        }
-                        return f;
-                    }
+                    field: 'user_name',
+                    title: '部门管理者' ,
+                    width:'30%',
+                    align: 'center',
                 },
                 {
                     field: 'emm',
                     title: '操作',
                     formatter: function(value,row,index){
                         let e = '';
-                        if($.inArray('admin/auth_rule/addauthrule',u_role_url) !== -1){
-                            e='<a href="javascript:void(0)" data_id="'+row.id+'"   onclick="addAuth2(this)" >添加子权限</a> ';
+                        if($.inArray('admin/department/adddepartment',u_role_url) !== -1){
+                            e='<a href="javascript:void(0)" data_id="'+row.id+'"   onclick="addDepartment2(this)" >添加子部门</a> ';
                         }
                         let d = '';
-                        if($.inArray('admin/auth_rule/editauthrule',u_role_url) !== -1){
-                            d='<a href="javascript:void(0)" data_id="'+row.id+'" data_title="'+row.title+'" data_name="'+row.name+'" data_pid="'+row.pid+'"  onclick="edit(this)" >编辑</a> ';
+                        if($.inArray('admin/department/editdepartment',u_role_url) !== -1){
+                            d='<a href="javascript:void(0)" data_id="'+row.id+'" data_name="'+row.name+'" data_url="'+row.url+'" data_pid="'+row.pid+'"  onclick="edit(this)" >编辑</a> ';
                         }
                         let f = '';
-                        if($.inArray('admin/auth_rule/delauthrule',u_role_url) !== -1){
+                        if($.inArray('admin/department/deldepartment',u_role_url) !== -1){
                             f='<a href="javascript:void(0)" data_id="'+row.id+'" onclick="del(this)" >删除</a> ';
                         }
-                        return e+d+f;
+                        let q = '';
+                        if($.inArray('admin/department/getalluser',u_role_url) !== -1){
+                            q='<a href="javascript:void(0)" data_id="'+row.id+'" onclick="lookUser(this)" >部门成员</a> ';
+                        }
+                        return e+d+f+q;
                     }
                 },
             ],
@@ -279,14 +258,13 @@
                         let treeObj=$.fn.zTree.getZTreeObj("tree");
                         let nodes =  treeObj.getCheckedNodes(true);
                         if(nodes.length === 0){
-                            layer.msg('请选择父级权限');
+                            layer.msg('请选择父级部门');
                         }else {
                             requestData.data = {
                                 pid : nodes[0]['id'],
-                                title : $('#title').val(),
-                                name : $('#name').val()
+                                name : $('#name').val(),
                             };
-                            ajaxGo('admin/auth_rule/addAuthRule');
+                            ajaxGo('admin/department/addDepartment');
                             if(requestCode === 0){
                                 fac_search();
                                 layer.close(index);
@@ -303,8 +281,8 @@
         });
     }
 
-    //添加子权限
-    function addAuth2(obj){
+    //添加子部门
+    function addDepartment2(obj){
         layer.open({
             type: 1,
             title: '添加',
@@ -320,10 +298,9 @@
                     ,yes: function(index){
                             requestData.data = {
                                 pid : $(obj).attr('data_id'),
-                                title : $('#title2').val(),
-                                name : $('#name2').val()
+                                name : $('#name2').val(),
                             };
-                            ajaxGo('admin/auth_rule/addAuthRule');
+                            ajaxGo('admin/department/addDepartment');
                             if(requestCode === 0){
                                 fac_search();
                                 layer.close(index);
@@ -345,7 +322,6 @@
     function edit(obj) {
         getTreeNew();
         $('#name').val($(obj).attr('data_name'));
-        $('#title').val($(obj).attr('data_title'));
         onAsyncSuccess(parseInt($(obj).attr('data_pid')),'tree');
         layer.open({
             type: 1,
@@ -363,15 +339,14 @@
                         let treeObj=$.fn.zTree.getZTreeObj("tree");
                         let nodes =  treeObj.getCheckedNodes(true);
                         if(nodes.length === 0){
-                            layer.msg('请选择父级权限');
+                            layer.msg('请选择父级部门');
                         }else {
                             requestData.data = {
                                 pid : nodes[0]['id'],
-                                title : $('#title').val(),
                                 name : $('#name').val(),
                                 id: $(obj).attr('data_id')
                             };
-                            ajaxGo('admin/auth_rule/editAuthRule');
+                            ajaxGo('admin/department/editDepartment');
                             if(requestCode === 0){
                                 fac_search();
                                 layer.close(index);
@@ -396,7 +371,7 @@
                 requestData.data = {
                     id: $(obj).attr('data_id')
                 };
-                ajaxGo('admin/auth_rule/delAuthRule');
+                ajaxGo('admin/department/delDepartment');
                 if(requestCode === 0){
                     fac_search();
                     layer.msg('删除成功!');
@@ -407,26 +382,6 @@
         });
     }
 
-    //设置状态
-    function setStatus(id,status) {
-        layer.msg('确定修改？', {
-            time: 0 //不自动关闭
-            ,btn: ['确定', '取消']
-            ,yes: function(index){
-                requestData.data = {
-                    'id' : id,
-                    'status' : status
-                };
-                ajaxGo('admin/auth_rule/setAuthRuleStatus');
-                if(requestCode === 0){
-                    fac_search();
-                    layer.msg('修改成功!');
-                }else {
-                    layer.msg(requestMessage);
-                }
-            }
-        });
-    }
 
     var zTree;
     var demoIframe;
@@ -461,6 +416,10 @@
                     demoIframe.attr("src", treeNode.file + ".html");
                     return true;
                 }
+            },
+            onAsyncSuccess: function(){
+                var zTree = $.fn.zTree.getZTreeObj("tree");
+                zTree.expandAll(true);
             }
         }
     };
@@ -482,13 +441,12 @@
     function getTreeNew() {
         requestData.data = {
         };
-        ajaxGo('admin/auth_rule/getListByTree');
+        ajaxGo('admin/department/getListByTree');
         var t = $("#tree");
         t = $.fn.zTree.init(t, setting, requestData.data);
         demoIframe = $("#testIframe");
         demoIframe.bind("load", loadReady);
-        var zTree = $.fn.zTree.getZTreeObj("tree");
-        zTree.selectNode(zTree.getNodeByParam("id", 101));
+        t.expandAll(true);
     }
 
     function loadReady() {
@@ -502,6 +460,106 @@
 
     function fac_search() {
         $('#table').bootstrapTable('refresh');
+    }
+
+    //查看部门成员
+    function initUserTable(id) {
+        $('#userTable').bootstrapTable('destroy');
+        // $('#wechatDayToolbar').css("height", 300);
+        $("#userTable").bootstrapTable({
+            url: __ROOT__ + 'admin/user_info/getListByDepartmentId', //获取数据的Servlet地址
+            striped: true,  //表格显示条纹
+            pagination: true, //启动分页
+            sortName: 'id',
+            sortOrder:'desc',
+            pageSize: 10,  //每页显示的记录数
+            pageNumber:1, //当前第几页
+            pageList: [10, 15, 20, 25],  //记录数可选列表
+            search: false,
+            toolbar: '#list_search_faci_qr_code',
+            showColumns: true,  //显示下拉框勾选要显示的列
+            showRefresh: true,  //显示刷新按钮
+            sidePagination: "server", //表示服务端请求
+            responseHandler:function(data){
+                return data.data;
+            },
+            queryParamsType : "undefined",
+            // method: 'post',
+            queryParams: function queryParams(params) {   //设置查询参数
+                params = {
+                    //这里是在ajax发送请求的时候设置一些参数 params有什么东西，自己看看源码就知道了
+                    pageNumber: params.pageNumber,
+                    pageSize: params.pageSize,
+                    sortName: params.sortName,
+                    sortOrder: params.sortOrder,
+                    // id : {$_GET['id']},
+                    head : {'token' : getCookie('token')},
+                    id : id
+                };
+
+                return params;
+            },
+            onLoadSuccess: function(data){  //加载成功时执行
+
+            },
+            onLoadError: function(){  //加载失败时执行
+                layer.msg("加载数据失败", {time : 1500, icon : 2});
+            },
+            columns: [
+                {
+                    title: 'Id',
+                    field: 'id',
+                    align: 'center',
+                    width : 20,
+                },
+                {
+                    field: 'name',
+                    title: '名称',
+                    width : 20,
+                    align: 'center'
+                },
+                {
+                    field: 'phone',
+                    title: '电话',
+                    width : 20,
+                    align: 'center'
+                }
+            ]
+        });
+    }
+
+    function lookUser(obj) {
+        initUserTable($(obj).attr('data_id'));
+        layer.open({
+            type: 1,
+            title: '成员',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['80%', '80%'],
+            content: $('#qr_code_div'),
+            btn: ['确定', '取消'], // 按钮
+            yes: function(indexs, layero){
+                let row = $("#linkTable").bootstrapTable('getSelections');
+                if (row.length === 0) {
+                    layer.msg('请选择行');
+                }else {
+                    layer.msg('确定选择？', {
+                        time: 0 //不自动关闭
+                        ,btn: ['确定', '取消']
+                        ,yes: function(index) {
+                            row.forEach((item,index,array)=>{
+                                //执行代码
+                                var html = '<div style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"  onclick="delImg(this)" ><div><img style="width: 150px;height: 150px" name="qr_img" data_link_id="'+item.id+'" data_name="'+__IMG__+'/'+item.img_url+'" src="'+__IMG__+'/'+item.img_url+'"></div></div>';
+                                $('#upload-list').append(html);
+                            });
+                            layer.close(index);
+                            layer.close(indexs);
+                        }
+                    });
+                }
+
+            }
+        });
     }
 
 </script>

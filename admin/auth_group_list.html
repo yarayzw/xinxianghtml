@@ -71,59 +71,27 @@
             <div class="ibox-content">
                 <form class="form-horizontal m-t" id="commentForm" method="post">
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">权限名称 :</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" id="title" name="title" value=""  />
-                            <!--                            required="" aria-required="false"-->
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">路径 :</label>
+                        <label class="col-sm-2 control-label">角色名称 :</label>
                         <div class="col-sm-8">
                             <input type="text" class="form-control" id="name" name="name" value=""  />
                             <!--                            required="" aria-required="false"-->
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">父级权限 :</label>
+                        <label class="col-sm-2 control-label">角色描述 :</label>
                         <div class="col-sm-8">
+                            <input type="text" class="form-control" id="description" name="description" value=""  />
+                            <!--                            required="" aria-required="false"-->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">权限集 :</label>
+                        <div class="col-sm-3">
                             <ul id="tree" class="ztree" style="width:260px; overflow:auto;"></ul>
                         </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="row" id="add2" style="display: none">
-    <div class="col-sm-12">
-        <div class="ibox float-e-margins">
-            <div class="ibox-title">
-                <h5></h5>
-                <div class="ibox-tools">
-                    <a class="collapse-link">
-                        <i class="fa fa-chevron-up"></i>
-                    </a>
-                    <a class="close-link">
-                        <i class="fa fa-times"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="ibox-content">
-                <form class="form-horizontal m-t" id="commentForm2" method="post">
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">权限名称 :</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" id="title2" name="title" value=""  />
-                            <!--                            required="" aria-required="false"-->
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">路径 :</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" id="name2" name="name" value=""  />
-                            <!--                            required="" aria-required="false"-->
+                        <label class="col-sm-2 control-label">菜单集 :</label>
+                        <div class="col-sm-3">
+                            <ul id="tree1" class="ztree" style="width:260px; overflow:auto;"></ul>
                         </div>
                     </div>
                 </form>
@@ -131,7 +99,6 @@
         </div>
     </div>
 </div>
-
 
 </body>
 
@@ -151,15 +118,15 @@
     var $table = $('#table');
     var $tree = $('#tree');
     $(function() {
-        if($.inArray('admin/auth_rule/addauthrule',u_role_url) === -1){
-            $('#add_button').hide();
+        if($.inArray('admin/auth_group/addauthgroup',u_role_url) === -1){
+           $('#add_button').hide();
         }
         initTableYy();
     });
     function initTableYy() {
         $table.bootstrapTable('destroy');
         $table.bootstrapTable({
-            url: __ROOT__ + 'admin/auth_rule/getList', //获取数据的Servlet地址
+            url: __ROOT__ + 'admin/auth_group/getList', //获取数据的Servlet地址
             striped: true,  //表格显示条纹
             pagination: false, //启动分页
             sortName: 'id',
@@ -187,24 +154,28 @@
             columns: [
                 {
                     field: 'title',
-                    title: '名称' ,
+                    title: '角色名' ,
                     width:'30%'
                 },
                 {
-                    field: 'name',
-                    title: '路径',
-                    width:'30%'
+                    field: 'rules',
+                    title: '权限集',
+                    width:'30%',
+                    formatter: function(value,row,index){
+                        var f='<a href="javascript:void(0)"  onclick="lookRules('+row.id+')" >查看</a> ';
+                        return f;
+                    }
                 },
                 {
                     field: 'status',
                     title: '状态',
                     formatter: function(value,row,index){
                         let f;
-                        if($.inArray('admin/auth_rule/setauthrulestatus',u_role_url) !== -1){
+                        if($.inArray('admin/auth_group/setauthgroupstatus',u_role_url) !== -1){
                             if(value === 0){
-                                f='<a href="javascript:void(0)"  onclick="setStatus('+row.id+',1)" >正常</a> ';
+                                 f='<a href="javascript:void(0)"  onclick="setStatus('+row.id+',1)" >正常</a> ';
                             }else {
-                                f='<a href="javascript:void(0)"  onclick="setStatus('+row.id+',0)" >禁用</a> ';
+                                 f='<a href="javascript:void(0)"  onclick="setStatus('+row.id+',0)" >禁用</a> ';
                             }
                         }else {
                             if(value === 0){
@@ -220,42 +191,18 @@
                     field: 'emm',
                     title: '操作',
                     formatter: function(value,row,index){
-                        let e = '';
-                        if($.inArray('admin/auth_rule/addauthrule',u_role_url) !== -1){
-                            e='<a href="javascript:void(0)" data_id="'+row.id+'"   onclick="addAuth2(this)" >添加子权限</a> ';
-                        }
                         let d = '';
-                        if($.inArray('admin/auth_rule/editauthrule',u_role_url) !== -1){
-                            d='<a href="javascript:void(0)" data_id="'+row.id+'" data_title="'+row.title+'" data_name="'+row.name+'" data_pid="'+row.pid+'"  onclick="edit(this)" >编辑</a> ';
+                        if($.inArray('admin/auth_group/editauthgroup',u_role_url) !== -1){
+                            d='<a href="javascript:void(0)" data_id="'+row.id+'"   onclick="edit(this)" >编辑</a> ';
                         }
                         let f = '';
-                        if($.inArray('admin/auth_rule/delauthrule',u_role_url) !== -1){
-                            f='<a href="javascript:void(0)" data_id="'+row.id+'" onclick="del(this)" >删除</a> ';
+                        if($.inArray('admin/auth_group/delauthgroup',u_role_url) !== -1){
+                             f='<a href="javascript:void(0)" data_id="'+row.id+'" onclick="del(this)" >删除</a> ';
                         }
-                        return e+d+f;
+                        return d+f;
                     }
                 },
             ],
-            //在哪一列展开树形
-            treeShowField: 'name',
-            //指定父id列
-            parentIdField: 'pid',
-
-            onResetView: function(data) {
-                //console.log('load');
-                $table.treegrid({
-                    initialState: 'collapsed',// 所有节点都折叠
-                    // initialState: 'expanded',// 所有节点都展开，默认展开
-                    treeColumn: 0,
-                    // expanderExpandedClass: 'glyphicon glyphicon-minus',  //图标样式
-                    // expanderCollapsedClass: 'glyphicon glyphicon-plus',
-                    onChange: function() {
-                        $table.bootstrapTable('resetWidth');
-                    }
-                });
-                //只展开树形的第一级节点
-                $table.treegrid('getRootNodes').treegrid('expand');
-            },
         });
     }
 
@@ -263,6 +210,7 @@
 
     function add() {
         getTreeNew();
+        getMenuTreeNew();
         layer.open({
             type: 1,
             title: '添加',
@@ -278,15 +226,27 @@
                     ,yes: function(index){
                         let treeObj=$.fn.zTree.getZTreeObj("tree");
                         let nodes =  treeObj.getCheckedNodes(true);
+                        let node_ = [];
+                        nodes.forEach((item,index,array)=>{
+                            node_.push(item.id)
+                        });
+
+                        let treeObj1=$.fn.zTree.getZTreeObj("tree1");
+                        let nodes1 =  treeObj1.getCheckedNodes(true);
+                        let node1_ = [];
+                        nodes1.forEach((item,index,array)=>{
+                            node1_.push(item.id)
+                        });
                         if(nodes.length === 0){
-                            layer.msg('请选择父级权限');
+                            layer.msg('请选择权限');
                         }else {
                             requestData.data = {
-                                pid : nodes[0]['id'],
-                                title : $('#title').val(),
+                                rules : node_,
+                                menus: node1_,
+                                description : $('#description').val(),
                                 name : $('#name').val()
                             };
-                            ajaxGo('admin/auth_rule/addAuthRule');
+                            ajaxGo('admin/auth_group/addAuthGroup');
                             if(requestCode === 0){
                                 fac_search();
                                 layer.close(index);
@@ -303,50 +263,27 @@
         });
     }
 
-    //添加子权限
-    function addAuth2(obj){
-        layer.open({
-            type: 1,
-            title: '添加',
-            shadeClose: true,
-            shade: 0.8,
-            area: ['60%', '60%'],
-            content: $('#add2'),
-            btn: ['确定', '取消'], // 按钮
-            yes: function(index, layero){
-                layer.msg('确定添加？', {
-                    time: 0 //不自动关闭
-                    ,btn: ['确定', '取消']
-                    ,yes: function(index){
-                            requestData.data = {
-                                pid : $(obj).attr('data_id'),
-                                title : $('#title2').val(),
-                                name : $('#name2').val()
-                            };
-                            ajaxGo('admin/auth_rule/addAuthRule');
-                            if(requestCode === 0){
-                                fac_search();
-                                layer.close(index);
-                                layer.closeAll();
-                                layer.msg(requestMessage);
-                            }else {
-                                layer.msg(requestMessage);
-                            }
-                        }
-                });
-            }
-//            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
-        });
-    }
+
 
 
     let treeObj=$.fn.zTree.getZTreeObj("tree");
 
     function edit(obj) {
         getTreeNew();
-        $('#name').val($(obj).attr('data_name'));
-        $('#title').val($(obj).attr('data_title'));
-        onAsyncSuccess(parseInt($(obj).attr('data_pid')),'tree');
+        getMenuTreeNew();
+        requestData.data = {
+            id: $(obj).attr('data_id')
+        };
+        ajaxGo('admin/auth_group/getInfoById');
+
+        $('#name').val(requestData.data.title);
+        $('#description').val(requestData.data.description);
+        requestData.data.rules_.forEach((item,index,array)=>{
+            onAsyncSuccess( parseInt(item),'tree');
+        });
+        requestData.data.menus_.forEach((item,index,array)=>{
+            onAsyncSuccess( parseInt(item),'tree1');
+        });
         layer.open({
             type: 1,
             title: '编辑',
@@ -356,22 +293,35 @@
             content: $('#add'),
             btn: ['确定', '取消'], // 按钮
             yes: function(index, layero){
-                layer.msg('确定添加？', {
+                layer.msg('确定编辑？', {
                     time: 0 //不自动关闭
                     ,btn: ['确定', '取消']
                     ,yes: function(index){
                         let treeObj=$.fn.zTree.getZTreeObj("tree");
                         let nodes =  treeObj.getCheckedNodes(true);
+                        let node_ = [];
+                        nodes.forEach((item,index,array)=>{
+                            node_.push(item.id)
+                        });
+
+                        let treeObj1=$.fn.zTree.getZTreeObj("tree1");
+                        let nodes1 =  treeObj1.getCheckedNodes(true);
+                        let node1_ = [];
+                        nodes1.forEach((item,index,array)=>{
+                            node1_.push(item.id)
+                        });
+
                         if(nodes.length === 0){
-                            layer.msg('请选择父级权限');
+                            layer.msg('请选择权限');
                         }else {
                             requestData.data = {
-                                pid : nodes[0]['id'],
-                                title : $('#title').val(),
+                                rules : node_,
+                                menus: node1_,
+                                description : $('#description').val(),
                                 name : $('#name').val(),
                                 id: $(obj).attr('data_id')
                             };
-                            ajaxGo('admin/auth_rule/editAuthRule');
+                            ajaxGo('admin/auth_group/editAuthGroup');
                             if(requestCode === 0){
                                 fac_search();
                                 layer.close(index);
@@ -396,7 +346,7 @@
                 requestData.data = {
                     id: $(obj).attr('data_id')
                 };
-                ajaxGo('admin/auth_rule/delAuthRule');
+                ajaxGo('admin/auth_group/delAuthGroup');
                 if(requestCode === 0){
                     fac_search();
                     layer.msg('删除成功!');
@@ -417,7 +367,7 @@
                     'id' : id,
                     'status' : status
                 };
-                ajaxGo('admin/auth_rule/setAuthRuleStatus');
+                ajaxGo('admin/auth_group/setAuthGroupStatus');
                 if(requestCode === 0){
                     fac_search();
                     layer.msg('修改成功!');
@@ -445,11 +395,8 @@
                 rootPId: ""
             }
         },
-
         check: {
             enable: true,
-            chkStyle: "radio",
-            radioType: "all",
         },
         callback: {
             beforeClick: function (treeId, treeNode) {
@@ -461,9 +408,14 @@
                     demoIframe.attr("src", treeNode.file + ".html");
                     return true;
                 }
+            },
+            onAsyncSuccess: function(){
+                var zTree = $.fn.zTree.getZTreeObj("tree");
+                zTree.expandAll(true);
             }
         }
     };
+
 
     /**
      * 选中树形
@@ -479,6 +431,7 @@
         treeObj.checkNode(node);//根据该节点选中
     };
 
+    //权限列表
     function getTreeNew() {
         requestData.data = {
         };
@@ -487,8 +440,20 @@
         t = $.fn.zTree.init(t, setting, requestData.data);
         demoIframe = $("#testIframe");
         demoIframe.bind("load", loadReady);
-        var zTree = $.fn.zTree.getZTreeObj("tree");
-        zTree.selectNode(zTree.getNodeByParam("id", 101));
+        t.expandAll(true);
+    }
+
+    //菜单列表
+    function getMenuTreeNew() {
+        requestData.data = {
+            'pid': 1
+        };
+        ajaxGo('admin/menu/getListByTree');
+        var t = $("#tree1");
+        t = $.fn.zTree.init(t, setting, requestData.data);
+        demoIframe = $("#testIframe");
+        demoIframe.bind("load", loadReady);
+        t.expandAll(true);
     }
 
     function loadReady() {
@@ -502,6 +467,34 @@
 
     function fac_search() {
         $('#table').bootstrapTable('refresh');
+    }
+
+    function lookRules(id) {
+        getTreeNew();
+        getMenuTreeNew();
+        requestData.data = {
+            id: id
+        };
+        ajaxGo('admin/auth_group/getInfoById');
+
+        $('#name').val(requestData.data.title);
+        $('#description').val(requestData.data.description);
+        requestData.data.rules_.forEach((item,index,array)=>{
+            onAsyncSuccess( parseInt(item),'tree');
+        });
+        console.log(requestData.data.menus_);
+        requestData.data.menus_.forEach((item,index,array)=>{
+            onAsyncSuccess( parseInt(item),'tree1');
+        });
+        layer.open({
+            type: 1,
+            title: '查看',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['90%', '90%'],
+            content: $('#add'),
+            btn: [ '取消'], // 按钮
+        });
     }
 
 </script>
