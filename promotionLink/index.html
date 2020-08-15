@@ -251,8 +251,10 @@
 
 
     $(document).ready(function () {
-        let u_id = getCookie('u_id');
-        if(u_id === '5' ){
+        if($.inArray('admin/promotion_link/reportgenerationall',u_role_url) === -1){
+            $('#qx_bb_1').hide();
+        }
+        if($.inArray('admin/promotion_link/lookall',u_role_url) !== -1){
             $('#qx_bb_1').show();
             $('#qx_bb_2').show();
             laydate.render({
@@ -312,36 +314,6 @@
                     }
                 }
             });
-
-            // laydate.render({
-            //     elem: '#start_time' //指定元素
-            //     ,event:"focus",
-            //     value: getDay(-15, '-'),
-            //     min: getDay(-15, '-'),
-            //     done: function(value, date, endDate){
-            //         start_time = value;
-            //         var startDate = new Date(value).getTime();
-            //         var endTime = new Date($('#end_time').val()).getTime();
-            //         if(endTime < startDate) {
-            //             layer.msg('结束时间不能小于开始时间');
-            //             $('#start_time').val($('#end_time').val());
-            //         }
-            //     }
-            // });
-            // laydate.render({
-            //     elem: '#end_time' //指定元素
-            //     ,event:"focus",
-            //     value: getDay(-1, '-'),
-            //     done: function(value, date, endDate){
-            //         end_time = value;
-            //         var startDate = new Date($('#start_time').val()).getTime();
-            //         var endTime = new Date(value).getTime();
-            //         if(endTime < startDate) {
-            //             layer.msg('结束时间不能小于开始时间');
-            //             $('#end_time').val($('#start_time').val());
-            //         }
-            //     }
-            // });
         }
 
         initTable();
@@ -420,8 +392,7 @@
     function initTable() {
         $('#promotionLinkTable').bootstrapTable('destroy');
         // $('#wechatDayToolbar').css("height", 300);
-        let u_id = getCookie('u_id');
-        if(u_id === '5' ) {
+        if($.inArray('admin/promotion_link/lookall',u_role_url) !== -1) {
             $("#promotionLinkTable").bootstrapTable({
                 height:800,
                 url: __ROOT__ + 'admin/promotion_link/getList', //获取数据的Servlet地址
@@ -547,8 +518,11 @@
                         sortable:true,
                         align: 'center',
                         formatter: function(value,row,index){
-                            let html = '<a href="javascript:void(0)"  onclick="editConsum('+row.id+','+row.consum+',\''+row.link_create_time+'\')" >'+value+'</a>';
-                            return html;
+                            let e = '';
+                            if($.inArray('admin/promotion_link/editconsum',u_role_url) !== -1){
+                                e='<a href="javascript:void(0)"  onclick="editConsum('+row.id+','+row.consum+',\''+row.link_create_time+'\')" >'+value+'</a>';
+                            }
+                            return e;
                         }
                     },
                     {
@@ -558,10 +532,6 @@
                         align: 'center',
                         formatter: function(value,row,index){
                             let html=('<div style="display: flex;justify-content: center;"><div style="text-align: left;"><div style="margin-bottom: 8px;"><span style="color: #BBB">01日</span>：'+row.one.toFixed(2)+'%</div><div><span style="color: #BBB">07日</span>：'+row.seven.toFixed(2)+'%</div></div><div><div style="margin-bottom: 8px;">&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;</div></div><div style="text-align: left;"><div style="margin-bottom: 8px;"><span style="color: #BBB">03日</span>：'+row.three.toFixed(2)+'%</div><div><span style="color: #BBB">30日</span>：'+row.th.toFixed(2)+'%</div></div></div>');
-                            /*let html = '1日:' + row.one.toFixed(2) + '%'+
-                                ' ｜ 3日:' + row.three.toFixed(2) + '%'+
-                                '<br/>7日:' + row.seven.toFixed(2) + '%'+
-                                ' ｜ 30日:' + row.th.toFixed(2) + '%';*/
                             return html;
                         }
                     },
@@ -590,12 +560,17 @@
                         align: 'center',
                         formatter: function(value,row,index){
                             let a = '';
-                            if(row.is_gather === 0){
-                                a = '<a href="javascript:void(0)"  onclick="updatePromotionLink('+row.id+',1)" style="color: rgb(26,179,148);">关闭采集</a>';
-                            }else {
-                                a = '<a href="javascript:void(0)"  onclick="updatePromotionLink('+row.id+',0)" style="color:#BBB;">开启采集</a>';
+                            if($.inArray('admin/promotion_link/updatePromotionLink',u_role_url) !== -1){
+                                if(row.is_gather === 0){
+                                    a = '<a href="javascript:void(0)"  onclick="updatePromotionLink('+row.id+',1)" style="color: rgb(26,179,148);">关闭采集</a>';
+                                }else {
+                                    a = '<a href="javascript:void(0)"  onclick="updatePromotionLink('+row.id+',0)" style="color:#BBB;">开启采集</a>';
+                                }
                             }
-                            let html = ' <a href="javascript:void(0)"  data_id="'+row.id+'"  onclick="lookAll(this)"  style="margin-top: 8px;display: block">数据报表</a>';
+                            let html = '';
+                            if($.inArray('admin/promotion_b_b/getPromotionbb',u_role_url) !== -1) {
+                                html = ' <a href="javascript:void(0)"  data_id="'+row.id+'"  onclick="lookAll(this)"  style="margin-top: 8px;display: block">数据报表</a>';
+                            }
                             return a+html;
                         }
                     }
@@ -721,13 +696,19 @@
                         sortable:true,
                         align: 'center',
                         formatter: function(value,row,index){
-                            let html = '<a href="javascript:void(0)"  onclick="editConsum('+row.id+','+row.consum+',\''+row.link_create_time+'\')" >'+value+'</a>';
-                            return html;
+                            let e = '';
+                            if($.inArray('admin/promotion_link/editconsum',u_role_url) !== -1){
+                                e='<a href="javascript:void(0)"  onclick="editConsum('+row.id+','+row.consum+',\''+row.link_create_time+'\')" >'+value+'</a>';
+                            }
+                            return e;
+
                         }
                     },
                 ]
             });
+
         }
+
     }
 
     function initDayTable() {

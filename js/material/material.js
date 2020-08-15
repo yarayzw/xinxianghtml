@@ -107,7 +107,13 @@ function initTable() {
                     return value;
                 }
             },
-
+            {
+                field: 'platform_name',
+                title: '适用平台',
+                formatter: function(value,row,index){
+                    return value;
+                }
+            },
             {
                 field: 'operate',
                 title: '操作',
@@ -189,6 +195,11 @@ function editMaterial(obj) {
     $("input[name='short_name']").val(requestData.data.short_name);
     $("input[name='thirdparty_m_id']").val(requestData.data.thirdparty_m_id);
     $("input[name='chapter']").val(requestData.data.chapter);
+    requestData.data.platform_ids.forEach((item,index,array)=>{
+        if(item){
+            $("input[name=platform_ids][value="+item+"]").attr('checked','true');
+        }
+    });
 
     let head_img =requestData.data.head_img.split('@@@');
     $('#upload-list').empty();

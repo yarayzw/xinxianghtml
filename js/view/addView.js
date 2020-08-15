@@ -6,7 +6,8 @@ function addViewGo() {
         'name' : $("input[name='name']").val(),
         'url' : $("input[name='url']").val(),
         'type':  $("input[name='type']:checked").val(),
-    }
+        'platform_id' : $("input[name='platform_id']:checked").val(),//平台
+    };
     ajaxGo('admin/View/addView')
 
 }
@@ -18,7 +19,8 @@ function editViewGo(id) {
         'name' : $("input[name='name']").val(),
         'url' : $("input[name='url']").val(),
         'type':  $("input[name='type']:checked").val(),
-    }
+        'platform_id' : $("input[name='platform_id']:checked").val(),//平台
+    };
     ajaxGo('admin/View/editView')
 
 }

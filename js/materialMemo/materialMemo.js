@@ -47,6 +47,7 @@ function initTable() {
                 // id : {$_GET['id']},
                 head : {'token' : getCookie('token')},
                 name : $('#name').val(),
+                platform_id:$("#platform_search").selectpicker('val')
             };
 
             return params;
