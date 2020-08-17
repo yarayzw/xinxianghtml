@@ -1,4 +1,7 @@
 $(document).ready(function () {
+    if($.inArray('admin/wechat_config/addwechatconfig',u_role_url) === -1){
+        $('#add_button').hide();
+    }
     //调用函数，初始化表格
     setMaterial();
     initTable();
@@ -142,6 +145,14 @@ function initTable() {
                 title: '渠道密码'
             },
             {
+                field: 'total_promotion',
+                title: '粉丝数'
+            },
+            {
+                field: 'now_num',
+                title: 'openid数'
+            },
+            {
                 field: 'status',
                 title: '状态',
                 formatter: function(value,row,index){
@@ -161,10 +172,15 @@ function initTable() {
                 width : '10%',
                 align: 'center',
                 formatter: function(value,row,index){
-                    var d='<a href="#" mce_href="#" data_id="'+row.id+'"   onclick="editView(this)" >编辑</a> ';
-                    var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="del(this)" >删除</a>';
-
-                    return d+f;
+                    let a = '';
+                    if($.inArray('admin/wechat_config/editwechatconfig',u_role_url) !== -1) {
+                        a = '<a href="#" mce_href="#" data_id="'+row.id+'"   onclick="editView(this)" >编辑</a> ';
+                    }
+                    let f = '';
+                    if($.inArray('admin/wechat_config/deluserthirdpartyinfo',u_role_url) !== -1) {
+                        f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="del(this)" >删除</a>';
+                    }
+                    return a+f;
                 }
             }
         ]

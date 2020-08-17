@@ -322,11 +322,15 @@
                     width : 20,
                     align: 'center',
                     formatter: function(value,row,index){
-                        // var a='<a href="#" mce_href="#" data_id="'+row.id+'" data_wechat_config_id = "'+row.wechat_config_id+'" data_msg_config_id = "'+row.msg_config_id+'" data_url = "'+row.url+'" onclick="editwechatMsgSend(this)" >编辑</a> ';
-                        var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="delWechatMsgSend(this)" >删除</a>';
-                        var d='<a href="#" mce_href="#" "   onclick="initSendInfoTable('+row.id+')" >详情</a>  &nbsp;';
-
-                        return d+f;
+                        let a = '';
+                        if($.inArray('admin/wechat_msg_send/delwechatmsgsend',u_role_url) !== -1) {
+                            a = ='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="delWechatMsgSend(this)" >删除</a>';
+                        }
+                        let f = '';
+                        if($.inArray('admin/wechat_msg_send_info/getlist',u_role_url) !== -1) {
+                            f='<a href="#" mce_href="#" "   onclick="initSendInfoTable('+row.id+')" >详情</a>  &nbsp;';
+                        }
+                        return a+f;
                     }
                 }
             ]

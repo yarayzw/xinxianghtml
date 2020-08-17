@@ -198,12 +198,13 @@
         start_time = getDay(-1, '-');
         end_time = getDay(-1, '-');
         //调用函数，初始化表格
-        let u_id = getCookie('u_id');
-        if(u_id !== '5'){
-            initTableYy();
-        }else {
-            searchHistory();
+        if($.inArray('admin/statistics/getwechatdaylist/all',u_role_url) !== -1) {
+            if($.inArray('admin/statistics/getlisttoselect',u_role_url) !== -1) {
+                searchHistory();
+            }
             initTable();
+        }else {
+            initTableYy();
         }
     });
 
@@ -500,10 +501,14 @@
                         {
                             return  '';
                         }else {
-                            var d='<a href="#" mce_href="#" data_id="'+row.id+'" data_new_fans_recharge="'+row.new_fans_recharge+'" data_today_recharge="'+row.today_recharge+'" data_today_consume="'+row.today_consume+'"  onclick="editWechatDay(this)" >编辑</a> ';
+                            let d = '';
+                            if($.inArray('admin/statistics/editwechatday',u_role_url) !== -1) {
+                                d='<a href="#" mce_href="#" data_id="'+row.id+'" data_new_fans_recharge="'+row.new_fans_recharge+'"' +
+                                    ' data_today_recharge="'+row.today_recharge+'" data_today_consume="'+row.today_consume+'" ' +
+                                    ' onclick="editWechatDay(this)" >编辑</a> ';
+                            }
                             return d;
                         }
-
                     }
                 }
             ]
@@ -618,14 +623,13 @@
                     width : 80,
                     align: 'center',
                     formatter: function(value,row,index){
-                        if(row.time === '合计')
-                        {
-                            return  '';
-                        }else {
-                            var d='<a href="#" mce_href="#" data_id="'+row.id+'" data_new_fans_recharge="'+row.new_fans_recharge+'" data_today_recharge="'+row.today_recharge+'" data_today_consume="'+row.today_consume+'"  onclick="editWechatDay(this)" >编辑</a> ';
-                            return d;
+                        let d = '';
+                        if($.inArray('admin/statistics/editwechatday',u_role_url) !== -1) {
+                            d='<a href="#" mce_href="#" data_id="'+row.id+'" data_new_fans_recharge="'+row.new_fans_recharge+'"' +
+                                ' data_today_recharge="'+row.today_recharge+'" data_today_consume="'+row.today_consume+'" ' +
+                                ' onclick="editWechatDay(this)" >编辑</a> ';
                         }
-
+                        return d;
                     }
                 }
             ]
@@ -688,10 +692,12 @@
     }
 
     function getTodayNoUpdateUser() {
-        requestData.data = {
-        };
-        ajaxGo('admin/statistics/getTodayUpdateUser');
-        $('#update_user_no').html(requestData.data.msg);
+        if($.inArray('admin/statistics/gettodayupdateuser',u_role_url) !== -1) {
+            requestData.data = {
+            };
+            ajaxGo('admin/statistics/getTodayUpdateUser');
+            $('#update_user_no').html(requestData.data.msg);
+        }
     }
 </script>
 

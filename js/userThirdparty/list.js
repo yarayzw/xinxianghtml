@@ -1,7 +1,7 @@
 $(document).ready(function () {
-    let u_id = getCookie('u_id');
-    if(u_id !== '5'){
-        $('#setBucket').hide();
+    $('#setBucket').hide();
+    if($.inArray('admin/user_thirdparty_info/adduserthirdpartyinfo',u_role_url) === -1){
+        $('#add_button').hide();
     }
     //调用函数，初始化表格
     initTable();
@@ -165,9 +165,14 @@ function initTable() {
                 width : '10%',
                 align: 'center',
                 formatter: function(value,row,index){
-                    var d='<a href="#" mce_href="#" data_id="'+row.id+'" data_pf_u_id="'+row.pf_u_id+'"   onclick="editView(this)" >编辑</a> ';
-                    var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="del(this)" >删除</a>';
-
+                    let d = '';
+                    if($.inArray('admin/view/editview',u_role_url) !== -1) {
+                        d = '<a href="#" mce_href="#" data_id="'+row.id+'" data_pf_u_id="'+row.pf_u_id+'"   onclick="editView(this)" >编辑</a> ';
+                    }
+                    let f = '';
+                    if($.inArray('admin/view/delview',u_role_url) !== -1) {
+                        f = '<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="del(this)" >删除</a>';
+                    }
                     return d+f;
                 }
             }

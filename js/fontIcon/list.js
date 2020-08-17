@@ -56,9 +56,15 @@ $(function() {
                 align: 'center',
                 formatter: function(value, row, index) {
                     var actions = [];
-                    actions.push('<a class="btn btn-success btn-xs" href="javascript:void(0)" onclick="edit(\'' + row.id + '\')"><i class="fa fa-edit"></i>编辑</a>&nbsp;');
-                    actions.push('<a class="btn btn-danger btn-xs" href="javascript:void(0)" onclick="remove(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a>&nbsp;');
-                    actions.push('<a class="btn btn-primary btn-xs copy-btn" href="javascript:void(0)" data-clipboard-action="copy" data-clipboard-text="<icon>'+row.id+'\</icon>"><i class="fa fa-copy"></i>复制标签</a>');
+                    if($.inArray('admin/fonticon/edit',u_role_url) !== -1) {
+                        actions.push('<a href="#" mce_href="#" data_id="'+row.id+'" data_wechat_config_id = "'+row.wechat_config_id+'" data_msg_config_id = "'+row.msg_config_id+'" data_url = "'+row.url+'" onclick="editWechatConfigUrl(this)" >编辑</a> ');
+
+                    }
+                    if($.inArray('admin/fonticon/remove',u_role_url) !== -1) {
+                        actions.push('<a class="btn btn-danger btn-xs" href="javascript:void(0)" onclick="remove(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a>&nbsp;');
+
+                    }
+                    // actions.push('<a class="btn btn-primary btn-xs copy-btn" href="javascript:void(0)" data-clipboard-action="copy" data-clipboard-text="<icon>'+row.id+'\</icon>"><i class="fa fa-copy"></i>复制标签</a>');
                     return actions.join('');
                 }
             }]

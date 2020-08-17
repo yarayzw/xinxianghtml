@@ -120,14 +120,20 @@ function initTable() {
                 width : '10%',
                 align: 'center',
                 formatter: function(value,row,index){
-                    if(m_u_id === '5'){
-                        var d='<a href="#" mce_href="#" data_id="'+row.id+'"  onclick="editMaterial(this)" >编辑</a> ';
-                        var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="del(this)" >删除</a>';
-                        return d+f;
-                    }else {
-                        var d='<a href="#" mce_href="#" data_id="'+row.id+'"  onclick="lookMaterial(this)" >查看</a> ';
-                        return d;
-                    }
+                        let d = '';
+                        if($.inArray('admin/material/editmaterial',u_role_url) !== -1) {
+                            d = '<a href="#" mce_href="#" data_id="'+row.id+'"  onclick="editMaterial(this)" >编辑</a> ';
+                        }
+                        let f = '';
+                        if($.inArray('admin/material/delmaterial',u_role_url) !== -1) {
+                            f = '<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="del(this)" >删除</a>';
+                        }
+                        let e = '';
+                        if($.inArray('admin/material/delmaterial',u_role_url) !== -1) {
+                            e = '<a href="#" mce_href="#" data_id="'+row.id+'"  onclick="lookMaterial(this)" >查看</a> ';
+                        }
+                        return d+f+e;
+
                 }
             }
         ]
@@ -135,10 +141,10 @@ function initTable() {
 }
 let m_u_id = '';
 $(document).ready(function () {
-    m_u_id = getCookie('u_id');
-    if(m_u_id !== '5'){
-        $('#add_btn').hide();
+    if($.inArray('admin/material/addmaterial',u_role_url) === -1){
+        $('#add_button').hide();
     }
+
     //调用函数，初始化表格
     initTable();
 });

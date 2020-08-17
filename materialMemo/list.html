@@ -89,7 +89,7 @@
                             <button class="btn btn-default" type="button" onclick="fac_search()">搜索</button>
                         </span>
                     </div>
-                    <div class="col-md-1">
+                    <div class="col-md-1" id="add_button">
                          <span class="input-group-btn">
                             <button class="btn btn-primary" type="button" onclick="addMaterialMemo()">添加</button>
                         </span>
@@ -274,6 +274,9 @@
 <script>
 
     $(document).ready(function () {
+        if($.inArray('admin/material_memo/addmaterialmemo',u_role_url) === -1){
+            $('#add_button').hide();
+        }
         getMaterialList();
     });
 

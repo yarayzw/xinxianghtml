@@ -71,7 +71,7 @@
     <form id="list_search_faci">
         <fieldset>
             <div class="input-group">
-                 <span class="input-group-btn">
+                 <span class="input-group-btn" id="add_button">
                     <button class="btn btn-primary dropdown-toggle" type="button" onclick="addCommodity(this);">添加</button>
                  </span>
                  <span class="input-group-btn">
@@ -417,11 +417,13 @@
 
 <script>
     $(document).ready(function () {
+        if($.inArray('admin/commodity/addcommodity',u_role_url) === -1){
+            $('#add_button').hide();
+        }
         //调用函数，初始化表格
         setMaterial();
         searchHistory();
         initTable();
-
     });
     let commodity_id = 0;
 
@@ -610,8 +612,12 @@
                     field: 'material_name',
                     title: '前序名称',
                     formatter: function(value,row,index){
-                        var f='<a href="javascript:void(0)" mce_href="#" " data_id="'+row.id+'"  onclick="updateMaterial(this)" >'+value+'</a>';
-                        return f;
+                        let d = value;
+                        if($.inArray('admin/commodity/updatematerial',u_role_url) !== -1) {
+                            d = '<a href="javascript:void(0)" mce_href="#" " data_id="'+row.id+'"  onclick="updateMaterial(this)" >'+value+'</a>';
+                        }
+
+                        return d;
                     }
                 },
                 {
@@ -629,9 +635,11 @@
                     align: 'center',
                     width : '6%',
                     formatter: function(value,row,index){
-
-                        var t='<a  data_id="'+row.id+'" data_platform_id="'+row.platform_id+'" onclick="lookTj(this)" >查看</a> ';
-                        return t;
+                        let d = '-';
+                        if($.inArray('admin/commodity/getcommoditystatic',u_role_url) !== -1) {
+                            d = '<a  data_id="'+row.id+'" data_platform_id="'+row.platform_id+'" onclick="lookTj(this)" >查看</a> ';
+                        }
+                        return d;
                     }
                 },
 
@@ -640,8 +648,11 @@
                     title: '模版',
                     align: 'center',
                     formatter: function(value,row,index){
-                        var f='<a href="javascript:void(0)" mce_href="#"  data_id="'+row.id+'"  onclick="updateView(this)" >'+value+'</a>';
-                        return f;
+                        let d = value;
+                        if($.inArray('admin/commodity/updateview',u_role_url) !== -1) {
+                            d = '<a href="javascript:void(0)" mce_href="#"  data_id="'+row.id+'"  onclick="updateView(this)" >'+value+'</a>';
+                        }
+                        return d;
                     }
                 },
                 {
@@ -656,10 +667,22 @@
                     width : '12%',
                     align: 'center',
                     formatter: function(value,row,index){
-                        var a='<a mce_href="#" data_id="'+row.id+'" data_name="'+row.name+'" data_title="'+row.title+'" data_url="'+row.url+'"  onclick="editCommodity(this)" >编辑</a> ';
-                        var e='<a mce_href="#" " data_url="'+row.url+'/'+row.pc_url+'""  onclick="preview(this)" >预览</a> ';
-                        var f='<a mce_href="#" " data_id="'+row.id+'"  onclick="del(this)" >删除</a> ';
-                        var g='<a href="../../../source/creative/report.html?page_id='+row.id+'" target="_blank">报表</a>';
+                        let a = '';
+                        if($.inArray('admin/commodity/editcommodity',u_role_url) !== -1) {
+                            a = '<a mce_href="#" data_id="'+row.id+'" data_name="'+row.name+'" data_title="'+row.title+'" data_url="'+row.url+'"  onclick="editCommodity(this)" >编辑</a> ';
+                        }
+                        let e = '';
+                        if($.inArray('admin/commodity/yulan',u_role_url) !== -1) {
+                            e = '<a mce_href="#" " data_url="'+row.url+'/'+row.pc_url+'""  onclick="preview(this)" >预览</a> ';
+                        }
+                        let f = '';
+                        if($.inArray('admin/commodity/delcommodity',u_role_url) !== -1) {
+                            f = '<a mce_href="#" " data_id="'+row.id+'"  onclick="del(this)" >删除</a> ';
+                        }
+                        let g = '';
+                        if($.inArray('admin/commodity/baobiao',u_role_url) !== -1) {
+                            g = '<a href="../../../source/creative/report.html?page_id='+row.id+'" target="_blank">报表</a>';
+                        }
                         return a+e+f+g;
                     }
                 }

@@ -46,7 +46,7 @@
                             <button class="btn btn-default" type="button" onclick="fac_search()">搜索</button>
                         </span>
                     </div>
-                    <div class="col-md-1">
+                    <div class="col-md-1" id="add_button">
                          <span class="input-group-btn">
                             <button class="btn btn-default" type="button" onclick="addWechatMsgConfig()">添加</button>
                         </span>
@@ -100,7 +100,9 @@
 
 
     $(document).ready(function () {
-
+        if($.inArray('admin/wechat_msg_config/addWechatMsgConfig',u_role_url) === -1){
+            $('#add_button').hide();
+        }
         initTable();
     });
 
@@ -167,9 +169,14 @@
                     width : 70,
                     align: 'center',
                     formatter: function(value,row,index){
-                        var a='<a href="#" mce_href="#" data_id="'+row.id+'" data_name="'+row.name+'"   onclick="editWechatMsgConfig(this)" >编辑</a> ';
-                        var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="delWechatMsgConfig(this)" >删除</a>';
-
+                        let a = '';
+                        if($.inArray('admin/wechat_msg_config/editwechatmsgconfig',u_role_url) !== -1) {
+                            a = '<a href="#" mce_href="#" data_id="'+row.id+'" data_name="'+row.name+'"   onclick="editWechatMsgConfig(this)" >编辑</a> ';
+                        }
+                        let f = '';
+                        if($.inArray('admin/wechat_msg_config/delwechatmsgconfig',u_role_url) !== -1) {
+                            f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="delWechatMsgConfig(this)" >删除</a>';
+                        }
                         return a+f;
                     }
                 }

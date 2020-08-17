@@ -108,7 +108,7 @@
                                 <button class="btn btn-default" type="button" onclick="fac_search()">搜索</button>
                             </span>
                     </div>
-                    <div class="col-md-1">
+                    <div class="col-md-1" id="add_button">
                              <span class="input-group-btn">
                                 <button class="btn btn-primary" type="button" onclick="addCommodity()">添加</button>
                             </span>
@@ -425,6 +425,9 @@
 
 <script>
     $(document).ready(function () {
+        if($.inArray('admin/commodity/addcommodity',u_role_url) === -1){
+            $('#add_button').hide();
+        }
         //调用函数，初始化表格
         setMaterial();
         searchHistory();
@@ -658,12 +661,23 @@
                     width: '12%',
                     align: 'center',
                     formatter: function (value, row, index) {
-                        var a = '<a mce_href="#" data_id="' + row.id + '" data_name="' + row.name + '" data_title="' + row.title + '" data_url="' + row.url + '"  onclick="editCommodity(this)" >编辑</a> ';
-                        var d = '<a mce_href="#" " data_url="' + row.url + '/' + row.ml_url + '"  onclick="preview(this)" >手机版</a> ';
-                        var f = '<a mce_href="#" " data_id="' + row.id + '"  onclick="del(this)" >删除</a> ';
-                        var g = '<a href="../../../source/creative/report.html?page_id=' + row.id + '" target="_blank">报表</a>';
-
-                        return a + d + f + g;
+                        let a = '';
+                        if($.inArray('admin/commodity/editcommodity',u_role_url) !== -1) {
+                            a = '<a mce_href="#" data_id="' + row.id + '" data_name="' + row.name + '" data_title="' + row.title + '" data_url="' + row.url + '"  onclick="editCommodity(this)" >编辑</a> ';
+                        }
+                        let e = '';
+                        if($.inArray('admin/commodity/yulan',u_role_url) !== -1) {
+                            e = '<a mce_href="#" " data_url="' + row.url + '/' + row.ml_url + '"  onclick="preview(this)" >手机版</a> ';
+                        }
+                        let f = '';
+                        if($.inArray('admin/commodity/delcommodity',u_role_url) !== -1) {
+                            f = '<a mce_href="#" " data_id="' + row.id + '"  onclick="del(this)" >删除</a> ';
+                        }
+                        let g = '';
+                        if($.inArray('admin/commodity/baobiao',u_role_url) !== -1) {
+                            g = '<a href="../../../source/creative/report.html?page_id=' + row.id + '" target="_blank">报表</a>';
+                        }
+                        return a+e+f+g;
                     }
                 }
             ]

@@ -54,7 +54,7 @@
                             <button class="btn btn-default" type="button" onclick="fac_search()">搜索</button>
                         </span>
                     </div>
-                    <div class="col-md-1">
+                    <div class="col-md-1" id="add_button">
                          <span class="input-group-btn">
                             <button class="btn btn-default" type="button" onclick="addWechatMsgUrl()">添加</button>
                         </span>
@@ -121,6 +121,9 @@
 <script>
 
     $(document).ready(function () {
+        if($.inArray('admin/wechat_msg_url/addwechatmsgurl',u_role_url) === -1){
+            $('#add_button').hide();
+        }
         setMaterial();
         initTable();
     });
@@ -227,9 +230,14 @@
                     width : 20,
                     align: 'center',
                     formatter: function(value,row,index){
-                        var a='<a href="#" mce_href="#" data_id="'+row.id+'" data_wechat_config_id = "'+row.wechat_config_id+'" data_msg_config_id = "'+row.msg_config_id+'" data_url = "'+row.url+'" onclick="editWechatConfigUrl(this)" >编辑</a> ';
-                        var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="delWechatMsgUrl(this)" >删除</a>';
-
+                        let a = '';
+                        if($.inArray('admin/wechat_msg_url/editwechatmsgurl',u_role_url) !== -1) {
+                            a = '<a href="#" mce_href="#" data_id="'+row.id+'" data_wechat_config_id = "'+row.wechat_config_id+'" data_msg_config_id = "'+row.msg_config_id+'" data_url = "'+row.url+'" onclick="editWechatConfigUrl(this)" >编辑</a> ';
+                        }
+                        let f = '';
+                        if($.inArray('admin/wechat_msg_url/delwechatmsgurl',u_role_url) !== -1) {
+                            f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="delWechatMsgUrl(this)" >删除</a>';
+                        }
                         return a+f;
                     }
                 }
