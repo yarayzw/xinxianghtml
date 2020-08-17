@@ -85,6 +85,13 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label class="col-sm-3 control-label">排序 :</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="sort" name="sort" value=""  />
+                            <!--                            required="" aria-required="false"-->
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="col-sm-3 control-label">父级菜单 :</label>
                         <div class="col-sm-8">
                             <ul id="tree" class="ztree" style="width:260px; overflow:auto;"></ul>
@@ -123,6 +130,13 @@
                         <label class="col-sm-3 control-label">路径 :</label>
                         <div class="col-sm-8">
                             <input type="text" class="form-control" id="name2" name="name" value=""  />
+                            <!--                            required="" aria-required="false"-->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">排序 :</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="sort2" name="sort" value=""  />
                             <!--                            required="" aria-required="false"-->
                         </div>
                     </div>
@@ -196,6 +210,11 @@
                     width:'30%'
                 },
                 {
+                    field: 'sort',
+                    title: '排序' ,
+                    width:'30%'
+                },
+                {
                     field: 'emm',
                     title: '操作',
                     formatter: function(value,row,index){
@@ -207,7 +226,7 @@
                         }
                         let d = '';
                         if($.inArray('admin/menu/editmenu',u_role_url) !== -1){
-                            d='<a href="javascript:void(0)" data_id="'+row.id+'" data_name="'+row.name+'" data_url="'+row.url+'" data_pid="'+row.pid+'"  onclick="edit(this)" >编辑</a> ';
+                            d='<a href="javascript:void(0)" data_id="'+row.id+'" data_name="'+row.name+'" data_sort="'+row.sort+'" data_url="'+row.url+'" data_pid="'+row.pid+'"  onclick="edit(this)" >编辑</a> ';
                         }
                         let f;
                         if($.inArray('admin/menu/delmenu',u_role_url) !== -1){
@@ -265,7 +284,8 @@
                             requestData.data = {
                                 pid : nodes[0]['id'],
                                 name : $('#title').val(),
-                                url : $('#name').val()
+                                url : $('#name').val(),
+                                sort: $('#sort').val()
                             };
                             ajaxGo('admin/menu/addMenu');
                             if(requestCode === 0){
@@ -302,7 +322,8 @@
                             requestData.data = {
                                 pid : $(obj).attr('data_id'),
                                 name : $('#title2').val(),
-                                url : $('#name2').val()
+                                url : $('#name2').val(),
+                                sort: $('#sort2').val()
                             };
                             ajaxGo('admin/menu/addMenu');
                             if(requestCode === 0){
@@ -327,6 +348,7 @@
         getTreeNew();
         $('#title').val($(obj).attr('data_name'));
         $('#name').val($(obj).attr('data_url'));
+        $('#sort').val($(obj).attr('data_sort'));
         onAsyncSuccess(parseInt($(obj).attr('data_pid')),'tree');
         layer.open({
             type: 1,
@@ -337,7 +359,7 @@
             content: $('#add'),
             btn: ['确定', '取消'], // 按钮
             yes: function(index, layero){
-                layer.msg('确定添加？', {
+                layer.msg('确定修改4？', {
                     time: 0 //不自动关闭
                     ,btn: ['确定', '取消']
                     ,yes: function(index){
@@ -350,7 +372,8 @@
                                 pid : nodes[0]['id'],
                                 name : $('#title').val(),
                                 url : $('#name').val(),
-                                id: $(obj).attr('data_id')
+                                id: $(obj).attr('data_id'),
+                                sort: $('#sort').val()
                             };
                             ajaxGo('admin/menu/editMenu');
                             if(requestCode === 0){
