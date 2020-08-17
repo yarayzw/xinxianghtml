@@ -2,8 +2,8 @@
 // 公共配置
 
 // const __ROOT__ = 'http://120.77.245.86:8082/'; //正式
-const __ROOT__ = 'http://xinxiang.yara.com/';
-// const __ROOT__ = 'http://csadmin.chinaandun.com/'; //测试
+// const __ROOT__ = 'http://xinxiang.yara.com/';
+const __ROOT__ = 'http://csadmin.chinaandun.com/'; //测试
 const __IMG__ = 'http://jindouyun-yara.oss-cn-beijing.aliyuncs.com';
 
 var requestData = {};
