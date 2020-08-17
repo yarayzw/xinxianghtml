@@ -253,8 +253,6 @@
     $(document).ready(function () {
         if($.inArray('admin/promotion_link/reportgenerationall',u_role_url) === -1){
             $('#qx_bb_1').hide();
-            $('#cjzt').hide();
-            $('#hbzt').hide();
         }
         if($.inArray('admin/promotion_link/lookall',u_role_url) !== -1){
             $('#qx_bb_1').show();
@@ -262,7 +260,7 @@
             laydate.render({
                 elem: '#start_time' //指定元素
                 ,event:"focus",
-                value: getDay(-15, '-'),
+                value: getDay(-29, '-'),
                 done: function(value, date, endDate){
                     start_time = value;
                     var startDate = new Date(value).getTime();
@@ -288,10 +286,13 @@
                 }
             });
         }else {
+            $('#cjzt').hide();
+            $('#hbzt').hide();
             laydate.render({
                 elem: '#start_time' //指定元素
                 ,event:"focus",
-                value: getDay(-29, '-'),
+                value: getDay(-15, '-'),
+                min: getDay(-15, '-'),
                 done: function(value, date, endDate){
                     start_time = value;
                     var startDate = new Date(value).getTime();
@@ -594,7 +595,7 @@
                 toolbar: '#list_search_faci',
                 showColumns: false,  //显示下拉框勾选要显示的列
                 showRefresh: false,  //显示刷新按钮
-                showToggle:true,
+                showToggle:false,
                 sidePagination: "server", //表示服务端请求
                 responseHandler:function(data){
                     return data.data;
@@ -657,7 +658,6 @@
                         field: 'follow_num',
                         title: '新增关注',
                         width : 10,
-                        sortable:true,
                         align: 'center'
                     },
                     {
@@ -665,7 +665,6 @@
                         title: '充值金额',
                         width : 10,
                         align: 'center',
-                        sortable:true,
                         formatter: function(value,row,index){
                             return value ;
                         }
@@ -687,7 +686,6 @@
                     {
                         field: 'recharge_num',
                         title: '充值笔数',
-                        sortable:true,
                         width : 10,
                         align: 'center'
                     },
@@ -695,7 +693,6 @@
                         field: 'consum',
                         title: '成本',
                         width : 10,
-                        sortable:true,
                         align: 'center',
                         formatter: function(value,row,index){
                             let e = '';
