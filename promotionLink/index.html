@@ -53,6 +53,14 @@
                             <input type="text" id="novel_name" class="form-control" aria-label="..." placeholder="" >
                         </div>
                     </div>
+                    <div class="col-md-1" id="department_div" style="display: none">
+                        <div class="input-group m-b">
+                            <select id="department_search" class="selectpicker" data-live-search="true">
+                                <option value="0">我的</option>
+                                <option value="-1">全部人员</option>
+                            </select>
+                        </div>
+                    </div>
                     <div class="col-md-3" style="width: 250px;">
                         <div class="input-group m-b"><span class="input-group-addon">开始时间</span>
                             <input type="text" class="laydate-icon form-control layer-date" name="start_time" id="start_time" value=""  />
@@ -434,6 +442,7 @@
                         end_time : end_time,
                         is_gather:  $("input[type=radio][name=is_gather_s]:checked").val(),
                         is_back:  $("input[type=radio][name=is_back_s]:checked").val(),
+                        department_id : $("#department_search").selectpicker('val')
                     };
 
                     return params;
@@ -563,7 +572,7 @@
                         align: 'center',
                         formatter: function(value,row,index){
                             let a = '';
-                            if($.inArray('admin/promotion_link/updatePromotionLink',u_role_url) !== -1){
+                            if($.inArray('admin/promotion_link/updatepromotionlink',u_role_url) !== -1){
                                 if(row.is_gather === 0){
                                     a = '<a href="javascript:void(0)"  onclick="updatePromotionLink('+row.id+',1)" style="color: rgb(26,179,148);">关闭采集</a>';
                                 }else {
@@ -571,7 +580,7 @@
                                 }
                             }
                             let html = '';
-                            if($.inArray('admin/promotion_b_b/getPromotionbb',u_role_url) !== -1) {
+                            if($.inArray('admin/promotion_b_b/getpromotionbb',u_role_url) !== -1) {
                                 html = ' <a href="javascript:void(0)"  data_id="'+row.id+'"  onclick="lookAll(this)"  style="margin-top: 8px;display: block">数据报表</a>';
                             }
                             return a+html;
@@ -618,6 +627,7 @@
                         end_time : end_time,
                         is_gather:  $("input[type=radio][name=is_gather_s]:checked").val(),
                         is_back:  $("input[type=radio][name=is_back_s]:checked").val(),
+                        department_id : 0
                     };
 
                     return params;

@@ -942,6 +942,9 @@
 
     //渲染搜索历史
     function searchHistory() {
+        requestData.data = {
+            'platform_id' : 3
+        };
         ajaxGo('admin/Weakness/getListToSelect');
         $('#history_search').empty();
         let html = ' <div style="float: left;margin-left: 15px"> 历史记录： </div>';

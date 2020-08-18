@@ -46,6 +46,14 @@
                             <input type="text" id="wechat_name" class="form-control" aria-label="..." placeholder="" >
                         </div>
                     </div>
+                    <div class="col-md-1" id="department_div" style="display: none">
+                        <div class="input-group m-b">
+                            <select id="department_search" class="selectpicker" data-live-search="true">
+                                <option value="0">我的</option>
+                                <option value="-1">全部人员</option>
+                            </select>
+                        </div>
+                    </div>
                     <div class="col-md-3">
                         <div class="input-group m-b"><span class="input-group-addon">开始时间</span>
                             <input type="text" class="laydate-icon form-control layer-date" name="start_time" id="start_time" value=""  />
@@ -283,6 +291,7 @@
                     wechat_name : $('#wechat_name').val(),
                     start_time : start_time,
                     end_time : end_time,
+                    department_id : $("#department_search").selectpicker('val')
                 };
 
                 return params;
@@ -563,6 +572,8 @@
                     wechat_name : $('#wechat_name').val(),
                     start_time : start_time,
                     end_time : end_time,
+                    department_id : 0
+
                 };
 
                 return params;
