@@ -105,6 +105,13 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label class="col-sm-3 control-label">姓名 :</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="memo" value=""  />
+                            <!--                            required="" aria-required="false"-->
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="col-sm-3 control-label">落地页文件夹 :</label>
                         <div class="col-sm-8">
                             <input type="text" class="form-control" name="view" value=""  />
@@ -333,6 +340,12 @@
             },
             columns: [
                 {
+                    field: 'memo',
+                    title: '姓名',
+                    width : 50,
+                    align: 'center'
+                },
+                {
                     title: '账户名',
                     field: 'name',
                     align: 'center',
@@ -368,6 +381,7 @@
                         return f;
                     }
                 },
+
                 {
                     field: 'view',
                     title: '落地页文件夹',
@@ -423,6 +437,7 @@
         $("input[name='name']").val(requestData.data.name);
         $("input[name='phone']").val(requestData.data.phone);
         $("input[name='view']").val(requestData.data.view);
+        $("input[name='memo']").val(requestData.data.memo);
         $("input[name=platform_id][value="+requestData.data.platform_id+"]").attr('checked','true');
         $("input[name=department_id][value="+requestData.data.department_id+"]").attr('checked','true');
         $("input[name=is_leader][value="+requestData.data.is_leader+"]").attr('checked','true');
@@ -474,6 +489,7 @@
             'phone' : $("input[name='phone']").val(),
             'password' : $("input[name='password']").val(),
             'view' : $("input[name='view']").val(),
+            'memo' : $("input[name='memo']").val(),
             'role_ids' : role_ids,
             'platform_id':platform_id,
             'is_leader' : is_leader,
@@ -549,6 +565,7 @@
             'phone' : $("input[name='phone']").val(),
             'password' : $("input[name='password']").val(),
             'view' : $("input[name='view']").val(),
+            'memo' : $("input[name='memo']").val(),
             'role_ids' : role_ids,
             'platform_id' :platform_id,
             'is_leader' : is_leader,
