@@ -166,11 +166,11 @@ function initTable() {
                 align: 'center',
                 formatter: function(value,row,index){
                     let d = '';
-                    if($.inArray('admin/view/editview',u_role_url) !== -1) {
+                    if($.inArray('admin/user_thirdparty_info/edituserthirdpartyinfo',u_role_url) !== -1) {
                         d = '<a href="#" mce_href="#" data_id="'+row.id+'" data_pf_u_id="'+row.pf_u_id+'"   onclick="editView(this)" >编辑</a> ';
                     }
                     let f = '';
-                    if($.inArray('admin/view/delview',u_role_url) !== -1) {
+                    if($.inArray('admin/user_thirdparty_info/deluserthirdpartyinfo',u_role_url) !== -1) {
                         f = '<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="del(this)" >删除</a>';
                     }
                     return d+f;
