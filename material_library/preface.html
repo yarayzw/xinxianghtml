@@ -410,4 +410,49 @@
     }
 
 
+    //修改前序素材
+    function updateMaterialSc(id) {
+        layer.msg('确定保存前序素材？', {
+            time: 0 //不自动关闭
+            ,btn: ['确定', '取消']
+            ,yes: function(index){
+                var content = editors.getValue();
+                requestData.data = {
+                    'info' : content,
+                    'id' : id
+                };
+                ajaxGo('admin/material_library/editMaterialLibrary');
+                if(requestCode === 0){
+                    getMaterialList();
+                    layer.close(index);
+                    layer.msg('保存成功');
+                }else {
+                    layer.msg(requestMessage);
+                }
+            }
+        });
+    }
+
+    //删除前言素材
+    function delMaterialSc(id) {
+        layer.msg('确定删除前序素材？', {
+            time: 0 //不自动关闭
+            ,btn: ['确定', '取消']
+            ,yes: function(index){
+                requestData.data = {
+                    'id' : id
+                };
+                ajaxGo('admin/material_library/delMaterialLibrary');
+                if(requestCode === 0){
+                    getMaterialList();
+                    layer.close(index);
+                    layer.msg('删除成功');
+                }else {
+                    layer.msg(requestMessage);
+                }
+            }
+        });
+    }
+
+
 </script>
