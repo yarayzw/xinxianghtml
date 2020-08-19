@@ -129,7 +129,7 @@ function initTable() {
                             f = '<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="del(this)" >删除</a>';
                         }
                         let e = '';
-                        if($.inArray('admin/material/delmaterial',u_role_url) !== -1) {
+                        if($.inArray('admin/material/getinfobyid',u_role_url) !== -1) {
                             e = '<a href="#" mce_href="#" data_id="'+row.id+'"  onclick="lookMaterial(this)" >查看</a> ';
                         }
                         return d+f+e;
