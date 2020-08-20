@@ -627,7 +627,7 @@
                         end_time : end_time,
                         is_gather:  $("input[type=radio][name=is_gather_s]:checked").val(),
                         is_back:  $("input[type=radio][name=is_back_s]:checked").val(),
-                        department_id : 0
+                        department_id : $("#department_search").selectpicker('val')
                     };
 
                     return params;
