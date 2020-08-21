@@ -578,12 +578,14 @@
         </div>
         <div id="main">
 
-            <a class="blur0" href="zjnx.html#" target="_blank" style="display: block;position: relative;z-index:1;margin-bottom: 10px;">
+            <a class="blur0" href="#" target="_blank" style="display: block;position: relative;z-index:1;margin-bottom: 10px;">
                 <img src="{{head_img}}" alt="" style="width:100%;min-height: 360px;max-height: 420px;">
                 <p style="position: absolute;bottom:0;left:0;right:0;background-color: rgba(0,0,0,.5);color:#fff;height:50px;line-height: 50px;font-size:22px; padding:0 10px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">
                     {{title}}</p>
             </a>
-            <a href="javascript:location.reload();" class="noread">您有未读新闻，点击查看</a>
+            <a href="javascript:location.reload();" class="noread" style="background: red;color: yellow;">温馨提示：以上资讯未满18岁禁止阅读！</a>
+
+            <div id="main-other">
 
             <div style="height:100px;position: relative;z-index:1;padding:15px 0;border-bottom: 1px dashed #d7d7d7;">
                 <a href="/static/list/dszzxy.html" target="_blank"><img src="/static/img/dszzxy.jpg" alt="" style="float:left"></a>
@@ -745,6 +747,7 @@
                     </div>
                 </div>
             </div>
+            </div>
 
 
         </div>
@@ -795,37 +798,8 @@
     </html>
 </script>
 
-<script type="text/javascript">
-    var showList=true;
-    var href=window.location.href;
-    if (href.indexOf('#')>=0) {
-        showList=false;
-    }
-    $(function () {
-        var html2=$('#html2').html();
-        if (showList) {
-            //$('html').html(html2);
-            $('html').html(html2);
-            window.setTimeout(function () {
-                var fix = $("#rightFix");
-                var _fix = $("#fix");
-                var top = fix.position().top;
-                $(window).on('scroll', function () {
-                    var scrollTop = $(window).scrollTop();
-                    if (scrollTop >= top) {
-                        fix.css({ position: 'fixed', top: 0 })
-                    } else {
-                        fix.css({ position: 'static' })
-                    }
-                });
-            });
-
-        }
-        //if ($('.blur0').attr('href').indexOf('#')<0) {
-            $('.blur0').attr('href', window.location.href + '#');
-        //}
-        $('html').show();//显示html
-    })
-</script>
+<div style="display: none;">
+    <script type="text/javascript" src="https://v1.cnzz.com/z_stat.php?id=1278881076&web_id=1278881076"></script>
+</div>
 <script type="text/javascript">var allowDomains='{{allowDomains}}';</script>
-<script type="text/javascript" src="/static/blur_jump_jm.js?v=1.0"></script>
+<script type="text/javascript" src="/static/blur.jump.copy.js?v=1.1"></script>
