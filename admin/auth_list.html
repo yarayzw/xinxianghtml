@@ -38,7 +38,7 @@
             <div class="col-sm-10">
                 <div class="row">
 
-                    <div class="col-md-1">
+                    <div class="col-md-1" id="add_button">
                          <span class="input-group-btn">
                             <button class="btn btn-default" type="button" onclick="add()">添加</button>
                         </span>
@@ -73,14 +73,14 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label">权限名称 :</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="title" value=""  />
+                            <input type="text" class="form-control" id="title" name="title" value=""  />
                             <!--                            required="" aria-required="false"-->
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-3 control-label">路径 :</label>
                         <div class="col-sm-8">
-                            <input type="number" class="form-control" name="name" value=""  />
+                            <input type="text" class="form-control" id="name" name="name" value=""  />
                             <!--                            required="" aria-required="false"-->
                         </div>
                     </div>
@@ -88,6 +88,42 @@
                         <label class="col-sm-3 control-label">父级权限 :</label>
                         <div class="col-sm-8">
                             <ul id="tree" class="ztree" style="width:260px; overflow:auto;"></ul>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" id="add2" style="display: none">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5></h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <form class="form-horizontal m-t" id="commentForm2" method="post">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">权限名称 :</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="title2" name="title" value=""  />
+                            <!--                            required="" aria-required="false"-->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">路径 :</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="name2" name="name" value=""  />
+                            <!--                            required="" aria-required="false"-->
                         </div>
                     </div>
                 </form>
@@ -115,6 +151,9 @@
     var $table = $('#table');
     var $tree = $('#tree');
     $(function() {
+        if($.inArray('admin/auth_rule/addauthrule',u_role_url) === -1){
+            $('#add_button').hide();
+        }
         initTableYy();
     });
     function initTableYy() {
@@ -160,10 +199,19 @@
                     field: 'status',
                     title: '状态',
                     formatter: function(value,row,index){
-                        if(value === 0){
-                            var f='<a href="javascript:void(0)"  onclick="setStatus('+row.id+',1)" >正常</a> ';
+                        let f;
+                        if($.inArray('admin/auth_rule/setauthrulestatus',u_role_url) !== -1){
+                            if(value === 0){
+                                f='<a href="javascript:void(0)"  onclick="setStatus('+row.id+',1)" >正常</a> ';
+                            }else {
+                                f='<a href="javascript:void(0)"  onclick="setStatus('+row.id+',0)" >禁用</a> ';
+                            }
                         }else {
-                            var f='<a href="javascript:void(0)"  onclick="setStatus('+row.id+',0)" >禁用</a> ';
+                            if(value === 0){
+                                f='正常';
+                            }else {
+                                f='禁用';
+                            }
                         }
                         return f;
                     }
@@ -172,9 +220,18 @@
                     field: 'emm',
                     title: '操作',
                     formatter: function(value,row,index){
-                        var e='<a href="javascript:void(0)" data_id="'+row.id+'"   onclick="addAuth(this)" >添加子权限</a> ';
-                        var d='<a href="javascript:void(0)" data_id="'+row.id+'" data_title="'+row.title+'" data_name="'+row.name+'" data_pid="'+row.pid+'"  onclick="editAuth(this)" >编辑</a> ';
-                        var f='<a href="javascript:void(0)" data_id="'+row.id+'" onclick="delAuth(this)" >删除</a> ';
+                        let e = '';
+                        if($.inArray('admin/auth_rule/addauthrule',u_role_url) !== -1){
+                            e='<a href="javascript:void(0)" data_id="'+row.id+'"   onclick="addAuth2(this)" >添加子权限</a> ';
+                        }
+                        let d = '';
+                        if($.inArray('admin/auth_rule/editauthrule',u_role_url) !== -1){
+                            d='<a href="javascript:void(0)" data_id="'+row.id+'" data_title="'+row.title+'" data_name="'+row.name+'" data_pid="'+row.pid+'"  onclick="edit(this)" >编辑</a> ';
+                        }
+                        let f = '';
+                        if($.inArray('admin/auth_rule/delauthrule',u_role_url) !== -1){
+                            f='<a href="javascript:void(0)" data_id="'+row.id+'" onclick="del(this)" >删除</a> ';
+                        }
                         return e+d+f;
                     }
                 },
@@ -219,19 +276,25 @@
                     time: 0 //不自动关闭
                     ,btn: ['确定', '取消']
                     ,yes: function(index){
-                        requestData.data = {
-                            pid : node_id,
-                            title : $('#title').val(),
-                            name : $('#name').val()
-                        };
-                        ajaxGo('admin/auth_rule/addAuthRule');
-                        if(requestCode === 0){
-                            fac_search();
-                            layer.close(index);
-                            layer.closeAll();
-                            layer.msg(requestMessage);
+                        let treeObj=$.fn.zTree.getZTreeObj("tree");
+                        let nodes =  treeObj.getCheckedNodes(true);
+                        if(nodes.length === 0){
+                            layer.msg('请选择父级权限');
                         }else {
-                            layer.msg(requestMessage);
+                            requestData.data = {
+                                pid : nodes[0]['id'],
+                                title : $('#title').val(),
+                                name : $('#name').val()
+                            };
+                            ajaxGo('admin/auth_rule/addAuthRule');
+                            if(requestCode === 0){
+                                fac_search();
+                                layer.close(index);
+                                layer.closeAll();
+                                layer.msg(requestMessage);
+                            }else {
+                                layer.msg(requestMessage);
+                            }
                         }
                     }
                 });
@@ -240,13 +303,129 @@
         });
     }
 
-
-    function edit(obj) {
-        $tree.treeview('selectNode',[$(obj).attr('data_pid'),{silent:true}]);//默认选中
+    //添加子权限
+    function addAuth2(obj){
+        layer.open({
+            type: 1,
+            title: '添加',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['60%', '60%'],
+            content: $('#add2'),
+            btn: ['确定', '取消'], // 按钮
+            yes: function(index, layero){
+                layer.msg('确定添加？', {
+                    time: 0 //不自动关闭
+                    ,btn: ['确定', '取消']
+                    ,yes: function(index){
+                            requestData.data = {
+                                pid : $(obj).attr('data_id'),
+                                title : $('#title2').val(),
+                                name : $('#name2').val()
+                            };
+                            ajaxGo('admin/auth_rule/addAuthRule');
+                            if(requestCode === 0){
+                                fac_search();
+                                layer.close(index);
+                                layer.closeAll();
+                                layer.msg(requestMessage);
+                            }else {
+                                layer.msg(requestMessage);
+                            }
+                        }
+                });
+            }
+//            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
+        });
     }
 
-    function del() {
 
+    let treeObj=$.fn.zTree.getZTreeObj("tree");
+
+    function edit(obj) {
+        getTreeNew();
+        $('#name').val($(obj).attr('data_name'));
+        $('#title').val($(obj).attr('data_title'));
+        onAsyncSuccess(parseInt($(obj).attr('data_pid')),'tree');
+        layer.open({
+            type: 1,
+            title: '编辑',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['90%', '90%'],
+            content: $('#add'),
+            btn: ['确定', '取消'], // 按钮
+            yes: function(index, layero){
+                layer.msg('确定添加？', {
+                    time: 0 //不自动关闭
+                    ,btn: ['确定', '取消']
+                    ,yes: function(index){
+                        let treeObj=$.fn.zTree.getZTreeObj("tree");
+                        let nodes =  treeObj.getCheckedNodes(true);
+                        if(nodes.length === 0){
+                            layer.msg('请选择父级权限');
+                        }else {
+                            requestData.data = {
+                                pid : nodes[0]['id'],
+                                title : $('#title').val(),
+                                name : $('#name').val(),
+                                id: $(obj).attr('data_id')
+                            };
+                            ajaxGo('admin/auth_rule/editAuthRule');
+                            if(requestCode === 0){
+                                fac_search();
+                                layer.close(index);
+                                layer.closeAll();
+                                layer.msg(requestMessage);
+                            }else {
+                                layer.msg(requestMessage);
+                            }
+                        }
+                    }
+                });
+            }
+//            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
+        });
+    }
+
+    function del(obj) {
+        layer.msg('确定删除？', {
+            time: 0 //不自动关闭
+            ,btn: ['确定', '取消']
+            ,yes: function(index){
+                requestData.data = {
+                    id: $(obj).attr('data_id')
+                };
+                ajaxGo('admin/auth_rule/delAuthRule');
+                if(requestCode === 0){
+                    fac_search();
+                    layer.msg('删除成功!');
+                }else {
+                    layer.msg(requestMessage);
+                }
+            }
+        });
+    }
+
+    //设置状态
+    function setStatus(id,status) {
+        layer.msg('确定修改？', {
+            time: 0 //不自动关闭
+            ,btn: ['确定', '取消']
+            ,yes: function(index){
+                requestData.data = {
+                    'id' : id,
+                    'status' : status
+                };
+                ajaxGo('admin/auth_rule/setAuthRuleStatus');
+                if(requestCode === 0){
+                    fac_search();
+                    layer.msg('修改成功!');
+                }else {
+                    layer.msg(requestMessage);
+                }
+            }
+        });
     }
 
     var zTree;
@@ -266,8 +445,11 @@
                 rootPId: ""
             }
         },
+
         check: {
-            enable: true
+            enable: true,
+            chkStyle: "radio",
+            radioType: "all",
         },
         callback: {
             beforeClick: function (treeId, treeNode) {
@@ -281,6 +463,20 @@
                 }
             }
         }
+    };
+
+    /**
+     * 选中树形
+     * @param id
+     * @param treeId
+     * @param treeNode
+     * @param msg
+     */
+    function onAsyncSuccess(id, treeId, treeNode, msg) {
+        var f = id;//所选的ID   例如 "12589"
+        var treeObj = $.fn.zTree.getZTreeObj(treeId);//ztree树的ID
+        var node = treeObj.getNodeByParam("id", f);//根据ID找到该节点
+        treeObj.checkNode(node);//根据该节点选中
     };
 
     function getTreeNew() {
@@ -304,6 +500,9 @@
         demoIframe.height(h);
     }
 
+    function fac_search() {
+        $('#table').bootstrapTable('refresh');
+    }
 
 </script>
 </html>

@@ -1,7 +1,25 @@
 $(document).ready(function () {
+    if($.inArray('admin/view/addview',u_role_url) === -1){
+        $('#add_button').hide();
+    }
     //调用函数，初始化表格
     initTable();
+    setPlatformItem();
 });
+function setPlatformItem() {
+    //设置平台
+    ajaxGo('admin/user_thirdparty_info/getPlatformList');
+    var rows=requestData.data.rows;
+    if (rows.length>0) {
+        for (var key in rows) {
+            var html = "<div class='radio-inline'><label><input type='radio' name='platform_id' value='" + rows[key].id + "'>" + rows[key].name + "</label></div>";
+
+            $("#platform").append(html)
+        }
+    }
+    $("input[name=platform_id]:eq(0)").attr("checked","checked")
+}
+
 function initTable() {
     $('#viewTable').bootstrapTable('destroy');
     $("#viewTable").bootstrapTable({
@@ -69,6 +87,12 @@ function initTable() {
                 width : '5%',
             },
             {
+                field: 'platform_name',
+                title: '平台名称',
+                width : '10%',
+                align: 'center'
+            },
+            {
                 field: 'name',
                 title: '模版名称',
                 width : '10%',
@@ -99,9 +123,14 @@ function initTable() {
                 width : '10%',
                 align: 'center',
                 formatter: function(value,row,index){
-                    var d='<a href="#" mce_href="#" data_id="'+row.id+'" data_name="'+row.name+'" data_url="'+row.url+'" data_type="'+row.type+'"   onclick="editView(this)" >编辑</a> ';
-                    var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="del(this)" >删除</a>';
-
+                    let d = '';
+                    if($.inArray('admin/view/editview',u_role_url) !== -1) {
+                        d = '<a href="#" mce_href="#" data_id="'+row.id+'" data_name="'+row.name+'" data_url="'+row.url+'" data_type="'+row.type+'" data_platform = "'+row.platform+'"   onclick="editView(this)" >编辑</a> ';
+                    }
+                    let f = '';
+                    if($.inArray('admin/view/delview',u_role_url) !== -1) {
+                        f = '<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="del(this)" >删除</a>';
+                    }
                     return d+f;
                 }
             }
@@ -159,6 +188,7 @@ function editView(obj) {
     }else {
         $('type_2').attr('checked','checked');
     }
+    $("input[name=platform_id][value="+$(obj).attr('data_platform_id')+"]").attr('checked','true');
 
     layer.open({
         type: 1,
@@ -184,8 +214,6 @@ function editView(obj) {
                     }
                 }
             });
-
-
         }
 //            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
     });

@@ -107,6 +107,10 @@ function addMaterialGo() {
     //富文本值
     var content = $(".simditor-body").html();
 
+    let platform_ids =[];//定义一个数组
+    $('input[name="platform_ids"]:checked').each(function(){
+        platform_ids.push($(this).val());
+    });
     requestData.data = {
         'name' : $("input[name='name']").val(),
         'title': $("input[name='title']").val(),
@@ -115,8 +119,9 @@ function addMaterialGo() {
         'head_img' : head_img,
         'comment' : content,
         'short_name' : $("input[name='short_name']").val(),
+        'platform_ids':platform_ids
 
-    }
+    };
     ajaxGo('admin/material/addMaterial')
 
 }
@@ -133,6 +138,10 @@ function editMaterialGo(id) {
     //富文本值
     var content = $(".simditor-body").html();
 
+    let platform_ids =[];//定义一个数组
+    $('input[name="platform_ids"]:checked').each(function(){
+        platform_ids.push($(this).val());
+    });
     requestData.data = {
         'id' : id,
         'name' : $("input[name='name']").val(),
@@ -142,7 +151,7 @@ function editMaterialGo(id) {
         'head_img' : head_img,
         'comment' : content,
         'short_name' : $("input[name='short_name']").val(),
-
+        'platform_ids':platform_ids
     }
     ajaxGo('admin/material/editMaterial')
 

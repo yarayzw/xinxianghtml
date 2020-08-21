@@ -44,7 +44,7 @@
                 <div class="example-wrap">
                     <div class="example">
                         <div class="btn-group" id="toolbar" role="group">
-                            <a class="btn btn-success" onclick="add()">
+                            <a class="btn btn-success" onclick="add()" id="add_button">
                                 <i class="fa fa-plus"></i> 添加
                             </a>
                         </div>
@@ -140,6 +140,9 @@
 <script src="../js/clipboard.min.js"></script>
 <script>
     $(function () {
+        if($.inArray('admin/fonticon/add',u_role_url) === -1){
+            $('#add_button').hide();
+        }
         /*上传文件处理*/
         $(document).on('input propertychange','.file-btn-group input[type="file"]', function (e) {
             var that=this;

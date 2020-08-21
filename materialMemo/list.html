@@ -61,18 +61,41 @@
 <div >
     <form id="list_search_faci">
         <fieldset>
-            <div class="input-group">
-                 <span class="input-group-btn">
-                    <button class="btn btn-primary dropdown-toggle" type="button" onclick="addMaterialMemo(this);">添加</button>
-                 </span>
-                <span class="input-group-btn">
-                    <button class="btn btn-default" type="button" onclick="fac_search()">搜索</button>
-                 </span>
-                <input type="text" id="name" class="form-control" aria-label="..." placeholder="名称" style="width: 120px">
-
+            <div class="col-sm-10">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="input-group m-b">
+                            <span class="input-group-addon" >名称</span>
+                            <input type="text" id="name" class="form-control" aria-label="..." placeholder="" >
+                        </div>
+                    </div>
+                    <div class="col-md-2" id="platform_search_div" style="display: none">
+                        <div class="input-group m-b">
+                            <select id="platform_search" class="selectpicker" data-live-search="true">
+                                <option value="0">全部平台</option>
+                            </select>
+                        </div>
+                    </div>
+<!--                    <div class="col-md-2" id="department_div" style="display: none">-->
+<!--                        <div class="input-group m-b">-->
+<!--                            <select id="department_search" class="selectpicker" data-live-search="true">-->
+<!--                                <option value="-1">全部人员</option>-->
+<!--                                <option value="0">我的</option>-->
+<!--                            </select>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                    <div class="col-md-1">
+                         <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" onclick="fac_search()">搜索</button>
+                        </span>
+                    </div>
+                    <div class="col-md-1" id="add_button">
+                         <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button" onclick="addMaterialMemo()">添加</button>
+                        </span>
+                    </div>
+                </div>
             </div>
-
-
             &nbsp;&nbsp;&nbsp;&nbsp;
         </fieldset>
     </form>
@@ -124,6 +147,7 @@
 </div>
 <input type="text" id="copyText" style="display: none">
 
+<!--前序素材库-->
 <style>
     .label_list{
         color: black;
@@ -192,9 +216,6 @@
     </div>
 </div>
 
-
-
-
 <div class="row" id="addMaterial" style="display: none">
     <div class="ibox-content">
         <form class="form-horizontal m-t"  method="post">
@@ -222,6 +243,7 @@
         </form>
     </div>
 </div>
+<!--前序素材库end-->
 
 </body>
 
@@ -251,6 +273,9 @@
 <script>
 
     $(document).ready(function () {
+        if($.inArray('admin/material_memo/addmaterialmemo',u_role_url) === -1){
+            $('#add_button').hide();
+        }
         getMaterialList();
     });
 

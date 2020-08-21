@@ -31,6 +31,9 @@ function loginGo() {
         if(requestCode !== 0){
             layer.msg(requestMessage);
         }else {
+            setCookie('u_department_id',requestData.data.config.department_id);
+            setCookie('u_platform_id',requestData.data.config.platform_id);
+            setCookie('u_is_leader',requestData.data.config.is_leader);
             window.location.replace("http://" + window.top.location.host +'/'+ requestData.data.url+'.html');
         }
     }

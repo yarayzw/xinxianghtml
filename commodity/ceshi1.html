@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>表格固定第一列</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type="text/css">
+        * {
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+        }
+
+        body,
+        html {
+            height: 100%;
+            font-family: sans-serif;
+        }
+
+        .limiter {
+            width: 100%;
+            margin: 0 auto;
+
+        }
+
+        .container-table100 {
+            max-width: 1366px;
+            margin: 0 auto;
+            min-height: 100vh;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            padding: 33px 100px;
+        }
+
+        .wrap-table100 {
+            width: 100%;
+        }
+
+        /*//////////////////////////////////////////////////////////////////
+      [ Table ]*/
+
+        .table100 {
+            background-color: #fff;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        th {
+            font-weight: bold;
+            text-align: left;
+            padding-right: 10px;
+        }
+
+        td {
+            font-weight: unset;
+            padding-right: 10px;
+        }
+
+        .column1 {
+            width: 100%;
+            padding-left: 40px;
+        }
+
+        .column2 {
+            width: 225px;
+            padding-left: 55px;
+        }
+
+        .column2 {
+            width: 205px;
+        }
+
+        .column2 {
+            width: 195px;
+        }
+
+        .column2 {
+            width: 235px;
+        }
+
+        .column2 {
+            width: 170px;
+        }
+
+        .column2 {
+            width: 330px;
+        }
+
+        .column2 {
+            width: 305px;
+        }
+
+        .table100 th {
+            padding-top: 21px;
+            padding-bottom: 21px;
+        }
+
+        .table100 td {
+            padding-top: 16px;
+            padding-bottom: 16px;
+        }
+
+        /*==================================================================
+      [ Fix col ]*/
+
+        .table100 {
+            width: 100%;
+            position: relative;
+        }
+
+        .table100-firstcol {
+            background-color: #fff;
+            position: absolute;
+            z-index: 1000;
+            width: 310px;
+            top: 0;
+            left: 0;
+        }
+
+        .table100-firstcol table {
+            background-color: #fff;
+        }
+
+        .wrap-table100-nextcols {
+            width: 100%;
+            overflow: auto;
+            padding-left: 310px;
+            padding-bottom: 28px;
+        }
+
+        .table100-nextcols table {
+            table-layout: fixed;
+        }
+
+        .shadow-table100-firstcol {
+            box-shadow: 8px 0px 10px 0px rgba(0, 0, 0, 0.05);
+            -moz-box-shadow: 8px 0px 10px 0px rgba(0, 0, 0, 0.05);
+            -webkit-box-shadow: 8px 0px 10px 0px rgba(0, 0, 0, 0.05);
+            -o-box-shadow: 8px 0px 10px 0px rgba(0, 0, 0, 0.05);
+            -ms-box-shadow: 8px 0px 10px 0px rgba(0, 0, 0, 0.05);
+        }
+
+        .table100-firstcol table {
+            background-color: transparent;
+        }
+
+        /*==================================================================
+      [ Ver1 ]*/
+
+        .table100.ver1 th {
+            font-family: Roboto-Bold;
+            font-size: 14px;
+            color: #333333;
+            line-height: 1.4;
+            text-transform: uppercase;
+        }
+
+        .table100.ver1 td {
+            font-family: Roboto-Medium;
+            font-size: 15px;
+            line-height: 1.4;
+        }
+
+        .table100.ver1 .table100-firstcol td {
+            color: #666666;
+        }
+
+        .table100.ver1 .table100-nextcols td {
+            color: #999999;
+        }
+
+        .table100.ver1 tr {
+            border-bottom: 1px solid #f2f2f2;
+        }
+
+        .tr_y {
+            background: #c0a16b;
+        }
+    </style>
+</head>
+
+<body>
+<div class="limiter">
+    <div class="container-table100">
+        <div>报表名称：ceshi</div>
+        <div class="wrap-table100">
+            <div class="table100 ver1">
+                <div class="table100-firstcol">
+                    <table >
+                        <thead>
+                        <tr class="row100 head tr_y">
+                            <th class="cell100 column1">统计天数</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="row100 body tr_y">
+                            <td class="cell100 column1">单人产出</td>
+                        </tr>
+                        <tr class="row100 body tr_y">
+                            <td class="cell100 column1">关注</td>
+                        </tr>
+                        <tr class="row100 body tr_y">
+                            <td class="cell100 column1">广告费(现金)</td>
+                        </tr>
+                        <tr class="row100 body tr_y">
+                            <td class="cell100 column1">订单</td>
+                        </tr>
+                        <tr class="row100 body tr_y">
+                            <td class="cell100 column1">充值数据</td>
+                        </tr>
+                        <tr class="row100 body tr_y">
+                            <td class="cell100 column1">关注充值比</td>
+                        </tr>
+                        <tr class="row100 body tr_y">
+                            <td class="cell100 column1">粉丝单价</td>
+                        </tr>
+                        <tr class="row100 body tr_y">
+                            <td class="cell100 column1">回本比例</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="wrap-table100-nextcols js-pscroll">
+                    <div class="table100-nextcols">
+                        <table>
+                            <thead>
+                            <tr class="row100 head"><th class="cell100 column2">D1</th><th class="cell100 column2">D2</th><th class="cell100 column2">D3</th><th class="cell100 column2">D4</th><th class="cell100 column2">D5</th><th class="cell100 column2">D6</th><th class="cell100 column2">D7</th><th class="cell100 column2">D8</th><th class="cell100 column2">D9</th><th class="cell100 column2">D10</th> </thead>
+                            <tbody><tr class="row100 body"><td class="cell100 column2">0</td><td class="cell100 column2">0</td><td class="cell100 column2">0</td><td class="cell100 column2">0</td><td class="cell100 column2">0</td><td class="cell100 column2">0</td><td class="cell100 column2">0</td><td class="cell100 column2">0</td><td class="cell100 column2">0</td><td class="cell100 column2">0</td></tr><tr class="row100 body"><td class="cell100 column2">0</td><td class="cell100 column2">0</td><td class="cell100 column2">0</td><td class="cell100 column2">0</td><td class="cell100 column2">0</td><td class="cell100 column2">0</td><td class="cell100 column2">0</td><td class="cell100 column2">0</td><td class="cell100 column2">0</td><td class="cell100 column2">0</td></tr><tr class="row100 body"><td class="cell100 column2">0.00</td><td class="cell100 column2">0.00</td><td class="cell100 column2">0.00</td><td class="cell100 column2">0</td><td class="cell100 column2">0</td><td class="cell100 column2">0</td><td class="cell100 column2">0</td><td class="cell100 column2">0</td><td class="cell100 column2">0</td><td class="cell100 column2">0</td></tr><tr class="row100 body"><td class="cell100 column2">1</td><td class="cell100 column2">3</td><td class="cell100 column2">2</td><td class="cell100 column2">0</td><td class="cell100 column2">0</td><td class="cell100 column2">0</td><td class="cell100 column2">0</td><td class="cell100 column2">0</td><td class="cell100 column2">0</td><td class="cell100 column2">0</td></tr><tr class="row100 body"><td class="cell100 column2">500</td><td class="cell100 column2">1500</td><td class="cell100 column2">1000</td><td class="cell100 column2">0</td><td class="cell100 column2">0</td><td class="cell100 column2">0</td><td class="cell100 column2">0</td><td class="cell100 column2">0</td><td class="cell100 column2">0</td><td class="cell100 column2">0</td></tr><tr class="row100 body"><td class="cell100 column2">0</td><td class="cell100 column2">0</td><td class="cell100 column2">0</td><td class="cell100 column2">0</td><td class="cell100 column2">0</td><td class="cell100 column2">0</td><td class="cell100 column2">0</td><td class="cell100 column2">0</td><td class="cell100 column2">0</td><td class="cell100 column2">0</td></tr><tr class="row100 body"><td class="cell100 column2">0</td><td class="cell100 column2">0</td><td class="cell100 column2">0</td><td class="cell100 column2">0</td><td class="cell100 column2">0</td><td class="cell100 column2">0</td><td class="cell100 column2">0</td><td class="cell100 column2">0</td><td class="cell100 column2">0</td><td class="cell100 column2">0</td></tr><tr class="row100 body"><td class="cell100 column2">0% <br> <span style="color: #ee4b4b">0</span></td><td class="cell100 column2">0% <br> <span style="color: #ee4b4b">0</span></td><td class="cell100 column2">0% <br> <span style="color: #ee4b4b">0</span></td><td class="cell100 column2">0</td><td class="cell100 column2">0</td><td class="cell100 column2">0</td><td class="cell100 column2">0</td><td class="cell100 column2">0</td><td class="cell100 column2">0</td><td class="cell100 column2">0</td></tr></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>
