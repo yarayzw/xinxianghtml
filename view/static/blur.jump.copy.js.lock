@@ -64,11 +64,11 @@ $(function () {
             //$('#main>:not(.blur0)').css('display','none');
             /*$('#main>:not(.blur0)').css('opacity','0.03');
             $('#body>:not(#header,#main,#ex)').css('opacity','0.03');*/
-            $('#main>:not(.blur0)').css('opacity','0.2');//其他透明
+            $('#main>:not(.blur0)').css('opacity','0.1');//其他透明
             $('.blur0').next('a').css('opacity','1');//提示不透明
             $('#main>#main-other').css('position','relative').prepend('<div style="position:absolute;width:100%;height:100%;background:black;opacity:0.8;z-index:99999;"></div>')
             $('a:not(.blur0)').attr('onclick','return false;');
-            $('#rightFix').css('opacity','0.2').css('position','relative').prepend('<div style="position:absolute;width:100%;height:100%;background:black;opacity:0.8;z-index:99999;"></div>');
+            $('#rightFix').css('opacity','0.1').css('position','relative').prepend('<div style="position:absolute;width:100%;height:100%;background:black;opacity:0.8;z-index:99999;"></div>');
         }else {
 
             $('#main .blur0 img').attr('src','/static/img/zjnx.jpg');
