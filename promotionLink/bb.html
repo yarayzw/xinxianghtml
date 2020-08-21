@@ -158,11 +158,11 @@
                     align: 'center',
                     formatter: function(value,row,index){
                         let d = '';
-                        if($.inArray('admin/promotion_b_b/getPromotionbb',u_role_url) !== -1){
+                        if($.inArray('admin/promotion_b_b/getpromotionbb',u_role_url) !== -1){
                             d='<a href="#" mce_href="#" data_id="'+row.id+'"  onclick="look(this)" >查看</a> ';
                         }
                         let f = '';
-                        if($.inArray('admin/promotion_b_b/delPromotionbb',u_role_url) !== -1){
+                        if($.inArray('admin/promotion_b_b/delpromotionbb',u_role_url) !== -1){
                             f='<a href="#" mce_href="#" data_id="'+row.id+'"  onclick="delpromotionBB(this)" >删除</a> ';
                         }
                         return d + f;
