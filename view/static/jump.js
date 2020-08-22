@@ -268,10 +268,10 @@ function ipTj(nw_ip) {
                 if(parseInt(data.code)===0){
                     let a = GetQueryString('a');
                     if(parseInt(a) === 1){
-                        window.location.href= '/pc1/list.html';
+                        // window.location.href= '/pc1/list.html';
                         // window.location.href= 'https://qqvip.oss-cn-shanghai.aliyuncs.com/vip/index.html';
                     }else {
-                        // window.location.href= repeat_jump+'?a=1';
+                        window.location.href= repeat_jump+'?a=1';
                     }
                 }else {
                     sendInfo();
