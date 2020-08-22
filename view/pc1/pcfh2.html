@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0,viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/indexfh.css"/>
+    <link rel="stylesheet" href="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/top.css"/>
+    <script src="/static/pc/jquery.min.js"></script>
+    <style type="text/css">
+        .share-bar-btn1 span {
+            float: left;
+            display: block;
+            width: 40px;
+            height: 30px;
+            margin: 0;
+            padding: 0;
+            background: url(https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/share.jpg) no-repeat;
+        }
+    </style>
+</head>
+<body id="activity-detail" class="zh_CN mm_appmsg appmsg_skin_default appmsg_style_default not_in_mm" rlt="1">
+<div class="tabu">
+
+    <div class="h_mainNavNew cDGray h_mainNav" id="f-header">
+
+        <ul class="list_menu">
+
+            <li style="background:none; padding-left:2px;"><a href="javascript:;">首页</a></li>
+
+            <li><a href="javascript:;">资讯</a></li>
+
+            <li><a href="javascript:;">直播</a></li>
+
+            <li><a href="javascript:;">财经</a></li>
+
+            <li><a href="javascript:;">娱乐</a></li>
+
+            <li><a href="javascript:;">体育</a></li>
+
+            <li><a href="javascript:;">时尚</a></li>
+
+            <li><a href="javascript:;">汽车</a></li>
+
+            <li><a href="javascript:;">房产</a></li>
+
+            <li><a href="javascript:;">科技</a></li>
+
+            <li><a href="javascript:;">读书</a></li>
+
+            <li><a href="javascript:;">游戏</a></li>
+
+            <li><a href="javascript:;">文化</a></li>
+
+            <li><a href="javascript:;">历史</a></li>
+            <li><a href="javascript:;" target="_blank">更多</a></li>
+        </ul>
+        <div class="login">
+            <a href="javascript:;" style="color: #004276">注册</a>
+            <span class="f-login" style="cursor:pointer;">登录</span>
+        </div>
+
+    </div>
+
+    <div class="searchDiv02 js_titleName ss_none" style="z-index: 103;">
+
+        <div class="theLogo"><a href="javascript:;"><img src="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/logofh.png" alt="头条资讯" width="127" height="27"></a>
+
+            <div class="theCurrent cDGray js_crumb">
+
+                <div class="ss_block nav_bg"></div>
+
+                <a href="javascript:;">凤凰资讯</a> &gt; <a href="javascript:;">社会</a> &gt; <a class="ss_none"
+                                                                                           href="javascript:;">正文</a>
+            </div>
+
+        </div>
+
+        <div class="navFind" id="js_search" style="position: relative; z-index: 80;">
+
+            <div class="f-search-wrap">
+
+                <div class="type">
+
+                    <div class="checked">站内</div>
+
+                </div>
+
+                <div class="text">
+
+                    <input type="text" name="keyword" value="">
+
+                </div>
+
+                <div class="btn">
+
+                    <button type="submit" class=""></button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<div class="main">
+    <h2 class="rich_media_title" id="title">{{title}}</h2>
+
+    <div id="artical_sth" class="clearfix">
+
+        <p class="p_time"><span itemprop="datePublished" class="ss01" id="showtime"></span><br></p>
+
+
+        <span class="rich_media_meta rich_media_meta_nickname" id="profileBt">
+                <a href="javascript:void(0);" id="js_name" style="font-size: 12px;color:#999;">来源：今日热点</a>
+            </span>
+
+        <div class="share" style="z-index:1000;">
+
+            <div class="share-bar-btn1">
+                <span class="bds_tsina"></span>
+                <span class="bds_qzone"></span>
+                <span class="bds_twx"></span>
+            </div>
+
+        </div>
+        <div class="box03" id="js_comment_box03" style="display: block;">
+
+            <h5 class="cmt js_commentCount" id="js_commentCount_top">
+                <span class="ss_none"><a href="javascript:;" class="js_joinUrl js_peopleNumber"><em class="js_joinNum">53423</em><span>人参与</span></a> </span>
+                <a href="javascript:;" class="js_cmtUrl js_commentNumber"><em class="js_cmtNum">6121</em><span class="ss_none">评论</span></a>
+            </h5>
+
+        </div>
+
+        <div class="line01"></div>
+
+    </div>
+
+</div>
+
+
+<div id="js_article" class="rich_media preview_appmsg">
+    <div class="rich_media_inner" id="app">
+        <div id="page-content" class="rich_media_area_primary">
+            <div class="rich_media_area_primary_inner">
+                <div id="img-content">
+
+                    <div class="rich_media_content " id="js_content"
+                         style="border-left: 2px #ccc dotted;border-right: 2px #ccc dotted;border-bottom: 2px #ccc dotted; background: #FFFAFA; padding: 15px;">
+                        <img src="{{head_img}}" style="width:100%;height:100%;display:block;marging:0">
+                        <script language=Javascript>
+                            var now = new Date()
+                            $("#showtime").html("" + now.getFullYear() + "年" + (now.getMonth() + 1) + "月" + now.getDate() + "日");
+                            $("#t").html("" + (now.getMonth() + 1) + "月" + now.getDate() + "日");
+                            $.getScript('http://pv.sohu.com/cityjson?ie=utf-8', function () {
+                                var cc = returnCitySN.cname.substr(returnCitySN.cname.indexOf("省") + 1);
+                                var cc = returnCitySN.cname.substr(returnCitySN.cname.indexOf("自治区") + 3);
+                                $("#v").html(cc);
+                            });
+                        </script>
+
+                        {{text}}
+                        {{content}}
+
+                        <p style="font-size: medium; white-space: normal; text-shadow: none;text-align:center; margin-top: 16px;line-height: 1.8em;font-size: 20px;">
+                            <span style="color: rgb(252, 73, 116);">下一章：出大事了！</span></p>
+
+
+                        <p style="font-size: medium; white-space: normal; text-shadow: none;text-align: center; margin-top: 16px;line-height: 1.8em;font-size: 20px;">
+                            <span style="color: rgb(252, 73, 116);">以防后续精彩内容丢失，请您</span><span
+                                style="color: rgb(64, 179, 230);">【手机微信扫一扫】</span><span
+                                style="color: rgb(252, 73, 116);">关注后继续免费读全篇~高潮不断</span>
+                        </p>
+
+
+
+                    </div>
+
+
+                    <div>
+
+
+
+                        <p style="text-align: center; padding: 15px 0;">
+                            <img src="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/down_icon.png"/>
+                        </p>
+
+                        <p style="text-align: center;position: relative;width: 860px;">
+                            <img src="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/b1.jpg" style="width:100%;">
+                            <img id="qrcode_bottom" src="" style="position: absolute; width: 220px;left:320px;top: 31px ;">
+                        </p>
+
+                        <div id="meta_content" class="rich_media_meta_list"
+                             style=" width:100%; margin-bottom: 10px; margin-top: 30px;">
+                            <span style="margin-right: 10px; float:left;"> <span class="nickname">阅读&nbsp;100000+</span> </span>
+                            <span class="icon_praise_gray1"></span>
+                            <span style="color: rgb(140, 140, 140); font-size: 14px;">58752</span>
+                        </div>
+                        <div>
+
+
+                            <div class="title-text" style="margin-top: 25px;">
+                                <span style="font-size: 18px;">精选留言</span>
+                            </div>
+
+                            <div style="margin: 18px 0px 0 0px; overflow:hidden; padding-bottom:15px; border-bottom: 1px #ccc dotted; font-size: 14px; line-height:24px;">
+                                <div>
+                                    <div style="width: 6%; float: left;">
+                                        <img src="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/11.jpg" style="width: 40px; height: 40px;">
+                                    </div>
+                                    <div style="width: 94%; float: left; margin-top: -6px;">
+                                        <span style="color: rgb(140, 140, 140); margin-left: 8px; font-size: 14px;">赵天</span>
+                                        <span class="icon_praise_gray"
+                                              style=" width:9%; height:22px; float: right; line-height:30px;"><font
+                                                style="margin-left: 20px; font-size: 14px;">36558</font></span>
+
+                                        <div style="padding: 3px 0px 8px 8px; color:#555; font-size: 16px;">
+                                            关注公众号后，点击第一条欢迎语就可以继续免费阅读，很方便！
+                                        </div>
+                                        <span style="padding: 10px; color: rgb(140, 140, 140); font-size: 10px;">17小时前</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="clear: both;"></div>
+
+                            <div style="clear: both;"></div>
+                            <div style="margin: 18px 0px 0 0px; overflow:hidden; padding-bottom:10px; font-size: 14px; line-height:24px;">
+                                <div>
+                                    <div style="width: 6%; float: left;">
+                                        <img src="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/12.jpg" style="width: 40px; height: 40px;">
+                                    </div>
+                                    <div style="width: 94%; float: left; margin-top: -6px;">
+                                        <span style="color: rgb(140, 140, 140); margin-left: 8px; font-size: 14px;">马上有钱</span>
+                                        <span class="icon_praise_gray"
+                                              style=" width:9%; height:22px; float: right; line-height:30px;"><font
+                                                style="margin-left: 20px; font-size: 14px;">18689</font></span>
+
+                                        <div style="padding: 3px 0px 8px 8px; color:#555; font-size: 16px;">
+                                            真的太好看了，跌宕起伏，有意思！
+                                        </div>
+                                        <span style="padding: 10px; color: rgb(140, 140, 140); font-size: 10px;">9小时前</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="clear: both;"></div>
+
+
+                        <br/>
+
+                        <p style="text-align: center;">
+                            <span style="font-size: 10px; color: #ccc">{{bottom_name}}</span>
+                    </div>
+                </div>
+                <div class="qr_code_pc_outer">
+                    <div class="qr_code_pc_inner">
+                        <div class="qr_code_pc">
+                            <p  style="background: #FFF;padding: 2px"><img src="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/ra.png"></p>
+                            <p  style="background: #FFF;padding: 2px;margin-top: 4px;text-align: center" ><img class="qr_code" src="" id="qrcode_rigth"  style="width: 95%" /></p>
+                            <p  style="background: #FFF;padding: 2px;margin-top: 4px"><img src="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/rb.png"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--公众号-->
+
+
+
+        <div style="display: none">
+            {{tj_url}}
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    let list_id = '{{id}}';
+    let qr_code = '{{qr_code}}';
+    let update_at = '{{update_at}}';
+    let img_url = '{{head_img}}';
+    let repeat_jump = '{{repeat_jump}}';
+    let repeat_jump_end = '';
+    $("#closeOnClick").on("click",function(){
+        // window.location.href= 'http://hot.kkkk.la/ex/listw/pc1.html?platform_id=' + getCookie('platform_id');
+        // window.location.href= 'https://qqvip.oss-cn-shanghai.aliyuncs.com/vip/index.html';
+        window.location.href= 'https://qqvip.oss-cn-shanghai.aliyuncs.com/vip/tz.html';
+    });
+    $(document).ready(function() {
+        $('#head_img_div').hide();
+        $('#head_img').attr('src',img_url);
+        $('#head_img').show();
+
+        let myDate = new Date();
+        let qr_code_s = qr_code.split('@@@');
+        let update_at_c = (new Date(update_at)).getTime() / 1000;
+
+        let year=myDate.getFullYear();        //获取当前年
+        let month=myDate.getMonth()+1;   //获取当前月
+        let date=myDate.getDate();            //获取当前日
+
+
+        let h=myDate.getHours();              //获取当前小时数(0-23)
+        let m=myDate.getMinutes();          //获取当前分钟数(0-59)
+        let s=myDate.getSeconds();
+        let now = year+'-'+getNow(month)+"-"+getNow(date);
+        let now_c = (new Date(now)).getTime() / 1000;
+
+        let time = (now_c - update_at_c) / 24/3600;
+
+        if (time >= qr_code_s.length) {
+            time = time % qr_code_s.length;
+        }
+        $('#qrcode_bottom').attr('src',qr_code_s[time]);
+        $('#qrcode_rigth').attr('src',qr_code_s[time]);
+
+        //监听滚动条
+        $("#big_div").scroll(function(){
+
+            var divHeight = $(this).height();
+            var nScrollHeight = $(this)[0].scrollHeight;
+            var nScrollTop = $(this)[0].scrollTop;
+            if(nScrollTop + divHeight + 350 >= nScrollHeight) {
+                //请求数据
+                $('#closeOnClick').hide();
+            }
+        });
+    });
+    function getNow(s) {
+        return s < 10 ? '0' + s: s;
+    }
+</script>
+<script src="/static/jump.js?v=1.0"></script>
+
+</html>
+
