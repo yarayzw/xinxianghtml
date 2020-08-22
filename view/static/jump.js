@@ -266,7 +266,7 @@ function ipTj(nw_ip) {
             },
             success:function(data){
                 if(parseInt(data.code)===0){
-                    let a = getCookie('repeat_jump');
+                    let a = GetQueryString('a');
                     if(parseInt(a) === 1){
                         window.location.href= '/pc1/list.html';
                         // window.location.href= 'https://qqvip.oss-cn-shanghai.aliyuncs.com/vip/index.html';
