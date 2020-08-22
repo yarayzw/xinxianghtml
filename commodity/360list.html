@@ -14,26 +14,28 @@
     <link rel="stylesheet" type="text/css" href="../css/plugins/webuploader/webuploader.css">
     <link rel="stylesheet" type="text/css" href="../css/demo/webuploader-demo.min.css">
 
-<!--    下来框样式-->
+    <!--    下来框样式-->
     <link rel="stylesheet" type="text/css" href="../js/plugins/bootstrap-select-1.13.9/dist/css/bootstrap-select.css">
 
 </head>
 <style>
     /**字符串过长 转化为 。。。**/
-    table{
-        table-layout:fixed;/* 只有定义了表格的布局算法为fixed，下面td的定义才能起作用。 */
+    table {
+        table-layout: fixed; /* 只有定义了表格的布局算法为fixed，下面td的定义才能起作用。 */
     }
-    td{
+
+    td {
         max-width: 58px;
-        text-overflow:ellipsis;
+        text-overflow: ellipsis;
         overflow: auto;
         white-space: pre-wrap;
     }
 
-    .tr_color{
+    .tr_color {
         background: #FFEE99;
     }
-    .overflow_hidden{
+
+    .overflow_hidden {
         display: -webkit-box;
         overflow: hidden;
         white-space: normal;
@@ -67,7 +69,7 @@
     </div>
 </div>
 
-<div >
+<div>
     <form id="list_search_faci">
         <fieldset>
             <div class="col-sm-11">
@@ -132,98 +134,109 @@
             </div>
             <div class="ibox-content">
                 <form class="form-horizontal m-t" id="commentForm" method="post">
-<!--                    <div class="col-sm-6">-->
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">名称 :</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" name="name" value="" onkeyup="this.value=this.value.replace(/[^\w_]/g,'');" />
-                            <!--                            required="" aria-required="false"-->
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">第三方账号 :</label>
-                        <div class="col-sm-8">
-                            <!--<select id="platform" class="selectpicker" data-live-search="true">
-
-                            </select>-->
-                            <div>
-                                <div id="thirdparty_info" class="overflow_hidden"></div>
-                                <a href="javascript:void(0)" class="content-folding">折叠/展开</a>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">名称 :</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="name" value=""
+                                       onkeyup="this.value=this.value.replace(/[^\w_]/g,'');"/>
+                                <!--                            required="" aria-required="false"-->
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">域名 :</label>
-                        <div class="col-sm-8">
-                            <input type="text" disabled="disabled" class="form-control" name="url" value="http://"  />
-                            <!--                            required="" aria-required="false"-->
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">底部名称 :</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" name="bottom_name" value=""  />
-                            <!--                            required="" aria-required="false"-->
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">pc模版 :</label>
-                        <div class="col-sm-8">
-                            <!--<select id="view" class="selectpicker" data-live-search="true">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">第三方账号 :</label>
+                            <div class="col-sm-8">
+                                <!--<select id="platform" class="selectpicker" data-live-search="true">
 
-                            </select>-->
-                            <div id="view"></div>
-                        </div>
-                    </div>
-                    <input type="text" id="type" value="1" style="display: none">
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">统计链接 :</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" name="tj_url" value=""  />
-                            <!--                            required="" aria-required="false"-->
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">小说前序名称 :</label>
-                        <div class="col-sm-8">
-                            <!--<select id="material" class="selectpicker" data-live-search="true">
-
-                            </select>-->
-                            <div>
-                                <div id="material" class="overflow_hidden">
+                                </select>-->
+                                <div>
+                                    <div id="thirdparty_info" class="overflow_hidden"></div>
+                                    <a href="javascript:void(0)" class="content-folding">折叠/展开</a>
                                 </div>
-                                <a href="javascript:void(0)" class="content-folding">折叠/展开</a>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">域名 :</label>
+                            <div class="col-sm-8">
+                                <input type="text" disabled="disabled" class="form-control" name="url" value="http://"/>
+                                <!--                            required="" aria-required="false"-->
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">底部名称 :</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="bottom_name" value=""/>
+                                <!--                            required="" aria-required="false"-->
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">统计链接 :</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="tj_url" value=""/>
+                                <!--                            required="" aria-required="false"-->
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">小说前序名称 :</label>
+                            <div class="col-sm-8">
+                                <!--<select id="material" class="selectpicker" data-live-search="true">
+
+                                </select>-->
+                                <div>
+                                    <div id="material" class="overflow_hidden">
+                                    </div>
+                                    <a href="javascript:void(0)" class="content-folding">折叠/展开</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">标题 :</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="title" value=""/>
                             </div>
                         </div>
                     </div>
-                    <div class="form-group" >
-                        <label class="col-sm-3 control-label">标题 :</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" name="title" value=""  />
+                    <div class="col-sm-6">
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">pc模版 :</label>
+                            <div class="col-sm-8">
+                                <!--<select id="view" class="selectpicker" data-live-search="true">
+
+                                </select>-->
+                                <div id="view"></div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">头部图片：</label>
-                        <div class="col-sm-8">
-                            <div id="upload-container-head" style="cursor:pointer;float: left">
-                                <span >点击上传</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <div class="form-group" id="repeat_jump_div">
+                            <label class="col-sm-3 control-label">二次跳转链接 :</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="repeat_jump" value=""/>
                             </div>
-                            <div style="float: right">
-                                <span style="cursor:pointer" onclick="openMaterial()">选择素材</span>
-                            </div>
-                            <div id="upload-list-head">
+                        </div>
+                        <input type="text" id="type" value="1" style="display: none">
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">头部图片：</label>
+                            <div class="col-sm-8">
+                                <div id="upload-container-head" style="cursor:pointer;float: left">
+                                    <span>点击上传</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </div>
+                                <div style="float: right">
+                                    <span style="cursor:pointer" onclick="openMaterial()">选择素材</span>
+                                </div>
+                                <div id="upload-list-head">
+
+                                </div>
+                                <button id="picker-head" style="display: none;">点击上传文件</button>
 
                             </div>
-                            <button id="picker-head" style="display: none;">点击上传文件</button>
-
                         </div>
-                    </div>
-                    <hr>
+                        <hr>
 
                         <div class="form-group">
                             <label class="col-sm-3 control-label">二维码：</label>
                             <div class="col-sm-8">
-                                <div  style="cursor:pointer;float: left">
+                                <div style="cursor:pointer;float: left">
                                     <span onclick="checkQrCode()">点击选择</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 </div>
                                 <div id="upload-list">
@@ -232,8 +245,8 @@
 
                             </div>
                         </div>
-
-<!--                    </div>-->
+                    </div>
+                    <!--                    </div>-->
                 </form>
             </div>
         </div>
@@ -253,7 +266,6 @@
 </div>
 
 
-
 <div class="row" id="updateMaterial" style="display: none">
     <div class="form-group">
         <label class="col-sm-3 control-label">素材 :</label>
@@ -269,22 +281,23 @@
 <!--大图素材-->
 <style>
 
-    .label_list{
+    .label_list {
         color: black;
         margin-left: 10px;
     }
-    .label_checked{
+
+    .label_checked {
         background: black;
         color: white;
         padding: 2px 2px;
-        border-radius:5px;
+        border-radius: 5px;
     }
 
-    .right_font{
+    .right_font {
         text-align: right;
     }
 
-    .img_s{
+    .img_s {
         width: 100%;
         height: 100px;
     }
@@ -306,15 +319,15 @@
 
                         </span>
                         <div class="right_font" style="margin-top: 120px">
-                            <span style="margin-right: 10px;cursor:pointer" onclick="delLabel()" >删除</span>
-                            <span style="margin-right: 10px;cursor:pointer" onclick="editLabel()" >编辑</span>
+                            <span style="margin-right: 10px;cursor:pointer" onclick="delLabel()">删除</span>
+                            <span style="margin-right: 10px;cursor:pointer" onclick="editLabel()">编辑</span>
                             <span onclick="addLabel()" style="cursor:pointer">添加标签</span>
                         </div>
                     </div>
-                    <div class="col-sm-2 b-l" >
-                        <p class="text-center" >
+                    <div class="col-sm-2 b-l">
+                        <p class="text-center">
                         <div id="upload-big" style="cursor:pointer;float: left">
-                            <i class="glyphicon glyphicon-circle-arrow-up  big-icon"  id="upload-img"></i>&nbsp;&nbsp;&nbsp;
+                            <i class="glyphicon glyphicon-circle-arrow-up  big-icon" id="upload-img"></i>&nbsp;&nbsp;&nbsp;
                         </div>
                         <button id="picker-big" style="display: none;">点击上传文件</button>
                         </p>
@@ -330,11 +343,11 @@
 
 <div class="row" id="addLable" style="display: none">
     <div class="ibox-content">
-        <form class="form-horizontal m-t"  method="post">
+        <form class="form-horizontal m-t" method="post">
             <div class="form-group">
                 <label class="col-sm-3 control-label">标签名称 :</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control" name="label_name" id="label_name" value=""  />
+                    <input type="text" class="form-control" name="label_name" id="label_name" value=""/>
                     <!--                            required="" aria-required="false"-->
                 </div>
             </div>
@@ -351,7 +364,7 @@
             <div class="col-sm-12">
                 <div class="btn-group hidden-xs" id="linkToolbar" role="group">
                 </div>
-                <table id="linkTable" >
+                <table id="linkTable">
                 </table>
             </div>
         </div>
@@ -396,11 +409,11 @@
 
 <div class="row" id="addLink" style="display: none">
     <div class="ibox-content">
-        <form class="form-horizontal m-t"  method="post">
+        <form class="form-horizontal m-t" method="post">
             <div class="form-group">
                 <label class="col-sm-3 control-label">备注 :</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control" name="description" id="description" value=""  />
+                    <input type="text" class="form-control" name="description" id="description" value=""/>
                     <!--                            required="" aria-required="false"-->
                 </div>
             </div>
@@ -441,7 +454,7 @@
 
 <script>
     $(document).ready(function () {
-        if($.inArray('admin/commodity/addcommodity',u_role_url) === -1){
+        if ($.inArray('admin/commodity/addcommodity', u_role_url) === -1) {
             $('#add_button').hide();
         }
         //调用函数，初始化表格
@@ -454,9 +467,9 @@
     //折叠\展开
     $(function () {
         $('.content-folding').click(function () {
-            if ($(this).prev("div").hasClass("overflow_hidden")){
+            if ($(this).prev("div").hasClass("overflow_hidden")) {
                 $(this).prev("div").removeClass("overflow_hidden")
-            }else {
+            } else {
                 $(this).prev("div").addClass("overflow_hidden")
             }
         });
@@ -464,15 +477,15 @@
 
     function setMaterial() {
         ajaxGo('admin/material_memo/getListToSelect')
-        requestData.data.forEach((item,index,array)=>{
+        requestData.data.forEach((item, index, array) => {
             //执行代码
-            var html="<div class='radio-inline'><label><input type='radio' name='material' value='"+item.id+"'>"+item.name+"</label></div>";
+            var html = "<div class='radio-inline'><label><input type='radio' name='material' value='" + item.id + "'>" + item.name + "</label></div>";
             $('#material').append(html);
-            var html = "<option value='"+item.id+"'>"+item.name+"</option>";
+            var html = "<option value='" + item.id + "'>" + item.name + "</option>";
             $('#material_update').append(html);
 
             //执行代码 二维码
-            var html = "<option value='"+item.id+"'>"+item.name+"</option>";
+            var html = "<option value='" + item.id + "'>" + item.name + "</option>";
             $('#material_memo_s').append(html)
 
         });
@@ -481,36 +494,35 @@
 
         //pc模版
         requestData.data = {
-            'type' : 1
+            'type': 1
         }
         ajaxGo('admin/view/getListToSelect')
-        requestData.data.forEach((item,index,array)=>{
+        requestData.data.forEach((item, index, array) => {
             //执行代码
-            var html="<div class='radio-inline'><label><input type='radio' name='view' value='"+item.id+"'>"+item.name+"</label></div>";
+            var html = "<div class='radio-inline'><label><input type='radio' name='view' value='" + item.id + "'>" + item.name + "</label></div>";
             $('#view').append(html);
-            var html = "<option value='"+item.id+"'>"+item.name+"</option>";
+            var html = "<option value='" + item.id + "'>" + item.name + "</option>";
             $('#view_update').append(html);
         });
         $('#view_update').selectpicker('refresh');
 
 
-
         ajaxGo('admin/user_thirdparty_info/getListToSelect')
-        requestData.data.forEach((item,index,array)=>{
+        requestData.data.forEach((item, index, array) => {
             //执行代码
             //var html = "<option value='"+item.id+"'>"+item.name+"</option>";
-            var html = '<div class="radio-inline"><label><input onclick="checkedUserInfo(this)" data_url="'+item.domain+'" data_copyright="'+item.copyright+'"  type="radio" name="thirdparty_info" value="'+item.id+'" />'+item.name+'</label></div>';
+            var html = '<div class="radio-inline"><label><input onclick="checkedUserInfo(this)" data_url="' + item.domain + '" data_copyright="' + item.copyright + '"  type="radio" name="thirdparty_info" value="' + item.id + '" />' + item.name + '</label></div>';
             $('#thirdparty_info').append(html);
         });
 
         ajaxGo('admin/wechat_config/getListToSelect')
-        requestData.data.forEach((item,index,array)=>{
+        requestData.data.forEach((item, index, array) => {
             //执行代码
-            var html = '<div class="radio-inline"><label><input  type="radio" name="wechat_config_id" value="'+item.id+'" />'+item.wechat_name+'</label></div>';
+            var html = '<div class="radio-inline"><label><input  type="radio" name="wechat_config_id" value="' + item.id + '" />' + item.wechat_name + '</label></div>';
             $('#wechat_config_info').append(html);
 
             //二维码的
-            var html = "<option value='"+item.id+"'>"+item.wechat_name+"</option>";
+            var html = "<option value='" + item.id + "'>" + item.wechat_name + "</option>";
             $('#wechat_config_s').append(html);
 
         });
@@ -524,9 +536,9 @@
         // });
         // $('#thirdparty_id').selectpicker('refresh');
         // $("input[name=platform]:eq(0)").prop("checked",'checked');
-        $("input[name=mobile_view]:eq(0)").prop("checked",'checked');
-        $("input[name=view]:eq(0)").prop("checked",'checked');
-        $("input[name=material]:eq(0)").prop("checked",'checked');
+        $("input[name=mobile_view]:eq(0)").prop("checked", 'checked');
+        $("input[name=view]:eq(0)").prop("checked", 'checked');
+        $("input[name=material]:eq(0)").prop("checked", 'checked');
     }
 
     //第三方账号信息选择
@@ -544,7 +556,7 @@
             pagination: true, //启动分页
             sortName: 'id',
             pageSize: 10,  //每页显示的记录数
-            pageNumber:1, //当前第几页
+            pageNumber: 1, //当前第几页
             pageList: [5, 10, 15, 20],  //记录数可选列表
             search: false,
             toolbar: '#list_search_faci',
@@ -553,7 +565,7 @@
             sidePagination: "server", //表示服务端请求
             //设置为undefined可以获取pageNumber，pageSize，searchText，sortName，sortOrder
             //设置为limit可以获取limit, offset, search, sort, order
-            responseHandler:function(data){
+            responseHandler: function (data) {
                 //远程数据加载之前,处理程序响应数据格式,对象包含的参数: 我们可以对返回的数据格式进行处理
                 //在ajax后我们可以在这里进行一些事件的处理
                 // requestCode = data.code;
@@ -569,7 +581,7 @@
                 // };
                 return data.data;
             },
-            queryParamsType : "undefined",
+            queryParamsType: "undefined",
             // method: 'post',
             queryParams: function queryParams(params) {   //设置查询参数
                 params = {
@@ -579,31 +591,31 @@
                     sortName: params.sortName,
                     sortOrder: params.sortOrder,
                     // id : {$_GET['id']},
-                    head : {'token' : getCookie('token')},
-                    name : $('#name').val(),
-                    search_id : $('#search_id').val(),
+                    head: {'token': getCookie('token')},
+                    name: $('#name').val(),
+                    search_id: $('#search_id').val(),
                     type: 1,
-                    platform_id : 1,
-                    department_id : $("#department_search").selectpicker('val')
+                    platform_id: 1,
+                    department_id: $("#department_search").selectpicker('val')
                 };
 
                 return params;
             },
-            onLoadSuccess: function(data){  //加载成功时执行
+            onLoadSuccess: function (data) {  //加载成功时执行
                 $('.bootstrap-table tr td').each(function () {
                     $(this).attr("title", $(this).text());
                     $(this).css("cursor", 'pointer');
                 });
             },
-            onLoadError: function(){  //加载失败时执行
-                layer.msg("加载数据失败", {time : 1500, icon : 2});
+            onLoadError: function () {  //加载失败时执行
+                layer.msg("加载数据失败", {time: 1500, icon: 2});
             },
             columns: [
                 {
                     title: 'ID',
                     field: 'id',
                     align: 'center',
-                    width : '4%',
+                    width: '4%',
                     valign: 'middle',
 
                 },
@@ -617,30 +629,30 @@
                 {
                     field: 'view',
                     title: '人员',
-                    width : '4%',
-                    formatter: function(value,row,index){
-                        return '<xmp>' + value +'</xmp>';
+                    width: '4%',
+                    formatter: function (value, row, index) {
+                        return '<xmp>' + value + '</xmp>';
                     }
                 },
                 {
                     field: 'name',
                     title: '网页名称',
-                    width : '5%',
+                    width: '5%',
                     align: 'center'
                 },
                 {
                     field: 'platform_name',
                     title: '平台',
-                    width : '4%',
+                    width: '4%',
                     align: 'center'
                 },
                 {
                     field: 'material_name',
                     title: '前序名称',
-                    formatter: function(value,row,index){
+                    formatter: function (value, row, index) {
                         let d = value;
-                        if($.inArray('admin/commodity/updatematerial',u_role_url) !== -1) {
-                            d = '<a href="javascript:void(0)" mce_href="#" " data_id="'+row.id+'"  onclick="updateMaterial(this)" >'+value+'</a>';
+                        if ($.inArray('admin/commodity/updatematerial', u_role_url) !== -1) {
+                            d = '<a href="javascript:void(0)" mce_href="#" " data_id="' + row.id + '"  onclick="updateMaterial(this)" >' + value + '</a>';
                         }
 
                         return d;
@@ -649,9 +661,9 @@
                 {
                     field: 'title',
                     title: '标题',
-                    width : '25%',
-                    formatter: function(value,row,index){
-                        var html = '<div style="float: left"><img style="width: 120px;height: 60px" src="'+row.head_img+'" alt=""></div><div>'+value+'</div>';
+                    width: '25%',
+                    formatter: function (value, row, index) {
+                        var html = '<div style="float: left"><img style="width: 120px;height: 60px" src="' + row.head_img + '" alt=""></div><div>' + value + '</div>';
                         return html;
                     }
                 },
@@ -659,11 +671,11 @@
                     field: 'tj_url',
                     title: '统计',
                     align: 'center',
-                    width : '6%',
-                    formatter: function(value,row,index){
+                    width: '6%',
+                    formatter: function (value, row, index) {
                         let d = '-';
-                        if($.inArray('admin/commodity/getcommoditystatic',u_role_url) !== -1) {
-                            d = '<a  data_id="'+row.id+'" data_platform_id="'+row.platform_id+'" onclick="lookTj(this)" >查看</a> ';
+                        if ($.inArray('admin/commodity/getcommoditystatic', u_role_url) !== -1) {
+                            d = '<a  data_id="' + row.id + '" data_platform_id="' + row.platform_id + '" onclick="lookTj(this)" >查看</a> ';
                         }
                         return d;
                     }
@@ -673,10 +685,10 @@
                     field: 'view_name',
                     title: '模版',
                     align: 'center',
-                    formatter: function(value,row,index){
+                    formatter: function (value, row, index) {
                         let d = value;
-                        if($.inArray('admin/commodity/updateview',u_role_url) !== -1) {
-                            d = '<a href="javascript:void(0)" mce_href="#"  data_id="'+row.id+'"  onclick="updateView(this)" >'+value+'</a>';
+                        if ($.inArray('admin/commodity/updateview', u_role_url) !== -1) {
+                            d = '<a href="javascript:void(0)" mce_href="#"  data_id="' + row.id + '"  onclick="updateView(this)" >' + value + '</a>';
                         }
                         return d;
                     }
@@ -690,26 +702,26 @@
                 {
                     field: 'operate',
                     title: '操作',
-                    width : '12%',
+                    width: '12%',
                     align: 'center',
-                    formatter: function(value,row,index){
+                    formatter: function (value, row, index) {
                         let a = '';
-                        if($.inArray('admin/commodity/editcommodity',u_role_url) !== -1) {
-                            a = '<a mce_href="#" data_id="'+row.id+'" data_name="'+row.name+'" data_title="'+row.title+'" data_url="'+row.url+'"  onclick="editCommodity(this)" >编辑</a> ';
+                        if ($.inArray('admin/commodity/editcommodity', u_role_url) !== -1) {
+                            a = '<a mce_href="#" data_id="' + row.id + '" data_name="' + row.name + '" data_title="' + row.title + '" data_url="' + row.url + '"  onclick="editCommodity(this)" >编辑</a> ';
                         }
                         let e = '';
-                        if($.inArray('admin/commodity/yulan',u_role_url) !== -1) {
-                            e = '<a mce_href="#" " data_url="'+row.url+'/'+row.pc_url+'""  onclick="preview(this)" >预览</a> ';
+                        if ($.inArray('admin/commodity/yulan', u_role_url) !== -1) {
+                            e = '<a mce_href="#" " data_url="' + row.url + '/' + row.pc_url + '""  onclick="preview(this)" >预览</a> ';
                         }
                         let f = '';
-                        if($.inArray('admin/commodity/delcommodity',u_role_url) !== -1) {
-                            f = '<a mce_href="#" " data_id="'+row.id+'"  onclick="del(this)" >删除</a> ';
+                        if ($.inArray('admin/commodity/delcommodity', u_role_url) !== -1) {
+                            f = '<a mce_href="#" " data_id="' + row.id + '"  onclick="del(this)" >删除</a> ';
                         }
                         let g = '';
-                        if($.inArray('admin/commodity/baobiao',u_role_url) !== -1) {
-                            g = '<a href="../../../source/creative/report.html?page_id='+row.id+'" target="_blank">报表</a>';
+                        if ($.inArray('admin/commodity/baobiao', u_role_url) !== -1) {
+                            g = '<a href="../../../source/creative/report.html?page_id=' + row.id + '" target="_blank">报表</a>';
                         }
-                        return a+e+f+g;
+                        return a + e + f + g;
                     }
                 }
             ]
@@ -720,9 +732,9 @@
     //搜索
     function fac_search() {
         $('#commodityTable').bootstrapTable('refresh');
-        if('' !== $('#search_id').val()){
+        if ('' !== $('#search_id').val()) {
             requestData.data = {
-                'log' : $('#search_id').val()
+                'log': $('#search_id').val()
             };
             ajaxGo('admin/Weakness/addWeakness');
             searchHistory();
@@ -742,18 +754,18 @@
             area: ['90%', '90%'],
             content: $('#add'),
             btn: ['确定', '取消'], // 按钮
-            yes: function(index, layero){
+            yes: function (index, layero) {
                 layer.msg('确定添加？', {
                     time: 0 //不自动关闭
-                    ,btn: ['确定', '取消']
-                    ,yes: function(index){
+                    , btn: ['确定', '取消']
+                    , yes: function (index) {
                         addCommodityGo();
-                        if(requestCode === 0){
+                        if (requestCode === 0) {
                             fac_search();
                             layer.close(index);
                             layer.closeAll();
                             layer.msg(requestMessage);
-                        }else {
+                        } else {
                             layer.msg(requestMessage);
                         }
                     }
@@ -768,7 +780,7 @@
         $('#add_qr_code').show();
         commodity_id = $(obj).attr('data_id');
         requestData.data = {
-            'id' : $(obj).attr('data_id')
+            'id': $(obj).attr('data_id')
         }
         ajaxGo('admin/commodity/getCommodityInfo');
         $("input[name='name']").val(requestData.data.name);
@@ -776,65 +788,65 @@
         $("input[name='url']").val(requestData.data.url);
         $("input[name='tj_url']").val(requestData.data.tj_url);
         $("input[name='bottom_name']").val(requestData.data.bottom_name);
+        $("input[name='repeat_jump']").val(requestData.data.repeat_jump);
 
-        $("input[type=radio][name=material][value='"+requestData.data.material_id+"']").attr("checked",'checked');
-        $("input[type=radio][name=view][value='"+requestData.data.view_id+"']").attr("checked",'checked');
-        $("input[type=radio][name=thirdparty_info][value='"+requestData.data.thirdparty_id+"']").attr("checked",'checked');
-        $("input[type=radio][name=wechat_config_id][value='"+requestData.data.wechat_config_id+"']").attr("checked",'checked');
+        $("input[type=radio][name=material][value='" + requestData.data.material_id + "']").attr("checked", 'checked');
+        $("input[type=radio][name=view][value='" + requestData.data.view_id + "']").attr("checked", 'checked');
+        $("input[type=radio][name=thirdparty_info][value='" + requestData.data.thirdparty_id + "']").attr("checked", 'checked');
+        $("input[type=radio][name=wechat_config_id][value='" + requestData.data.wechat_config_id + "']").attr("checked", 'checked');
 
 
-        let head_img =requestData.data.head_img.split('@@@');
+        let head_img = requestData.data.head_img.split('@@@');
         $('#upload-list-head').empty();
-        head_img.forEach((item,index,array)=>{
-            var html = '<div style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"  onclick="delImg(this)" ><img name="head_img" data_name="'+item+'" src="'+item+'"></div>';
+        head_img.forEach((item, index, array) => {
+            var html = '<div style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"  onclick="delImg(this)" ><img name="head_img" data_name="' + item + '" src="' + item + '"></div>';
             //执行代码
             $('#upload-list-head').append(html);
         });
 
         // let qr_img =requestData.data.qr_code_link.split('@@@');
         $('#upload-list').empty();
-        requestData.data.qr_code_link.forEach((item,index,array)=>{
+        requestData.data.qr_code_link.forEach((item, index, array) => {
             //执行代码
-            if(requestData.data.code_num === (index+1) ){
-                var html = '<div style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"  onclick="delImg(this)" ><div><img name="qr_img" style="width:150px;height:150px" data_link_id="'+item.link_id+'" data_name="'+item.url+'" src="'+item.url+'"></div><div style="color: red;text-align: center">使用中</div></div>';
+            if (requestData.data.code_num === (index + 1)) {
+                var html = '<div style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"  onclick="delImg(this)" ><div><img name="qr_img" style="width:150px;height:150px" data_link_id="' + item.link_id + '" data_name="' + item.url + '" src="' + item.url + '"></div><div style="color: red;text-align: center">使用中</div></div>';
             }
-            if(requestData.data.code_num < (index+1) ){
-                var html = '<div style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"  onclick="delImg(this)" ><div><img name="qr_img" style="width: 150px;height: 150px" data_link_id="'+item.link_id+'" data_name="'+item.url+'" src="'+item.url+'"></div><div style="color: #5fc55e;text-align: center">待使用</div></div>';
+            if (requestData.data.code_num < (index + 1)) {
+                var html = '<div style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"  onclick="delImg(this)" ><div><img name="qr_img" style="width: 150px;height: 150px" data_link_id="' + item.link_id + '" data_name="' + item.url + '" src="' + item.url + '"></div><div style="color: #5fc55e;text-align: center">待使用</div></div>';
             }
-            if(requestData.data.code_num > (index+1) ){
-                var html = '<div style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"  onclick="delImg(this)" ><div><img name="qr_img" style="width: 150px;height: 150px" data_link_id="'+item.link_id+'" data_name="'+item.url+'" src="'+item.url+'"></div><div style="color: #ccc;text-align: center">已使用</div></div>';
+            if (requestData.data.code_num > (index + 1)) {
+                var html = '<div style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"  onclick="delImg(this)" ><div><img name="qr_img" style="width: 150px;height: 150px" data_link_id="' + item.link_id + '" data_name="' + item.url + '" src="' + item.url + '"></div><div style="color: #ccc;text-align: center">已使用</div></div>';
             }
             $('#upload-list').append(html);
         });
 
-        $('#platform').selectpicker('val',(requestData.data.platform_id));
-        $('#material').selectpicker('val',(requestData.data.material_id));
-        $('#view').selectpicker('val',(requestData.data.view_id));
+        $('#platform').selectpicker('val', (requestData.data.platform_id));
+        $('#material').selectpicker('val', (requestData.data.material_id));
+        $('#view').selectpicker('val', (requestData.data.view_id));
         // $('#thirdparty_id').selectpicker('val',(requestData.data.thirdparty_id));
 
-       
 
         layer.open({
             type: 1,
             title: '编辑',
             shadeClose: true,
             shade: 0.8,
-            maxmin:true,
+            maxmin: true,
             area: ['90%', '90%'],
             content: $('#add'),
             btn: ['确定', '取消'], // 按钮
-            yes: function(index, layero){
+            yes: function (index, layero) {
                 layer.msg('确定修改？', {
                     time: 0 //不自动关闭
-                    ,btn: ['确定', '取消']
-                    ,yes: function(index){
+                    , btn: ['确定', '取消']
+                    , yes: function (index) {
                         editCommodityGo($(obj).attr('data_id'));
-                        if(requestCode === 0){
+                        if (requestCode === 0) {
                             fac_search();
                             layer.close(index);
                             layer.closeAll();
                             layer.msg(requestMessage);
-                        }else {
+                        } else {
                             layer.msg(requestMessage);
                         }
                     }
@@ -855,16 +867,16 @@
     function del(obj) {
         layer.msg('确定删除？', {
             time: 0 //不自动关闭
-            ,btn: ['确定', '取消']
-            ,yes: function(index){
+            , btn: ['确定', '取消']
+            , yes: function (index) {
                 requestData.data = {
-                    'id' : $(obj).attr('data_id')
+                    'id': $(obj).attr('data_id')
                 };
                 ajaxGo('admin/commodity/delCommodity');
-                if(requestCode === 0){
+                if (requestCode === 0) {
                     fac_search();
                     layer.msg('删除成功!');
-                }else {
+                } else {
                     layer.msg(requestMessage);
                 }
             }
@@ -881,18 +893,18 @@
             area: ['90%', '90%'],
             content: $('#updateView'),
             btn: ['确定', '取消'], // 按钮
-            yes: function(index, layero){
+            yes: function (index, layero) {
                 layer.msg('确定修改？', {
                     time: 0 //不自动关闭
-                    ,btn: ['确定', '取消']
-                    ,yes: function(index){
+                    , btn: ['确定', '取消']
+                    , yes: function (index) {
                         updateViewGo($(obj).attr('data_id'));
-                        if(requestCode === 0){
+                        if (requestCode === 0) {
                             fac_search();
                             layer.close(index);
                             layer.closeAll();
                             layer.msg(requestMessage);
-                        }else {
+                        } else {
                             layer.msg(requestMessage);
                         }
                     }
@@ -912,18 +924,18 @@
             area: ['90%', '90%'],
             content: $('#updateViewMobile'),
             btn: ['确定', '取消'], // 按钮
-            yes: function(index, layero){
+            yes: function (index, layero) {
                 layer.msg('确定修改？', {
                     time: 0 //不自动关闭
-                    ,btn: ['确定', '取消']
-                    ,yes: function(index){
+                    , btn: ['确定', '取消']
+                    , yes: function (index) {
                         updateViewMobileGo($(obj).attr('data_id'));
-                        if(requestCode === 0){
+                        if (requestCode === 0) {
                             fac_search();
                             layer.close(index);
                             layer.closeAll();
                             layer.msg(requestMessage);
-                        }else {
+                        } else {
                             layer.msg(requestMessage);
                         }
                     }
@@ -942,18 +954,18 @@
             area: ['40%', '60%'],
             content: $('#updateMaterial'),
             btn: ['确定', '取消'], // 按钮
-            yes: function(index, layero){
+            yes: function (index, layero) {
                 layer.msg('确定修改？', {
                     time: 0 //不自动关闭
-                    ,btn: ['确定', '取消']
-                    ,yes: function(index){
+                    , btn: ['确定', '取消']
+                    , yes: function (index) {
                         updateMaterialGo($(obj).attr('data_id'));
-                        if(requestCode === 0){
+                        if (requestCode === 0) {
                             fac_search();
                             layer.close(index);
                             layer.closeAll();
                             layer.msg(requestMessage);
-                        }else {
+                        } else {
                             layer.msg(requestMessage);
                         }
                     }
@@ -962,12 +974,13 @@
 //            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
         });
     }
+
     var myChart = echarts.init(document.getElementById('zb'));
     var myChartzx = echarts.init(document.getElementById('zxt'));
 
     function lookTj(obj) {
 
-        window.open('http://zjz.chinaandun.com/commodity/tj.html?platform_id='+$(obj).attr('data_platform_id')+'&bb_id='+$(obj).attr('data_id'), '_blank').location;
+        window.open('http://zjz.chinaandun.com/commodity/tj.html?platform_id=' + $(obj).attr('data_platform_id') + '&bb_id=' + $(obj).attr('data_id'), '_blank').location;
 
 
 //         layer.open({
@@ -990,19 +1003,18 @@
 
 
     //渲染搜索历史
-    function searchHistory()
-    {
+    function searchHistory() {
         requestData.data = {
-            'platform_id' : 1
+            'platform_id': 1
         };
         ajaxGo('admin/Weakness/getListToSelect');
         $('#history_search').empty();
         let html = ' <div style="float: left;margin-left: 15px"> 历史记录： </div>';
         $('#history_search').append(html);
 
-        requestData.data.forEach((item,index,array)=>{
+        requestData.data.forEach((item, index, array) => {
             var html = '<div style="float: left;margin-right: 15px;margin-left: 5px">\n' +
-                '                    <span style="cursor:pointer" onclick="searchLog(this)" data_id = "'+item.log+'">'+item.view+' - '+item.log+'<div style="float:left;width:15px;height:15px;padding: 2px;position: relative;left: 76px;bottom:3px;color: #fff;cursor:pointer;border-radius: 50%;background: #ff0000;text-align: center;line-height: 12px" data_id = "'+item.id+'" onclick="delLog(this)">x</div>\n</span>\n' +
+                '                    <span style="cursor:pointer" onclick="searchLog(this)" data_id = "' + item.log + '">' + item.view + ' - ' + item.log + '<div style="float:left;width:15px;height:15px;padding: 2px;position: relative;left: 76px;bottom:3px;color: #fff;cursor:pointer;border-radius: 50%;background: #ff0000;text-align: center;line-height: 12px" data_id = "' + item.id + '" onclick="delLog(this)">x</div>\n</span>\n' +
                 '                    ' +
                 '                </div>';
             //执行代码
@@ -1012,19 +1024,19 @@
     }
 
     //删除搜索历史
-    function delLog(obj){
+    function delLog(obj) {
         layer.msg('确定删除？', {
             time: 0 //不自动关闭
-            ,btn: ['确定', '取消']
-            ,yes: function(index){
+            , btn: ['确定', '取消']
+            , yes: function (index) {
                 requestData.data = {
-                    'id' : $(obj).attr('data_id')
+                    'id': $(obj).attr('data_id')
                 };
                 ajaxGo('admin/Weakness/delWeakness');
-                if(requestCode === 0){
+                if (requestCode === 0) {
                     searchHistory();
                     layer.msg('删除成功!');
-                }else {
+                } else {
                     layer.msg(requestMessage);
                 }
             }
@@ -1042,14 +1054,14 @@
      * @param creative_id
      * @param obj
      */
-    function getTjUCId(creative_id,obj) {
+    function getTjUCId(creative_id, obj) {
         $("tr").removeClass("tr_color");
         $(obj).parent('tr').addClass('tr_color');
         requestData.data = {
-            'creative_id' : creative_id
+            'creative_id': creative_id
         };
         ajaxGo('admin/user_thirdparty_info/getTjUCId');
-        if(requestCode === 1){
+        if (requestCode === 1) {
             layer.msg(requestMessage);
         }
         $("#all_num").text(requestData.data.now_time); //一分钟内独立访客
@@ -1075,7 +1087,7 @@
                 trigger: 'item',
                 formatter: '{a} <br/>{b} : {c} ({d}%'
             },
-            color:['#2E91DA','#f6bd0f','#F5AD46','#6CBF3D','#EDEB2C','#A149D9','#f6bd0f'],
+            color: ['#2E91DA', '#f6bd0f', '#F5AD46', '#6CBF3D', '#EDEB2C', '#A149D9', '#f6bd0f'],
             series: [
                 {
                     name: '访问来源',
@@ -1084,7 +1096,7 @@
                     center: ['50%', '55%'],
                     avoidLabelOverlap: true,
                     minAngle: 5,
-                    label:{            //饼图图形上的文本标签
+                    label: {            //饼图图形上的文本标签
                         formatter: '{b|{b}：}{per|{d}%}\n{c|{c}}  ',
                         lineHeight: 13,
                         rich: {
@@ -1133,11 +1145,11 @@
                 bottom: '3%',
                 containLabel: true
             },
-            color:['#2E91DA','#F5AD46','#6CBF3D'],
+            color: ['#2E91DA', '#F5AD46', '#6CBF3D'],
             xAxis: {
                 type: 'category',
                 boundaryGap: false,
-                data: ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00', '09:00', '10:00', '11:00', '12:00','13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00']
+                data: ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00']
             },
             yAxis: {
                 type: 'value'
@@ -1154,25 +1166,25 @@
     function onCreative(obj) {
         layer.msg('确定修改？', {
             time: 0 //不自动关闭
-            ,btn: ['确定', '取消']
-            ,yes: function(index){
+            , btn: ['确定', '取消']
+            , yes: function (index) {
                 requestData.data = {
-                    'creative_id' : $(obj).attr('data_creative_id'),
+                    'creative_id': $(obj).attr('data_creative_id'),
                     'type': $(obj).attr('data_type')
                 };
                 ajaxGo('admin/user_thirdparty_info/setUcCreative');
-                if(requestCode===0){
-                    if($(obj).attr('data_type')==='1'){
-                        $(obj).css('color','green');
-                        $(obj).attr('data_type','0');
+                if (requestCode === 0) {
+                    if ($(obj).attr('data_type') === '1') {
+                        $(obj).css('color', 'green');
+                        $(obj).attr('data_type', '0');
                         $(obj).text('启动');
-                    }else {
-                        $(obj).css('color','#ee1e2d');
-                        $(obj).attr('data_type','1');
+                    } else {
+                        $(obj).css('color', '#ee1e2d');
+                        $(obj).attr('data_type', '1');
                         $(obj).text('暂停');
                     }
                     layer.msg('修改成功!');
-                }else {
+                } else {
                     layer.msg(requestMessage);
                 }
             }
@@ -1186,28 +1198,27 @@
     function setInfoReserve(obj) {
         layer.msg('确定修改预留？', {
             time: 0 //不自动关闭
-            ,btn: ['确定', '取消']
-            ,yes: function(index){
+            , btn: ['确定', '取消']
+            , yes: function (index) {
                 requestData.data = {
-                    'creative_id' : $(obj).attr('data_creative_id'),
+                    'creative_id': $(obj).attr('data_creative_id'),
                     'page_id': $(obj).attr('data_page_id')
                 };
                 ajaxGo('admin/user_thirdparty_info/setInfoReserve');
-                if(requestCode===0){
+                if (requestCode === 0) {
                     let text = $(obj).text();
-                    if('是' === text){
+                    if ('是' === text) {
                         $(obj).text('否');
-                    }else {
+                    } else {
                         $(obj).text('是');
                     }
                     layer.msg('修改成功!');
-                }else {
+                } else {
                     layer.msg(requestMessage);
                 }
             }
         });
     }
-
 
 
 </script>
@@ -1216,8 +1227,7 @@
 
     let Label_type = 0; //标签类别
     //打开素材库
-    function openMaterial()
-    {
+    function openMaterial() {
         Label_type = 2;
         getListLabel();
         getMaterialList();
@@ -1228,13 +1238,14 @@
             shade: 0.8,
             area: ['85%', '80%'],
             content: $('#big_img'),
-            btn: [ '取消'], // 按钮
+            btn: ['取消'], // 按钮
         });
 
     }
 
     //切换标签
     let Label_id = 0;
+
     function changeLabel(obj) {
         $('span').removeClass('label_checked');
         $(obj).addClass('label_checked');
@@ -1245,24 +1256,24 @@
     //获取用户所有标签
     function getListLabel() {
         requestData.data = {
-            'type' : Label_type
+            'type': Label_type
         };
         ajaxGo('admin/source_tag/getAllList');
         $('#label_list').empty();
-        requestData.data.forEach((item,index,array)=>{
+        requestData.data.forEach((item, index, array) => {
             //执行代码
             //var html = "<option value='"+item.id+"'>"+item.name+"</option>";
-            if(item.id === Label_id){
-                var html = '<span class="label_list label_checked" style="cursor:pointer" onclick="changeLabel(this)" data_id = "'+item.id+'" >'+item.name+'</span>';
-            }else {
-                var html = '<span class="label_list" style="cursor:pointer" onclick="changeLabel(this)" data_id = "'+item.id+'" >'+item.name+'</span>';
+            if (item.id === Label_id) {
+                var html = '<span class="label_list label_checked" style="cursor:pointer" onclick="changeLabel(this)" data_id = "' + item.id + '" >' + item.name + '</span>';
+            } else {
+                var html = '<span class="label_list" style="cursor:pointer" onclick="changeLabel(this)" data_id = "' + item.id + '" >' + item.name + '</span>';
             }
             $('#label_list').append(html);
         });
     }
 
     //添加标签
-    function addLabel(){
+    function addLabel() {
         layer.open({
             type: 1,
             title: '添加标签',
@@ -1271,23 +1282,23 @@
             area: ['60%', '50%'],
             content: $('#addLable'),
             btn: ['确定', '取消'], // 按钮
-            yes: function(addLabel, layero){
+            yes: function (addLabel, layero) {
                 layer.msg('确定添加？', {
                     time: 0 //不自动关闭
-                    ,btn: ['确定', '取消']
-                    ,yes: function(index){
+                    , btn: ['确定', '取消']
+                    , yes: function (index) {
                         requestData.data = {
-                            'name' : $('#label_name').val(),
-                            'sort_order' : 0,
-                            'type' : Label_type
+                            'name': $('#label_name').val(),
+                            'sort_order': 0,
+                            'type': Label_type
                         };
                         ajaxGo('admin/source_tag/add');
-                        if(requestCode === 0){
+                        if (requestCode === 0) {
                             getListLabel();
                             layer.close(index);
                             layer.close(addLabel);
                             layer.msg('添加成功');
-                        }else {
+                        } else {
                             layer.msg(requestMessage);
                         }
                     }
@@ -1297,10 +1308,10 @@
     }
 
     //编辑标签
-    function editLabel(){
-        if(0 === Label_id){
+    function editLabel() {
+        if (0 === Label_id) {
             layer.msg('请选择标签')
-        }else {
+        } else {
             layer.open({
                 type: 1,
                 title: '修改标签',
@@ -1309,23 +1320,23 @@
                 area: ['60%', '50%'],
                 content: $('#addLable'),
                 btn: ['确定', '取消'], // 按钮
-                yes: function(editLabel, layero){
+                yes: function (editLabel, layero) {
                     layer.msg('确定修改？', {
                         time: 0 //不自动关闭
-                        ,btn: ['确定', '取消']
-                        ,yes: function(index){
+                        , btn: ['确定', '取消']
+                        , yes: function (index) {
                             requestData.data = {
-                                'id' : Label_id,
-                                'name' : $('#label_name').val(),
-                                'sort_order' : 0
+                                'id': Label_id,
+                                'name': $('#label_name').val(),
+                                'sort_order': 0
                             };
                             ajaxGo('admin/source_tag/edit');
-                            if(requestCode === 0){
+                            if (requestCode === 0) {
                                 getListLabel();
                                 layer.close(index);
                                 layer.close(editLabel);
                                 layer.msg('修改成功');
-                            }else {
+                            } else {
                                 layer.msg(requestMessage);
                             }
                         }
@@ -1338,24 +1349,24 @@
 
     //删除标签
     function delLabel() {
-        if(0 === Label_id){
+        if (0 === Label_id) {
             layer.msg('请选择标签')
-        }else {
+        } else {
             layer.msg('确定删除标签？', {
                 time: 0 //不自动关闭
-                ,btn: ['确定', '取消']
-                ,yes: function(index){
+                , btn: ['确定', '取消']
+                , yes: function (index) {
                     requestData.data = {
-                        'id' : Label_id,
-                        'name' : $('#label_name').val(),
-                        'sort_order' : 0
+                        'id': Label_id,
+                        'name': $('#label_name').val(),
+                        'sort_order': 0
                     };
                     ajaxGo('admin/source_tag/remove');
-                    if(requestCode === 0){
+                    if (requestCode === 0) {
                         getListLabel();
                         layer.close(index);
                         layer.msg('删除成功');
-                    }else {
+                    } else {
                         layer.msg(requestMessage);
                     }
                 }
@@ -1365,25 +1376,24 @@
     }
 
     //获取素材内容
-    function getMaterialList()
-    {
+    function getMaterialList() {
         requestData.data = {
-            'tag_id' : Label_id,
+            'tag_id': Label_id,
             'type': 2,
         };
         ajaxGo('admin/material_library/getListToSelect');
         $('#img_list').empty();
-        requestData.data.forEach((item,index,array)=>{
+        requestData.data.forEach((item, index, array) => {
             //执行代码
             //var html = "<option value='"+item.id+"'>"+item.name+"</option>";
             var html = '<div class="col-sm-4 img_div">\n' +
                 '            <div>\n' +
-                '                <img  class="img_s" src="'+__IMG__+item.img_url+'" alt="" onclick="checkedImg('+item.id+')">\n' +
+                '                <img  class="img_s" src="' + __IMG__ + item.img_url + '" alt="" onclick="checkedImg(' + item.id + ')">\n' +
                 '            </div>\n' +
                 '            <div class="right_font">\n' +
-                '                <span style="margin-right: 10px" onclick="delImgMaterIal('+item.id+')">删除</span>\n' +
-                '                <span onclick="checkedImg('+item.id+')">使用此图!</span>\n' +
-                '                <input id="m_d_'+item.id+'" style="display: none" value="'+item.img_url+'" />\n' +
+                '                <span style="margin-right: 10px" onclick="delImgMaterIal(' + item.id + ')">删除</span>\n' +
+                '                <span onclick="checkedImg(' + item.id + ')">使用此图!</span>\n' +
+                '                <input id="m_d_' + item.id + '" style="display: none" value="' + item.img_url + '" />\n' +
                 '            </div>\n' +
                 '        </div>';
             $('#img_list').append(html);
@@ -1393,27 +1403,26 @@
     //选择素材插入
     function checkedImg(id) {
         $('#upload-list-head').empty();
-        let img_url = $('#m_d_'+id).val();
-        var html = '<div  onclick="delImg(this)" ><img name="head_img" data_name="'+__IMG__+ img_url+'" src="'+__IMG__+ img_url+'"></div>';
+        let img_url = $('#m_d_' + id).val();
+        var html = '<div  onclick="delImg(this)" ><img name="head_img" data_name="' + __IMG__ + img_url + '" src="' + __IMG__ + img_url + '"></div>';
         $('#upload-list-head').append(html);
         layer.msg('插入成功');
     }
 
     //删除素材
-    function delImgMaterIal(id)
-    {
+    function delImgMaterIal(id) {
         layer.msg('确定删除？', {
             time: 0 //不自动关闭
-            ,btn: ['确定', '取消']
-            ,yes: function(index){
+            , btn: ['确定', '取消']
+            , yes: function (index) {
                 requestData.data = {
-                    'id' : id
+                    'id': id
                 };
                 ajaxGo('admin/material_library/delMaterialLibrary');
-                if(requestCode === 0){
+                if (requestCode === 0) {
                     getMaterialList();
                     layer.msg('删除成功!');
-                }else {
+                } else {
                     layer.msg(requestMessage);
                 }
             }
@@ -1435,18 +1444,18 @@
             area: ['80%', '80%'],
             content: $('#qr_code_div'),
             btn: ['确定', '取消'], // 按钮
-            yes: function(indexs, layero){
+            yes: function (indexs, layero) {
                 let row = $("#linkTable").bootstrapTable('getSelections');
                 if (row.length === 0) {
                     layer.msg('请选择行');
-                }else {
+                } else {
                     layer.msg('确定选择？', {
                         time: 0 //不自动关闭
-                        ,btn: ['确定', '取消']
-                        ,yes: function(index) {
-                            row.forEach((item,index,array)=>{
+                        , btn: ['确定', '取消']
+                        , yes: function (index) {
+                            row.forEach((item, index, array) => {
                                 //执行代码
-                                var html = '<div style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"  onclick="delImg(this)" ><div><img style="width: 150px;height: 150px" name="qr_img" data_link_id="'+item.id+'" data_name="'+__IMG__+'/'+item.img_url+'" src="'+__IMG__+'/'+item.img_url+'"></div></div>';
+                                var html = '<div style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"  onclick="delImg(this)" ><div><img style="width: 150px;height: 150px" name="qr_img" data_link_id="' + item.id + '" data_name="' + __IMG__ + '/' + item.img_url + '" src="' + __IMG__ + '/' + item.img_url + '"></div></div>';
                                 $('#upload-list').append(html);
                             });
                             layer.close(index);
@@ -1467,19 +1476,19 @@
             striped: true,  //表格显示条纹
             pagination: true, //启动分页
             sortName: 'id',
-            sortOrder:'desc',
+            sortOrder: 'desc',
             pageSize: 10,  //每页显示的记录数
-            pageNumber:1, //当前第几页
+            pageNumber: 1, //当前第几页
             pageList: [10, 15, 20, 25],  //记录数可选列表
             search: false,
             toolbar: '#list_search_faci_qr_code',
             showColumns: true,  //显示下拉框勾选要显示的列
             showRefresh: true,  //显示刷新按钮
             sidePagination: "server", //表示服务端请求
-            responseHandler:function(data){
+            responseHandler: function (data) {
                 return data.data;
             },
-            queryParamsType : "undefined",
+            queryParamsType: "undefined",
             // method: 'post',
             queryParams: function queryParams(params) {   //设置查询参数
                 params = {
@@ -1489,69 +1498,69 @@
                     sortName: params.sortName,
                     sortOrder: params.sortOrder,
                     // id : {$_GET['id']},
-                    head : {'token' : getCookie('token')},
-                    name : $('#name').val(),
-                    wechat_config_id : $("#wechat_config_s").selectpicker('val'),
-                    material_memo_id : $("#material_memo_s").selectpicker('val'),
-                    type : 0,
+                    head: {'token': getCookie('token')},
+                    name: $('#name').val(),
+                    wechat_config_id: $("#wechat_config_s").selectpicker('val'),
+                    material_memo_id: $("#material_memo_s").selectpicker('val'),
+                    type: 0,
                 };
 
                 return params;
             },
-            onLoadSuccess: function(data){  //加载成功时执行
+            onLoadSuccess: function (data) {  //加载成功时执行
 
             },
-            onLoadError: function(){  //加载失败时执行
-                layer.msg("加载数据失败", {time : 1500, icon : 2});
+            onLoadError: function () {  //加载失败时执行
+                layer.msg("加载数据失败", {time: 1500, icon: 2});
             },
             columns: [
                 {
                     title: '',
                     field: 'checkbox',
                     align: 'center',
-                    checkbox : true,
-                    width : 10,
-                    singleSelect:true
+                    checkbox: true,
+                    width: 10,
+                    singleSelect: true
                 },
                 {
                     title: 'Id',
                     field: 'id',
                     align: 'center',
-                    width : 20,
+                    width: 20,
                 },
                 {
                     field: 'create_user_name',
                     title: '创建人',
-                    width : 20,
+                    width: 20,
                     align: 'center'
                 },
                 {
                     field: 'description',
                     title: '备注名称',
-                    width : 20,
+                    width: 20,
                     align: 'center'
                 },
                 {
                     field: 'link_id',
                     title: '第三方链接id',
-                    width : 20,
+                    width: 20,
                     align: 'center'
                 },
                 {
                     field: 'url',
                     title: '链接地址',
-                    width : 100,
+                    width: 100,
                     align: 'center'
                 },
                 {
                     field: 'type',
                     title: '状态',
-                    width : 10,
+                    width: 10,
                     align: 'center',
-                    formatter: function(value,row,index){
-                        if(value === 0){
+                    formatter: function (value, row, index) {
+                        if (value === 0) {
                             return '未使用';
-                        }else {
+                        } else {
                             return '已使用';
                         }
                     }
@@ -1570,9 +1579,9 @@
     function addLinkOnGo() {
         let wechat_config_id = $("#wechat_config_s").selectpicker('val');
         let material_memo_id = $("#material_memo_s").selectpicker('val');
-        if(wechat_config_id === '-1' || material_memo_id === '-1'){
+        if (wechat_config_id === '-1' || material_memo_id === '-1') {
             layer.msg('请选择公众号和小说前序');
-        }else {
+        } else {
             layer.open({
                 type: 1,
                 title: '备注',
@@ -1581,22 +1590,22 @@
                 area: ['50%', '40%'],
                 content: $('#addLink'),
                 btn: ['确定', '取消'], // 按钮
-                yes: function(addLink, layero){
+                yes: function (addLink, layero) {
                     layer.msg('确定创建二维码？', {
                         time: 0 //不自动关闭
-                        ,btn: ['确定', '取消']
-                        ,yes: function(index){
+                        , btn: ['确定', '取消']
+                        , yes: function (index) {
                             requestData.data = {
-                                'wechat_config_id' :  wechat_config_id,
-                                'material_memo_id' :  material_memo_id,
-                                'name' : $('#description').val()
+                                'wechat_config_id': wechat_config_id,
+                                'material_memo_id': material_memo_id,
+                                'name': $('#description').val()
                             };
                             ajaxGo('admin/link/addZZYLinkOn');
-                            if(requestCode === 0){
+                            if (requestCode === 0) {
                                 fac_search_link();
                                 layer.msg('创建成功!');
                                 layer.close(index);
-                            }else {
+                            } else {
                                 layer.msg(requestMessage);
                             }
                         }
