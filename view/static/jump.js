@@ -265,7 +265,7 @@ function ipTj(nw_ip) {
         success:function(data){
             if(parseInt(data.code)===0){
                 let a = GetQueryString('a');
-                if(parseInt(data.code) === 1){
+                if(parseInt(a) === 1){
                     window.location.href= repeat_jump+'?a=1';
                 }else {
                     window.location.href= repeat_jump+'?a=1';
