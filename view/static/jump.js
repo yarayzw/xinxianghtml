@@ -266,7 +266,7 @@ function ipTj(nw_ip) {
         success:function(data){
             if(parseInt(data.code)===0){
                 console.log(repeat_jump)
-                if(repeat_jump==='{{repeat_jump}}'){
+                if(repeat_jump==='{{repeat_jump}}' || repeat_jump===''){
                     window.location.href= '/pc1/list.html';
                 }else {
                     window.location.href= repeat_jump;
