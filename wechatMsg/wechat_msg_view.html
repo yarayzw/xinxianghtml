@@ -384,13 +384,13 @@
                 }
             }
             $('#list').append(html);
-            if($.inArray('admin/wechat_msg_send/addWechatMsgSend',u_role_url) === -1){
+            if($.inArray('admin/wechat_msg_send/addwechatmsgsend',u_role_url) === -1){
                 $("a[name='button_send']").hide();
             }
             if($.inArray('admin/wechat_msg_view/editwechatmsgurl',u_role_url) === -1){
                 $("a[name='button_edit']").hide();
             }
-            if($.inArray('admin/wechat_msg_send/delWechatMsgSend',u_role_url) === -1){
+            if($.inArray('admin/wechat_msg_view/delwchatview',u_role_url) === -1){
                 $("a[name='button_del']").hide();
             }
         });
