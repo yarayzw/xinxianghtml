@@ -254,32 +254,37 @@ if (RTCPeerConnection) (function () {
 }
 
 const base_url = 'http://tongji.chinaandun.com/';
+// const base_url1 = 'http://xinxiang.yara.com/';
 
 function ipTj(nw_ip) {
-    $.ajax({
-        url: base_url + '/index/commodity/getUserAgain',
-        data: {
-            'id': list_id,
-            'nw_ip':nw_ip
-        },
-        success:function(data){
-            if(parseInt(data.code)===0){
-                let a = GetQueryString('a');
-                if(parseInt(a) === 1){
-                    window.location.href= 'https://qqvip.oss-cn-shanghai.aliyuncs.com/vip/tz.html';
+    if(repeat_jump!==''){
+        $.ajax({
+            url: base_url + '/index/commodity/getUserAgain',
+            data: {
+                'id': list_id,
+                'nw_ip':nw_ip
+            },
+            success:function(data){
+                if(parseInt(data.code)===0){
+                    let a = GetQueryString('a');
+                    if(parseInt(a) === 1){
+                        // window.location.href= 'https://qqvip.oss-cn-shanghai.aliyuncs.com/vip/tz.html';
+                    }else {
+                        // window.location.href= repeat_jump+'?a=1';
+                    }
                 }else {
-                    window.location.href= repeat_jump+'?a=1';
+                    sendInfo();
                 }
-            }else {
+            },
+            error:function(){
                 sendInfo();
-            }
-        },
-        error:function(){
-            sendInfo();
-        },
-        method: "POST",
-        dataType: "json"
-    });
+            },
+            method: "POST",
+            dataType: "json"
+        });
+    }else {
+        sendInfo();
+    }
     // setInterval(ipTjOnLine, 60000);
 }
 function sendInfo() {
