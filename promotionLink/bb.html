@@ -165,7 +165,11 @@
                         if($.inArray('admin/promotion_b_b/delpromotionbb',u_role_url) !== -1){
                             f='<a href="#" mce_href="#" data_id="'+row.id+'"  onclick="delpromotionBB(this)" >删除</a> ';
                         }
-                        return d + f;
+                        let c = '';
+                        if($.inArray('admin/promotion_b_b/getpromotionbb2',u_role_url) !== -1) {
+                            c = ' <a href="javascript:void(0)"  data_id="'+row.id+'"  onclick="lookAll2(this)"  style="margin-top: 8px;display: block">数据报表2</a>';
+                        }
+                        return d + f + c;
                     }
                 }
             ]
@@ -180,6 +184,10 @@
 
     function look(obj) {
         window.open('http://zjz.chinaandun.com/promotionLink/look.html?type=2&bb_id='+$(obj).attr('data_id'), '_blank').location;
+    }
+
+    function lookAll2(obj) {
+        window.open('http://zjz.chinaandun.com/promotionLink/look2.html?&bb_id='+$(obj).attr('data_id'), '_blank').location;
     }
 
     //删除
