@@ -583,7 +583,11 @@
                             if($.inArray('admin/promotion_b_b/getpromotionbb',u_role_url) !== -1) {
                                 html = ' <a href="javascript:void(0)"  data_id="'+row.id+'"  onclick="lookAll(this)"  style="margin-top: 8px;display: block">数据报表</a>';
                             }
-                            return a+html;
+                            let c = '';
+                            if($.inArray('admin/promotion_b_b/getpromotionbb2',u_role_url) !== -1) {
+                                c = ' <a href="javascript:void(0)"  data_id="'+row.id+'"  onclick="lookAll2(this)"  style="margin-top: 8px;display: block">数据报表2</a>';
+                            }
+                            return a+html+c;
                         }
                     }
                 ]
@@ -850,6 +854,22 @@
     let link_id = 0;
     function lookAll(obj) {
         window.open('http://zjz.chinaandun.com/promotionLink/look.html?type=1&bb_id='+$(obj).attr('data_id'), '_blank').location;
+
+        // link_id = id;
+        // initDayTable();
+        // layer.open({
+        //     type: 1,
+        //     title: '查看',
+        //     shadeClose: true,
+        //     shade: 0.8,
+        //     area: ['70%', '70%'],
+        //     content: $('#lookAll'),
+        //     btn: ['取消'],
+        // });
+    }
+
+    function lookAll2(obj) {
+        window.open('http://zjz.chinaandun.com/promotionLink/look2.html?type=1&bb_id='+$(obj).attr('data_id'), '_blank').location;
 
         // link_id = id;
         // initDayTable();

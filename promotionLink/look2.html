@@ -14,11 +14,14 @@
     .thead-light {
         background: #ccc;
     }
+    .thead-fj{
+        background-color: #FFEC8B;
+    }
 </style>
 <body>
 <div class="col-sm-12">
 
-    <table  id="viewTable" data-height="400" data-show-columns="true">
+    <table  id="viewTable"  data-show-columns="true">
     </table>
 
 </body>
@@ -36,12 +39,91 @@
         //调用函数，初始化表格
         initTable();
     });
+    let columns;
     function initTable() {
+        requestData.data = {
+            name : $('#name').val(),
+            id: 54
+        };
+        ajaxGo('/admin/promotion_b_b/getPromotionBB2');
+        columns = [
+            {
+                title: '日期',
+                field: 'time',
+                align: 'center',
+                valign: 'middle',
+                width : '100px',
+            },
+            {
+                field: '0',
+                title: '消费',
+                width : '70px',
+                align: 'center'
+            },
+            {
+                field: '1',
+                title: '充值',
+                width : '70px',
+                align: 'center'
+            },
+            {
+                field: '2',
+                title: '回款率',
+                width : '70px',
+                align: 'center',
+                formatter: function(value,row,index){
+                    let html = '<div>'+value+'%</div><div>'+row['3']+'天</div>';
+                    return html;
+                },
+            },
+            {
+                field: '4',
+                title: '粉丝数',
+                width : '70px',
+                align: 'center'
+            },
+            {
+                field: '5',
+                title: '粉价',
+                width : '70px',
+                theadClasses: "thead-fj",
+                align: 'center',
+                cellStyle: function (value, row, index) {
+                    return {css: {"background-color": "#FFEC8B"}};
+                }
+
+            },
+            {
+                field: '6',
+                title: '付费数',
+                width : '70px',
+                align: 'right'
+            },
+        ];
+        for(let i = 1;i <= parseInt(requestData.data.time);i++){
+            let ls = {
+                field: (i+6).toString(),
+                title: 'D'+(i),
+                width : '90px',
+                align: 'center',
+                formatter: function(value,row,index){
+                    let htmls = '';
+                    if(value){
+                        let str = value.split(/@@/);
+                        htmls = '<div style="text-align: left"><div style="color: red;font-size: 14px">回: '+str[0]+'%</div><div style="color: red;' +
+                            'font-size: 10px;">增:  '+str[1]+'%</div></div>';
+                    }else {
+                        htmls = '';
+                    }
+                    return htmls;
+                }
+            };
+            columns.push(ls);
+        }
         $('#viewTable').bootstrapTable('destroy');
         $("#viewTable").bootstrapTable({
-            url: __ROOT__ + 'admin/log/getList', //获取数据的Servlet地址
             striped: true,  //表格显示条纹
-            pagination: true, //启动分页
+            pagination: false, //启动分页
             sortName: 'id',
             pageSize: 10,  //每页显示的记录数
             pageNumber:1, //当前第几页
@@ -50,126 +132,17 @@
             toolbar: '#list_search_faci',
             showColumns: false,  //显示下拉框勾选要显示的列
             showRefresh: false,  //显示刷新按钮
-            sidePagination: "server", //表示服务端请求
+            // sidePagination: "server", //表示服务端请求
             fixedColumns:true,
             fixedNumber:2,
             theadClasses: "thead-light",//这里设置表头样式
+            data : requestData.data.rows,
             //设置为undefined可以获取pageNumber，pageSize，searchText，sortName，sortOrder
             //设置为limit可以获取limit, offset, search, sort, order
-            responseHandler:function(data){
-                //远程数据加载之前,处理程序响应数据格式,对象包含的参数: 我们可以对返回的数据格式进行处理
-                //在ajax后我们可以在这里进行一些事件的处理
-                // requestCode = data.code;
-                // requestMessage = data.message;
-                // requestData = {
-                //     "head": {
-                //         "token": data.token,
-                //         "time": (new Date()).getTime(),
-                //         "version": "1.2.0",
-                //         "recode": "",
-                //     },
-                //     "data": data.data
-                // };
-                return data.data;
-            },
-            queryParamsType : "undefined",
-            // method: 'post',
-            queryParams: function queryParams(params) {   //设置查询参数
-                params = {
-                    //这里是在ajax发送请求的时候设置一些参数 params有什么东西，自己看看源码就知道了
-                    pageNumber: params.pageNumber,
-                    pageSize: params.pageSize,
-                    sortName: params.sortName,
-                    sortOrder: params.sortOrder,
-                    // id : {$_GET['id']},
-                    head : {'token' : getCookie('token')},
-                    name : $('#name').val(),
-                };
-
-                return params;
-            },
-            onLoadSuccess: function(data){  //加载成功时执行
-                $('.bootstrap-table tr td').each(function () {
-                    $(this).attr("title", $(this).text());
-                    $(this).css("cursor", 'pointer');
-                });
-            },
-            onLoadError: function(){  //加载失败时执行
-                layer.msg("加载数据失败", {time : 1500, icon : 2});
-            },
-            columns: [
-                {
-                    title: 'ID',
-                    field: 'id',
-                    align: 'center',
-                    valign: 'middle',
-                    width : '200px',
-                    formatter: function(value,row,index){
-                        return value;
-                    },
-
-                },
-                {
-                    field: 'name',
-                    title: '模块',
-                    width : '200px',
-                    align: 'center'
-                },
-                {
-                    field: 'type',
-                    width : '200px',
-                    title: '事件',
-                    formatter: function(value,row,index){
-                        return value;
-                    },
-                    cellStyle: function (value, row, index) {
-                        return {css: {"background-color": "#71cbb9"}};
-                    }
-                },
-                {
-                    field: 'create_name',
-                    width : '300',
-
-                    title: '操作人',
-                    formatter: function(value,row,index){
-                        return value;
-                    }
-                },
-                {
-                    field: 'create_at',
-                    width : '300',
-
-                    title: '创建时间',
-                    formatter: function(value,row,index){
-                        return value;
-                    }
-                },
-                {
-                    field: 'qr_code',
-                    width : '300',
-
-                    title: '二维码',
-                    formatter: function(value,row,index){
-                        if(value===''){
-                            return '未修改';
-                        }else {
-                            var f='<a href="#" mce_href="#" " data_qr_code="'+row.qr_code+'"  onclick="lookQr(this)" >查看</a>';
-                            return f;
-                        }
-                    }
-                },
-                {
-                    field: 'info',
-                    title: '详情',
-                    width : '300',
-
-                    formatter: function(value,row,index){
-                        return '<xml>'+value.substring(-1,30)+'</xml>';
-                    }
-                }
-            ]
+            columns: columns
         });
     }
+
 </script>
 
 
