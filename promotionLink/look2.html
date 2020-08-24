@@ -100,10 +100,10 @@
                 align: 'right'
             },
         ];
-        for(let i = 1;i <= parseInt(requestData.data.time);i++){
+        for(let i = 0;i <= parseInt(requestData.data.time);i++){
             let ls = {
-                field: (i+6).toString(),
-                title: 'D'+(i),
+                field: (i+7).toString(),
+                title: 'D'+(i+1),
                 width : '90px',
                 align: 'center',
                 formatter: function(value,row,index){

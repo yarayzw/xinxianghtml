@@ -154,7 +154,7 @@
                 {
                     field: 'name',
                     title: '操作',
-                    width : 10,
+                    width : 20,
                     align: 'center',
                     formatter: function(value,row,index){
                         let d = '';
@@ -167,7 +167,7 @@
                         }
                         let c = '';
                         if($.inArray('admin/promotion_b_b/getpromotionbb2',u_role_url) !== -1) {
-                            c = ' <a href="javascript:void(0)"  data_id="'+row.id+'"  onclick="lookAll2(this)"  style="margin-top: 8px;display: block">数据报表2</a>';
+                            c = ' <a href="javascript:void(0)"  data_id="'+row.id+'"  onclick="lookAll2(this)"  style="margin-top: 8px;display: block">报表</a>';
                         }
                         return d + f + c;
                     }
