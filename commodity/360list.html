@@ -255,24 +255,20 @@
 </div>
 <input type="text" id="copyText" style="display: none">
 <div class="row" id="updateView" style="display: none">
-    <div class="form-group">
+    <div class="form-group" style="padding-top: 5%">
         <label class="col-sm-3 control-label">pc模版 :</label>
         <div class="col-sm-8">
-            <select id="view_update" class="selectpicker" data-live-search="true">
-
-            </select>
+            <div id="view_u"></div>
         </div>
     </div>
 </div>
 
 
 <div class="row" id="updateMaterial" style="display: none">
-    <div class="form-group">
+    <div class="form-group" style="padding-top: 5%">
         <label class="col-sm-3 control-label">素材 :</label>
         <div class="col-sm-8">
-            <select id="material_update" class="selectpicker" data-live-search="true">
-
-            </select>
+            <div id="material_u"></div>
         </div>
     </div>
 </div>
@@ -481,8 +477,8 @@
             //执行代码
             var html = "<div class='radio-inline'><label><input type='radio' name='material' value='" + item.id + "'>" + item.name + "</label></div>";
             $('#material').append(html);
-            var html = "<option value='" + item.id + "'>" + item.name + "</option>";
-            $('#material_update').append(html);
+            var html = "<div class='radio-inline'><label><input type='radio' name='material_update' value='" + item.id + "'>" + item.name + "</label></div>";
+            $('#material_u').append(html);
 
             //执行代码 二维码
             var html = "<option value='" + item.id + "'>" + item.name + "</option>";
@@ -490,7 +486,6 @@
 
         });
         $('#material_memo_s').selectpicker('refresh');
-        $('#material_update').selectpicker('refresh');
 
         //pc模版
         requestData.data = {
@@ -501,10 +496,10 @@
             //执行代码
             var html = "<div class='radio-inline'><label><input type='radio' name='view' value='" + item.id + "'>" + item.name + "</label></div>";
             $('#view').append(html);
-            var html = "<option value='" + item.id + "'>" + item.name + "</option>";
-            $('#view_update').append(html);
+
+            var html = "<div class='radio-inline'><label><input type='radio' name='view_update' value='" + item.id + "'>" + item.name + "</label></div>";
+            $('#view_u').append(html);
         });
-        $('#view_update').selectpicker('refresh');
 
 
         ajaxGo('admin/user_thirdparty_info/getListToSelect')
@@ -652,7 +647,7 @@
                     formatter: function (value, row, index) {
                         let d = value;
                         if ($.inArray('admin/commodity/updatematerial', u_role_url) !== -1) {
-                            d = '<a href="javascript:void(0)" mce_href="#" " data_id="' + row.id + '"  onclick="updateMaterial(this)" >' + value + '</a>';
+                            d = '<a href="javascript:void(0)" mce_href="#" data_material_id="'+row.material_id+'"  data_id="' + row.id + '"  onclick="updateMaterial(this)" >' + value + '</a>';
                         }
 
                         return d;
@@ -688,7 +683,7 @@
                     formatter: function (value, row, index) {
                         let d = value;
                         if ($.inArray('admin/commodity/updateview', u_role_url) !== -1) {
-                            d = '<a href="javascript:void(0)" mce_href="#"  data_id="' + row.id + '"  onclick="updateView(this)" >' + value + '</a>';
+                            d = '<a href="javascript:void(0)" mce_href="#" data_view_id="'+row.view_id+'"  data_id="' + row.id + '"  onclick="updateView(this)" >' + value + '</a>';
                         }
                         return d;
                     }
@@ -884,6 +879,7 @@
     }
 
     function updateView(obj) {
+        $("input[type=radio][name=view_update][value='" + $(obj).attr('data_view_id') + "']").attr("checked", 'checked');
 
         layer.open({
             type: 1,
@@ -946,12 +942,14 @@
     }
 
     function updateMaterial(obj) {
+        $("input[type=radio][name=material_update][value='" + $(obj).attr('data_material_id') + "']").attr("checked", 'checked');
+
         layer.open({
             type: 1,
             title: '编辑',
             shadeClose: true,
             shade: 0.8,
-            area: ['40%', '60%'],
+            area: ['90%', '90%'],
             content: $('#updateMaterial'),
             btn: ['确定', '取消'], // 按钮
             yes: function (index, layero) {

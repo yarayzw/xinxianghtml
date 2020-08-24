@@ -290,9 +290,10 @@
     <div class="form-group">
         <label class="col-sm-3 control-label">移动模版 :</label>
         <div class="col-sm-8">
-            <select id="mobile_view_update" class="selectpicker" data-live-search="true">
+            <div id="mobile_view_u">
 
-            </select>
+            </div>
+
         </div>
     </div>
 </div>
@@ -301,9 +302,9 @@
     <div class="form-group">
         <label class="col-sm-3 control-label">素材 :</label>
         <div class="col-sm-8">
-            <select id="material_update" class="selectpicker" data-live-search="true">
+            <div id="material_u">
 
-            </select>
+            </div>
         </div>
     </div>
 </div>
@@ -447,16 +448,15 @@
             //执行代码
             var html = "<div class='radio-inline'><label><input type='radio' name='material' value='" + item.id + "'>" + item.name + "</label></div>";
             $('#material').append(html);
-            var html = "<option value='" + item.id + "'>" + item.name + "</option>";
-            $('#material_update').append(html);
 
+            var html = "<div class='radio-inline'><label><input type='radio' name='material_update' value='" + item.id + "'>" + item.name + "</label></div>";
+            $('#material_u').append(html);
             //执行代码 二维码
             var html = "<option value='" + item.id + "'>" + item.name + "</option>";
             $('#material_memo_s').append(html)
 
         });
         $('#material_memo_s').selectpicker('refresh');
-        $('#material_update').selectpicker('refresh');
 
 
         //移动模版
@@ -468,10 +468,9 @@
             //执行代码
             var html = "<div class='radio-inline'><label><input type='radio' name='mobile_view' value='" + item.id + "'>" + item.name + "</label></div>";
             $('#mobile_view').append(html);
-            var html = "<option value='" + item.id + "'>" + item.name + "</option>";
-            $('#mobile_view_update').append(html);
+            var html = "<div class='radio-inline'><label><input type='radio' name='mobile_view_update' value='" + item.id + "'>" + item.name + "</label></div>";
+            $('#mobile_view_u').append(html);
         });
-        $('#mobile_view_update').selectpicker('refresh');
 
 
         ajaxGo('admin/user_thirdparty_info/getListToSelect')
@@ -609,7 +608,7 @@
                     field: 'material_name',
                     title: '前序名称',
                     formatter: function (value, row, index) {
-                        var f = '<a href="javascript:void(0)" mce_href="#" " data_id="' + row.id + '"  onclick="updateMaterial(this)" >' + value + '</a>';
+                        var f = '<a href="javascript:void(0)" mce_href="#" data_material_id="'+row.material_id+'" data_id="' + row.id + '"  onclick="updateMaterial(this)" >' + value + '</a>';
                         return f;
                     }
                 },
@@ -639,7 +638,7 @@
                     title: '移动模版',
                     align: 'center',
                     formatter: function (value, row, index) {
-                        var f = '<a href="javascript:void(0)" mce_href="#"  data_id="' + row.id + '"  onclick="updateViewMobile(this)" >' + value + '</a>';
+                        var f = '<a href="javascript:void(0)" mce_href="#" data_view_id="'+row.mobile_view_id+'" data_id="' + row.id + '"  onclick="updateViewMobile(this)" >' + value + '</a>';
                         return f;
                     }
                 },
@@ -842,38 +841,9 @@
         });
     }
 
-    function updateView(obj) {
-
-        layer.open({
-            type: 1,
-            title: '编辑',
-            shadeClose: true,
-            shade: 0.8,
-            area: ['90%', '90%'],
-            content: $('#updateView'),
-            btn: ['确定', '取消'], // 按钮
-            yes: function (index, layero) {
-                layer.msg('确定修改？', {
-                    time: 0 //不自动关闭
-                    , btn: ['确定', '取消']
-                    , yes: function (index) {
-                        updateViewGo($(obj).attr('data_id'));
-                        if (requestCode === 0) {
-                            fac_search();
-                            layer.close(index);
-                            layer.closeAll();
-                            layer.msg(requestMessage);
-                        } else {
-                            layer.msg(requestMessage);
-                        }
-                    }
-                });
-            }
-//            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
-        });
-    }
 
     function updateViewMobile(obj) {
+        $("input[type=radio][name=mobile_view_update][value='" + $(obj).attr('data_view_id') + "']").attr("checked", 'checked');
 
         layer.open({
             type: 1,
@@ -905,12 +875,13 @@
     }
 
     function updateMaterial(obj) {
+        $("input[type=radio][name=material_update][value='" + $(obj).attr('data_material_id') + "']").attr("checked", 'checked');
         layer.open({
             type: 1,
             title: '编辑',
             shadeClose: true,
             shade: 0.8,
-            area: ['40%', '60%'],
+            area: ['90%', '90%'],
             content: $('#updateMaterial'),
             btn: ['确定', '取消'], // 按钮
             yes: function (index, layero) {

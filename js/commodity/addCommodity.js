@@ -174,7 +174,7 @@ function editCommodityGo(id) {
 function updateViewGo(id) {
     requestData.data = {
         'id' : id,
-        'view_id':  $("#view_update").selectpicker('val'),
+        'view_id': $("input[type=radio][name=view_update]:checked").val(),
     }
     ajaxGo('admin/commodity/updateView')
 }
@@ -182,7 +182,7 @@ function updateViewGo(id) {
 function updateViewMobileGo(id) {
     requestData.data = {
         'id' : id,
-        'mobile_view_id':  $("#mobile_view_update").selectpicker('val'),
+        'mobile_view_id':  $("input[type=radio][name=mobile_view_update]:checked").val(),
     }
     ajaxGo('admin/commodity/updateViewMobile')
 }
@@ -190,7 +190,7 @@ function updateViewMobileGo(id) {
 function updateMaterialGo(id) {
     requestData.data = {
         'id' : id,
-        'material_id':  $("#material_update").selectpicker('val'),
+        'material_id': $("input[type=radio][name=material_update]:checked").val(),
     }
     ajaxGo('admin/commodity/updateMaterial')
 }
