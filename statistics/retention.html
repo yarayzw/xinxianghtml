@@ -181,7 +181,7 @@
         ajaxGo('admin/retention/getList');
         $('#list').empty();
         requestData.data.rows.forEach((item, index, array) => {
-            var html = '<div class="col-sm-3 ">\n' +
+            var html = '<div style="width: 300px;float: left;margin-left: 30px">\n' +
                 '                <div class="ibox float-e-margins ">\n' +
                 '                    <div class="ibox-title style-'+item.style+'">\n' +
                 '                        <h5 class="title-'+item.style+'"">' + item.name + '</h5>  &nbsp; \n' +
