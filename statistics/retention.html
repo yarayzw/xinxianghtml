@@ -51,7 +51,7 @@
 
                 </form>
             </div>
-            <div id="list">
+            <div id="list" style="width: 1620px;">
 
             </div>
 
@@ -181,7 +181,7 @@
         ajaxGo('admin/retention/getList');
         $('#list').empty();
         requestData.data.rows.forEach((item, index, array) => {
-            var html = '<div style="width: 300px;float: left;margin-left: 30px">\n' +
+            var html = '<div style="width: 210px;float: left;margin-left: 20px">\n' +
                 '                <div class="ibox float-e-margins ">\n' +
                 '                    <div class="ibox-title style-'+item.style+'">\n' +
                 '                        <h5 class="title-'+item.style+'"">' + item.name + '</h5>  &nbsp; \n' +
@@ -198,14 +198,14 @@
                 '                        </div>\n' +
                 '                    </div>\n' +
                 '                    <div class="ibox-content style-'+item.style+'">\n' +
-                '                          <div style="clear: both;padding: 5px 15%"><div style="float: left">30章留存率:</div><div style="float:right;">'+item.retention_30+'%</div></div>' +
-                '                          <div style="clear: both;padding: 5px 15%"><div style="float: left">50章留存率:</div><div style="float:right;">'+item.retention_50+'%</div></div>' +
-                '                          <div style="clear: both;padding: 5px 15%"><div style="float: left">100章留存率:</div><div style="float:right;">'+item.retention_100+'%</div></div>' +
-                '                          <div style="clear: both;padding: 5px 15%"><div style="float: left">200章留存率:</div><div style="float:right;">'+item.retention_200+'%</div></div>' +
-                '                          <div style="clear: both;padding: 5px 15%"><div style="float: left">300章留存率:</div><div style="float:right;">'+item.retention_300+'%</div></div>' +
-                '                          <div style="clear: both;padding: 5px 15%"><div style="float: left">500章留存率:</div><div style="float:right;">'+item.retention_500+'%</div></div>' +
-                '                          <div style="clear: both;padding: 5px 15%"><div style="float: left">800章留存率:</div><div style="float:right;">'+item.retention_800+'%</div></div>' +
-                '                          <div style="clear: both;padding: 5px 15%"><div style="float: left">1000章留存率:</div><div style="float:right;">'+item.retention_1000+'%</div></div>' +
+                '                          <div style="clear: both;padding: 5px 0"><div style="float: left">30章留存率:</div><div style="float:right;">'+item.retention_30+'%</div></div>' +
+                '                          <div style="clear: both;padding: 5px 0"><div style="float: left">50章留存率:</div><div style="float:right;">'+item.retention_50+'%</div></div>' +
+                '                          <div style="clear: both;padding: 5px 0"><div style="float: left">100章留存率:</div><div style="float:right;">'+item.retention_100+'%</div></div>' +
+                '                          <div style="clear: both;padding: 5px 0"><div style="float: left">200章留存率:</div><div style="float:right;">'+item.retention_200+'%</div></div>' +
+                '                          <div style="clear: both;padding: 5px 0"><div style="float: left">300章留存率:</div><div style="float:right;">'+item.retention_300+'%</div></div>' +
+                '                          <div style="clear: both;padding: 5px 0"><div style="float: left">500章留存率:</div><div style="float:right;">'+item.retention_500+'%</div></div>' +
+                '                          <div style="clear: both;padding: 5px 0"><div style="float: left">800章留存率:</div><div style="float:right;">'+item.retention_800+'%</div></div>' +
+                '                          <div style="clear: both;padding: 5px 0"><div style="float: left">1000章留存率:</div><div style="float:right;">'+item.retention_1000+'%</div></div>' +
                 '                    </div>\n' +
                 '                </div>\n' +
                 '            </div>';
@@ -260,7 +260,7 @@
                             fac_search();
                             layer.close(index);
                             layer.closeAll();
-                            layer.msg(requestMessage);
+                            layer.msg('添加成功');
                         } else {
                             layer.msg(requestMessage);
                         }
