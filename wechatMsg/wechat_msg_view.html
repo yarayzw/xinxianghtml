@@ -634,7 +634,7 @@
                     'view_id': view_ce_id,
                     'openid': $("input[name='openid']").val()
                 }
-                ajaxGo('admin/wechat_msg_send/testSend', '', false, 'http://tongji.chinaandun.com/');
+                ajaxGo('admin/wechat_msg_send/testSend');
                 if (requestCode === 0) {
                     layer.close(index);
                     layer.msg('发送成功');
