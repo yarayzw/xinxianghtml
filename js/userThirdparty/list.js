@@ -34,7 +34,7 @@ function setPlatformItem() {
     var rows=requestData.data.rows;
     if (rows.length>0) {
         for (var key in rows) {
-            var html = "<div class='radio-inline'><label><input type='radio' name='platform_id' value='" + rows[key].id + "'>" + rows[key].name + "</label></div>";
+            var html = "<div class='radio-inline'><label><input type='radio' onclick='setPlatformItemRadio("+rows[key].id+")' name='platform_id' value='" + rows[key].id + "'>" + rows[key].name + "</label></div>";
 
             $("#platform").append(html)
         }
@@ -250,6 +250,7 @@ function editView(obj) {
     $("input[name=account]").val(data.account);
     $("input[name=password]").val(data.password);
     $("input[name=reb_rate]").val(data.reb_rate);
+    setPlatformItemRadio(data.platform_id);
     layer.open({
         type: 1,
         title: '编辑',
@@ -301,4 +302,24 @@ function del(obj) {
             }
         }
     });
+}
+
+//控制字段展示
+function setPlatformItemRadio(id) {
+    if(id === 1){
+        $("#a_c_d").hide();
+        $("#token").hide();
+        $("#pf_u_id").hide();
+        $("#cookie").show();
+    }else if(id === 3){
+        $("#a_c_d").show();
+        $("#token").show();
+        $("#pf_u_id").show();
+        $("#cookie").show();
+    }else if(id ===4){
+        $("#a_c_d").hide();
+        $("#token").hide();
+        $("#pf_u_id").hide();
+        $("#cookie").hide();
+    }
 }

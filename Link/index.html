@@ -345,36 +345,52 @@
                     field: 'id',
                     align: 'center',
                     valign: 'middle',
-                    width : 20,
-                },
-                {
-                    field: 'create_user_name',
-                    title: '创建人',
-                    width : 20,
-                    align: 'center'
+                    width : 10,
                 },
                 {
                     field: 'landing_page_id',
                     title: '落地页id',
-                    width : 20,
-                    align: 'center'
-                },
-                {
-                    field: 'description',
-                    title: '备注名称',
-                    width : 20,
+                    width : 10,
                     align: 'center'
                 },
                 {
                     field: 'link_id',
                     title: '第三方链接id',
-                    width : 20,
+                    width: 50,
+                    align: 'left',
+                    formatter: function (value, row, index) {
+                        return '<span style="color: #393939">'+row.description + '</span>'+
+                            '<br/><span style="color: #1654cc">'+row.url +'</span>' +
+                            '<br/><span style="color: #777">创建时间:'+row.create_at+'</span>';
+                    }
+                },
+                {
+                    field: 'description',
+                    title: '备注名称',
+                    width: 20,
+                    align: 'left',
+                    formatter: function (value, row, index) {
+                        return '<span style="color: #333">'+row.novel_name + '</span>'+
+                            '<br/><span style="color: #393939">' + row.checked_novel_name +'</span>'+
+                            '<br/><span style="color: #777">关注章节:第 ' + row.chapter +' 章</span>';
+                    }
+                },
+                {
+                    field: 'create_user_name',
+                    title: '创建人',
+                    width: 20,
                     align: 'center'
                 },
                 {
-                    field: 'url',
-                    title: '链接地址',
-                    width : 60,
+                    field: 'wechat_name',
+                    title: '公众号',
+                    width: 20,
+                    align: 'center'
+                },
+                {
+                    field: 'material_memo_name',
+                    title: '小说前序',
+                    width: 20,
                     align: 'center'
                 },
                 {

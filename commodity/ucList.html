@@ -442,10 +442,10 @@
         ajaxGo('admin/material_memo/getListToSelect')
         requestData.data.forEach((item, index, array) => {
             //执行代码
-            var html = "<div class='radio-inline'><label><input type='radio' name='material' value='" + item.id + "'>" + item.name + "</label></div>";
+            var html = "<div class='radio-inline' style='margin-top: 2px'><label><input type='radio' name='material' value='" + item.id + "'>" + item.name + "</label></div>";
             $('#material').append(html);
 
-            var html = "<div class='radio-inline'><label><input type='radio' name='material_update' value='" + item.id + "'>" + item.name + "</label></div>";
+            var html = "<div class='radio-inline' style='margin-top: 2px'><label><input type='radio' name='material_update' value='" + item.id + "'>" + item.name + "</label></div>";
             $('#material_u').append(html);
 
             //执行代码 二维码
@@ -614,7 +614,20 @@
                     title: '标题',
                     width: '25%',
                     formatter: function (value, row, index) {
-                        var html = '<div style="float: left"><img style="width: 120px;height: 60px" src="' + row.head_img + '" alt=""></div><div>' + value + '</div>';
+                        var html = '<div style="float: left"><img style="width: 120px;height: 60px" src="' + row.head_img + '"' +
+                            ' alt="" data_url="' + row.url + '/' + row.ml_url + '"  onclick="preview(this)"></div><div>' +
+                            '<span data_url="' + row.url + '/' + row.ml_url + '"  onclick="preview(this)">' + value + '</span> </div>';
+                        return html;
+                    }
+                },
+                {
+                    field: 'title',
+                    title: '复制',
+                    width: '6%',
+                    formatter: function (value, row, index) {
+                        var html = '<input type="text" style="opacity:0;position: absolute;\n' +
+                            '  left: 3000px;\n' +
+                            '  top: 2000px;" id="copy_'+row.id+'" value="' + row.url + '/' + row.ml_url + '"> <span style="color: #1654cc" onclick="copyUrl('+row.id+')">复制链接</span>';
                         return html;
                     }
                 },
@@ -1548,6 +1561,12 @@
             });
 
         }
+    }
+    //复制链接
+    function copyUrl(id) {
+        $('#copy_4279').select();
+        document.execCommand("Copy"); //执行浏览器复制命令
+        layer.msg('复制成功!')
     }
 
 </script>
