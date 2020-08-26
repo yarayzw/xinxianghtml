@@ -442,10 +442,10 @@
         ajaxGo('admin/material_memo/getListToSelect')
         requestData.data.forEach((item, index, array) => {
             //执行代码
-            var html = "<div class='radio-inline' style='margin-top: 2px'><label><input type='radio' name='material' value='" + item.id + "'>" + item.name + "</label></div>";
+            var html = "<div class='radio-inline' style='margin-top: 10px'><label><input type='radio' name='material' value='" + item.id + "'>" + item.name + "</label></div>";
             $('#material').append(html);
 
-            var html = "<div class='radio-inline' style='margin-top: 2px'><label><input type='radio' name='material_update' value='" + item.id + "'>" + item.name + "</label></div>";
+            var html = "<div class='radio-inline' style='margin-top: 10px'><label><input type='radio' name='material_update' value='" + item.id + "'>" + item.name + "</label></div>";
             $('#material_u').append(html);
 
             //执行代码 二维码

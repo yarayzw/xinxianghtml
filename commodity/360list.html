@@ -470,9 +470,9 @@
         ajaxGo('admin/material_memo/getListToSelect')
         requestData.data.forEach((item, index, array) => {
             //执行代码
-            var html = "<div class='radio-inline' style='margin-top: 2px'><label><input type='radio' name='material' value='" + item.id + "'>" + item.name + "</label></div>";
+            var html = "<div class='radio-inline' style='margin-bottom: 10px'><label><input type='radio' name='material' value='" + item.id + "'>" + item.name + "</label></div>";
             $('#material').append(html);
-            var html = "<div class='radio-inline' style='margin-top: 2px'><label><input type='radio' name='material_update' value='" + item.id + "'>" + item.name + "</label></div>";
+            var html = "<div class='radio-inline' style='margin-top: 10px'><label><input type='radio' name='material_update' value='" + item.id + "'>" + item.name + "</label></div>";
             $('#material_u').append(html);
 
             //执行代码 二维码
@@ -1480,10 +1480,10 @@
         $("#linkTable").bootstrapTable({
             url: __ROOT__ + 'admin/link/getList', //获取数据的Servlet地址
             striped: true,  //表格显示条纹
-            pagination: true, //启动分页
+            pagination: false, //启动分页
             sortName: 'id',
             sortOrder: 'desc',
-            pageSize: 10,  //每页显示的记录数
+            pageSize: 5,  //每页显示的记录数
             pageNumber: 1, //当前第几页
             pageList: [10, 15, 20, 25],  //记录数可选列表
             search: false,
