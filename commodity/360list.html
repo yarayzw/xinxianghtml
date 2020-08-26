@@ -489,10 +489,10 @@
         ajaxGo('admin/view/getListToSelect')
         requestData.data.forEach((item, index, array) => {
             //执行代码
-            var html = "<div class='radio-inline'><label><input type='radio' name='view' value='" + item.id + "'>" + item.name + "</label></div>";
+            var html = "<div class='radio-inline' ><label><input type='radio' name='view' value='" + item.id + "'>" + item.name + "</label></div>";
             $('#view').append(html);
 
-            var html = "<div class='radio-inline'><label><input type='radio' name='view_update' value='" + item.id + "'>" + item.name + "</label></div>";
+            var html = "<div class='radio-inline' style='margin-bottom: 10px'><label><input type='radio' name='view_update' value='" + item.id + "'>" + item.name + "</label></div>";
             $('#view_u').append(html);
         });
 
@@ -508,7 +508,7 @@
         ajaxGo('admin/wechat_config/getListToSelect')
         requestData.data.forEach((item, index, array) => {
             //执行代码
-            var html = '<div class="radio-inline"><label><input  type="radio" name="wechat_config_id" value="' + item.id + '" />' + item.wechat_name + '</label></div>';
+            var html = '<div class="radio-inline" ><label><input  type="radio" name="wechat_config_id" value="' + item.id + '" />' + item.wechat_name + '</label></div>';
             $('#wechat_config_info').append(html);
 
             //二维码的
