@@ -1539,7 +1539,7 @@
     }
     //复制链接
     function copyUrl(id) {
-        $('#copy_4279').select();
+        $('#copy_'+id).select();
         document.execCommand("Copy"); //执行浏览器复制命令
         layer.msg('复制成功!')
     }
