@@ -61,18 +61,41 @@
 <div >
     <form id="list_search_faci">
         <fieldset>
-            <div class="input-group">
-                 <span class="input-group-btn">
-                    <button class="btn btn-primary dropdown-toggle" type="button" onclick="addMaterialMemo(this);">添加</button>
-                 </span>
-                <span class="input-group-btn">
-                    <button class="btn btn-default" type="button" onclick="fac_search()">搜索</button>
-                 </span>
-                <input type="text" id="name" class="form-control" aria-label="..." placeholder="名称" style="width: 120px">
-
+            <div class="col-sm-10">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="input-group m-b">
+                            <span class="input-group-addon" >名称</span>
+                            <input type="text" id="name" class="form-control" aria-label="..." placeholder="" >
+                        </div>
+                    </div>
+                    <div class="col-md-2" id="platform_search_div" style="display: none">
+                        <div class="input-group m-b">
+                            <select id="platform_search" class="selectpicker" data-live-search="true">
+                                <option value="0">全部平台</option>
+                            </select>
+                        </div>
+                    </div>
+<!--                    <div class="col-md-2" id="department_div" style="display: none">-->
+<!--                        <div class="input-group m-b">-->
+<!--                            <select id="department_search" class="selectpicker" data-live-search="true">-->
+<!--                                <option value="-1">全部人员</option>-->
+<!--                                <option value="0">我的</option>-->
+<!--                            </select>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                    <div class="col-md-1">
+                         <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" onclick="fac_search()">搜索</button>
+                        </span>
+                    </div>
+                    <div class="col-md-1" id="add_button">
+                         <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button" onclick="addMaterialMemo()">添加</button>
+                        </span>
+                    </div>
+                </div>
             </div>
-
-
             &nbsp;&nbsp;&nbsp;&nbsp;
         </fieldset>
     </form>
@@ -102,11 +125,12 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">素材 :</label>
-                        <div class="col-sm-8">
+                        <label class="col-sm-3 control-label">小说 :</label>
+                        <div class="col-sm-6">
                             <select id="material_id" class="selectpicker" data-live-search="true">
 
                             </select>
+                            <span style="cursor:pointer;margin-left: 50px" onclick="openMaterial()">选择素材</span>
                         </div>
                     </div>
                     <div class="form-group">
@@ -122,6 +146,104 @@
     </div>
 </div>
 <input type="text" id="copyText" style="display: none">
+
+<!--前序素材库-->
+<style>
+    .label_list{
+        color: black;
+        margin-left: 10px;
+    }
+    .label_checked{
+        background: black;
+        color: white;
+        padding: 2px 2px;
+        border-radius:5px;
+    }
+
+    .right_font{
+        text-align: right;
+    }
+
+    .img_s{
+        width: 100%;
+        height: 100px;
+    }
+
+    .simditor-body{
+        height: 800px;
+    }
+</style>
+<div class="row" style="display: none" id="preface">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>前序素材 </h5>
+                <div class="ibox-tools">
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div class="row">
+                    <div class="col-sm-7 b-r" style="height: 860px">
+                        <span style="color: black">标签:</span>
+                        <span id="label_list">
+
+                        </span>
+                        <div class="right_font" style="margin-top: 120px">
+                            <span style="margin-right: 10px;cursor:pointer" onclick="delLabel()" >删除</span>
+                            <span style="margin-right: 10px;cursor:pointer" onclick="editLabel()" >编辑</span>
+                            <span onclick="addLabel()" style="cursor:pointer">添加标签</span>
+                        </div>
+                        <div style="margin-top: 10px;">
+                            <hr>
+                            <div style="float: left"><span><strong>前序标题</strong></span></div>
+                            <div style="float: right;color: red"><span style="cursor:pointer" onclick="addMaterial()"><strong>添加前序</strong></span></div>
+                        </div>
+                        <div >
+                            <table class="table table-hover " >
+                                <tbody id="sc_list">
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-5" >
+                        <textarea name="comment" id="editors"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" id="addMaterial" style="display: none">
+    <div class="ibox-content">
+        <form class="form-horizontal m-t"  method="post">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">前序标题 :</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="material_info" id="material_info" value=""  />
+                    <!--                            required="" aria-required="false"-->
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row" id="addLable" style="display: none">
+    <div class="ibox-content">
+        <form class="form-horizontal m-t"  method="post">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">标签名称 :</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="label_name" id="label_name" value=""  />
+                    <!--                            required="" aria-required="false"-->
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!--前序素材库end-->
 
 </body>
 
@@ -147,4 +269,310 @@
 
 <script src="../js/materialMemo/materialMemo.js"></script>
 <script src="../js/materialMemo/addMaterialMemo.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+        if($.inArray('admin/material_memo/addmaterialmemo',u_role_url) === -1){
+            $('#add_button').hide();
+        }
+        getMaterialList();
+    });
+
+    //打开素材库
+    let Label_type = 0;
+
+    function openMaterial()
+    {
+        Label_type = 1;
+        getListLabel();
+        layer.open({
+            type: 1,
+            title: '前言素材',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['85%', '80%'],
+            content: $('#preface'),
+            btn: [ '取消'], // 按钮
+        });
+
+    }
+
+    var editors = new Simditor({
+        toolbar: [ 'title', 'bold', 'italic', 'underline', 'strikethrough','fontScale',
+            'color'],
+        textarea: '#editors',
+        placeholder: '写点什么...',
+        // defaultImage: '/static/home/images/logo.png',
+        imageButton: ['upload'],
+        upload: {
+            url: __ROOT__ + 'thirdparty/oss/upload',
+            params: {
+                "code": '01-200-101'
+            },
+            fileKey: 'file',
+            leaveConfirm: '正在上传文件..',
+            connectionCount: 3
+        }
+    });
+
+    //切换标签
+    let Label_id = 0;
+    function changeLabel(obj) {
+        $('span').removeClass('label_checked');
+        $(obj).addClass('label_checked');
+        Label_id = parseInt($(obj).attr('data_id'));
+        getMaterialList();
+    }
+
+    //获取用户所有标签
+    function getListLabel() {
+        requestData.data = {
+            'type' : Label_type
+        };
+        ajaxGo('admin/source_tag/getAllList');
+        $('#label_list').empty();
+        requestData.data.forEach((item,index,array)=>{
+            //执行代码
+            //var html = "<option value='"+item.id+"'>"+item.name+"</option>";
+            if(item.id === Label_id){
+                var html = '<span class="label_list label_checked" style="cursor:pointer" onclick="changeLabel(this)" data_id = "'+item.id+'" >'+item.name+'</span>';
+            }else {
+                var html = '<span class="label_list" onclick="changeLabel(this)" style="cursor:pointer" data_id = "'+item.id+'" >'+item.name+'</span>';
+            }
+            $('#label_list').append(html);
+        });
+    }
+
+    //添加标签
+    function addLabel(){
+        layer.open({
+            type: 1,
+            title: '添加标签',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['60%', '50%'],
+            content: $('#addLable'),
+            btn: ['确定', '取消'], // 按钮
+            yes: function(addLabel, layero){
+                layer.msg('确定添加？', {
+                    time: 0 //不自动关闭
+                    ,btn: ['确定', '取消']
+                    ,yes: function(index){
+                        requestData.data = {
+                            'name' : $('#label_name').val(),
+                            'sort_order' : 0,
+                            'type' : Label_type
+                        };
+                        ajaxGo('admin/source_tag/add');
+                        if(requestCode === 0){
+                            getListLabel();
+                            layer.close(index);
+                            layer.close(addLabel);
+                            layer.msg('添加成功');
+                        }else {
+                            layer.msg(requestMessage);
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    //编辑标签
+    function editLabel(){
+        if(0 === Label_id){
+            layer.msg('请选择标签')
+        }else {
+            layer.open({
+                type: 1,
+                title: '修改标签',
+                shadeClose: true,
+                shade: 0.8,
+                area: ['60%', '50%'],
+                content: $('#addLable'),
+                btn: ['确定', '取消'], // 按钮
+                yes: function(editLabel, layero){
+                    layer.msg('确定修改？', {
+                        time: 0 //不自动关闭
+                        ,btn: ['确定', '取消']
+                        ,yes: function(index){
+                            requestData.data = {
+                                'id' : Label_id,
+                                'name' : $('#label_name').val(),
+                                'sort_order' : 0,
+                            };
+                            ajaxGo('admin/source_tag/edit');
+                            if(requestCode === 0){
+                                getListLabel();
+                                layer.close(index);
+                                layer.close(editLabel);
+                                layer.msg('修改成功');
+                            }else {
+                                layer.msg(requestMessage);
+                            }
+                        }
+                    });
+                }
+            });
+
+        }
+    }
+
+    //删除标签
+    function delLabel() {
+        if(0 === Label_id){
+            layer.msg('请选择标签')
+        }else {
+            layer.msg('确定删除标签？', {
+                time: 0 //不自动关闭
+                ,btn: ['确定', '取消']
+                ,yes: function(index){
+                    requestData.data = {
+                        'id' : Label_id,
+                        'sort_order' : 0
+                    };
+                    ajaxGo('admin/source_tag/remove');
+                    if(requestCode === 0){
+                        getListLabel();
+                        layer.close(index);
+                        layer.msg('删除成功');
+                        Label_id = 0;
+                    }else {
+                        layer.msg(requestMessage);
+                    }
+                }
+            });
+        }
+    }
+
+    //获取素材内容
+    function getMaterialList()
+    {
+        requestData.data = {
+            'tag_id' : Label_id,
+            'type': 1,
+        };
+        ajaxGo('admin/material_library/getListToSelect');
+        $('#sc_list').empty();
+        requestData.data.forEach((item,index,array)=>{
+            //执行代码
+            //var html = "<option value='"+item.id+"'>"+item.name+"</option>";
+            var html = ' <tr>\n' +
+                '                                    <td>'+item.id+'</td>\n' +
+                '                                    </td>\n' +
+                '                                    <td><span style="cursor:pointer" onclick="checkedMaterial('+item.id+')">'+item.title+'</span> <span id="display_'+item.id+'" data_title="'+item.title+'" style="display:none;">'+item.info+'</span></td>\n' +
+                '                                    <td><span style="cursor:pointer" onclick="checkedImg('+item.id+')">使用此素材</span></td>\n' +
+                '                                    <td><span style="cursor:pointer" onclick="updateMaterialSc('+item.id+')">保存编辑</span></td>\n' +
+                '                                    <td><span style="cursor:pointer" onclick="delMaterialSc('+item.id+')">删除</span></td>\n' +
+                '                                </tr>';
+            $('#sc_list').append(html);
+        });
+    }
+
+    //将选中的前言渲染到编辑器内
+    function checkedMaterial(id){
+        editors.setValue($('#display_'+id).html());
+    }
+
+    function checkedImg(id){
+        editor.setValue($('#display_'+id).html());
+        $("input[name='name']").val($('#display_'+id).attr('data_title'));
+        layer.msg('使用成功!');
+    }
+
+    //图片上传插件初始化
+    $('#upload-img').click(function(event) {
+        $("#picker-img").find('input').click();
+    });
+
+
+    //添加前序
+    function addMaterial() {
+        if(Label_id === 0){
+            layer.msg('请选择标签')
+        }else {
+            layer.open({
+                type: 1,
+                title: '添加前序',
+                shadeClose: true,
+                shade: 0.8,
+                area: ['60%', '50%'],
+                content: $('#addMaterial'),
+                btn: ['确定', '取消'], // 按钮
+                yes: function(index1, layero){
+                    layer.msg('确定添加？', {
+                        time: 0 //不自动关闭
+                        ,btn: ['确定', '取消']
+                        ,yes: function(index){
+                            var content = editors.getValue();
+
+                            requestData.data = {
+                                'title' : $('#material_info').val(),
+                                'info' : content,
+                                'type' : 1,
+                                'tag_id' : Label_id
+                            };
+                            ajaxGo('admin/material_library/addMaterialLibrary');
+                            if(requestCode === 0){
+                                getMaterialList();
+                                layer.close(index);
+                                layer.close(index1);
+                                layer.msg('添加成功');
+                            }else {
+                                layer.msg(requestMessage);
+                            }
+                        }
+                    });
+                }
+            });
+        }
+    }
+
+    //修改前序素材
+    function updateMaterialSc(id) {
+        layer.msg('确定保存前序素材？', {
+            time: 0 //不自动关闭
+            ,btn: ['确定', '取消']
+            ,yes: function(index){
+                var content = editors.getValue();
+                requestData.data = {
+                    'info' : content,
+                    'id' : id
+                };
+                ajaxGo('admin/material_library/editMaterialLibrary');
+                if(requestCode === 0){
+                    getMaterialList();
+                    layer.close(index);
+                    layer.msg('保存成功');
+                }else {
+                    layer.msg(requestMessage);
+                }
+            }
+        });
+    }
+
+    //删除前言素材
+    function delMaterialSc(id) {
+        layer.msg('确定删除前序素材？', {
+            time: 0 //不自动关闭
+            ,btn: ['确定', '取消']
+            ,yes: function(index){
+                requestData.data = {
+                    'id' : id
+                };
+                ajaxGo('admin/material_library/delMaterialLibrary');
+                if(requestCode === 0){
+                    getMaterialList();
+                    layer.close(index);
+                    layer.msg('删除成功');
+                }else {
+                    layer.msg(requestMessage);
+                }
+            }
+        });
+    }
+
+
+</script>
 

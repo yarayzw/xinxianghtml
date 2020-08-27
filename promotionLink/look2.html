@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>筋斗云管理系统</title>
+    <link href="../css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link rel="stylesheet" href="../js/simditor-2.3.28/styles/simditor.css">
+    <link rel="stylesheet" href="../js/bootstrap-table-master/dist/bootstrap-table.css">
+    <link rel="stylesheet" href="../js/bootstrap-table-master/dist/extensions/fixed-columns/bootstrap-table-fixed-columns.css">
+</head>
+<style type="text/css">
+    .table {table-layout:fixed;}
+    .thead-light {
+        background: #ccc;
+    }
+    .thead-fj{
+        background-color: #FFEC8B;
+    }
+</style>
+<body>
+<div class="col-sm-12">
+    <div id="title" style="text-align: center;font-size: 20px;margin-top: 5%;margin-bottom: 5%"></div>
+    <table  id="viewTable"  data-show-columns="true">
+    </table>
+
+</body>
+
+<script src="../js/jquery.min.js?v=2.1.4"></script>
+<script src="../js/layer/layer.js"></script>
+<script src="../js/laydate/laydate.js"></script>
+<script src="../js/public.js"></script>
+<script src="../js/bootstrap-table-master/dist/bootstrap-table.js"></script>
+<script src="../js/bootstrap-table-master/dist/locale/bootstrap-table-zh-CN.js"></script>
+<script src="../js/bootstrap-table-master/dist/extensions/fixed-columns/bootstrap-table-fixed-columns.js"></script>
+
+<script>
+    $(document).ready(function () {
+        //调用函数，初始化表格
+        initTable();
+    });
+    let columns;
+    function initTable() {
+        requestData.data = {
+            name : $('#name').val(),
+            id: 54
+        };
+        ajaxGo('/admin/promotion_b_b/getPromotionBB2');
+        $('#title').html(requestData.data.title);
+        document.title = requestData.data.title;
+        columns = [
+            {
+                title: '日期',
+                field: 'time',
+                align: 'center',
+                valign: 'middle',
+                width : '100px',
+            },
+            {
+                field: '0',
+                title: '充值',
+                width : '70px',
+                align: 'center'
+            },
+            {
+                field: '1',
+                title: '消费',
+                width : '70px',
+                align: 'center'
+            },
+            {
+                field: '2',
+                title: '回款率',
+                width : '70px',
+                align: 'center',
+                formatter: function(value,row,index){
+                    let html = '<div>'+value+'%</div><div>'+row['3']+'天</div>';
+                    return html;
+                },
+            },
+            {
+                field: '4',
+                title: '粉丝数',
+                width : '70px',
+                align: 'center'
+            },
+            {
+                field: '5',
+                title: '粉价',
+                width : '70px',
+                theadClasses: "thead-fj",
+                align: 'center',
+                cellStyle: function (value, row, index) {
+                    return {css: {"background-color": "#FFEC8B"}};
+                }
+
+            },
+            {
+                field: '6',
+                title: '付费数',
+                width : '70px',
+                align: 'right'
+            },
+        ];
+        for(let i = 0;i <= parseInt(requestData.data.time);i++){
+            let ls = {
+                field: (i+7).toString(),
+                title: 'D'+(i+1),
+                width : '90px',
+                align: 'center',
+                formatter: function(value,row,index){
+                    let htmls = '';
+                    if(value){
+                        let str = value.split(/@@/);
+                        htmls = '<div style="text-align: left"><div style="color: red;font-size: 14px">回: '+str[0]+'%</div><div style="color: red;' +
+                            'font-size: 10px;">增:  '+str[1]+'%</div></div>';
+                    }else {
+                        htmls = '';
+                    }
+                    return htmls;
+                }
+            };
+            columns.push(ls);
+        }
+        $('#viewTable').bootstrapTable('destroy');
+        $("#viewTable").bootstrapTable({
+            striped: true,  //表格显示条纹
+            pagination: false, //启动分页
+            sortName: 'id',
+            pageSize: 10,  //每页显示的记录数
+            pageNumber:1, //当前第几页
+            pageList: [10, 15, 20, 25],  //记录数可选列表
+            search: false,
+            toolbar: '#list_search_faci',
+            showColumns: false,  //显示下拉框勾选要显示的列
+            showRefresh: false,  //显示刷新按钮
+            // sidePagination: "server", //表示服务端请求
+            fixedColumns:true,
+            fixedNumber:2,
+            theadClasses: "thead-light",//这里设置表头样式
+            data : requestData.data.rows,
+            //设置为undefined可以获取pageNumber，pageSize，searchText，sortName，sortOrder
+            //设置为limit可以获取limit, offset, search, sort, order
+            columns: columns
+        });
+    }
+
+</script>
+
+

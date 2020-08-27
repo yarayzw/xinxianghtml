@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>筋斗云管理系统</title>
+    <link href="../css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="../css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="../css/animate.min.css" rel="stylesheet">
+    <link href="../css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <link href="../css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link href="../css/plugins/bootstrap-table/bootstrap-table.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../js/plugins/bootstrap-select-1.13.9/dist/css/bootstrap-select.css">
+
+</head>
+<style type="text/css">
+    .table {table-layout:fixed;}
+</style>
+<body>
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="row row-lg">
+            <div class="col-sm-12">
+                <div class="btn-group hidden-xs" id="wechatDayToolbar" role="group">
+                </div>
+                <table id="wechatDayTable" >
+                </table>
+                <div id="update_user_no" style="margin-top: 20px;color: red;font-size: 18px"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div >
+    <div class="form-group">
+        <form id="list_search_faci">
+            <div class="col-sm-10">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="input-group m-b"><span class="input-group-addon">名字</span>
+                            <input type="text" id="name" class="form-control" aria-label="..." placeholder="" >
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="input-group m-b"><span class="input-group-addon">公众号名称</span>
+                            <input type="text" id="wechat_name" class="form-control" aria-label="..." placeholder="" >
+                        </div>
+                    </div>
+                    <div class="col-md-1" id="department_div" style="display: none">
+                        <div class="input-group m-b">
+                            <select id="department_search" class="selectpicker" data-live-search="true">
+                                <option value="0">我的</option>
+                                <option value="-1">全部人员</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="input-group m-b"><span class="input-group-addon">开始时间</span>
+                            <input type="text" class="laydate-icon form-control layer-date" name="start_time" id="start_time" value=""  />
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="input-group m-b"><span class="input-group-addon">结束时间</span>
+                            <input type="text" class="laydate-icon form-control layer-date" name="end_time" id="end_time" value=""  />
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                         <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" onclick="fac_search()">搜索</button>
+                        </span>
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                    <div id="history_search" style="margin-top: 3px;margin-left: 15px">
+
+                    </div>
+
+                    </div>
+                </div>
+            </div>
+            <fieldset>
+
+                &nbsp;&nbsp;&nbsp;&nbsp;
+            </fieldset>
+        </form>
+    </div>
+</div>
+
+<div class="row" id="add" style="display: none">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>编辑</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <form class="form-horizontal m-t" id="commentForm" method="post">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">新用户充值 :</label>
+                        <div class="col-sm-8">
+                            <input type="number" class="form-control" name="new_fans_recharge" value=""  />
+                            <!--                            required="" aria-required="false"-->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">当日充值 :</label>
+                        <div class="col-sm-8">
+                            <input type="number" class="form-control" name="today_recharge" value=""  />
+                            <!--                            required="" aria-required="false"-->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">当日消耗 :</label>
+                        <div class="col-sm-8">
+                            <input type="number" class="form-control" name="today_consume" value=""  />
+                            <!--                            required="" aria-required="false"-->
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+<script src="../js/jquery.min.js?v=2.1.4"></script>
+
+<script src="../js/public.js"></script>
+<script src="../js/bootstrap.min.js?v=3.3.6"></script>
+<script src="../js/layer/layer.js"></script>
+<script src="../js/laydate/laydate.js"></script>
+
+<script src="../js/content.min.js"></script>
+<script src="../js/plugins/bootstrap-table/bootstrap-table.js"></script>
+<script src="../js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="../js/demo/bootstrap-table-demo.min.js"></script>
+<script src="../js/bootstrapValidator.js"></script>
+<script src="../js/bootstrapValidator.min.js"></script>
+<script src="../js/index.js"></script>
+<script src="../js/plugins/bootstrap-select-1.13.9/js/bootstrap-select.js"></script>
+
+
+<!--<script src="../js/demo/webuploader-demo.min.js"></script>-->
+<!--//下拉框js-->
+
+
+<!--<script src="../js/statistics/wechat_day.js"></script>-->
+<script>
+    function getDay(num, str) {
+        var today = new Date();
+        var nowTime = today.getTime();
+        var ms = 24*3600*1000*num;
+        today.setTime(parseInt(nowTime + ms));
+        var oYear = today.getFullYear();
+        var oMoth = (today.getMonth() + 1).toString();
+        if (oMoth.length <= 1) oMoth = '0' + oMoth;
+        var oDay = today.getDate().toString();
+        if (oDay.length <= 1) oDay = '0' + oDay;
+        return oYear + str + oMoth + str + oDay;
+    }
+</script>
+
+<script>
+    let start_time = getDay(-1, '-');
+    let end_time = getDay(-1, '-');
+
+
+    $(document).ready(function () {
+        start_time = getDay(-1, '-');
+        end_time = getDay(-1, '-');
+        //调用函数，初始化表格
+        if($.inArray('admin/statistics/getwechatdaylist/all',u_role_url) !== -1) {
+            if($.inArray('admin/statistics/getlisttoselect',u_role_url) !== -1) {
+                searchHistory();
+            }
+            laydate.render({
+                elem: '#start_time' //指定元素
+                ,event:"focus",
+                value: getDay(-1, '-'),
+                done: function(value, date, endDate){
+                    start_time = value;
+                    var startDate = new Date(value).getTime();
+                    var endTime = new Date($('#end_time').val()).getTime();
+                    if(endTime < startDate) {
+                        layer.msg('结束时间不能小于开始时间');
+                        $('#start_time').val($('#end_time').val());
+                    }
+                }
+            });
+            laydate.render({
+                elem: '#end_time' //指定元素
+                ,event:"focus",
+                value: getDay(-1, '-'),
+                done: function(value, date, endDate){
+                    end_time = value;
+                    var startDate = new Date($('#start_time').val()).getTime();
+                    var endTime = new Date(value).getTime();
+                    if(endTime < startDate) {
+                        layer.msg('结束时间不能小于开始时间');
+                        $('#end_time').val($('#start_time').val());
+                    }
+                }
+            });
+            initTable();
+        }else {
+            laydate.render({
+                elem: '#start_time' //指定元素
+                ,event:"focus",
+                value: getDay(-1, '-'),
+                min: getDay(-15, '-'),
+                done: function(value, date, endDate){
+                    start_time = value;
+                    var startDate = new Date(value).getTime();
+                    var endTime = new Date($('#end_time').val()).getTime();
+                    if(endTime < startDate) {
+                        layer.msg('结束时间不能小于开始时间');
+                        $('#start_time').val($('#end_time').val());
+                    }
+                }
+            });
+            laydate.render({
+                elem: '#end_time' //指定元素
+                ,event:"focus",
+                value: getDay(-1, '-'),
+                done: function(value, date, endDate){
+                    end_time = value;
+                    var startDate = new Date($('#start_time').val()).getTime();
+                    var endTime = new Date(value).getTime();
+                    if(endTime < startDate) {
+                        layer.msg('结束时间不能小于开始时间');
+                        $('#end_time').val($('#start_time').val());
+                    }
+                }
+            });
+            initTableYy();
+        }
+    });
+
+    //渲染人员筛选
+    function searchHistory()
+    {
+        ajaxGo('admin/statistics/getListToSelect');
+        $('#history_search').empty();
+        let html = ' <div style="float: left;margin-left: 15px"> 用户： </div>';
+        $('#history_search').append(html);
+
+        requestData.data.forEach((item,index,array)=>{
+            var html = '<div style="float: left;margin-right: 25px;margin-left: 5px;text-align: center;line-height: 24px">\n' +
+                '                    <span style="cursor:pointer" onclick="searchLog(this)" data_name = "'+item.name+'">'+item.log+'</span>\n' +
+                '                    ' +
+                '                </div>';
+            //执行代码
+            $('#history_search').append(html);
+        });
+
+    }
+    //根据人员搜索
+    function searchLog(obj) {
+        $('#name').val($(obj).attr('data_name'));
+        fac_search();
+    }
+    function initTable() {
+        getTodayNoUpdateUser();
+        $('#wechatDayToolbar').bootstrapTable('destroy');
+        // $('#wechatDayToolbar').css("height", 300);
+        $("#wechatDayToolbar").bootstrapTable({
+            height:700,
+            url: __ROOT__ + 'admin/statistics/getWechatDayList', //获取数据的Servlet地址
+            striped: true,  //表格显示条纹
+            pagination: false, //启动分页
+            sortName: 'id',
+            pageSize: 10,  //每页显示的记录数
+            pageNumber:1, //当前第几页
+            pageList: [10, 15, 20, 25],  //记录数可选列表
+            search: false,
+            toolbar: '#list_search_faci',
+            showColumns: false,  //显示下拉框勾选要显示的列
+            showRefresh: false,  //显示刷新按钮
+            sidePagination: "server", //表示服务端请求
+            //设置为undefined可以获取pageNumber，pageSize，searchText，sortName，sortOrder
+            //设置为limit可以获取limit, offset, search, sort, order
+
+            responseHandler:function(data){
+                //远程数据加载之前,处理程序响应数据格式,对象包含的参数: 我们可以对返回的数据格式进行处理
+                //在ajax后我们可以在这里进行一些事件的处理
+                // requestCode = data.code;
+                // requestMessage = data.message;
+                // requestData = {
+                //     "head": {
+                //         "token": data.token,
+                //         "time": (new Date()).getTime(),
+                //         "version": "1.2.0",
+                //         "recode": "",
+                //     },
+                //     "data": data.data
+                // };
+                return data.data;
+            },
+            queryParamsType : "undefined",
+            // method: 'post',
+            queryParams: function queryParams(params) {   //设置查询参数
+                params = {
+                    //这里是在ajax发送请求的时候设置一些参数 params有什么东西，自己看看源码就知道了
+                    pageNumber: params.pageNumber,
+                    pageSize: params.pageSize,
+                    sortName: params.sortName,
+                    sortOrder: params.sortOrder,
+                    // id : {$_GET['id']},
+                    head : {'token' : getCookie('token')},
+                    name : $('#name').val(),
+                    wechat_name : $('#wechat_name').val(),
+                    start_time : start_time,
+                    end_time : end_time,
+                    department_id : $("#department_search").selectpicker('val')
+                };
+
+                return params;
+            },
+            onLoadSuccess: function(data){  //加载成功时执行
+
+            },
+            onPostBody:function()
+            {
+                //重点就在这里，获取渲染后的数据列td的宽度赋值给对应头部的th,这样就表头和列就对齐了
+                var header=$(".fixed-table-header table thead tr th");
+                var body=$(".fixed-table-header table tbody tr td");
+                var footer=$(".fixed-table-header table tr td");
+                body.each(function(){
+                    header.width((this).width());
+                    footer.width((this).width());
+                });
+            },
+            onLoadError: function(){  //加载失败时执行
+                layer.msg("加载数据失败", {time : 1500, icon : 2});
+            },
+            columns: [
+                {
+                    title: '日期',
+                    field: 'time',
+                    align: 'center',
+                    valign: 'middle',
+                    width : 100,
+                },
+                {
+                    field: 'bind_user_name',
+                    title: '名字',
+                    width : 80,
+                    align: 'center'
+                },
+                {
+                    field: 'wechat_name',
+                    title: '公众号',
+                    width : 80,
+                    formatter: function(value,row,index){
+                        return value;
+                    }
+                },
+                {
+                    field: 'total_fans',
+                    title: '总推广',
+                    width : 70,
+                },
+                {
+                    field: 'total_fans_cancel',
+                    title: '总取消',
+                    width : 70,
+                },
+                {
+                    field: 'today_cancel',
+                    title: '当日取消',
+                    width : 70,
+                },
+                {
+                    field: 'new_fans',
+                    title: '新增粉丝',
+                    width : 70,
+                },
+                {
+                    field: 'new_fans_recharge',
+                    title: '新用户充值',
+                    width : 70,
+                    formatter: function(value,row,index){
+                        return parseFloat(value).toFixed(2);
+                    }
+                },
+                {
+                    field: 'today_recharge',
+                    title: '当日充值',
+                    width : 70,
+                    formatter: function(value,row,index){
+                        return '<span style="color: #39aef5">'+parseFloat(value).toFixed(2)+'</span>';
+                    }
+                },
+                {
+                    field: 'total_fans',
+                    title: '单粉日产出',
+                    width : 70,
+                    formatter: function(value,row,index){
+                        //当日充值/总推广粉丝
+                        let num = row.today_recharge / row.total_fans;
+                        if(num.toFixed(2) === 'NaN'){
+                            return '0.00';
+                        }else {
+                            return num.toFixed(2);
+                        }
+                    }
+                },
+                {
+                    field: 'total_fans',
+                    title: '单粉总产值',
+                    width : 70,
+                    formatter: function(value,row,index){
+                        //总充值/总推广粉丝
+                        let num = row.total_recharge / row.total_fans;
+                        if(num.toFixed(2) === 'NaN'){
+                            return '0.00';
+                        }else {
+                            return num.toFixed(2);
+                        }
+                    }
+                },
+                {
+                    field: 'total_fans',
+                    title: '粉丝单价',
+                    width : 70,
+                    formatter: function(value,row,index){
+                        //总广告费/总推广粉丝
+                        let num = row.total_consume / row.total_fans;
+                        if(num.toFixed(2) === 'NaN'){
+                            return '0.00';
+                        }else {
+                            return num.toFixed(2);
+                        }
+                    }
+                },
+                {
+                    field: 'total_fans',
+                    title: '新增单价',
+                    width : 70,
+                    formatter: function(value,row,index){
+                        //当日消耗/新增粉丝
+                        let num = row.today_consume / row.new_fans;
+                        if(num.toFixed(2) === 'NaN'){
+                            return '0.00';
+                        }else {
+                            return num.toFixed(2);
+                        }
+                    }
+                },
+                {
+                    field: 'today_consume',
+                    title: '当日消耗',
+                    width : 70,
+                    formatter: function(value,row,index){
+                        return '<span style="color: #00cc00">'+parseFloat(value).toFixed(2)+'</span>';
+                    }
+                },
+                {
+                    field: 'total_fans',
+                    title: '当日ROI回本',
+                    width : 70,
+                    formatter: function(value,row,index){
+                        //新用户充值/当日消耗
+                        let num = row.new_fans_recharge / row.today_consume * 100;
+                        if( row.today_consume === '0.00'){
+                            return '<span style="color: #ee1e2d">'+0.00+'%</span>';
+                        }
+                        if(num.toFixed(2) === 'NaN'){
+                            return '<span style="color: #ee1e2d">'+0.00+'%</span>';
+                        }else {
+                            return '<span style="color: #ee1e2d">'+num.toFixed(2)+'%</span>';
+                        }
+                    }
+                },
+                {
+                    field: 'total_consume',
+                    title: '总广告费',
+                    width : 70,
+                    formatter: function(value,row,index){
+                        return parseFloat(value).toFixed(2);
+                    }
+                },
+                {
+                    field: 'total_recharge',
+                    title: '总充值',
+                    width : 70,
+                    formatter: function(value,row,index){
+                        return parseFloat(value).toFixed(2);
+                    }
+                },
+                {
+                    field: 'total_fans',
+                    title: '回本比例',
+                    width : 70,
+                    formatter: function(value,row,index){
+                        //总充值*0。9/总广告费
+                        let num = row.total_recharge * 0.9 / row.total_consume * 100;
+                        if(num.toFixed(2) === 'NaN'){
+                            return '<span style="color: #ee1e2d">'+0.00+'%</span>';
+                        }else {
+                            return '<span style="color: #ee1e2d">'+num.toFixed(2)+'%</span>';
+                        }
+                    }
+                },
+                {
+                    field: 'today_recharge',
+                    title: '当日利润',
+                    width : 70,
+                    formatter: function(value,row,index){
+                        let num = row.today_recharge * 0.9 - row.today_consume;
+                        return num.toFixed(2);
+                    }
+                },
+                {
+                    field: 'total_fans',
+                    title: '总利润',
+                    width : 70,
+                    formatter: function(value,row,index){
+                        let num = row.total_recharge * 0.9 - row.total_consume;
+                        return num.toFixed(2);
+                    }
+                },
+                {
+                    field: 'operate',
+                    title: '操作',
+                    width : 70,
+                    align: 'center',
+                    formatter: function(value,row,index){
+                        if(row.time === '合计')
+                        {
+                            return  '';
+                        }else {
+                            let d = '';
+                            if($.inArray('admin/statistics/editwechatday',u_role_url) !== -1) {
+                                d='<a href="#" mce_href="#" data_id="'+row.id+'" data_new_fans_recharge="'+row.new_fans_recharge+'"' +
+                                    ' data_today_recharge="'+row.today_recharge+'" data_today_consume="'+row.today_consume+'" ' +
+                                    ' onclick="editWechatDay(this)" >编辑</a> ';
+                            }
+                            return d;
+                        }
+                    }
+                }
+            ]
+        });
+    }
+
+    function initTableYy() {
+        $('#wechatDayToolbar').bootstrapTable('destroy');
+        $("#wechatDayToolbar").bootstrapTable({
+            url: __ROOT__ + 'admin/statistics/getWechatDayList', //获取数据的Servlet地址
+            striped: true,  //表格显示条纹
+            pagination: false, //启动分页
+            sortName: 'id',
+            pageSize: 10,  //每页显示的记录数
+            pageNumber:1, //当前第几页
+            pageList: [10, 15, 20, 25],  //记录数可选列表
+            search: false,
+            toolbar: '#list_search_faci',
+            showColumns: false,  //显示下拉框勾选要显示的列
+            showRefresh: false,  //显示刷新按钮
+            sidePagination: "server", //表示服务端请求
+            //设置为undefined可以获取pageNumber，pageSize，searchText，sortName，sortOrder
+            //设置为limit可以获取limit, offset, search, sort, order
+            responseHandler:function(data){
+                //远程数据加载之前,处理程序响应数据格式,对象包含的参数: 我们可以对返回的数据格式进行处理
+                //在ajax后我们可以在这里进行一些事件的处理
+                // requestCode = data.code;
+                // requestMessage = data.message;
+                // requestData = {
+                //     "head": {
+                //         "token": data.token,
+                //         "time": (new Date()).getTime(),
+                //         "version": "1.2.0",
+                //         "recode": "",
+                //     },
+                //     "data": data.data
+                // };
+                return data.data;
+            },
+            queryParamsType : "undefined",
+            // method: 'post',
+            queryParams: function queryParams(params) {   //设置查询参数
+                params = {
+                    //这里是在ajax发送请求的时候设置一些参数 params有什么东西，自己看看源码就知道了
+                    pageNumber: params.pageNumber,
+                    pageSize: params.pageSize,
+                    sortName: params.sortName,
+                    sortOrder: params.sortOrder,
+                    // id : {$_GET['id']},
+                    head : {'token' : getCookie('token')},
+                    name : $('#name').val(),
+                    wechat_name : $('#wechat_name').val(),
+                    start_time : start_time,
+                    end_time : end_time,
+                    department_id : $("#department_search").selectpicker('val')
+                };
+
+                return params;
+            },
+            onLoadSuccess: function(data){  //加载成功时执行
+
+            },
+            onLoadError: function(){  //加载失败时执行
+                layer.msg("加载数据失败", {time : 1500, icon : 2});
+            },
+            columns: [
+                {
+                    title: '日期',
+                    field: 'time',
+                    align: 'center',
+                    valign: 'middle',
+                    width : 100,
+                },
+                {
+                    field: 'bind_user_name',
+                    title: '名字',
+                    width : '5%',
+                    align: 'center'
+                },
+                {
+                    field: 'wechat_name',
+                    title: '公众号',
+                    width : 100,
+                    formatter: function(value,row,index){
+                        return value;
+                    }
+                },
+
+                {
+                    field: 'new_fans_recharge',
+                    title: '新用户充值',
+                    width : 80,
+                },
+                {
+                    field: 'today_recharge',
+                    title: '当日充值',
+                    width : 80,
+                    formatter: function(value,row,index){
+                        return '<span style="color: #39aef5">'+value+'</span>';
+                    }
+                },
+                {
+                    field: 'today_consume',
+                    title: '当日消耗',
+                    width : 80,
+                    formatter: function(value,row,index){
+                        return '<span style="color: #00cc00">'+parseFloat(value).toFixed(2)+'</span>';
+                    }
+                },
+                {
+                    field: 'operate',
+                    title: '操作',
+                    width : 80,
+                    align: 'center',
+                    formatter: function(value,row,index){
+                        let d = '';
+                        if($.inArray('admin/statistics/editwechatday',u_role_url) !== -1) {
+                            d='<a href="#" mce_href="#" data_id="'+row.id+'" data_new_fans_recharge="'+row.new_fans_recharge+'"' +
+                                ' data_today_recharge="'+row.today_recharge+'" data_today_consume="'+row.today_consume+'" ' +
+                                ' onclick="editWechatDay(this)" >编辑</a> ';
+                        }
+                        return d;
+                    }
+                }
+            ]
+        });
+    }
+
+    //搜索
+    function fac_search() {
+        getTodayNoUpdateUser();
+
+        $('#wechatDayToolbar').bootstrapTable('refresh');
+    }
+
+    //编辑
+    function editWechatDay(obj) {
+        $("input[name='new_fans_recharge']").val($(obj).attr('data_new_fans_recharge'));
+        $("input[name='today_recharge']").val($(obj).attr('data_today_recharge'));
+        $("input[name='today_consume']").val($(obj).attr('data_today_consume'));
+        layer.open({
+            type: 1,
+            title: '编辑',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['90%', '90%'],
+            content: $('#add'),
+            btn: ['确定', '取消'], // 按钮
+            yes: function(index, layero){
+                layer.msg('确定修改？', {
+                    time: 0 //不自动关闭
+                    ,btn: ['确定', '取消']
+                    ,yes: function(index){
+                        editWechatDayGo($(obj).attr('data_id'));
+                        if(requestCode === 0){
+                            fac_search();
+                            layer.close(index);
+                            layer.closeAll();
+                            layer.msg(requestMessage);
+                        }else {
+                            layer.msg(requestMessage);
+                        }
+                    }
+                });
+
+
+            }
+//            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
+        });
+
+    }
+
+    //修改
+    function editWechatDayGo(id) {
+        requestData.data = {
+            'id' : id,
+            'new_fans_recharge' : $("input[name='new_fans_recharge']").val(),
+            'today_recharge' : $("input[name='today_recharge']").val(),
+            'today_consume' : $("input[name='today_consume']").val(),
+        }
+        ajaxGo('admin/statistics/editWechatDay')
+    }
+
+    function getTodayNoUpdateUser() {
+        if($.inArray('admin/statistics/gettodayupdateuser',u_role_url) !== -1) {
+            requestData.data = {
+            };
+            ajaxGo('admin/statistics/getTodayUpdateUser');
+            $('#update_user_no').html(requestData.data.msg);
+        }
+    }
+</script>
+
+

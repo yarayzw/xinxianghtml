@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html style="display: none;">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0,viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/index.css">
+    <link rel="stylesheet" href="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/topcss.css">
+    <link rel="stylesheet" href="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/font.css">
+    <link rel="stylesheet" href="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/text.css">
+    <link rel="shortcut icon" href="https://p5.ssl.qhimg.com/t013ed96d9c4cf74064.png" type="image/x-icon">
+    <link rel="shortcut icon" type="image/ico" href="https://video.eastday.com/assets/img/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/config.css">
+    <link rel="stylesheet" type="text/css" href="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/video.css">
+    <link rel="stylesheet" href="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/newdetail.css">
+</head>
+<script type="text/javascript" src="/static/pc/jquery.min.js"></script>
+
+<body style="background: url('https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/bg.jpg')">
+<div  class="header  header-item header-item_flow">
+    <div id="j-header-nav" class="header-nav-wraper scroll-to-fixed-fixed" style="z-index: 9999; position: absolute;top: 0px; margin-left: 0px; left: 0px;height: 39px;">
+
+        <div class="header-nav clearfix">
+
+            <a href="javascript:;" target="_self"> <img class="header-nav-logo fl" style="    background: #E53E38;
+    height: 26px;
+    left: 0;
+    padding: 8px 10px;
+    position: absolute" src="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/kzx.png" alt="北京时间" title="北京时间" /></a>
+
+            <div id="j-nav-channel" class="header-menu fl" bk="顶部导航" data-track="1">
+                <ul class="header-menu-list clearfix">
+                    <li class="header-menu-item  "> <a href="javascript:;">首页</a> </li>
+                    <li class="header-menu-item  "> <a href="javascript:;">推荐</a> </li>
+                    <li class="header-menu-item  "> <a href="javascript:;">新闻</a> </li>
+                    <li class="header-menu-item  "> <a href="javascript:;">国际</a> </li>
+                    <li class="header-menu-item  "> <a href="javascript:;">娱乐</a> </li>
+                    <li class="header-menu-item  "> <a href="javascript:;">视频</a> </li>
+                    <li class="header-menu-item  "> <a href="javascript:;">财经</a> </li>
+                    <li class="header-menu-item  "> <a href="javascript:;">体育</a> </li>
+                    <li class="header-menu-item  "> <a href="javascript:;">军事</a> </li>
+                    <li class="header-menu-item  "> <a href="javascript:;">汽车</a> </li>
+                    <li class="header-menu-item  "> <a href="javascript:;">房产</a> </li>
+                    <li class="header-menu-item  "> <a href="javascript:;">科技</a> </li>
+                    <li class="header-menu-item  "> <a href="javascript:;">冬奥</a> </li>
+                    <li class="header-menu-item header-menu-more"> <a id="j-more-btn" href="javascript:void(0);">更多<i class="iconfont bticon-unfold i-down"></i><i class="iconfont bticon-packup i-up"></i></a> </li>
+                </ul>
+            </div>
+            <div class="header-user fr">
+                <div class="user-login-before hide" id="j-login-before" style="display: block;"> <i class="iconfont bticon-yonghu"></i> <span class="user-btn" id="j-header-login">登录</span>/<span class="user-btn" id="j-header-reg">注册</span> </div>
+            </div>
+        </div>
+    </div>
+    <div style="display: block;  height: 40.8px; float: none;"></div>
+    <div class="item-photo-container" id="main">
+        <div class="T-content-out">
+            <div class="T-content">
+                <h1 id="title"><span id="title_1_view_2">{{title}}</span> </h1>
+                <div class="content-info">
+                    <div class="info"> <span class="time" id="showtime">{{create_at}}</span> <span class="read-count">👀 328万</span> <span class="cite">今日头条</span> <span class="dianzan"><i></i>8千</span> <span class="shuohua"><i></i>1.8万</span><span style="display: flex;align-items: center;"><img src="/static/img/18.png" width="20" height="20">未满18周岁禁止阅读此篇资讯</span> </div>
+                    <script language="Javascript">
+                        var now = new Date()
+                        $("#showtime").html("" + now.getFullYear() + "年" + (now.getMonth() + 1) + "月" + now.getDate() + "日");
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="js_article" class="rich_media preview_appmsg">
+        <div class="rich_media_inner">
+            <div id="page-content" class="bag_color rich_media_area_primary">
+                <div class="rich_media_area_primary_inner rich_w800">
+                    <div id="img-content">
+                        <div class="rich_media_content rich_media_content_bg" id="js_content" style="">
+
+                            <!--封面图片-->
+                            <div id="head_img_div" style="width:100%;height: 280px;display:block;background: #ccc;text-align: center;line-height: 220px;">图片加载中</div>
+                            <img id="head_img" style="width:100%;height: 280px;display:none;">
+
+                            <span id="content_view_2">
+                                {{text}}
+                                {{content}}
+                            </span>
+
+                            <p style="font-size: medium; white-space: normal; text-shadow: none;text-align:center; font-size: 16pt;"><span style="color: rgb(252, 73, 116);">下一章：出大事了</span></p>
+
+                            <p style="margin-top: 0px; padding: 0px; text-align: center; margin-top: 15px;  color: rgb(51, 51, 51); line-height: 2em; text-indent: 2em; letter-spacing: 0.54px; clear: both; font-family: -apple-system-font, BlinkMacSystemFont, &quot;Helvetica Neue&quot;, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei UI&quot;, &quot;Microsoft YaHei&quot;, Arial, sans-serif; font-size: 17px; white-space: normal; min-height: 1em; max-width: 100%; overflow-wrap: break-word; box-sizing: border-box !important;"><span style="margin: 0px; padding: 0px; font-family: &quot;andale mono&quot;; font-size: 20px; max-width: 100%; overflow-wrap: break-word; box-sizing: border-box !important;"><span style="margin: 0px; padding: 0px; text-align: justify; color: rgb(252, 73, 116); letter-spacing: 0.54px; font-family: -apple-system-font, BlinkMacSystemFont, &quot;Helvetica Neue&quot;, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei UI&quot;, &quot;Microsoft YaHei&quot;, Arial, sans-serif; max-width: 100%; overflow-wrap: break-word; box-sizing: border-box !important;"><span style="margin: 0px; padding: 0px; letter-spacing: 0.54px; max-width: 100%; overflow-wrap: break-word; box-sizing: border-box !important;"></span>后续精彩内容请&nbsp;</span><span style="margin: 0px; padding: 0px; text-align: justify; color: rgb(64, 179, 230); letter-spacing: 0.54px; font-family: -apple-system-font, BlinkMacSystemFont, &quot;Helvetica Neue&quot;, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei UI&quot;, &quot;Microsoft YaHei&quot;, Arial, sans-serif; max-width: 100%; overflow-wrap: break-word; box-sizing: border-box !important;">【微信扫一扫下方二维码】</span><span style="margin: 0px; padding: 0px; text-align: justify; color: rgb(252, 73, 116); letter-spacing: 0.54px; font-family: -apple-system-font, BlinkMacSystemFont, &quot;Helvetica Neue&quot;, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei UI&quot;, &quot;Microsoft YaHei&quot;, Arial, sans-serif; max-width: 100%; overflow-wrap: break-word; box-sizing: border-box !important;">关注后继续免费阅读全篇~</span></span></p>
+
+
+
+                            <p style="text-align: center; margin-top: 15px;  margin-bottom: 5px; "><img src="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/down_icon.png"></p>
+                            <p style="text-align: center;position: relative;width: 826px;">
+                                <img src="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/b1.jpg" style="width:100%; margin-top: -15px;">
+
+                                <!--底部二维码-->
+                                <img id="qr_code_bottom" style="position: absolute;width: 25%;left:37.5%;top:5%;" src="{{qr_code}}">
+                            </p>
+                            <br>
+
+                            <div id="meta_content" class="rich_media_meta_list" style=" width:100%; margin-bottom: 10px; margin-top: 10px;">
+                                <span style="margin-right: 10px; float:left;"> <span class="nickname">阅读&nbsp;100000+</span> </span>
+                                <span class="icon_praise_gray1"></span>
+                                <span style="color: rgb(140, 140, 140); font-size: 14px;">98752</span>
+                            </div>
+                            <div class="title-text" style="margin-top: 25px;">
+                                <span style="font-size: 18px;">精选留言</span>
+                            </div>
+                            <div style="margin: 18px 0px 0 0px; overflow:hidden; padding-bottom:15px; border-bottom: 1px #ccc dotted; font-size: 14px; line-height:24px;">
+                                <div>
+                                    <div style="width: 6%; float: left;">
+                                        <img src="http://tb.himg.baidu.com/sys/portrait/item/c142776a3638303035e925" style="width: 40px; height: 40px;">
+                                    </div>
+                                    <div style="width: 94%; float: left; margin-top: -6px;">
+                                        <span style="color: rgb(140, 140, 140); margin-left: 8px; font-size: 14px;">我爱一条柴</span>
+                                        <span class="icon_praise_gray" style=" width:9%; height:22px; float: right; line-height:30px;"><font style="margin-left: 20px; font-size: 14px;">36558</font></span>
+                                        <div style="padding: 3px 0px 8px 8px; color:#555; font-size: 16px;">
+                                            推荐大家一定一定一定要看完，后面剧情超级超级好看
+                                        </div>
+                                        <span style="padding: 10px; color: rgb(140, 140, 140); font-size: 10px;">12小时前</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="clear: both;"></div>
+                            <div style="clear: both;"></div>
+                            <div style="margin: 18px 0px 0 0px; overflow:hidden; padding-bottom:15px; border-bottom: 1px #ccc dotted; font-size: 14px; line-height:24px;">
+                                <div>
+                                    <div style="width: 6%; float: left;">
+                                        <img src="http://tb.himg.baidu.com/sys/portrait/item/a58ce58fabe585bde4b98b4b696c6c706967492d" style="width: 40px; height: 40px;">
+                                    </div>
+                                    <div style="width: 94%; float: left; margin-top: -6px;">
+                                        <span style="color: rgb(140, 140, 140); margin-left: 8px; font-size: 14px;">马上有钱</span>
+                                        <span class="icon_praise_gray" style=" width:9%; height:22px; float: right; line-height:30px;"><font style="margin-left: 20px; font-size: 14px;">18689</font></span>
+
+                                        <div style="padding: 3px 0px 8px 8px; color:#555; font-size: 16px;">
+                                            关注公众号了，看起来很方便！下面还有有阅读记录，我已经看到1000多章了，越看越好看！
+                                        </div>
+                                        <span style="padding: 10px; color: rgb(140, 140, 140); font-size: 10px;">3小时前</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="clear: both;"></div>
+
+                            <div style="margin: 18px 0px 0 0px; overflow:hidden; padding-bottom:15px; border-bottom: 1px #ccc dotted; font-size: 14px; line-height:24px;">
+                                <div>
+                                    <div style="width: 6%; float: left;">
+                                        <img src="http://tb.himg.baidu.com/sys/portrait/item/47d1e591a8e591a8e69db0e69db0e4bca6e4bca631547a" style="width: 40px; height: 40px;">
+                                    </div>
+                                    <div style="width: 94%; float: left; margin-top: -6px;">
+                                        <span style="color: rgb(140, 140, 140); margin-left: 8px; font-size: 14px;">露易湿衫-</span>
+                                        <span class="icon_praise_gray" style=" width:9%; height:22px; float: right; line-height:30px;"><font style="margin-left: 20px; font-size: 14px;">11693</font></span>
+
+                                        <div style="padding: 3px 0px 8px 8px; color:#555; font-size: 16px;">
+                                            已关注，公众号里面还有很多其他小说都挺不错，估计接下来半年都有的看了~
+                                        </div>
+                                        <span style="padding: 10px; color: rgb(140, 140, 140); font-size: 10px;">18小时前</span>
+                                    </div>
+                                </div>
+                            </div><div style="clear: both;"></div>
+
+
+
+                            <div style="clear: both;"></div>
+                            <br>
+                            <!--版权-->
+                            <p style="text-align: center;"> <span style="font-size: 10px; color: rgb(224, 224, 224);" id="bottom_name_view_2">{{bottom_name}}</p>
+                        </div>
+                    </div>
+                    <div class="qr_code_pc_outer">
+                        <div class="qr_code_pc_inner">
+                            <div class="qr_code_pc">
+                                <p><img src="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/ra.png"></p>
+                                <!-- 右边二维码-->
+                                <p style="text-align: center"><img class="qr_code" id="qr_code_rigth" style="width: 95%" src="{{qr_code}}"></p>
+                                <p style=""><img src="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/rb.gif"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div style="display: none">
+    {{tj_url}}
+</div>
+</body>
+<script language="javascript" type="text/javascript">
+    let list_id = '{{id}}';
+    let qr_code = '{{qr_code}}';
+    let update_at = '{{update_at}}';
+    let img_url = '{{head_img}}';
+
+    $("#closeOnClick").on("click",function(){
+        // window.location.href= 'http://hot.kkkk.la/ex/listw/pc1.html?platform_id=' + getCookie('platform_id');
+        // window.location.href= 'https://qqvip.oss-cn-shanghai.aliyuncs.com/vip/index.html';
+        window.location.href= 'https://qqvip.oss-cn-shanghai.aliyuncs.com/vip/tz.html';
+    });
+    $(document).ready(function() {
+        $('#head_img_div').hide();
+        $('#head_img').attr('src',img_url);
+        $('#head_img').show();
+
+        let myDate = new Date();
+        let qr_code_s = qr_code.split('@@@');
+        let update_at_c = (new Date(update_at)).getTime() / 1000;
+
+        let year=myDate.getFullYear();        //获取当前年
+        let month=myDate.getMonth()+1;   //获取当前月
+        let date=myDate.getDate();            //获取当前日
+
+
+        let h=myDate.getHours();              //获取当前小时数(0-23)
+        let m=myDate.getMinutes();          //获取当前分钟数(0-59)
+        let s=myDate.getSeconds();
+        let now = year+'-'+getNow(month)+"-"+getNow(date);
+        let now_c = (new Date(now)).getTime() / 1000;
+
+        let time = (now_c - update_at_c) / 24/3600;
+
+        if (time >= qr_code_s.length) {
+            time = time % qr_code_s.length;
+        }
+        $('#qr_code_bottom').attr('src',qr_code_s[time]);
+        $('#qr_code_rigth').attr('src',qr_code_s[time]);
+
+        //监听滚动条
+        $("#big_div").scroll(function(){
+
+            var divHeight = $(this).height();
+            var nScrollHeight = $(this)[0].scrollHeight;
+            var nScrollTop = $(this)[0].scrollTop;
+            if(nScrollTop + divHeight + 350 >= nScrollHeight) {
+                //请求数据
+                $('#closeOnClick').hide();
+            }
+        });
+    });
+    function getNow(s) {
+        return s < 10 ? '0' + s: s;
+    }
+</script>
+<script src="/static/jmtj.js?v=3.2"></script>
+
+</html>
+
+<script type="text/html" id="html2">
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>今日关注 - 你关注的才是头条</title>
+        <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="shortcut icon" href="https://p5.ssl.qhimg.com/t013ed96d9c4cf74064.png" type="image/x-icon">
+        <style>
+            /* http://meyerweb.com/eric/tools/css/reset/
+          }
+          }
+       v2.0 | 20110126
+       License: none (public domain)
+    */
+
+            html,
+            body,
+            div,
+            span,
+            applet,
+            object,
+            iframe,
+            h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6,
+            p,
+            blockquote,
+            pre,
+            a,
+            abbr,
+            acronym,
+            address,
+            big,
+            cite,
+            code,
+            del,
+            dfn,
+            em,
+            img,
+            ins,
+            kbd,
+            q,
+            s,
+            samp,
+            small,
+            strike,
+            strong,
+            sub,
+            sup,
+            tt,
+            var,
+            b,
+            u,
+            i,
+            center,
+            dl,
+            dt,
+            dd,
+            ol,
+            ul,
+            li,
+            fieldset,
+            form,
+            label,
+            legend,
+            table,
+            caption,
+            tbody,
+            tfoot,
+            thead,
+            tr,
+            th,
+            td,
+            article,
+            aside,
+            canvas,
+            details,
+            embed,
+            figure,
+            figcaption,
+            footer,
+            header,
+            hgroup,
+            menu,
+            nav,
+            output,
+            ruby,
+            section,
+            summary,
+            time,
+            mark,
+            audio,
+            video {
+                margin: 0;
+                padding: 0;
+                border: 0;
+                font-size: 14px;
+                font: inherit;
+                vertical-align: baseline;
+            }
+
+            /* HTML5 display-role reset for older browsers */
+            article,
+            aside,
+            details,
+            figcaption,
+            figure,
+            footer,
+            header,
+            hgroup,
+            menu,
+            nav,
+            section {
+                display: block;
+            }
+
+            body {
+                line-height: 1;
+            }
+
+            ol,
+            ul {
+                list-style: none;
+            }
+
+            blockquote,
+            q {
+                quotes: none;
+            }
+
+            blockquote:before,
+            blockquote:after,
+            q:before,
+            q:after {
+                content: '';
+                content: none;
+            }
+
+            table {
+                border-collapse: collapse;
+                border-spacing: 0;
+            }
+
+            a {
+                text-decoration: none;
+                color: #333
+            }
+
+            a img {
+                vertical-align: top;
+            }
+        </style>
+        <style>
+            #header {
+                background-color: #1f1f1f;
+                height: 45px;
+                line-height: 45px;
+            }
+
+            #header .inner {
+                width: 1240px;
+                margin: 0 auto;
+                height: 45px;
+                position: relative;
+                z-index: 1;
+                color: #a8b8c5;
+            }
+
+            #header ul {
+                margin-left: 140px;
+            }
+
+            #header li {
+                float: left;
+                margin-right: 24px;
+            }
+
+            #header a {
+                color: #a8b8c5;
+                text-decoration: none;
+            }
+
+            #header a:hover {
+                text-decoration: underline;
+            }
+
+            #header .right {
+                position: absolute;
+                right: 0;
+                top: 0;
+            }
+
+            #body {
+                width: 1240px;
+                margin: 0 auto;
+            }
+
+            #ex {
+                float: left;
+                width: 120px;
+                text-align: center;
+                position: fixed;
+                top: 0;
+                font-size: 18px;
+            }
+
+            #ex ul {
+                margin-top: 5px;
+                background-color: #eee;
+                padding: 10px 0;
+                border-radius:5px;
+            }
+
+            #ex i {
+                color: #dadada;
+                margin-right: 4px;
+                font-size: 20px;
+                margin-right: 10px;
+            }
+
+            #ex li {
+                height: 42px;
+                line-height: 42px;
+            }
+
+            #ex li a {
+                color: #2c2c2c
+            }
+
+            #ex li a:hover,
+            #ex li a:hover i {
+                color: #e44235;
+            }
+
+            #ex li a:hover span {
+                border-bottom: 2px solid #ed4040;
+            }
+
+            #main {
+                width: 750px;
+                float: left;
+                margin-top: 15px;
+                margin-left: 136px;
+            }
+
+            #sub {
+                float: right;
+                width: 336px;
+                margin-top: 15px;
+            }
+
+            .noread {
+                height: 32px;
+                font-size: 14px;
+                text-align: center;
+                display: block;
+                line-height: 32px;
+                background-color: #82b5f7;
+                color: #fff;
+                text-decoration: none;
+            }
+        </style>
+    </head>
+
+    <body>
+    <div id="header">
+        <div class="inner">
+
+            <ul>
+                <li>
+                    <a href="###">
+                        首页
+                    </a>
+                </li>
+                <li>
+                    <a href="###">
+                        搞笑
+                    </a>
+                </li>
+                <li>
+                    <a href="###">
+                        资讯
+                    </a>
+                </li>
+                <li>
+                    <a href="###">
+                        娱乐
+                    </a>
+                </li>
+                <li>
+                    <a href="###">
+                        <i class="fa fa-list"></i>
+                    </a>
+                </li>
+            </ul>
+            <div class="right">
+                <a href="###">登录</a>/
+                <a href="###">注册</a>
+            </div>
+        </div>
+    </div>
+    <div id="body">
+        <div id="ex">
+            <img src="/static/img/logo.gif" alt="" class="logo">
+            <ul>
+                <li class="active"><a href="###" style="font-weight: bold;color:#e44235;"><i class="fa fa-thumbs-o-up"
+                                                                                             style="color:#e44235;"></i><span
+                        style="color:#e44235;border-bottom: 2px solid #ed4040;">推荐</span></a></li>
+                <li><a href="###"><i class="fa fa-smile-o"></i><span>搞笑</span></a></li>
+                <li><a href="###"><i class="fa fa-star-o"></i><span>娱乐</span></a></li>
+                <li><a href="###"><i class="fa fa-rocket"></i><span>军事</span></a></li>
+                <li><a href="###"><i class="fa fa-user-o"></i><span>美女</span></a></li>
+                <li><a href="###"><i class="fa fa-book"></i><span>博览</span></a></li>
+                <li><a href="###"><i class="fa fa-history"></i><span>历史</span></a></li>
+                <li><a href="###"><i class="fa fa-shopping-cart"></i><span>时尚</span></a></li>
+                <li><a href="###"><i class="fa fa-soccer-ball-o"></i><span>体育</span></a></li>
+                <li><a href="###"><i class="fa fa-car"></i><span>汽车</span></a></li>
+                <li><a href="###"><i class="fa fa-globe"></i><span>自然</span></a></li>
+                <li><a href="###"><i class="fa fa-cube"></i><span>科技</span></a></li>
+                <li><a href="###"><i class="fa fa-gamepad"></i><span>游戏</span></a></li>
+                <li><a href="###"><i class="fa fa-cutlery"></i><span>家居</span></a></li>
+            </ul>
+        </div>
+        <div id="main">
+
+            <a class="blur0" href="#" target="_blank" style="display: block;position: relative;z-index:1;margin-bottom: 10px;">
+                <img src="{{head_img}}" alt="" style="width:100%;min-height: 360px;max-height: 420px;">
+                <p style="position: absolute;bottom:0;left:0;right:0;background-color: rgba(0,0,0,.5);color:#fff;height:50px;line-height: 50px;font-size:22px; padding:0 10px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">
+                    {{title}}</p>
+            </a>
+            <a href="javascript:location.reload();" class="noread" style="background: red;color: yellow;margin-bottom:8px;">温馨提示：以上资讯未满18岁禁止阅读！</a>
+
+            <div id="main-other">
+
+            <div style="height:100px;position: relative;z-index:1;padding:15px 0;border-bottom: 1px dashed #d7d7d7;">
+                <a href="/static/list/dszzxy.html" target="_blank"><img src="/static/img/dszzxy.jpg" alt="" style="float:left"></a>
+                <div style="overflow:hidden">
+                    <h3 style="margin-bottom:60px; margin-left:10px;font-size:18px;"><a href="/static/list/dszzxy.html" target="_blank">主任宣布病人死亡，毕业实习生几针竟救活了，主任瞬间惊呆了！</a></h3>
+                    <div>
+                        <span
+                                style="margin-left:10px; display: inline-block;height:18px;width:35px;line-height: 18px;vertical-align: middle;border: 1px solid #fea1ab; color:#fea1ab;font-size: 12px;text-align: center;">生活</span>
+                        <span style="font-size: 12px;color:#867a88;">来源：微观焦点 | 10分钟前</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="height:100px;position: relative;z-index:1;padding:15px 0;border-bottom: 1px dashed #d7d7d7;">
+                <a href="/static/list/sjlw.html" target="_blank"><img src="/static/img/sjlw.jpg" alt="" style="float:left"></a>
+                <div style="overflow:hidden">
+                    <h3 style="margin-bottom:60px; margin-left:10px; font-size:18px;"><a href="/static/list/sjlw.html" target="_blank">美女总裁嫌弃未婚夫是窝囊废，没想到他是雇佣兵中顶尖高手！</a></h3>
+                    <div>
+                        <span
+                                style="margin-left:10px;  display: inline-block;height:18px;width:35px;line-height: 18px;vertical-align: middle;border: 1px solid #fea1ab; color:#fea1ab;font-size: 12px;text-align: center;">热门</span>
+                        <span style="font-size: 12px;color:#867a88;">来源：情感故事 | 13分钟前</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="height:100px;position: relative;z-index:1;padding:15px 0;border-bottom: 1px dashed #d7d7d7;">
+                <a href="/static/list/chnd.html" target="_blank"><img src="/static/img/chnd.jpg" alt="" style="float:left"></a>
+                <div style="overflow:hidden">
+                    <h3 style="margin-bottom:60px; margin-left:10px; font-size:18px;"><a href="/static/list/chnd.html" target="_blank">世界第一黑帮老大逝世，追悼会出动20000特警维持秩序……</a></h3>
+                    <div>
+                        <span
+                                style="margin-left:10px;  display: inline-block;height:18px;width:35px;line-height: 18px;vertical-align: middle;border: 1px solid #fea1ab; color:#fea1ab;font-size: 12px;text-align: center;">推荐</span>
+                        <span style="font-size: 12px;color:#867a88;">来源：身边事儿 | 19分钟前</span>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="margin:20px 0; font-size:18px;"><a href="/static/list/lmbs.html" target="_blank">一代战神回家，看到女儿住狗窝，吃剩菜剩饭，他瞬间怒了！</a></h3>
+            <a href="/static/list/lmbs.html" target="_blank"><img src="/static/img/lmbs.jpg" alt="" style="width:100%"></a>
+
+            <div style="margin:10px 0">
+                <span
+                        style="display: inline-block;height:18px;width:35px;line-height: 18px;vertical-align: middle;border: 1px solid #fea1ab; color:#fea1ab;font-size: 12px;text-align: center;">精选</span>
+                <span style="font-size: 12px;color:#867a88;">来源：军事锐评 | 2小时前</span>
+            </div>
+
+            <div style="height:100px;position: relative;z-index:1;padding:15px 0;border-bottom: 1px dashed #d7d7d7;">
+                <a href="/static/list/zjnx_shiti.html" target="_blank"><img src="/static/img/zjnx_shiti.jpg" alt="" style="float:left"></a>
+                <div style="overflow:hidden">
+                    <h3 style="margin-bottom:60px; margin-left:10px;font-size:18px;"><a href="/static/list/zjnx_shiti.html" target="_blank">人死后为什么要停尸3天？专家说这并不是迷信，原因竟然是……</a></h3>
+                    <div>
+                        <span
+                                style="margin-left:10px; display: inline-block;height:18px;width:35px;line-height: 18px;vertical-align: middle;border: 1px solid #fea1ab; color:#fea1ab;font-size: 12px;text-align: center;">精选</span>
+                        <span style="font-size: 12px;color:#867a88;">来源：封建观点 | 10分钟前</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="height:100px;position: relative;z-index:1;padding:15px 0;border-bottom: 1px dashed #d7d7d7;">
+                <a href="/static/list/gsyx.html" target="_blank"><img src="/static/img/gsyx.jpg" alt="" style="float:left"></a>
+                <div style="overflow:hidden">
+                    <h3 style="margin-bottom:60px; margin-left:10px; font-size:18px;"><a href="/static/list/gsyx.html" target="_blank">23岁姑娘从不穿胸罩，去医院检查，脱掉上衣后医生惊呆了！</a></h3>
+                    <div>
+                        <span
+                                style="margin-left:10px;  display: inline-block;height:18px;width:35px;line-height: 18px;vertical-align: middle;border: 1px solid #fea1ab; color:#fea1ab;font-size: 12px;text-align: center;">社会</span>
+                        <span style="font-size: 12px;color:#867a88;">来源：医疗世家 | 12分钟前</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="height:100px;position: relative;z-index:1;padding:15px 0;border-bottom: 1px dashed #d7d7d7;">
+                <a href="/static/list/ksjz.html" target="_blank"><img src="/static/img/ksjz.jpg" alt="" style="float:left"></a>
+                <div style="overflow:hidden">
+                    <h3 style="margin-bottom:60px; margin-left:10px; font-size:18px;"><a href="/static/list/ksjz.html" target="_blank">我毛都还没长齐，你竟让我去当上门女婿？看到美女后他口水……</a></h3>
+                    <div>
+                        <span
+                                style="margin-left:10px;  display: inline-block;height:18px;width:35px;line-height: 18px;vertical-align: middle;border: 1px solid #fea1ab; color:#fea1ab;font-size: 12px;text-align: center;">推荐</span>
+                        <span style="font-size: 12px;color:#867a88;">来源：吴老板娱乐 | 27分钟前</span>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="margin:20px 0; font-size:18px;"><a href="/static/list/ndzs.html" target="_blank">他出生时惊现祥瑞，活了1072岁，经历7个朝代，死后7天竟......</a></h3>
+            <a href="/static/list/ndzs.html" target="_blank"><img src="/static/img/ndzs.gif" alt="" style="width:100%"></a>
+
+            <div style="margin:10px 0">
+                <span
+                        style="display: inline-block;height:18px;width:35px;line-height: 18px;vertical-align: middle;border: 1px solid #fea1ab; color:#fea1ab;font-size: 12px;text-align: center;">历史</span>
+                <span style="font-size: 12px;color:#867a88;">来源：今日头条 | 5小时前</span>
+            </div>
+
+            <div style="height:100px;position: relative;z-index:1;padding:15px 0;border-bottom: 1px dashed #d7d7d7;">
+                <a href="/static/list/zjnx_baisui.html" target="_blank"><img src="/static/img/zjnx_baisui.jpg" alt="" style="float:left"></a>
+                <div style="overflow:hidden">
+                    <h3 style="margin-bottom:60px; margin-left:10px;font-size:18px;"><a href="/static/list/zjnx_baisui.html" target="_blank">村里有一百岁老人去世之前咬了孙子一口，3天后孙子竟.....</a></h3>
+                    <div>
+                        <span
+                                style="margin-left:10px; display: inline-block;height:18px;width:35px;line-height: 18px;vertical-align: middle;border: 1px solid #fea1ab; color:#fea1ab;font-size: 12px;text-align: center;">精选</span>
+                        <span style="font-size: 12px;color:#867a88;">来源：封建观点 | 10分钟前</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="height:100px;position: relative;z-index:1;padding:15px 0;border-bottom: 1px dashed #d7d7d7;">
+                <a href="/static/list/ndzs.html" target="_blank"><img src="/static/img/shaonian.jpg" alt="" style="float:left"></a>
+                <div style="overflow:hidden">
+                    <h3 style="margin-bottom:60px; margin-left:10px; font-size:18px;"><a href="/static/list/ndzs.html" target="_blank">少年心怀慈悲，救下一只小兽，多年后长大，少年因它浴火重生！</a></h3>
+                    <div>
+                        <span
+                                style="margin-left:10px;  display: inline-block;height:18px;width:35px;line-height: 18px;vertical-align: middle;border: 1px solid #fea1ab; color:#fea1ab;font-size: 12px;text-align: center;">热门</span>
+                        <span style="font-size: 12px;color:#867a88;">来源：情感故事 | 15分钟前</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="height:100px;position: relative;z-index:1;padding:15px 0;border-bottom: 1px dashed #d7d7d7;">
+                <a href="/static/list/sjlw_duonan.html" target="_blank"><img src="/static/img/sjlw_duonan.jpg" alt="" style="float:left"></a>
+                <div style="overflow:hidden">
+                    <h3 style="margin-bottom:60px; margin-left:10px; font-size:18px;"><a href="/static/list/sjlw_duonan.html" target="_blank">多个男人和一个女人的手机照片流出，我看到最恶心的一面！</a></h3>
+                    <div>
+                        <span
+                                style="margin-left:10px;  display: inline-block;height:18px;width:35px;line-height: 18px;vertical-align: middle;border: 1px solid #fea1ab; color:#fea1ab;font-size: 12px;text-align: center;">推荐</span>
+                        <span style="font-size: 12px;color:#867a88;">来源：身边事儿 | 20分钟前</span>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="margin:20px 0; font-size:18px;"><a href="/static/list/lmbs_laoren.html" target="_blank">功臣名就归来，却见娇妻被调戏、父亲死因不明，战神怒了！</a></h3>
+            <a href="/static/list/lmbs_laoren.html" target="_blank"><img src="/static/img/lmbs_laoren.gif" alt="" style="width:100%"></a>
+
+            <div style="margin:10px 0">
+                <span
+                        style="display: inline-block;height:18px;width:35px;line-height: 18px;vertical-align: middle;border: 1px solid #fea1ab; color:#fea1ab;font-size: 12px;text-align: center;">热门</span>
+                <span style="font-size: 12px;color:#867a88;">来源：生活故事 | 9小时前</span>
+            </div>
+
+            <a href="javascript:location.reload();" class="noread">您有未读新闻，点击查看</a>
+
+            <div style="height:100px;position: relative;z-index:1;padding:15px 0;border-bottom: 1px dashed #d7d7d7;">
+                <a href="/static/list/jsmn.html" target="_blank"><img src="/static/img/jsmn.jpg" alt="" style="float:left"></a>
+                <div style="overflow:hidden">
+                    <h3 style="margin-bottom:60px; margin-left:10px; font-size:18px;"><a href="/static/list/jsmn.html" target="_blank">丈夫消失六年，妻子去销户口，相关部门：他档案是绝密，无法注销</a></h3>
+                    <div>
+                        <span
+                                style="margin-left:10px;  display: inline-block;height:18px;width:35px;line-height: 18px;vertical-align: middle;border: 1px solid #fea1ab; color:#fea1ab;font-size: 12px;text-align: center;">精华</span>
+                        <span style="font-size: 12px;color:#867a88;">来源：军史秘笈 | 16分钟前</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="height:100px;position: relative;z-index:1;padding:15px 0;border-bottom: 1px dashed #d7d7d7;">
+                <a href="/static/list/qxgl.html" target="_blank"><img src="/static/img/qxgl.jpg" alt="" style="float:left"></a>
+                <div style="overflow:hidden">
+                    <h3 style="margin-bottom:60px; margin-left:10px; font-size:18px;"><a href="/static/list/qxgl.html" target="_blank">娇妻嫌弃丈夫无能，婚后一直分床睡，老婆闺蜜却说他很厉害！</a></h3>
+                    <div>
+                        <span
+                                style="margin-left:10px;  display: inline-block;height:18px;width:35px;line-height: 18px;vertical-align: middle;border: 1px solid #fea1ab; color:#fea1ab;font-size: 12px;text-align: center;">精华</span>
+                        <span style="font-size: 12px;color:#867a88;">来源：夫妻房事 | 21分钟前</span>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+
+        </div>
+
+
+        <div id="sub">
+            <div class="top" id="rightFix">
+                <div style="width:336px;height:280px;">
+                    <a href="/static/list/zgzs.html" id="fix" target="_blank"><img src="/static/img/pc1-2.jpg" alt="" style="width:336px;height:280px"></a>
+                </div>
+                <div style="width:336px;">
+                    <div style="margin:12px 0 7px">
+                        <span
+                                style="display: inline-block; height:18px;width:4px;background-color: #e44235;margin-right:5px;vertical-align: middle;"></span><span>阅读</span><span
+                            style="color: #e44235;">排行</span>
+                    </div>
+                    <ul style="background-color: #f7f7f7;overflow: hidden;">
+                        <li style="float:left;width:50%;margin-bottom: 10px;">
+                            <a href="/static/list/lxkx.html" target="_blank"><img src="/static/img/lxkx.jpg" alt="" style="margin-bottom:7px;width:162px;height:95px;"></a>
+                            <p style="width:162px;font-size:12px;color:#312637;line-height:1.5;"><a href="/static/list/lxkx.html" target="_blank">私人飞机上，空姐一般要做什么？富豪说出了其中的秘密！</a></p>
+                        </li>
+                        <li style="float:left;width:50%;margin-bottom: 10px;">
+                            <a href="/static/list/hmzs.html" target="_blank"><img src="/static/img/hmzs.jpg" alt="" style="margin-bottom:7px;width:162px;height:95px;margin-left: 10px;"></a>
+                            <p style="width:162px;font-size:12px;color:#312637;line-height:1.5;;margin-left: 10px;"><a href="/static/list/hmzs.html" target="_blank">美女校花得知前男友原来是富二代，校园当众跪求复合……</a></p>
+                        </li>
+                        <li style="float:left;width:50%;margin-bottom: 10px;">
+                            <a href="/static/list/ndzs.html" target="_blank"><img src="/static/img/wddh.jpg" alt="" style="margin-bottom:7px;width:162px;height:95px;"></a>
+                            <p style="width:162px;font-size:12px;color:#312637;line-height:1.5;"><a href="/static/list/ndzs.html" target="_blank">师傅临终前叫他守墓五年，五年后挖开师傅坟墓，发现……</a></p>
+                        </li>
+                        <li style="float:left;width:50%;margin-bottom: 10px;">
+                            <a href="/static/list/mndcqjw.html" target="_blank"><img src="/static/img/mndcqjw.jpg" alt="" style="margin-bottom:7px;width:162px;height:95px;margin-left: 10px;"></a>
+                            <p style="width:162px;font-size:12px;color:#312637;line-height:1.5;;margin-left: 10px;"><a href="/static/list/mndcqjw.html" target="_blank">一女孩嫁给黑人的新婚之夜离奇死亡，原因让人难以启齿…</a></p>
+                        </li>
+                        <li style="float:left;width:50%;margin-bottom: 10px;">
+                            <a href="/static/list/tjzw.html" target="_blank"><img src="/static/img/tjzw.jpg" alt="" style="margin-bottom:7px;height:95px;width:162px"></a>
+                            <p style="width:162px;font-size:12px;color:#312637;line-height:1.5;"><a href="/static/list/tjzw.html" target="_blank">一个窝囊废，丈母娘指着女婿骂道！没想到女婿竟然是……</a></p>
+                        </li>
+                        <li style="float:left;width:50%;margin-bottom: 10px;">
+                            <a href="/static/list/cjwz.html" target="_blank"><img src="/static/img/cjwz.jpg" alt="" style="margin-bottom:7px;width:162px;height:95px;margin-left: 10px;"></a>
+                            <p style="width:162px;font-size:12px;color:#312637;line-height:1.5;;margin-left: 10px;"><a href="/static/list/cjwz.html" target="_blank">美女总裁骂老公太无能，亮出身份后老婆百依百顺！</a></p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    </body>
+    </html>
+</script>
+
+<div style="display: none;">
+    <script type="text/javascript" src="https://v1.cnzz.com/z_stat.php?id=1278881076&web_id=1278881076"></script>
+</div>
+<script type="text/javascript">var allowDomains='{{allowDomains}}';</script>
+<script type="text/javascript" src="/static/blur.jump.copy.js?v=1.2"></script>

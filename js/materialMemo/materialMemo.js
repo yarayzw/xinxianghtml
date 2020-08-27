@@ -47,6 +47,7 @@ function initTable() {
                 // id : {$_GET['id']},
                 head : {'token' : getCookie('token')},
                 name : $('#name').val(),
+                platform_id:$("#platform_search").selectpicker('val')
             };
 
             return params;
@@ -93,8 +94,14 @@ function initTable() {
                 width : '10%',
                 align: 'center',
                 formatter: function(value,row,index){
-                    var d='<a href="#" mce_href="#" data_id="'+row.id+'"  onclick="editMaterialMemo(this)" >编辑</a> ';
-                    var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="delMaterialMemo(this)" >删除</a>';
+                    let d = '';
+                    if($.inArray('admin/material_memo/editmaterialmemo',u_role_url) !== -1) {
+                        d = '<a href="javascript:void(0)" mce_href="#" data_id="'+row.id+'"  onclick="editMaterialMemo(this)" >编辑</a> ';
+                    }
+                    let f = '';
+                    if($.inArray('admin/material_memo/delmaterial',u_role_url) !== -1) {
+                        f = '<a href="javascript:void(0)" mce_href="#" " data_id="'+row.id+'"  onclick="delMaterialMemo(this)" >删除</a>';
+                    }
                     return d+f;
                 }
             }

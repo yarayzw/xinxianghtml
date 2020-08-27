@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>筋斗云管理系统</title>
+    <link href="../css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="../css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="../css/animate.min.css" rel="stylesheet">
+    <link href="../css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <link href="../css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link href="../css/plugins/bootstrap-table/bootstrap-table.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../js/plugins/bootstrap-select-1.13.9/dist/css/bootstrap-select.css">
+
+</head>
+<style type="text/css">
+    .table {table-layout:fixed;}
+</style>
+<body>
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="row row-lg">
+            <div class="col-sm-12">
+                <div class="btn-group hidden-xs" id="promotionLinkToolbar" role="group">
+                </div>
+                <table id="promotionLinkTable" >
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div >
+    <div class="form-group">
+        <form id="list_search_faci">
+            <div class="col-sm-10">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="input-group m-b">
+                            <span class="input-group-addon" >公众号名称</span>
+                            <input type="text" id="channel_name" class="form-control" aria-label="..." placeholder="" >
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="input-group m-b">
+                            <span class="input-group-addon" >备注</span>
+                            <input type="text" id="remarks" class="form-control" aria-label="..." placeholder="" >
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="input-group m-b">
+                            <span class="input-group-addon" >小说名称</span>
+                            <input type="text" id="novel_name" class="form-control" aria-label="..." placeholder="" >
+                        </div>
+                    </div>
+                    <div class="col-md-1" id="department_div" style="display: none">
+                        <div class="input-group m-b">
+                            <select id="department_search" class="selectpicker" data-live-search="true">
+                                <option value="0">我的</option>
+                                <option value="-1">全部人员</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3" style="width: 250px;">
+                        <div class="input-group m-b"><span class="input-group-addon">开始时间</span>
+                            <input type="text" class="laydate-icon form-control layer-date" name="start_time" id="start_time" value=""  />
+                        </div>
+                    </div>
+                    <div class="col-md-3" style="width: 250px;">
+                        <div class="input-group m-b"><span class="input-group-addon">结束时间</span>
+                            <input type="text" class="laydate-icon form-control layer-date" name="end_time" id="end_time" value=""  />
+                        </div>
+                    </div>
+                    <div class="form-group" id="cjzt">
+                        <div class="col-sm-4">
+                            <label class="control-label">采集状态 :</label>
+
+                            <div class="radio-inline">
+                                <label class="radio-inline">
+                                    <input type="radio" value="2" name="is_gather_s" >全部
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" value="0" name="is_gather_s" checked>正常
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" value="1" name="is_gather_s">暂停
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" id="hbzt">
+                        <div class="col-sm-4">
+                            <label class="control-label">回本状态 :</label>
+
+                            <div class="radio-inline">
+                                <label class="radio-inline">
+                                    <input type="radio" value="2" name="is_back_s" checked>全部
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" value="0" name="is_back_s">未回本
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" value="1" name="is_back_s">已回本
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                         <span class="input-group-btn">
+                            <button class="btn btn-success" type="button" onclick="fac_search()">搜索</button>
+                        </span>
+                    </div>
+                    <div class="col-md-1" id="qx_bb_1" style="display: none">
+                         <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button" onclick="reportGenerationAll()">生成报表</button>
+                        </span>
+                    </div>
+                    <!--                    <div class="col-md-1">-->
+                    <!--                         <span class="input-group-btn">-->
+                    <!--                            <button class="btn btn-default" type="button" onclick="addpromotionLink()">添加</button>-->
+                    <!--                        </span>-->
+                    <!--                    </div>-->
+                </div>
+            </div>
+            <fieldset>
+
+                &nbsp;&nbsp;&nbsp;&nbsp;
+            </fieldset>
+        </form>
+    </div>
+</div>
+
+<div class="ibox float-e-margins" id="lookAll" style="display: none">
+    <div class="ibox-content">
+        <div class="row row-lg">
+            <div class="col-sm-12">
+                <div class="btn-group hidden-xs" id="promotionLinkDayToolbar" role="group">
+                    <div class="col-md-1" id="qx_bb_2" style="display: none">
+                         <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" onclick="reportGeneration()">生成报表</button>
+                        </span>
+                    </div>
+                </div>
+                <table id="promotionLinkDayTable" >
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" id="add" style="display: none">
+    <div class="ibox-content">
+        <form class="form-horizontal m-t" id="commentForm" method="post">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">广告费 :</label>
+                <div class="col-sm-8">
+                    <input type="number" class="form-control" name="consum" value=""  />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">开始推广时间 :</label>
+                <div class="col-sm-8">
+                    <input type="text" class="laydate-icon form-control layer-date" name="link_create_time" id="link_create_time" value=""  />
+
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row" id="bb" style="display: none">
+    <div class="ibox-content">
+        <form class="form-horizontal m-t" id="" method="post">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">报表名称 :</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="bb_name" value=""  />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">日期跨度 :</label>
+                <div class="col-sm-8">
+                    <input type="number" class="form-control" id="bb_time" name="bb_time" value="1" min="1" onkeyup="emmm(this)"  />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">起始日期 :</label>
+                <div class="col-sm-8">
+                    <input type="text" disabled="disabled" class="form-control" id="start_time_bb"   />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">最大跨度 :</label>
+                <div class="col-sm-8">
+                    <input type="text" disabled="disabled" class="form-control" id="bb_time_max"   />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+
+<script src="../js/jquery.min.js?v=2.1.4"></script>
+
+<script src="../js/public.js"></script>
+<script src="../js/bootstrap.min.js?v=3.3.6"></script>
+<script src="../js/layer/layer.js"></script>
+<script src="../js/laydate/laydate.js"></script>
+
+<script src="../js/content.min.js"></script>
+<script src="../js/plugins/bootstrap-table/bootstrap-table.js"></script>
+<script src="../js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="../js/demo/bootstrap-table-demo.min.js"></script>
+<script src="../js/bootstrapValidator.js"></script>
+<script src="../js/bootstrapValidator.min.js"></script>
+<script src="../js/index.js"></script>
+<script src="../js/plugins/bootstrap-select-1.13.9/js/bootstrap-select.js"></script>
+<script src="../js/moment.min.js"></script>
+
+
+<script>
+    let min = 1;
+    let max = 1;
+    function emmm(obj) {
+        if($(obj).val() < min){
+            $(obj).val(min);
+        }
+        if($(obj).val() > max){
+            $(obj).val(max);
+        }
+    }
+    function getDay(num, str) {
+        var today = new Date();
+        var nowTime = today.getTime();
+        var ms = 24*3600*1000*num;
+        today.setTime(parseInt(nowTime + ms));
+        var oYear = today.getFullYear();
+        var oMoth = (today.getMonth() + 1).toString();
+        if (oMoth.length <= 1) oMoth = '0' + oMoth;
+        var oDay = today.getDate().toString();
+        if (oDay.length <= 1) oDay = '0' + oDay;
+        return oYear + str + oMoth + str + oDay;
+    }
+    let start_time = getDay(-29, '-');
+    let end_time = getDay(-2, '-');
+    let link_create_time = getDay(-1, '-');
+
+
+    //开始推广时间选择器
+    laydate.render({
+        elem: '#link_create_time',
+        type:'date',
+        value:moment().format('YYYY-MM-DD'),
+        done: function(value, date, endDate){
+            link_create_time = value;
+        }
+    });
+
+
+    $(document).ready(function () {
+        if($.inArray('admin/promotion_link/reportgenerationall',u_role_url) === -1){
+            $('#qx_bb_1').hide();
+        }
+        if($.inArray('admin/promotion_link/lookall',u_role_url) !== -1){
+            $('#qx_bb_1').show();
+            $('#qx_bb_2').show();
+            laydate.render({
+                elem: '#start_time' //指定元素
+                ,event:"focus",
+                value: getDay(-29, '-'),
+                done: function(value, date, endDate){
+                    start_time = value;
+                    var startDate = new Date(value).getTime();
+                    var endTime = new Date($('#end_time').val()).getTime();
+                    if(endTime < startDate) {
+                        layer.msg('结束时间不能小于开始时间');
+                        $('#start_time').val($('#end_time').val());
+                    }
+                }
+            });
+            laydate.render({
+                elem: '#end_time' //指定元素
+                ,event:"focus",
+                value: getDay(-2, '-'),
+                done: function(value, date, endDate){
+                    end_time = value;
+                    var startDate = new Date($('#start_time').val()).getTime();
+                    var endTime = new Date(value).getTime();
+                    if(endTime < startDate) {
+                        layer.msg('结束时间不能小于开始时间');
+                        $('#end_time').val($('#start_time').val());
+                    }
+                }
+            });
+        }else {
+            $('#cjzt').hide();
+            $('#hbzt').hide();
+            laydate.render({
+                elem: '#start_time' //指定元素
+                ,event:"focus",
+                value: getDay(-15, '-'),
+                min: getDay(-15, '-'),
+                done: function(value, date, endDate){
+                    start_time = value;
+                    var startDate = new Date(value).getTime();
+                    var endTime = new Date($('#end_time').val()).getTime();
+                    if(endTime < startDate) {
+                        layer.msg('结束时间不能小于开始时间');
+                        $('#start_time').val($('#end_time').val());
+                    }
+                }
+            });
+            laydate.render({
+                elem: '#end_time' //指定元素
+                ,event:"focus",
+                value: getDay(-2, '-'),
+                done: function(value, date, endDate){
+                    end_time = value;
+                    var startDate = new Date($('#start_time').val()).getTime();
+                    var endTime = new Date(value).getTime();
+                    if(endTime < startDate) {
+                        layer.msg('结束时间不能小于开始时间');
+                        $('#end_time').val($('#start_time').val());
+                    }
+                }
+            });
+        }
+
+        initTable();
+    });
+
+    function  getDaysBetween(dateString1,dateString2){
+        var  startDate = Date.parse(dateString1);
+        var  endDate = Date.parse(dateString2);
+        var days=(endDate - startDate)/(1*24*60*60*1000);
+        // alert(days);
+        return  days;
+    }
+    //合并生成报表
+    function reportGenerationAll() {
+        let row = $("#promotionLinkTable").bootstrapTable('getSelections');
+        if (row.length === 0) {
+            layer.msg('请选择行');
+        }else {
+            let link_ids = [];
+            let bb_time_min = '';
+            row.forEach((item,index,array)=>{
+                link_ids.push(item.id)
+                if(bb_time_min === ''){
+                    bb_time_min = item.link_create_time;
+                }else {
+                    if(item.link_create_time < bb_time_min){
+                        bb_time_min = item.link_create_time;
+                    }
+                }
+            });
+            $('#start_time_bb').val(bb_time_min);
+            let num = Math.ceil(getDaysBetween(bb_time_min,getDay(0,'-')));
+            $('#bb_time_max').val(num);
+            $('#bb_time').attr('max',num);
+            max = num;
+            layer.open({
+                type: 1,
+                title: '合并生成报表',
+                shadeClose: true,
+                shade: 0.8,
+                area: ['60%', '60%'],
+                content: $('#bb'),
+                btn: ['确定', '取消'], // 按钮
+                yes: function(indexs, layero){
+                    layer.msg('确定生成？', {
+                        time: 0 //不自动关闭
+                        ,btn: ['确定', '取消']
+                        ,yes: function(index){
+                            reportGenerationAllGo(link_ids);
+                            if(requestCode === 0){
+                                layer.close(index);
+                                layer.close(indexs);
+                                layer.msg(requestMessage);
+                            }else {
+                                layer.msg(requestMessage);
+                            }
+                        }
+                    });
+                }
+            });
+
+        }
+    }
+
+    //提交报表生成
+    function reportGenerationAllGo(link_ids) {
+        requestData.data = {
+            'link_ids' : link_ids,
+            'bb_name' :  $("input[name='bb_name']").val(),
+            'bb_time' :  $("input[name='bb_time']").val(),
+        };
+        ajaxGo('admin/promotion_link/reportGenerationAll')
+    }
+    
+
+    function initTable() {
+        $('#promotionLinkTable').bootstrapTable('destroy');
+        // $('#wechatDayToolbar').css("height", 300);
+        if($.inArray('admin/promotion_link/lookall',u_role_url) !== -1) {
+            $("#promotionLinkTable").bootstrapTable({
+                height:800,
+                url: __ROOT__ + 'admin/promotion_link/getList', //获取数据的Servlet地址
+                striped: true,  //表格显示条纹
+                pagination: true, //启动分页
+                sortName: 'start_time',
+                sortOrder: 'desc',
+                pageSize: 20,  //每页显示的记录数
+                pageNumber:1, //当前第几页
+                pageList: [20, 25, 30, 35],  //记录数可选列表
+                search: false,
+                // method: 'post',
+                toolbar: '#list_search_faci',
+                showColumns: false,  //显示下拉框勾选要显示的列
+                showRefresh: false,  //显示刷新按钮
+                showToggle:false,
+                sidePagination: "server", //表示服务端请求
+                responseHandler:function(data){
+                    return data.data;
+                },
+                queryParamsType : "undefined",
+                // method: 'post',
+                queryParams: function queryParams(params) {   //设置查询参数
+                    params = {
+                        //这里是在ajax发送请求的时候设置一些参数 params有什么东西，自己看看源码就知道了
+                        pageNumber: params.pageNumber,
+                        pageSize: params.pageSize,
+                        sortName: params.sortName,
+                        sortOrder: params.sortOrder,
+                        // id : {$_GET['id']},
+                        head : {'token' : getCookie('token')},
+                        channel_name : $('#channel_name').val(),
+                        novel_name : $('#novel_name').val(),
+                        remarks : $('#remarks').val(),
+                        start_time : start_time,
+                        end_time : end_time,
+                        is_gather:  $("input[type=radio][name=is_gather_s]:checked").val(),
+                        is_back:  $("input[type=radio][name=is_back_s]:checked").val(),
+                        department_id : $("#department_search").selectpicker('val')
+                    };
+
+                    return params;
+                },
+                onLoadSuccess: function(data){  //加载成功时执行
+
+                },
+                onLoadError: function(){  //加载失败时执行
+                },
+                columns: [
+                    {
+                        title: '',
+                        field: 'checkbox',
+                        align: 'center',
+                        checkbox : true,
+                        width : 5,
+                        singleSelect:true
+                    },
+                    {
+                        field: 'referral_link_id',
+                        title: '推广链接',
+                        width : 30,
+                        formatter: function(value,row,index){
+                            return '<div style="color: #393939">'+row.remarks + '</div>'+
+                                '<div style="color: #1654cc;margin-top: 6px;">https://c'+row.channel_id_config+'.818tu.com/referrals/index/'+row.referral_link_id +'</div>' +
+                                '<div style="color: #777;margin-top: 6px;">创建时间:'+row.start_time+'</div>';
+                        }
+                    },
+                    {
+                        field: 'novel_name',
+                        title: '入口页面',
+                        width : 15,
+                        formatter: function(value,row,index){
+                            return '<div style="color: #333">'+row.novel_name + '</div>'+
+                                '<div style="color: #393939;margin-top: 6px;">' + row.novel_name_1 +'</div>'+
+                                '<div style="color: #777;margin-top: 6px;">' + row.novel_name_2 +'</div>';
+                        }
+                    },
+                    {
+                        field: 'channel_name',
+                        title: '渠道名称',
+                        width : 8,
+                        align: 'center'
+                    },
+                    {
+                        field: 'follow_num',
+                        title: '新增关注',
+                        width : 10,
+                        sortable:true,
+                        align: 'center'
+                    },
+                    {
+                        field: 'recharge',
+                        title: '充值金额',
+                        width : 10,
+                        sortable:true,
+                        align: 'center',
+                    },
+                    {
+                        field: 'recharges',
+                        title: '粉丝单价',
+                        width : 10,
+                        align: 'center',
+                        cellStyle:{css:{color:'red'}},
+                        formatter: function(value,row,index){
+                            let num = row.consum / row.follow_num;
+                            if(num.toFixed(2) === 'NaN'){
+                                return '0.00';
+                            }else {
+                                return num.toFixed(2);
+                            }
+                        }
+                    },
+                    {
+                        field: 'recharge_num',
+                        title: '充值笔数',
+                        sortable:true,
+                        width : 10,
+                        align: 'center'
+                    },
+                    {
+                        field: 'consum',
+                        title: '成本',
+                        width : 10,
+                        sortable:true,
+                        align: 'center',
+                        formatter: function(value,row,index){
+                            let e = '';
+                            if($.inArray('admin/promotion_link/editconsum',u_role_url) !== -1){
+                                e='<a href="javascript:void(0)"  onclick="editConsum('+row.id+','+row.consum+',\''+row.link_create_time+'\')" >'+value+'</a>';
+                            }
+                            return e;
+                        }
+                    },
+                    {
+                        field: 'recharge_nums',
+                        title: '回本详情',
+                        width : 30,
+                        align: 'center',
+                        formatter: function(value,row,index){
+                            let html=('<div style="display: flex;justify-content: center;"><div style="text-align: left;"><div style="margin-bottom: 8px;"><span style="color: #BBB">01日</span>：'+row.one.toFixed(2)+'%</div><div><span style="color: #BBB">07日</span>：'+row.seven.toFixed(2)+'%</div></div><div><div style="margin-bottom: 8px;">&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;</div></div><div style="text-align: left;"><div style="margin-bottom: 8px;"><span style="color: #BBB">03日</span>：'+row.three.toFixed(2)+'%</div><div><span style="color: #BBB">30日</span>：'+row.th.toFixed(2)+'%</div></div></div>');
+                            return html;
+                        }
+                    },
+                    {
+                        field: 'recharge_nums',
+                        title: '总回本率',
+                        width : 10,
+                        align: 'center',
+                        formatter: function(value,row,index){
+                            let num = row.recharge / row.consum  * 100;
+                            if(num.toFixed(2) === 'NaN'){
+                                return '<span style="color: red">0.00%</span>';
+                            }else {
+                                if(num.toFixed(2) > 100){
+                                    return '<span style="color: green">'+num.toFixed(2)+'%'+'</span>';
+                                }else {
+                                    return '<span style="color: red">'+num.toFixed(2)+'%'+'</span>';
+                                }
+                            }
+                        }
+                    },
+                    {
+                        field: 'recharge_nums',
+                        title: '操作',
+                        width : 10,
+                        align: 'center',
+                        formatter: function(value,row,index){
+                            let a = '';
+                            if($.inArray('admin/promotion_link/updatepromotionlink',u_role_url) !== -1){
+                                if(row.is_gather === 0){
+                                    a = '<a href="javascript:void(0)"  onclick="updatePromotionLink('+row.id+',1)" style="color: rgb(26,179,148);">关闭采集</a>';
+                                }else {
+                                    a = '<a href="javascript:void(0)"  onclick="updatePromotionLink('+row.id+',0)" style="color:#BBB;">开启采集</a>';
+                                }
+                            }
+                            let html = '';
+                            if($.inArray('admin/promotion_b_b/getpromotionbb',u_role_url) !== -1) {
+                                html = ' <a href="javascript:void(0)"  data_id="'+row.id+'"  onclick="lookAll(this)"  style="margin-top: 8px;display: block">数据报表</a>';
+                            }
+
+                            return a+html;
+                        }
+                    }
+                ]
+            });
+        }else {
+            $("#promotionLinkTable").bootstrapTable({
+                height:800,
+                url: __ROOT__ + 'admin/promotion_link/getList', //获取数据的Servlet地址
+                striped: true,  //表格显示条纹
+                pagination: true, //启动分页
+                sortName: 'id',
+                sortOrder: 'desc',
+                pageSize: 20,  //每页显示的记录数
+                pageNumber:1, //当前第几页
+                pageList: [20, 25, 30, 35],  //记录数可选列表
+                search: false,
+                // method: 'post',
+                toolbar: '#list_search_faci',
+                showColumns: false,  //显示下拉框勾选要显示的列
+                showRefresh: false,  //显示刷新按钮
+                showToggle:false,
+                sidePagination: "server", //表示服务端请求
+                responseHandler:function(data){
+                    return data.data;
+                },
+                queryParamsType : "undefined",
+                // method: 'post',
+                queryParams: function queryParams(params) {   //设置查询参数
+                    params = {
+                        //这里是在ajax发送请求的时候设置一些参数 params有什么东西，自己看看源码就知道了
+                        pageNumber: params.pageNumber,
+                        pageSize: params.pageSize,
+                        sortName: params.sortName,
+                        sortOrder: params.sortOrder,
+                        // id : {$_GET['id']},
+                        head : {'token' : getCookie('token')},
+                        channel_name : $('#channel_name').val(),
+                        novel_name : $('#novel_name').val(),
+                        remarks : $('#remarks').val(),
+                        start_time : start_time,
+                        end_time : end_time,
+                        is_gather:  $("input[type=radio][name=is_gather_s]:checked").val(),
+                        is_back:  $("input[type=radio][name=is_back_s]:checked").val(),
+                        department_id : $("#department_search").selectpicker('val')
+                    };
+
+                    return params;
+                },
+                onLoadSuccess: function(data){  //加载成功时执行
+
+                },
+                onLoadError: function(){  //加载失败时执行
+                },
+                columns: [
+                    {
+                        field: 'referral_link_id',
+                        title: '推广链接',
+                        width : 30,
+                        formatter: function(value,row,index){
+                            return '<span style="color: #393939">'+row.remarks + '</span>'+
+                                '<br/><span style="color: #1654cc">https://c'+row.channel_id_config+'.818tu.com/referrals/index/'+row.referral_link_id +'</span>' +
+                                '<br/><span style="color: #777">创建时间:'+row.start_time+'</span>';
+                        }
+                    },
+                    {
+                        field: 'novel_name',
+                        title: '入口页面',
+                        width : 15,
+                        formatter: function(value,row,index){
+                            return '<span style="color: #333">'+row.novel_name + '</span>'+
+                                '<br/><span style="color: #393939">' + row.novel_name_1 +'</span>'+
+                                '<br/><span style="color: #777">' + row.novel_name_2 +'</span>';
+                        }
+                    },
+                    {
+                        field: 'channel_name',
+                        title: '渠道名称',
+                        width : 8,
+                        align: 'center'
+                    },
+                    {
+                        field: 'follow_num',
+                        title: '新增关注',
+                        width : 10,
+                        align: 'center'
+                    },
+                    {
+                        field: 'recharge',
+                        title: '充值金额',
+                        width : 10,
+                        align: 'center',
+                        formatter: function(value,row,index){
+                            return value ;
+                        }
+                    },
+                    {
+                        field: 'recharge',
+                        title: '粉丝单价',
+                        width : 10,
+                        align: 'center',
+                        formatter: function(value,row,index){
+                            let num = row.consum / row.follow_num;
+                            if(num.toFixed(2) === 'NaN'){
+                                return '0.00';
+                            }else {
+                                return num.toFixed(2);
+                            }
+                        }
+                    },
+                    {
+                        field: 'recharge_num',
+                        title: '充值笔数',
+                        width : 10,
+                        align: 'center'
+                    },
+                    {
+                        field: 'consum',
+                        title: '成本',
+                        width : 10,
+                        align: 'center',
+                        formatter: function(value,row,index){
+                            let e = '';
+                            if($.inArray('admin/promotion_link/editconsum',u_role_url) !== -1){
+                                e='<a href="javascript:void(0)"  onclick="editConsum('+row.id+','+row.consum+',\''+row.link_create_time+'\')" >'+value+'</a>';
+                            }
+                            return e;
+
+                        }
+                    },
+                ]
+            });
+
+        }
+
+    }
+
+    function initDayTable() {
+        $('#promotionLinkDayTable').bootstrapTable('destroy');
+        // $('#wechatDayToolbar').css("height", 300);
+        $("#promotionLinkDayTable").bootstrapTable({
+            url: __ROOT__ + 'admin/promotion_link/getListDay', //获取数据的Servlet地址
+            striped: true,  //表格显示条纹
+            pagination: true, //启动分页
+            sortName: 'id',
+            sortOrder: 'desc',
+            pageSize: 20,  //每页显示的记录数
+            pageNumber:1, //当前第几页
+            pageList: [20, 25, 30, 35],  //记录数可选列表
+            search: false,
+            toolbar: '#promotionLinkToolbar',
+            showColumns: true,  //显示下拉框勾选要显示的列
+            showToggle:false,
+            showRefresh: true,  //显示刷新按钮
+            sidePagination: "server", //表示服务端请求
+            responseHandler:function(data){
+                return data.data;
+            },
+            queryParamsType : "undefined",
+            // method: 'post',
+            queryParams: function queryParams(params) {   //设置查询参数
+                params = {
+                    //这里是在ajax发送请求的时候设置一些参数 params有什么东西，自己看看源码就知道了
+                    pageNumber: params.pageNumber,
+                    pageSize: params.pageSize,
+                    sortName: params.sortName,
+                    sortOrder: params.sortOrder,
+                    // id : {$_GET['id']},
+                    head : {'token' : getCookie('token')},
+                    link_id : link_id
+                };
+
+                return params;
+            },
+            onLoadSuccess: function(data){  //加载成功时执行
+
+            },
+            onLoadError: function(){  //加载失败时执行
+                layer.msg("加载数据失败", {time : 1500, icon : 2});
+            },
+            columns: [
+                // {
+                //     title: 'Id',
+                //     field: 'id',
+                //     align: 'center',
+                //     valign: 'middle',
+                //     width : 20,
+                // },
+                {
+                    field: 'time',
+                    title: '日期',
+                    width : 20,
+                    align: 'center'
+                },
+                {
+                    field: 'follow_num',
+                    title: '关注人数',
+                    width : 10,
+                    align: 'center'
+                },
+                {
+                    field: 'recharge',
+                    title: '充值金额',
+                    width : 10,
+                    align: 'center',
+                    sortable:true,
+                    formatter: function(value,row,index){
+                        return value ;
+                    }
+                },
+                {
+                    field: 'recharge_num',
+                    title: '充值笔数',
+                    width : 10,
+                    align: 'center'
+                },
+                {
+                    field: 'consum',
+                    title: '广告费',
+                    width : 10,
+                    align: 'center'
+                },
+                {
+                    field: 'info',
+                    title: '回本详情',
+                    width : 10,
+                    align: 'center',
+                    formatter: function(value,row,index){
+                        if(row.consum === '0.00' && row.recharge !== 0){
+                            return  '100%';
+                        }else {
+                            let num = row.recharge / 100 / row.consum * 100;
+                            if(num.toFixed(2) === 'NaN'){
+                                return '<span >'+0.00+'%</span>';
+                            }else {
+                                return '<span >'+num.toFixed(2)+'%</span>';
+                            }
+                        }
+                    }
+                },
+                {
+                    field: 'operate',
+                    title: '操作',
+                    width : 20,
+                    align: 'center',
+                    formatter: function(value,row,index){
+                        var d='<a href="javascript:void(0)" href="#" mce_href="#" data_id="'+row.id+'" data_consum="'+row.consum+'" data_follow_num="'+row.follow_num+'"   onclick="editDay(this)" >编辑</a> ';
+                        return d;
+                    }
+                }
+            ]
+        });
+    }
+
+    //搜索
+    function fac_search() {
+        $('#promotionLinkTable').bootstrapTable('refresh');
+    }
+
+    function fac_search_day() {
+        $('#promotionLinkDayTable').bootstrapTable('refresh');
+    }
+
+    //查看更多回本数据
+    let link_id = 0;
+    function lookAll(obj) {
+        window.open('http://zjz.chinaandun.com/promotionLink/look.html?type=1&bb_id='+$(obj).attr('data_id'), '_blank').location;
+
+        // link_id = id;
+        // initDayTable();
+        // layer.open({
+        //     type: 1,
+        //     title: '查看',
+        //     shadeClose: true,
+        //     shade: 0.8,
+        //     area: ['70%', '70%'],
+        //     content: $('#lookAll'),
+        //     btn: ['取消'],
+        // });
+    }
+
+
+
+    //修改推广链接每日数据
+    function editDay(obj) {
+        $("input[name='follow_num']").val($(obj).attr('data_follow_num'));
+        $("input[name='consum']").val($(obj).attr('data_consum'));
+        let edit_l = layer.open({
+            type: 1,
+            title: '编辑',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['60%', '60%'],
+            content: $('#add'),
+            btn: ['确定', '取消'], // 按钮
+            yes: function(indexs, layero){
+                layer.msg('确定修改？', {
+                    time: 0 //不自动关闭
+                    ,btn: ['确定', '取消']
+                    ,yes: function(index){
+                        editDayGo($(obj).attr('data_id'));
+                        if(requestCode === 0){
+                            fac_search_day();
+                            layer.close(index);
+                            layer.close(indexs);
+                            layer.msg(requestMessage);
+                        }else {
+                            layer.msg(requestMessage);
+                        }
+                    }
+                });
+
+
+            }
+//            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
+        });
+    }
+
+    //修改
+    function editDayGo(id) {
+        requestData.data = {
+            'id' : id,
+            'follow_num' :  $("input[name='follow_num']").val(),
+            'consum' :  $("input[name='consum']").val(),
+        }
+        ajaxGo('admin/promotion_link/editLinkDay')
+
+    }
+
+    function reportGeneration() {
+        layer.open({
+            type: 1,
+            title: '生成报表',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['60%', '60%'],
+            content: $('#bb'),
+            btn: ['确定', '取消'], // 按钮
+            yes: function(indexs, layero){
+                layer.msg('确定生成？', {
+                    time: 0 //不自动关闭
+                    ,btn: ['确定', '取消']
+                    ,yes: function(index){
+                        reportGenerationGo();
+                        if(requestCode === 0){
+                            layer.close(index);
+                            layer.close(indexs);
+                            layer.msg(requestMessage);
+                        }else {
+                            layer.msg(requestMessage);
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    /**
+     * 生成单独报表
+     */
+    function reportGenerationGo() {
+        requestData.data = {
+            'link_id' : link_id,
+            'bb_name' :  $("input[name='bb_name']").val(),
+            'bb_time' :  $("input[name='bb_time']").val(),
+        }
+        ajaxGo('admin/promotion_link/reportGenerationOne')
+    }
+
+    //修改推广链接采集状态
+    function updatePromotionLink(id,type) {
+        layer.msg('确定更改？', {
+            time: 0 //不自动关闭
+            ,btn: ['确定', '取消']
+            ,yes: function(index){
+                requestData.data = {
+                    'id' : id,
+                    'is_gather' : type
+                };
+                ajaxGo('admin/promotion_link/updatePromotionLink');
+                if(requestCode === 0){
+                    fac_search();
+                    layer.msg('更改成功!');
+                }else {
+                    layer.msg(requestMessage);
+                }
+            }
+        });
+    }
+
+    //修改推广链接的广告费
+    function editConsum(id,consum,link_create_time) {
+        $("input[name='consum']").val(consum);
+        let new_time = new Date(link_create_time);
+        $("input[name='link_create_time']").val(new_time.Format("yyyy-MM-dd"));
+        layer.open({
+            type: 1,
+            title: '编辑',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['60%', '40%'],
+            content: $('#add'),
+            btn: ['确定', '取消'], // 按钮
+            yes: function(indexs, layero){
+                layer.msg('确定修改？', {
+                    time: 0 //不自动关闭
+                    ,btn: ['确定', '取消']
+                    ,yes: function(index){
+                        requestData.data = {
+                            'id' : id,
+                            'link_create_time' :  $("input[name='link_create_time']").val(),
+                            'consum' :  $("input[name='consum']").val(),
+                        }
+                        ajaxGo('admin/promotion_link/editConsum');
+                        if(requestCode === 0){
+                            fac_search();
+                            layer.close(index);
+                            layer.close(indexs);
+                            layer.msg('修改成功!');
+                        }else {
+                            layer.msg(requestMessage);
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    Date.prototype.Format = function (fmt) { //author: meizz
+        var o = {
+            "M+": this.getMonth() + 1, //月份
+            "d+": this.getDate(), //日
+            "h+": this.getHours(), //小时
+            "m+": this.getMinutes(), //分
+            "s+": this.getSeconds(), //秒
+            "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+            "S": this.getMilliseconds() //毫秒
+        };
+        if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        for (var k in o)
+            if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+        return fmt;
+    }
+
+
+</script>
+
+

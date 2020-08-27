@@ -1,16 +1,64 @@
 
 // 公共配置
-
-const __ROOT__ = 'http://sq.yara.com:8086/';
-const __IMG__ = 'http://niuibi.oss-cn-beijing.aliyuncs.com';
-
+const __ROOT__ = 'http://120.77.245.86:8082/'; //正式
+// const __ROOT__ = 'http://xinxiang.yara.com/';
+// const __ROOT__ = 'http://csadmin.chinaandun.com/'; //测试
+const __IMG__ = 'http://jindouyun-yara.oss-cn-beijing.aliyuncs.com';
 
 var requestData = {};
 var requestCode = 0;
 var requestMessage = 0;
 let u_id = '0';
+let u_platform_id = -1;
+let u_department_id = -1;
+let u_is_leader = -1;
 
-function ajaxGo(url,msg = '请求错误' ,async = false) {
+let isClick=false;
+let u_role_url = [];
+
+$(document).ready(function () {
+    u_department_id = getCookie('u_department_id');
+    u_platform_id = getCookie('u_platform_id');
+    u_is_leader = getCookie('u_is_leader');
+    if(u_platform_id === '0' && $("#platform_search").length > 0){
+        requestData.data = {
+        };
+        ajaxGo('admin/platform/getListToSelect');
+        requestData.data.forEach((item,index,array)=>{
+            //执行代码
+            var html = "<option value='"+item.id+"'>"+item.name+"</option>";
+            $('#platform_search').append(html);
+        });
+        $('#platform_search').selectpicker('refresh');
+        $('#platform_search_div').show();
+    }
+    if(u_is_leader === '1' && $("#department_search").length > 0){
+        requestData.data = {
+            department_id : u_department_id
+        };
+        ajaxGo('admin/department/getAllUser');
+        requestData.data.forEach((item,index,array)=>{
+            //执行代码
+            var html = "<option value='"+item.id+"'>"+item.name+"</option>";
+            $('#department_search').append(html);
+        });
+        $('#department_search').selectpicker('refresh');
+        $('#department_div').show();
+    }
+    requestData.data = {
+    };
+    ajaxGo('admin/auth_rule/getUserAuthAll');
+    requestData.data.forEach((item,index,array)=>{
+        u_role_url.push(item);
+    });
+});
+
+function ajaxGo(url,msg = '请求错误' ,async = false , root = __ROOT__) {
+    if (isClick){
+        return false;
+    }else {
+        isClick=true;
+    }
     if(getCookie('token')){
         requestData.head = {
             "token": getCookie('token'),
@@ -21,7 +69,7 @@ function ajaxGo(url,msg = '请求错误' ,async = false) {
     }
 
     $.ajax({
-        url: __ROOT__ + url,
+        url: root + url,
         data:requestData,
         method:"POST",
         dataType:"json",
@@ -48,6 +96,9 @@ function ajaxGo(url,msg = '请求错误' ,async = false) {
             return data;
         },
         error:function(){
+        },
+        complete: function(){
+            isClick=false;
         }
     });
 

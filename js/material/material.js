@@ -77,37 +77,63 @@ function initTable() {
             },
             {
                 field: 'name',
-                title: '素材名称',
+                title: '小说名称',
                 width : '10%',
                 align: 'center'
             },
             {
                 field: 'short_name',
-                title: '素材简称',
+                title: '小说简称',
                 align: 'center'
             },
             {
                 field: 'title',
-                title: '素材标题',
+                title: '小说标题',
                 formatter: function(value,row,index){
                     return value;
                 }
             },
-
+            {
+                field: 'thirdparty_m_id',
+                title: '第三方id',
+                formatter: function(value,row,index){
+                    return value;
+                }
+            },
+            {
+                field: 'chapter',
+                title: '第三方章节',
+                formatter: function(value,row,index){
+                    return value;
+                }
+            },
+            {
+                field: 'platform_name',
+                title: '适用平台',
+                formatter: function(value,row,index){
+                    return value;
+                }
+            },
             {
                 field: 'operate',
                 title: '操作',
                 width : '10%',
                 align: 'center',
                 formatter: function(value,row,index){
-                    if(m_u_id === '5'){
-                        var d='<a href="#" mce_href="#" data_id="'+row.id+'"  onclick="editMaterial(this)" >编辑</a> ';
-                        var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="del(this)" >删除</a>';
-                        return d+f;
-                    }else {
-                        var d='<a href="#" mce_href="#" data_id="'+row.id+'"  onclick="lookMaterial(this)" >查看</a> ';
-                        return d;
-                    }
+                        let d = '';
+                        if($.inArray('admin/material/editmaterial',u_role_url) !== -1) {
+                            d = '<a href="#" mce_href="#" data_id="'+row.id+'"  onclick="editMaterial(this)" >编辑</a> ';
+                        }
+                        let f = '';
+                        if($.inArray('admin/material/delmaterial',u_role_url) !== -1) {
+                            f = '<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="del(this)" >删除</a>';
+                        }
+                        let e = '';
+                        if($.inArray('admin/material/getinfobyid',u_role_url) !== -1) {
+                            e = '<a href="#" mce_href="#" data_id="'+row.id+'"  onclick="lookMaterial(this)" >查看</a> ';
+                        }
+                        return d+f+e;
+
                 }
             }
         ]
@@ -115,10 +141,10 @@ function initTable() {
 }
 let m_u_id = '';
 $(document).ready(function () {
-    m_u_id = getCookie('u_id');
-    if(m_u_id !== '5'){
-        $('#add_btn').hide();
+    if($.inArray('admin/material/addmaterial',u_role_url) === -1){
+        $('#add_button').hide();
     }
+
     //调用函数，初始化表格
     initTable();
 });
@@ -173,6 +199,13 @@ function editMaterial(obj) {
     $("input[name='name']").val(requestData.data.name);
     $("input[name='title']").val(requestData.data.title);
     $("input[name='short_name']").val(requestData.data.short_name);
+    $("input[name='thirdparty_m_id']").val(requestData.data.thirdparty_m_id);
+    $("input[name='chapter']").val(requestData.data.chapter);
+    requestData.data.platform_ids.forEach((item,index,array)=>{
+        if(item){
+            $("input[name=platform_ids][value="+item+"]").attr('checked','true');
+        }
+    });
 
     let head_img =requestData.data.head_img.split('@@@');
     $('#upload-list').empty();
@@ -228,6 +261,8 @@ function lookMaterial(obj) {
     $("input[name='name']").val(requestData.data.name);
     $("input[name='title']").val(requestData.data.title);
     $("input[name='short_name']").val(requestData.data.short_name);
+    $("input[name='chapter']").val(requestData.data.chapter);
+    $("input[name='thirdparty_m_id']").val(requestData.data.thirdparty_m_id);
 
     let head_img =requestData.data.head_img.split('@@@');
     $('#upload-list').empty();

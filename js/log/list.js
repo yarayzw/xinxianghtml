@@ -92,10 +92,23 @@ function initTable() {
             },
             {
                 field: 'create_at',
-                width : '20%',
+                width : '10%',
                 title: '创建时间',
                 formatter: function(value,row,index){
                     return value;
+                }
+            },
+            {
+                field: 'qr_code',
+                width : '10%',
+                title: '二维码',
+                formatter: function(value,row,index){
+                    if(value===''){
+                        return '未修改';
+                    }else {
+                        var f='<a href="#" mce_href="#" " data_qr_code="'+row.qr_code+'"  onclick="lookQr(this)" >查看</a>';
+                        return f;
+                    }
                 }
             },
             {
@@ -103,7 +116,7 @@ function initTable() {
                 title: '详情',
                 width : '35%',
                 formatter: function(value,row,index){
-                    return value;
+                    return '<xml>'+value.substring(-1,30)+'</xml>';
                 }
             }
         ]
@@ -114,5 +127,24 @@ function initTable() {
 //搜索
 function fac_search() {
     $('#viewTable').bootstrapTable('refresh');
+}
+
+
+function lookQr(obj) {
+    let qr_img = $(obj).attr('data_qr_code').split('@@@');
+    $('#qr_code_div').empty();
+    qr_img.forEach((item,index,array)=>{
+        var html = '<div style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"   ><div><img name="qr_img" data_name="'+item+'" src="'+item+'"></div></div>';
+        $('#qr_code_div').append(html);
+    });
+    layer.open({
+        type: 1,
+        title: '二维码',
+        shadeClose: true,
+        shade: 0.8,
+        area: ['75%', '60%'],
+        content: $('#qr_code_div'),
+        btn: ['取消'], // 按钮
+    });
 }
 

@@ -8,15 +8,15 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="format-detection" content="telephone=no">
     <title>{{title}}</title>
-    <link rel="stylesheet" href="/static/pc/index.css">
-    <link rel="stylesheet" href="/static/pc/topcss.css">
-    <link rel="stylesheet" href="/static/pc/font.css">
-    <link rel="stylesheet" href="/static/pc/text.css">
+    <link rel="stylesheet" href="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/index.css">
+    <link rel="stylesheet" href="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/topcss.css">
+    <link rel="stylesheet" href="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/font.css">
+    <link rel="stylesheet" href="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/text.css">
     <link rel="shortcut icon" href="https://p5.ssl.qhimg.com/t013ed96d9c4cf74064.png" type="image/x-icon">
     <link rel="shortcut icon" type="image/ico" href="https://video.eastday.com/assets/img/favicon.ico">
-    <link rel="stylesheet" type="text/css" href="/static/pc/config.css">
-    <link rel="stylesheet" type="text/css" href="/static/pc/video.css">
-    <link rel="stylesheet" href="/static/pc/newdetail.css">
+    <link rel="stylesheet" type="text/css" href="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/config.css">
+    <link rel="stylesheet" type="text/css" href="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/video.css">
+    <link rel="stylesheet" href="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/newdetail.css">
 </head>
 <script type="text/javascript" src="/static/pc/jquery.min.js"></script>
 
@@ -27,7 +27,7 @@
             <div class="left_header fl">
                 <a href="#" pdata="detail1|nav|1|0" target="_blank">
                     <div class="logo newslogo iblock fl">
-                        <img src="/static/pc/newlogo.png" alt="Logo">
+                        <img src="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/newlogo.png" alt="Logo">
                     </div>
                     <!-- <h1 class="iblock fs_20 fl"><span>头条视频</span></h1> -->
                 </a>
@@ -50,13 +50,13 @@
                     <input class="fs_14 boxborder" type="text" placeholder="奥巴马支持拜登竞选总统">
                     <div class="iblock poa">
                         <a class="block" pdata="detail1|searchresou|1|0" target="_blank">
-                            <img class="fl" src="/static/pc/header_rank_icon.png" alt="">
+                            <img class="fl" src="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/header_rank_icon.png" alt="">
                             <span class="fs_12 fc_fff hover_red">热搜榜</span>
                         </a>
                     </div>
                 </div>
                 <a id="search_kw_btn" class="fr block" pdata="detail1|searchbutton|1|0"><img class="fl"
-                                                                                             src="/static/pc/header_search_icon.png"
+                                                                                             src="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/header_search_icon.png"
                                                                                              alt=""><span
                         class="fs_14 fc_fff fl">搜索</span></a>
             </div>
@@ -276,11 +276,11 @@
             <div class="tip-cue clearfix">
                 <div class="item-photo-container" id="main">
                     <div class="T-content-out">
-                        <div class="T-content">
+                        <div class="T-content" style="padding-left: 40px;padding-right: 40px">
                             <h1 id="title_view_3"><span id="title_1_view_3">{{title}}</span> </h1>
                             <div class="content-info">
                                 <div class="info"><span class="time" id="showtime_view_3">{{create_at}}</span> <span
-                                        class="read-count">👀 328万</span> <span class="cite">今日头条</span> <span
+                                        class="read-count">👀 328万</span> <span class="cite">今日热点</span> <span
                                         class="dianzan"><i></i>8千</span> <span class="shuohua"><i></i>1.8万</span></div>
 
                                 <script language="Javascript">
@@ -288,22 +288,23 @@
                                     $("#showtime").html("" + now.getFullYear() + "年" + (now.getMonth() + 1) + "月" + now.getDate() + "日");
                                 </script>
                             </div>
-                            <hr>
                         </div>
                     </div>
                 </div>
 
 
-                <div class="tips-close"  ><img src="/static/pc/close.png" id="closeOnClick"></div>
+                <div class="tips-close"  ><img src="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/close.png" id="closeOnClick"></div>
             </div>
-            <div class="tip-scroll" id="big_div">
+            <div class="tip-scroll" id="big_div" style="margin-top: 10px">
 
 
                 <div class="tip-content">
 
 
                     <!--封面图片-->
-                    <img id="head_img_view_3" src="{{head_img}}" style="width:100%;height:100%;display:block;marging:0">
+                    <div id="head_img_div" style="width:100%;height: 280px;display:block;background: #ccc;text-align: center;line-height: 220px;">图片加载中</div>
+
+                    <img id="head_img"  style="width:100%;height: 280px;display:none;">
 
                     <span id="content_view_3">
                         {{text}}
@@ -322,12 +323,12 @@
                             style="margin: 0px; padding: 0px; text-align: justify; color: rgb(252, 73, 116); letter-spacing: 0.54px; font-family: -apple-system-font, BlinkMacSystemFont, &quot;Helvetica Neue&quot;, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei UI&quot;, &quot;Microsoft YaHei&quot;, Arial, sans-serif; max-width: 100%; overflow-wrap: break-word; box-sizing: border-box !important;">关注后继续免费阅读全篇~</span></span>
                     </p>
 
-                    <p style="text-align: center; margin-top: 15px;  margin-bottom: 5px; "><img src="/static/pc/down_icon.png"></p>
+                    <p style="text-align: center; margin-top: 15px;  margin-bottom: 5px; "><img src="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/down_icon.png"></p>
                     <p style="text-align: center;position: relative;width: 100%;">
-                        <img src="/static/pc/b1.jpg" style="width:100%; margin-top: -15px;">
+                        <img src="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/b1.jpg" style="width:100%; margin-top: -15px;">
 
                         <!--底部二维码-->
-                        <img id="qrcode_bottom" style="position: absolute;width: 25%;left:37.5%;top:6%;" src="/static/pc/1.png">
+                        <img id="qrcode_bottom" style="position: absolute;width: 25%;left:37.5%;top:6%;" src="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/1.png">
                     </p>
 
                     <div id="meta_content_view_3" class="rich_media_meta_list"
@@ -423,13 +424,20 @@
 </div>
 </body>
 <script language="javascript" type="text/javascript">
+    let list_id = '{{id}}';
     let qr_code = '{{qr_code}}';
     let update_at = '{{update_at}}';
+    let img_url = '{{head_img}}';
+
     $("#closeOnClick").on("click",function(){
-        // window.location.href= 'http://hot.kkkk.la/ex/listw/pc1.html?platform_id=' + getCookie('platform_id');
-        window.location.href= 'https://qqvip.oss-cn-shanghai.aliyuncs.com/vip/index.html';
+        // window.location.href= 'http://hot.kkkk.la/ex/listw/pc1.html';
+        window.location.href= 'https://qqvip.oss-cn-shanghai.aliyuncs.com/vip/tz.html';
     });
     $(document).ready(function() {
+        $('#head_img_div').hide();
+        $('#head_img').attr('src',img_url);
+        $('#head_img').show();
+
         let myDate = new Date();
         let qr_code_s = qr_code.split('@@@');
         let update_at_c = (new Date(update_at)).getTime() / 1000;
@@ -468,5 +476,5 @@
     }
 
 </script>
-
+<script src="/static/jmtj.js?v=3.2"></script>
 </html>
