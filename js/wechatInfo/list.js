@@ -39,9 +39,10 @@ function initTable() {
         pageList: [10, 15, 20, 25],  //记录数可选列表
         search: false,
         toolbar: '#list_search_faci',
-        showColumns: true,  //显示下拉框勾选要显示的列
-        showRefresh: true,  //显示刷新按钮
+        showColumns: false,  //显示下拉框勾选要显示的列
+        showRefresh: false,  //显示刷新按钮
         sidePagination: "server", //表示服务端请求
+        showToggle:false,
         //设置为undefined可以获取pageNumber，pageSize，searchText，sortName，sortOrder
         //设置为limit可以获取limit, offset, search, sort, order
         responseHandler:function(data){
