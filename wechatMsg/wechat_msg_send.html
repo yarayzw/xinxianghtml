@@ -272,15 +272,22 @@
                 },
                 {
                     field: 'timing',
-                    title: '定时时间',
+                    title: '定时发布时间',
                     width : 50,
                     align: 'center'
                 },
                 {
                     field: 'update_at',
-                    title: '更新时间',
+                    title: '发送完成时间',
                     width : 50,
-                    align: 'center'
+                    align: 'center',
+                    formatter: function(value,row,index){
+                        if(value === row.create_at){
+                            return  '-';
+                        }else {
+                            return value;
+                        }
+                    }
                 },
                 {
                     field: 'is_ok',
