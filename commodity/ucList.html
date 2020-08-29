@@ -512,8 +512,9 @@
             pageList: [5, 10, 15, 20],  //记录数可选列表
             search: false,
             toolbar: '#list_search_faci',
-            showColumns: true,  //显示下拉框勾选要显示的列
-            showRefresh: true,  //显示刷新按钮
+            showColumns: false,  //显示下拉框勾选要显示的列
+            showRefresh: false,  //显示刷新按钮
+            showToggle:false,
             sidePagination: "server", //表示服务端请求
             //设置为undefined可以获取pageNumber，pageSize，searchText，sortName，sortOrder
             //设置为limit可以获取limit, offset, search, sort, order
@@ -614,7 +615,7 @@
                     title: '标题',
                     width: '25%',
                     formatter: function (value, row, index) {
-                        var html = '<div style="float: left"><img style="width: 120px;height: 60px" src="' + row.head_img + '"' +
+                        var html = '<div style="float: left"><img style="width: 120px;height: 40px" src="' + row.head_img + '"' +
                             ' alt="" data_url="' + row.url + '/' + row.ml_url + '"  onclick="preview(this)"></div><div>' +
                             '<span data_url="' + row.url + '/' + row.ml_url + '"  onclick="preview(this)">' + value + '</span> </div>';
                         return html;

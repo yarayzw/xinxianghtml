@@ -308,8 +308,9 @@
             pageList: [10, 15, 20, 25],  //记录数可选列表
             search: false,
             toolbar: '#list_search_faci',
-            showColumns: true,  //显示下拉框勾选要显示的列
-            showRefresh: true,  //显示刷新按钮
+            showColumns: false,  //显示下拉框勾选要显示的列
+            showRefresh: false,  //显示刷新按钮
+            showToggle:false,
             sidePagination: "server", //表示服务端请求
             responseHandler:function(data){
                 return data.data;
