@@ -5,6 +5,7 @@
 // const __ROOT__ = 'http://xinxiang.yara.com/';
 // const __ROOT__ = 'http://csadmin.chinaandun.com/'; //测试
 const __ROOT__ = 'http://api.zhanjuzhe.cn/'; //正式
+const __URL__ = 'http://vip.zhanjuzhe.cn/'; //正式
 const __IMG__ = 'http://jindouyun-yara.oss-cn-beijing.aliyuncs.com';
 
 var requestData = {};
