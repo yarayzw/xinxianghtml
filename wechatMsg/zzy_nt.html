@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>筋斗云管理系统</title>
+    <link href="../css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="../css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="../css/animate.min.css" rel="stylesheet">
+    <link href="../css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <link href="../css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link href="../css/plugins/bootstrap-table/bootstrap-table.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../js/plugins/bootstrap-select-1.13.9/dist/css/bootstrap-select.css">
+
+</head>
+<style type="text/css">
+    .table {table-layout:fixed;}
+</style>
+<body>
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="row row-lg">
+            <div class="col-sm-12">
+                <div class="btn-group hidden-xs" id="zzyNTToolbar" role="group">
+                    <form class="form-horizontal m-t" id="list_search_faci" method="post">
+                        <div class="col-sm-12">
+                            <label class="col-sm-2 control-label">小说名称 :</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" name="name" value=""  />
+
+                            </div>
+                            <label class="col-sm-2 control-label">小说id :</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" name="thirdparty_m_id" value=""  />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                        </div>
+                        <div class="col-sm-12">
+                            <label class="col-sm-2 control-label">推广章节 :</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" name="chapter" value=""  />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                        </div>
+                        <div class="col-sm-12">
+                            <label class="col-sm-2 control-label">入链接库 :</label>
+                            <div class="col-sm-3">
+                                <label style="font-weight: normal;"><input type="radio"  name="is_rk" style="margin-left: 7px" value="0" checked="checked" onclick="checkedRK(0)"> <i></i>是</label>
+                                <label style="font-weight: normal;"><input type="radio"  name="is_rk" style="margin-left: 7px" value="1" onclick="checkedRK(1)"> <i></i>否</label>
+                            </div>
+                            <div class="form-group">
+                            </div>
+                            <div id="div_config">
+                                <label class="col-sm-2 control-label">链接名称 :</label>
+                                <div class="col-sm-3">
+                                    <select id="wechat_msg_config" class="selectpicker" data-live-search="true">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">
+                                    公众号(未使用) :<br/><br/>
+                                    <a href="javascript:void(0);" class="select-wechat-all">全选</a>|<a href="javascript:void(0);"
+                                                                                                      class="select-wechat-invert">反选</a>|<a
+                                        href="javascript:void(0);" class="select-wechat-cancel">取消</a>
+                                </label>
+                                <div class="col-sm-8" id="wechat_ids_1"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">
+                                    公众号(使用中) :<br/><br/>
+                                    <a href="javascript:void(0);" class="select-wechat-all">全选</a>|<a href="javascript:void(0);"
+                                                                                                      class="select-wechat-invert">反选</a>|<a
+                                        href="javascript:void(0);" class="select-wechat-cancel">取消</a>
+                                </label>
+                                <div class="col-sm-8" id="wechat_ids_2"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">
+                                    公众号(已打满) :<br/><br/>
+                                    <a href="javascript:void(0);" class="select-wechat-all">全选</a>|<a href="javascript:void(0);"
+                                                                                                      class="select-wechat-invert">反选</a>|<a
+                                        href="javascript:void(0);" class="select-wechat-cancel">取消</a>
+                                </label>
+                                <div class="col-sm-7" id="wechat_ids_3"></div>
+                                <div class="col-sm-1" >
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-primary" style="width: 150px" type="button" onclick="add()">生成</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+                <table id="zzyNTTable" style="width: 1400px;margin: 0 auto">
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row" i style="display: none">
+    <div class="ibox-content">
+    </div>
+</div>
+
+</body>
+
+<script src="../js/jquery.min.js?v=2.1.4"></script>
+
+<script src="../js/public.js"></script>
+<script src="../js/bootstrap.min.js?v=3.3.6"></script>
+<script src="../js/layer/layer.js"></script>
+<script src="../js/laydate/laydate.js"></script>
+
+<script src="../js/content.min.js"></script>
+<script src="../js/plugins/bootstrap-table/bootstrap-table.js"></script>
+<script src="../js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="../js/demo/bootstrap-table-demo.min.js"></script>
+<script src="../js/bootstrapValidator.js"></script>
+<script src="../js/bootstrapValidator.min.js"></script>
+<script src="../js/index.js"></script>
+<script src="../js/plugins/bootstrap-select-1.13.9/js/bootstrap-select.js"></script>
+
+
+<script>
+
+    function checkedRK(type){
+        if(type === 0){
+            $('#div_config').show();
+        }else {
+            $('#div_config').hide();
+        }
+    }
+
+    $(function () {
+        //全选
+        $(document).on('click', '.select-wechat-all', function () {
+            $(this).parent('label').next('div').find('input').prop('checked', 'checked');
+        });
+        //反选
+        $(document).on('click', '.select-wechat-invert', function () {
+            $(this).parent('label').next('div').find('input').each(function () {
+                if ($(this).prop("checked")) {
+                    $(this).prop("checked", false);
+                } else {
+                    $(this).prop("checked", true);
+                }
+            });
+        });
+        //取消
+        $(document).on('click', '.select-wechat-cancel', function () {
+            $(this).parent('label').next('div').find('input').prop('checked', false);
+        });
+    });
+
+    $(document).ready(function () {
+        setMaterial();
+        initTable();
+    });
+
+    function setMaterial() {
+
+        //
+        requestData.data = {
+            'type': 1
+        };
+        ajaxGo('admin/wechat_msg_config/getListToSelect')
+        requestData.data.forEach((item, index, array) => {
+            //执行代码
+            var html = "<option value='" + item.id + "'>" + item.name + "</option>";
+            $('#wechat_msg_config_id').append(html);
+        });
+        $('#wechat_msg_config_id').selectpicker('refresh');
+
+
+        setWechatIds(1);
+        setWechatIds(2);
+        setWechatIds(3);
+
+
+        //链接库
+        requestData.data = {
+            'type' : 1
+        };
+        ajaxGo('admin/wechat_msg_config/getListToSelect');
+        requestData.data.forEach((item,index,array)=>{
+            //执行代码
+            var html = "<option value='"+item.id+"'>"+item.name+"</option>";
+            $('#wechat_msg_config').append(html);
+        });
+        $('#wechat_msg_config').selectpicker('refresh');
+    }
+
+    /**
+     * 设置选择公众号
+     */
+    function setWechatIds(status) {
+        //公众号
+        requestData.data = {
+            'type': 1,
+            status: status,
+        };
+        ajaxGo('admin/wechat_config/getListToSelect')
+        requestData.data.forEach((item, index, array) => {
+            //执行代码
+            var html = '<label style="font-weight: normal;"><input type="checkbox"  name="wechat_ids" style="margin-left: 7px" value="' + item.id + '"> <i></i> ' + item.wechat_name + '\n' + '</label>';
+
+            // var html = "<option value='"+item.id+"'>"+item.wechat_name+"</option>";
+            $('#wechat_ids_' + status).append(html);
+        });
+        // $('#wechat_ids').selectpicker('refresh');
+    }
+
+
+    function initTable() {
+        $('#zzyNTTable').bootstrapTable('destroy');
+        // $('#wechatDayToolbar').css("height", 300);
+        $("#zzyNTTable").bootstrapTable({
+            url: __ROOT__ + 'admin/wechat_msg_config_n_t/getZZYLinkNtList', //获取数据的Servlet地址
+            striped: true,  //表格显示条纹
+            pagination: true, //启动分页
+            sortName: 'id',
+            sortOrder: 'desc',
+            pageSize: 10,  //每页显示的记录数
+            pageNumber:1, //当前第几页
+            pageList: [10, 15, 20, 25],  //记录数可选列表
+            search: false,
+            toolbar: '#list_search_faci',
+            showColumns: false,  //显示下拉框勾选要显示的列
+            showRefresh: false,  //显示刷新按钮
+            sidePagination: "server", //表示服务端请求
+            showToggle:false,
+            responseHandler:function(data){
+                return data.data;
+            },
+            queryParamsType : "undefined",
+            // method: 'post',
+            queryParams: function queryParams(params) {   //设置查询参数
+                params = {
+                    //这里是在ajax发送请求的时候设置一些参数 params有什么东西，自己看看源码就知道了
+                    pageNumber: params.pageNumber,
+                    pageSize: params.pageSize,
+                    sortName: params.sortName,
+                    sortOrder: params.sortOrder,
+                    // id : {$_GET['id']},
+                    head : {'token' : getCookie('token')},
+                    name : $('#name').val(),
+
+                };
+
+                return params;
+            },
+            onLoadSuccess: function(data){  //加载成功时执行
+
+            },
+            onLoadError: function(){  //加载失败时执行
+                layer.msg("加载数据失败", {time : 1500, icon : 2});
+            },
+            columns: [
+                {
+                    title: 'Id',
+                    field: 'id',
+                    align: 'center',
+                    valign: 'middle',
+                    width : 20,
+                },
+                {
+                    field: 'wechat_name',
+                    title: '公众号名称',
+                    width : 20,
+                    align: 'center'
+                },
+                {
+                    field: 'novel_name',
+                    title: '小说名称',
+                    width : 20,
+                    align: 'center'
+                },
+                {
+                    field: 'chapter',
+                    title: '章节',
+                    width : 20,
+                    align: 'center'
+                },
+                {
+                    field: 'description',
+                    title: '链接备注',
+                    width : 20,
+                    align: 'center'
+                },
+                {
+                    field: 'msg_config_id',
+                    title: '入库状态',
+                    width : 20,
+                    align: 'center',
+                    formatter: function(value,row,index){
+                        if(value === 0){
+                            return '未入库';
+                        }else {
+                            return '已入库';
+                        }
+                    }
+                },
+                {
+                    field: 'url',
+                    title: '链接',
+                    width : 50,
+                    align: 'center',
+                    formatter: function(value,row,index){
+                        return '<a href="javascript:void(0)">'+value+'</a>';
+                    }
+                },
+                {
+                    field: 'is_active',
+                    title: '复制',
+                    width : 30,
+                    align: 'center',
+                    formatter: function(value,row,index){
+                        var html = '<input type="text" style="opacity:0;position: absolute;\n' +
+                            '  left: 3000px;\n' +
+                            '  top: 100px;cursor:pointer" id="copy_'+row.id+'" value="' + row.url + '/' + row.pc_url + '"> <span style="color: #1654cc;cursor:pointer" onclick="copyUrl('+row.id+')">复制链接</span>';
+                        return html;
+                    }
+                },
+            ]
+        });
+    }
+
+    //搜索
+    function fac_search() {
+        $('#zzyNTTable').bootstrapTable('refresh');
+    }
+
+    //添加
+    function add() {
+        let wechat_ids = [];//定义一个数组
+        $('input[name="wechat_ids"]:checked').each(function () {
+            wechat_ids.push($(this).val());
+        });
+        if(wechat_ids.length === 0){
+            layer.msg('请选择公众号')
+        }else {
+            layer.msg('确定生成？', {
+                time: 0 //不自动关闭
+                ,btn: ['确定', '取消']
+                ,yes: function(index){
+
+                    requestData.data = {
+                        'name' : $("input[name='name']").val(),
+                        'thirdparty_m_id': $("input[name='thirdparty_m_id']").val(),
+                        'chapter' : $("input[name='chapter']").val(),
+                        'is_rk': $("input[type=radio][name=is_rk]:checked").val(),
+                        'wechat_config_id' : $("#wechat_msg_config").selectpicker('val'),
+                        'wechat_ids':wechat_ids
+                    };
+                    ajaxGo('admin/wechat_msg_config_n_t/addZZYLinkNt');
+                    if(requestCode === 0){
+                        fac_search();
+                        layer.close(index);
+                        layer.closeAll();
+                        layer.msg(requestMessage);
+                    }else {
+                        layer.msg(requestMessage);
+                    }
+                }
+            });
+
+        }
+
+    }
+    //复制链接
+    function copyUrl(id) {
+        $('#copy_'+id).select();
+        document.execCommand("Copy"); //执行浏览器复制命令
+        layer.msg('复制成功!')
+    }
+</script>
+
+
