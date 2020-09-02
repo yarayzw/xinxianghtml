@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>筋斗云管理系统</title>
+    <link href="../css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="../css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="../css/animate.min.css" rel="stylesheet">
+    <link href="../css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <link href="../css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link href="../css/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../js/simditor-2.3.28/styles/simditor.css">
+    <link rel="stylesheet" type="text/css" href="../css/plugins/webuploader/webuploader.css">
+    <link rel="stylesheet" type="text/css" href="../css/demo/webuploader-demo.min.css">
+
+    <!--    下来框样式-->
+    <link rel="stylesheet" type="text/css" href="../js/plugins/bootstrap-select-1.13.9/dist/css/bootstrap-select.css">
+
+</head>
+<style>
+    /**字符串过长 转化为 。。。**/
+
+
+</style>
+<body>
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="row row-lg">
+            <div class="col-sm-12">
+                <!-- Example Toolbar -->
+                <div class="example-wrap">
+                    <div class="example">
+                        <div class="btn-group hidden-xs" id="exportToolbar" role="group">
+                        </div>
+                        <table class="table table-hover" id="exportTable"
+                               data-pagination="true"
+                               data-show-refresh="true"
+                               data-show-toggle="true"
+                               data-showColumns="true">
+                        </table>
+                    </div>
+                </div>
+                <!-- End Example Toolbar -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div >
+    <form id="list_search_faci">
+        <fieldset>
+            <div class="input-group">
+                 <span class="input-group-btn">
+                    <button class="btn btn-primary dropdown-toggle" type="button" onclick="exportFile(this);">上传文件</button>
+                 </span>
+            </div>
+        </fieldset>
+    </form>
+</div>
+
+<div id="csv_div" style="display: none">
+    <div class="btn-group hidden-xs" id="exportCsvToolbar" role="group">
+    </div>
+    <table class="table table-hover" id="exportCsvTable"
+           data-pagination="true"
+           data-show-refresh="true"
+           data-show-toggle="true"
+           data-showColumns="true">
+    </table>
+</div>
+
+<div id="excel_div" style="display: none">
+    <div class="btn-group hidden-xs" id="exportExcelToolbar" role="group">
+    </div>
+    <table class="table table-hover" id="exportExcelTable"
+           data-pagination="true"
+           data-show-refresh="true"
+           data-show-toggle="true"
+           data-showColumns="true">
+    </table>
+</div>
+
+<div id="upload_file" style="display: none">
+    <div class="ibox-content">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">csv：</label>
+            <div class="col-sm-8">
+                <div id="upload-container-csv">
+                    <span style="border: #ccc 2px solid;cursor:pointer;">点击上传</span>
+                </div>
+                <div id="upload-container-csv-display" style="display: none"><span id="csv_file_url">no</span></div>
+                <button id="picker-csv" style="display: none;">点击上传文件</button>
+            </div>
+        </div>
+        <hr>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">excel：</label>
+            <div class="col-sm-8">
+                <div id="upload-container-excel">
+                    <span style="border: #ccc 2px solid;cursor:pointer;">点击上传</span>
+                </div>
+                <div id="upload-container-excel-display" style="display: none"><span id="excel_file_url">no</span></div>
+                <button id="picker-excel" style="display: none;">点击上传文件</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+</body>
+
+<script src="../js/jquery.min.js?v=2.1.4"></script>
+<script src="../js/public.js"></script>
+<script src="../js/bootstrap.min.js?v=3.3.6"></script>
+<script src="../js/layer/layer.js"></script>
+<script src="../js/content.min.js"></script>
+<script src="../js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+<script src="../js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="../js/demo/bootstrap-table-demo.min.js"></script>
+<script src="../js/laydate/laydate.js"></script>
+<script src="../js/bootstrapValidator.js"></script>
+<script src="../js/bootstrapValidator.min.js"></script>
+<script src="../js/index.js"></script>
+<script src="../js/plugins/simditor/module.js"></script>
+<script src="../js/plugins/simditor/uploader.js"></script>
+<script src="../js/plugins/simditor/hotkeys.js"></script>
+<script src="../js/simditor-2.3.28/lib/simditor.js"></script>
+<script src="../js/plugins/webuploader/webuploader.min.js"></script>
+<script src="../js/echarts/dist/echarts.min.js"></script>
+
+<!--<script src="../js/demo/webuploader-demo.min.js"></script>-->
+<!--//下拉框js-->
+<script src="../js/plugins/bootstrap-select-1.13.9/js/bootstrap-select.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+    });
+
+
+    //csv文件上传
+    $('#upload-container-csv').click(function(event) {
+        $("#picker-csv").find('input').click();
+    });
+    setTimeout(function(){
+        var uploader = WebUploader.create({
+            auto: true,// 选完文件后，是否自动上传。
+            // swf: 'https://cdn.bootcss.com/webuploader/0.1.1/Uploader.swf',// swf文件路径
+            server: __ROOT__ + 'thirdparty/oss/uploadFile',// 文件接收服务端。
+            dnd: '#upload-container-csv',
+            pick: '#picker-csv',// 内部根据当前运行是创建，可能是input元素，也可能是flash. 这里是div的id
+            multiple: true, // 选择多个
+            chunked: true,// 开起分片上传。
+            threads: 5, // 上传并发数。允许同时最大上传进程数。
+            method: 'POST', // 文件上传方式，POST或者GET。
+            fileSizeLimit: 1024*1024*100*100, //验证文件总大小是否超出限制, 超出则不允许加入队列。
+            fileSingleSizeLimit: 1024*1024*100, //验证单个文件大小是否超出限制, 超出则不允许加入队列。
+            fileVal:'upload', // [默认值：'file'] 设置文件上传域的name。
+            accept: {
+                title: 'Files',
+                extensions: 'csv',
+                mimeTypes: 'application/csv'
+            },
+        });
+        uploader.on('uploadSuccess', function(file, response) {
+            csvGo(response.path[0]);
+        });
+    },3000);
+
+    //excel上传插件初始化
+    $('#upload-container-excel').click(function(event) {
+        $("#picker-excel").find('input').click();
+    });
+    // var uploader_head_obj = new WebUploader;
+    var uploader_head =  WebUploader.create(
+        {
+            auto: true,// 选完文件后，是否自动上传。
+            // swf: 'https://cdn.bootcss.com/webuploader/0.1.1/Uploader.swf',// swf文件路径
+            server: __ROOT__ + 'thirdparty/oss/uploadFile',// 文件接收服务端。
+            dnd: '#upload-container-excel',
+            pick: '#picker-excel',// 内部根据当前运行是创建，可能是input元素，也可能是flash. 这里是div的id
+            multiple: true, // 选择多个
+            chunked: true,// 开起分片上传。
+            threads: 5, // 上传并发数。允许同时最大上传进程数。
+            method: 'POST', // 文件上传方式，POST或者GET。
+            fileSizeLimit: 1024*1024*100*100, //验证文件总大小是否超出限制, 超出则不允许加入队列。
+            fileSingleSizeLimit: 1024*1024*100, //验证单个文件大小是否超出限制, 超出则不允许加入队列。
+            fileVal:'upload', // [默认值：'file'] 设置文件上传域的name。
+            accept: {
+                title: 'Files',
+                extensions: 'xls,xlsx',
+                mimeTypes: 'image/*,text/*'
+                    //word
+                    +',application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+                    //excel
+                    +',application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                    //ppt
+                    +',application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation'
+                    +',application/pdf'
+                    +',application/zip'
+                    +',application/csv'
+            },
+        }
+    );
+
+    uploader_head.on("uploadSuccess", function(file, response) {
+        $('#upload-container-excel-display').empty();
+        var html = '<span id="excel_file_url">'+response.path[0]+'</span>';
+        $('#upload-container-excel-display').append(html);
+    });
+
+    //上传文件
+    function exportFile() {
+        layer.open({
+            type: 1,
+            title: '上传文件',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['90%', '90%'],
+            content: $('#upload_file'),
+            btn: [ '取消'], // 按钮
+
+//            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
+        });
+    }
+
+    function csvGo(url) {
+        requestData.data = {
+            'url' : url
+        };
+        ajaxGo('admin/statistics/uploadReflinksCsv');
+        exportCsvTable(requestData.data.rows);
+        console.log(requestData.data.rows)
+        layer.open({
+            type: 1,
+            title: '上传文件',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['90%', '90%'],
+            content: $('#csv_div'),
+            btn: [ '取消'],
+//            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
+        });
+    }
+    function exportCsvTable(rows) {
+        $('#exportCsvTable').bootstrapTable('destroy');
+        $("#exportCsvTable").bootstrapTable({
+            striped: true,  //表格显示条纹
+            pagination: false, //启动分页
+            sortName: 'id',
+            pageSize: 10,  //每页显示的记录数
+            pageNumber:1, //当前第几页
+            pageList: [5, 10, 15, 20],  //记录数可选列表
+            search: false,
+            showColumns: true,  //显示下拉框勾选要显示的列
+            showRefresh: true,  //显示刷新按钮
+            data: rows,
+            onLoadError: function(){  //加载失败时执行
+                layer.msg("加载数据失败", {time : 1500, icon : 2});
+            },
+            columns: [
+                {
+                    title: '链接ID',
+                    field: '0',
+                    align: 'center',
+                    width : '10%',
+                    valign: 'middle',
+                },
+                {
+                    title: '链接名称',
+                    field: '1',
+                    align: 'center',
+                    width : '10%',
+                    valign: 'middle',
+                },
+                {
+                    title: '渠道名称',
+                    field: '2',
+                    align: 'center',
+                    width : '10%',
+                    valign: 'middle',
+                },
+                {
+                    title: '链接类型',
+                    field: '3',
+                    align: 'center',
+                    width : '5%',
+                    valign: 'middle',
+                },
+                {
+                    title: '链接入口',
+                    field: '4',
+                    align: 'center',
+                    width : '10%',
+                    valign: 'middle',
+                },
+                {
+                    title: '点击量',
+                    field: '5',
+                    align: 'center',
+                    width : '10%',
+                    valign: 'middle',
+                },
+                {
+                    title: '新增阅读量',
+                    field: '6',
+                    align: 'center',
+                    width : '5%',
+                    valign: 'middle',
+                },
+                {
+                    title: '新增关注',
+                    field: '7',
+                    align: 'center',
+                    width : '5%',
+                    valign: 'middle',
+                },
+                {
+                    title: '充值金额',
+                    field: '8',
+                    align: 'center',
+                    width : '5%',
+                    valign: 'middle',
+                },
+                {
+                    title: '订单数',
+                    field: '9',
+                    align: 'center',
+                    width : '5%',
+                    valign: 'middle',
+                },
+                {
+                    title: '充值比列',
+                    field: '10',
+                    align: 'center',
+                    width : '5%',
+                    valign: 'middle',
+                },
+                {
+                    title: '成本',
+                    field: '11',
+                    align: 'center',
+                    width : '5%',
+                    valign: 'middle',
+                },
+                {
+                    title: '利润',
+                    field: '12',
+                    align: 'center',
+                    width : '5%',
+                    valign: 'middle',
+                },
+                {
+                    title: '创建日期',
+                    field: '13',
+                    align: 'center',
+                    width : '10%',
+                    valign: 'middle',
+                },
+            ]
+        });
+    }
+
+</script>
+
+<!--<script src="../js/statistics/index.js?v=1.0"></script>-->
+

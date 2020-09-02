@@ -13,9 +13,10 @@ function initTable() {
         pageList: [10, 15, 20, 25],  //记录数可选列表
         search: false,
         toolbar: '#list_search_faci',
-        showColumns: true,  //显示下拉框勾选要显示的列
-        showRefresh: true,  //显示刷新按钮
+        showColumns: false,  //显示下拉框勾选要显示的列
+        showRefresh: false,  //显示刷新按钮
         sidePagination: "server", //表示服务端请求
+        showToggle:false,
         //设置为undefined可以获取pageNumber，pageSize，searchText，sortName，sortOrder
         //设置为limit可以获取limit, offset, search, sort, order
         responseHandler:function(data){
@@ -32,6 +33,7 @@ function initTable() {
             //     },
             //     "data": data.data
             // };
+            u_id = data.user_info.u_id;
             return data.data;
         },
         queryParamsType : "undefined",
@@ -76,41 +78,74 @@ function initTable() {
             },
             {
                 field: 'name',
-                title: '素材名称',
+                title: '小说名称',
                 width : '10%',
                 align: 'center'
             },
             {
                 field: 'short_name',
-                title: '素材简称',
+                title: '小说简称',
                 align: 'center'
             },
             {
                 field: 'title',
-                title: '素材标题',
+                title: '小说标题',
                 formatter: function(value,row,index){
                     return value;
                 }
             },
-
+            {
+                field: 'thirdparty_m_id',
+                title: '第三方id',
+                formatter: function(value,row,index){
+                    return value;
+                }
+            },
+            {
+                field: 'chapter',
+                title: '第三方章节',
+                formatter: function(value,row,index){
+                    return value;
+                }
+            },
+            {
+                field: 'platform_name',
+                title: '适用平台',
+                formatter: function(value,row,index){
+                    return value;
+                }
+            },
             {
                 field: 'operate',
                 title: '操作',
                 width : '10%',
                 align: 'center',
                 formatter: function(value,row,index){
-                    var d='<a href="#" mce_href="#" data_id="'+row.id+'"  onclick="editMaterial(this)" >编辑</a> ';
+                        let d = '';
+                        if($.inArray('admin/material/editmaterial',u_role_url) !== -1) {
+                            d = '<a href="#" mce_href="#" data_id="'+row.id+'"  onclick="editMaterial(this)" >编辑</a> ';
+                        }
+                        let f = '';
+                        if($.inArray('admin/material/delmaterial',u_role_url) !== -1) {
+                            f = '<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="del(this)" >删除</a>';
+                        }
+                        let e = '';
+                        if($.inArray('admin/material/getinfobyid',u_role_url) !== -1) {
+                            e = '<a href="#" mce_href="#" data_id="'+row.id+'"  onclick="lookMaterial(this)" >查看</a> ';
+                        }
+                        return d+f+e;
 
-                    var f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="del(this)" >删除</a>';
-
-                    return d+f;
                 }
             }
         ]
     });
 }
-
+let m_u_id = '';
 $(document).ready(function () {
+    if($.inArray('admin/material/addmaterial',u_role_url) === -1){
+        $('#add_button').hide();
+    }
+
     //调用函数，初始化表格
     initTable();
 });
@@ -165,6 +200,13 @@ function editMaterial(obj) {
     $("input[name='name']").val(requestData.data.name);
     $("input[name='title']").val(requestData.data.title);
     $("input[name='short_name']").val(requestData.data.short_name);
+    $("input[name='thirdparty_m_id']").val(requestData.data.thirdparty_m_id);
+    $("input[name='chapter']").val(requestData.data.chapter);
+    requestData.data.platform_ids.forEach((item,index,array)=>{
+        if(item){
+            $("input[name=platform_ids][value="+item+"]").attr('checked','true');
+        }
+    });
 
     let head_img =requestData.data.head_img.split('@@@');
     $('#upload-list').empty();
@@ -209,6 +251,43 @@ function editMaterial(obj) {
 
 }
 
+//查看
+function lookMaterial(obj) {
+
+
+    requestData.data = {
+        'id' : $(obj).attr('data_id')
+    }
+    ajaxGo('admin/material/getInfoById');
+    $("input[name='name']").val(requestData.data.name);
+    $("input[name='title']").val(requestData.data.title);
+    $("input[name='short_name']").val(requestData.data.short_name);
+    $("input[name='chapter']").val(requestData.data.chapter);
+    $("input[name='thirdparty_m_id']").val(requestData.data.thirdparty_m_id);
+
+    let head_img =requestData.data.head_img.split('@@@');
+    $('#upload-list').empty();
+
+    head_img.forEach((item,index,array)=>{
+        //执行代码
+        var html = '<div style="float: left;padding-right: 10px"  onclick="delImg(this)" ><img name="head_img" data_name="'+item+'" src="'+item+'"></div>';
+        $('#upload-list').append(html);
+    });
+    editor.setValue(requestData.data.content);
+
+    layer.open({
+        type: 1,
+        title: '编辑',
+        shadeClose: true,
+        shade: 0.8,
+        area: ['90%', '90%'],
+        content: $('#add'),
+        btn: ['取消'], // 按钮
+//            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
+    });
+
+}
+
 //复制链接
 function copyUrl(obj) {
     let text = $(obj).attr('data_url');
@@ -228,16 +307,23 @@ function preview(obj) {
 
 //删除
 function del(obj) {
-    requestData.data = {
-        'id' : $(obj).attr('data_id')
-    };
-    ajaxGo('admin/material/delMaterial');
-    if(requestCode === 0){
-        fac_search();
-        layer.msg('删除成功!');
-    }else {
-        layer.msg(requestMessage);
-    }
+    layer.msg('确定删除？', {
+        time: 0 //不自动关闭
+        ,btn: ['确定', '取消']
+        ,yes: function(index){
+            requestData.data = {
+                'id' : $(obj).attr('data_id')
+            };
+            ajaxGo('admin/material/delMaterial');
+            if(requestCode === 0){
+                fac_search();
+                layer.msg('删除成功!');
+            }else {
+                layer.msg(requestMessage);
+            }
+        }
+    });
 
 }
+
 

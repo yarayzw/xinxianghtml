@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>筋斗云管理系统</title>
+    <link href="../css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="../css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="../css/animate.min.css" rel="stylesheet">
+    <link href="../css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <link href="../css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link href="../css/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
+
+
+</head>
+<style>
+    /**字符串过长 转化为 。。。**/
+    table{
+        table-layout:fixed;/* 只有定义了表格的布局算法为fixed，下面td的定义才能起作用。 */
+    }
+    td{
+        max-width: 58px;
+        overflow: hidden;
+        text-overflow:ellipsis;
+        white-space: nowrap;
+    }
+
+    table td:hover {
+
+        overflow: auto;
+        white-space: pre-wrap;
+    }
+</style>
+<body>
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="row row-lg">
+            <div class="col-sm-12">
+                <!-- Example Toolbar -->
+                <div class="example-wrap">
+                    <div class="example">
+                        <div class="btn-group hidden-xs" id="viewToolbar" role="group">
+                        </div>
+                        <table class="table table-hover" id="viewTable"
+                               data-pagination="true"
+                               data-show-refresh="true"
+                               data-show-toggle="true"
+                               data-showColumns="true">
+                        </table>
+                    </div>
+                </div>
+                <!-- End Example Toolbar -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div >
+    <form id="list_search_faci">
+        <fieldset>
+            <div class="input-group">
+
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" onclick="fac_search()">搜索</button>
+                 </span>
+                <input type="text" id="name" class="form-control" aria-label="..." placeholder="名称" style="width: 120px">
+
+            </div>
+
+
+            &nbsp;&nbsp;&nbsp;&nbsp;
+        </fieldset>
+    </form>
+</div>
+<div id="qr_code_div" style="display: none">
+
+</div>
+</body>
+
+<script src="../js/jquery.min.js?v=2.1.4"></script>
+<script src="../js/public.js"></script>
+<script src="../js/bootstrap.min.js?v=3.3.6"></script>
+<script src="../js/layer/layer.js"></script>
+<script src="../js/content.min.js"></script>
+<script src="../js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+<script src="../js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="../js/demo/bootstrap-table-demo.min.js"></script>
+<script src="../js/bootstrapValidator.js"></script>
+<script src="../js/bootstrapValidator.min.js"></script>
+<script src="../js/index.js"></script>
+
+
+<script src="../js/log/list.js?v=1.0"></script>
+

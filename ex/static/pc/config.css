@@ -1,0 +1,439 @@
+/*normal-use config css*/
+@charset "utf-8";
+
+html {
+  overflow-y: scroll
+}
+
+html,
+body {
+  background-image: url(about:blank);
+  background-attachment: fixed
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+p,
+blockquote,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+pre,
+fieldset,
+lengend,
+button,
+input,
+textarea,
+th,
+td {
+  margin: 0;
+  padding: 0;
+  outline: 0
+}
+
+:focus {
+  outline: 0 none;
+  font-weight: normal
+}
+
+body {
+  min-width: 1002px;
+  min-height: 100%;
+  color: #333
+}
+
+body,
+button,
+input,
+select,
+textarea {
+  font: 14px/1.5 \5FAE\8F6F\96C5\9ED1, "Microsoft YaHei", arial, sans-serif
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: 1em
+}
+
+iframe,
+img {
+  border: 0 none
+}
+
+em,
+i,
+ins {
+  font-style: normal;
+  text-decoration: none
+}
+
+address,
+cite,
+dfn,
+em,
+var {
+  font-style: normal
+}
+
+code,
+kbd,
+pre,
+samp,
+tt {
+  font-family: "Courier New", Courier, monospace
+}
+
+small {
+  font-size: 12px
+}
+
+ul,
+li,
+ol {
+  list-style: none
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0
+}
+
+a {
+  text-decoration: none;
+  outline: 0;
+  color: #333;
+  cursor: pointer
+}
+
+a:hover {
+  color: #ED3F3F;
+}
+
+a:focus {
+  font-weight: inherit
+}
+
+abbr[title],
+acronym[title] {
+  border-bottom: 1px dotted;
+  cursor: help
+}
+
+q:before,
+q:after {
+  content: ''
+}
+
+input {
+  outline: 0
+}
+
+input::-ms-clear {
+  display: none
+}
+
+legend {
+  color: #333
+}
+
+fieldset,
+img {
+  border: 0
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+  font-style: inherit;
+  font-weight: inherit
+}
+
+textarea {
+  overflow: auto;
+  resize: vertical
+}
+
+label {
+  cursor: pointer
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  background-color: #eee
+}
+
+*html a {
+  outline: 0
+}
+
+button {
+  cursor: pointer
+}
+
+.clear-fix:after,
+.clear-fix:before,
+.cf:after,
+.cf:before {
+  content: '';
+  display: table
+}
+
+.clear-fix:after,
+.cf:after {
+  clear: both
+}
+
+.f12 {
+  font-size: 12px !important
+}
+
+.f14 {
+  font-size: 14px !important
+}
+
+.f16 {
+  font-size: 16px !important
+}
+
+.f18 {
+  font-size: 18px !important
+}
+
+.f20 {
+  font-size: 20px !important
+}
+
+.f22 {
+  font-size: 22px !important
+}
+
+.f24 {
+  font-size: 24px !important
+}
+
+.f26 {
+  font-size: 26px !important
+}
+
+.fb {
+  font-weight: bold
+}
+
+.fn {
+  font-weight: normal
+}
+
+.t2 {
+  text-indent: 2em
+}
+
+.lh150 {
+  line-height: 150%
+}
+
+.lh180 {
+  line-height: 180%
+}
+
+.lh200 {
+  line-height: 200%
+}
+
+.unl {
+  text-decoration: underline
+}
+
+.no_unl {
+  text-decoration: none
+}
+
+.cp {
+  cursor: pointer
+}
+
+.cd {
+  cursor: default
+}
+
+.cna {
+  cursor: not-allowed
+}
+
+.tl {
+  text-align: left
+}
+
+.tc {
+  text-align: center
+}
+
+.tr {
+  text-align: right
+}
+
+.bc {
+  margin-left: auto;
+  margin-right: auto
+}
+
+.cb {
+  clear: both
+}
+
+.cl {
+  clear: left
+}
+
+.cr {
+  clear: right
+}
+
+.clearfix:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden
+}
+
+*html .clearfix {
+  height: 1%;
+  zoom: 1
+}
+
+.clearfix {
+  display: block;
+  zoom: 1
+}
+
+.poa {
+  position: absolute;
+}
+
+.por {
+  position: relative;
+}
+
+.pof {
+  position: fixed;
+}
+
+.ovh {
+  overflow: hidden;
+}
+
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
+}
+
+.no,
+.hide {
+  display: none;
+}
+
+.iblock {
+  display: inline-block;
+}
+
+.block {
+  display: block;
+}
+
+.fc_333 {
+  color: #333;
+}
+
+.fc_fff {
+  color: #fff;
+}
+
+.fc_000 {
+  color: #000;
+}
+
+.fs_12 {
+  font-size: 12px;
+}
+
+.fs_14 {
+  font-size: 14px;
+}
+
+.fs_20 {
+  font-size: 20px;
+}
+
+.fs_22 {
+  font-size: 22px;
+}
+
+.hover_red:hover {
+  color: #ee4b4b;
+}
+
+.bg_000 {
+  background: #000;
+}
+
+.bg_f0f0f0 {
+  background: #f0f0f0;
+}
+
+.bg_2d2d2d {
+  background: #2d2d2d;
+}
+
+.bg_333 {
+  background: #333;
+}
+
+.bg_header {
+  background: #1E1E1E;
+}
+
+.boxborder {
+  box-sizing: border-box;
+}
+
+/*reset.css*/
+* {
+  padding: 0;
+  margin: 0;
+  font-style: normal;
+  font-family: "Microsoft Yahei";
+}
+
+a {
+  color: #000;
+  text-decoration: none;
+}
+
+img {
+  border: none;
+}
+
+ul,
+li {
+  list-style: none;
+}

@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>筋斗云管理系统</title>
+    <link href="../css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="../css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="../css/animate.min.css" rel="stylesheet">
+    <link href="../css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <link href="../css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link href="../css/plugins/bootstrap-table/bootstrap-table.css" rel="stylesheet">
+    <link rel="stylesheet" href="../js/simditor-2.3.28/styles/simditor.css">
+    <link rel="stylesheet" type="text/css" href="../css/plugins/webuploader/webuploader.css">
+    <link rel="stylesheet" type="text/css" href="../css/demo/webuploader-demo.min.css">
+    <link rel="stylesheet" type="text/css" href="../js/plugins/bootstrap-select-1.13.9/dist/css/bootstrap-select.css">
+
+</head>
+<style type="text/css">
+    .table {
+        table-layout: fixed;
+    }
+</style>
+<body>
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="row">
+            <div class="form-group">
+                <form id="list_search_faci">
+                    <div class="col-sm-10">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="input-group m-b">
+                                    <span class="input-group-addon">小说名称</span>
+                                    <input type="text" id="name" class="form-control" aria-label="..." placeholder="">
+                                </div>
+                            </div>
+
+                            <div class="col-md-1">
+                         <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" onclick="fac_search()">搜索</button>
+                        </span>
+                            </div>
+                            <div class="col-md-1" id="add_button">
+                         <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button" onclick="addRetention()">添加</button>
+                        </span>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div id="list" style="width: 1620px;">
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="row" id="add" style="display: none">
+    <div class="ibox-content">
+        <form class="form-horizontal m-t" id="commentForm" method="post">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">小说名称 :</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="name" value=""/>
+                    <!--                            required="" aria-required="false"-->
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">排序 :</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="sort" value=""/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">30章留存率 :</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="retention_30" value=""/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">50章留存率 :</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="retention_50" value=""/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" >100章留存率 :</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="retention_100" value=""/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">200章留存率 :</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="retention_200" value=""/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">300章留存率 :</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="retention_300" value=""/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">500章留存率 :</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="retention_500" value=""/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">800章留存率 :</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="retention_800" value=""/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">1000章留存率 :</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="retention_1000" value=""/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+
+<script src="../js/jquery.min.js?v=2.1.4"></script>
+
+<script src="../js/public.js"></script>
+<script src="../js/bootstrap.min.js?v=3.3.6"></script>
+<script src="../js/layer/layer.js"></script>
+<script src="../js/laydate/laydate.js"></script>
+
+<script src="../js/content.min.js"></script>
+<script src="../js/plugins/bootstrap-table/bootstrap-table.js"></script>
+<script src="../js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="../js/demo/bootstrap-table-demo.min.js"></script>
+<script src="../js/bootstrapValidator.js"></script>
+<script src="../js/bootstrapValidator.min.js"></script>
+<script src="../js/plugins/simditor/module.js"></script>
+<script src="../js/plugins/simditor/uploader.js"></script>
+<script src="../js/plugins/simditor/hotkeys.js"></script>
+<script src="../js/simditor-2.3.28/lib/simditor.js"></script>
+<script src="../js/plugins/webuploader/webuploader.min.js"></script>
+<script src="../js/index.js"></script>
+<script src="../js/plugins/bootstrap-select-1.13.9/js/bootstrap-select.js"></script>
+<style>
+    .style-0{
+        background-color: whitesmoke;
+    }
+    .style-1{
+        background-color: #FFF68F;
+    }
+    .title-1{
+        color: red;
+    }
+    .style-2{
+        background-color: #FFC1C1;
+    }
+</style>
+<script>
+
+    $(document).ready(function () {
+        if($.inArray('admin/retention/addretention',u_role_url) === -1){
+            $('#add_button').hide();
+        }
+        getAllView();
+    });
+
+
+    function getAllView() {
+        requestData.data = {
+            'name': $("#name").val(),
+        };
+        ajaxGo('admin/retention/getList');
+        $('#list').empty();
+        requestData.data.rows.forEach((item, index, array) => {
+            var html = '<div style="width: 210px;float: left;margin-left: 20px">\n' +
+                '                <div class="ibox float-e-margins ">\n' +
+                '                    <div class="ibox-title style-'+item.style+'">\n' +
+                '                        <h5 class="title-'+item.style+'"">' + item.name + '</h5><span style="font-size: 8px;padding-left: 6px;">'+item.sort+'</span>  &nbsp; \n' +
+                '                        <div class="ibox-tools">\n' +
+                '                            <a name="button_send" onclick="setStyle(' + item.id + ',' + item.style + ')">\n' +
+                '                                <i class="glyphicon glyphicon-font" ></i>\n' +
+                '                            </a>\n' +
+                '                            <a name="button_edit" onclick="edit(' + item.id + ')">\n' +
+                '                                <i class="glyphicon glyphicon-pencil" ></i>\n' +
+                '                            </a>\n' +
+                '                            <a name="button_del" onclick="del(' + item.id + ')">\n' +
+                '                                <i class="fa fa-times" ></i>\n' +
+                '                            </a>\n' +
+                '                        </div>\n' +
+                '                    </div>\n' +
+                '                    <div class="ibox-content style-'+item.style+'">\n' +
+                '                          <div style="clear: both;padding: 5px 0"><div style="float: left">30章留存率:</div><div style="float:right;">'+item.retention_30+'%</div></div>' +
+                '                          <div style="clear: both;padding: 5px 0"><div style="float: left">50章留存率:</div><div style="float:right;">'+item.retention_50+'%</div></div>' +
+                '                          <div style="clear: both;padding: 5px 0"><div style="float: left">100章留存率:</div><div style="float:right;">'+item.retention_100+'%</div></div>' +
+                '                          <div style="clear: both;padding: 5px 0"><div style="float: left">200章留存率:</div><div style="float:right;">'+item.retention_200+'%</div></div>' +
+                '                          <div style="clear: both;padding: 5px 0"><div style="float: left">300章留存率:</div><div style="float:right;">'+item.retention_300+'%</div></div>' +
+                '                          <div style="clear: both;padding: 5px 0"><div style="float: left">500章留存率:</div><div style="float:right;">'+item.retention_500+'%</div></div>' +
+                '                          <div style="clear: both;padding: 5px 0"><div style="float: left">800章留存率:</div><div style="float:right;">'+item.retention_800+'%</div></div>' +
+                '                          <div style="clear: both;padding: 5px 0"><div style="float: left">1000章留存率:</div><div style="float:right;">'+item.retention_1000+'%</div></div>' +
+                '                    </div>\n' +
+                '                </div>\n' +
+                '            </div>';
+            $('#list').append(html);
+        });
+        if($.inArray('admin/retention/setstyle',u_role_url) === -1){
+            $("a[name='button_send']").hide();
+        }
+        if($.inArray('admin/retention/editretention',u_role_url) === -1){
+            $("a[name='button_edit']").hide();
+        }
+        if($.inArray('admin/retention/delretention',u_role_url) === -1){
+            $("a[name='button_del']").hide();
+        }
+    }
+
+    //搜索
+    function fac_search() {
+        getAllView();
+    }
+
+    //添加
+    function addRetention() {
+        layer.open({
+            type: 1,
+            title: '添加',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['80%', '96%'],
+            maxmin: true,
+            content: $('#add'),
+            btn: ['确定', '取消'], // 按钮
+            yes: function (index, layero) {
+                layer.msg('确定添加？', {
+                    time: 0 //不自动关闭
+                    , btn: ['确定', '取消']
+                    , yes: function (index) {
+                        requestData.data = {
+                            'name': $("input[name='name']").val(),
+                            'sort': $("input[name='sort']").val(),
+                            'retention_30': $("input[name='retention_30']").val(),
+                            'retention_50': $("input[name='retention_50']").val(),
+                            'retention_100': $("input[name='retention_100']").val(),
+                            'retention_200': $("input[name='retention_200']").val(),
+                            'retention_300': $("input[name='retention_300']").val(),
+                            'retention_500': $("input[name='retention_500']").val(),
+                            'retention_800': $("input[name='retention_800']").val(),
+                            'retention_1000': $("input[name='retention_1000']").val(),
+                        };
+                        ajaxGo('admin/retention/addRetention');
+                        if (requestCode === 0) {
+                            fac_search();
+                            layer.close(index);
+                            layer.closeAll();
+                            layer.msg('添加成功');
+                        } else {
+                            layer.msg(requestMessage);
+                        }
+                    }
+                });
+
+
+            }
+//            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
+        });
+
+    }
+
+
+
+    //编辑
+    function edit(id) {
+        requestData.data = {
+            'id': id
+        };
+        ajaxGo('admin/retention/findInfoById');
+        $("input[name='name']").val(requestData.data.name);
+        $("input[name='sort']").val(requestData.data.sort);
+        $("input[name='retention_30']").val(requestData.data.retention_30);
+        $("input[name='retention_50']").val(requestData.data.retention_50);
+        $("input[name='retention_100']").val(requestData.data.retention_100);
+        $("input[name='retention_200']").val(requestData.data.retention_200);
+        $("input[name='retention_300']").val(requestData.data.retention_300);
+        $("input[name='retention_500']").val(requestData.data.retention_500);
+        $("input[name='retention_800']").val(requestData.data.retention_800);
+        $("input[name='retention_1000']").val(requestData.data.retention_1000);
+        layer.open({
+            type: 1,
+            title: '编辑',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['80%', '96%'],
+            maxmin: true,
+            content: $('#add'),
+            btn: ['确定', '取消'], // 按钮
+            yes: function (index, layero) {
+                layer.msg('确定修改？', {
+                    time: 0 //不自动关闭
+                    , btn: ['确定', '取消']
+                    , yes: function (index) {
+                        requestData.data = {
+                            'id':id,
+                            'name': $("input[name='name']").val(),
+                            'sort': $("input[name='sort']").val(),
+                            'retention_30': $("input[name='retention_30']").val(),
+                            'retention_50': $("input[name='retention_50']").val(),
+                            'retention_100': $("input[name='retention_100']").val(),
+                            'retention_200': $("input[name='retention_200']").val(),
+                            'retention_300': $("input[name='retention_300']").val(),
+                            'retention_500': $("input[name='retention_500']").val(),
+                            'retention_800': $("input[name='retention_800']").val(),
+                            'retention_1000': $("input[name='retention_1000']").val(),
+                        }
+                        ajaxGo('admin/retention/editRetention')
+                        if (requestCode === 0) {
+                            fac_search();
+                            layer.close(index);
+                            layer.closeAll();
+                            layer.msg('修改成功');
+                        } else {
+                            layer.msg(requestMessage);
+                        }
+                    }
+                });
+
+
+            }
+//            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
+        });
+
+    }
+
+    //删除
+    function del(id) {
+        layer.msg('确定删除？', {
+            time: 0 //不自动关闭
+            , btn: ['确定', '取消']
+            , yes: function (index) {
+                requestData.data = {
+                    'id': id
+                };
+                ajaxGo('admin/retention/delRetention');
+                if (requestCode === 0) {
+                    fac_search();
+                    layer.msg('删除成功!');
+                } else {
+                    layer.msg(requestMessage);
+                }
+            }
+        });
+    }
+
+    //删除
+    function setStyle(id,style) {
+        if(parseInt(style)===2){
+            style = 0;
+        }else {
+            style += 1;
+        }
+        layer.msg('确定修改？', {
+            time: 0 //不自动关闭
+            , btn: ['确定', '取消']
+            , yes: function (index) {
+                requestData.data = {
+                    'id': id,
+                    'style':style
+                };
+                ajaxGo('admin/retention/setStyle');
+                if (requestCode === 0) {
+                    fac_search();
+                    layer.msg('编辑成功!');
+                } else {
+                    layer.msg(requestMessage);
+                }
+            }
+        });
+    }
+
+</script>
+
+<script src="../js/util.js"></script>
+<script src="../js/plugins/art-template/template-web.min.js"></script>
+

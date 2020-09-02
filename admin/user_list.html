@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>筋斗云管理系统</title>
+    <link href="../css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="../css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="../css/animate.min.css" rel="stylesheet">
+    <link href="../css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <link href="../css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link href="../css/plugins/bootstrap-table/bootstrap-table.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../js/plugins/bootstrap-select-1.13.9/dist/css/bootstrap-select.css">
+
+</head>
+<style type="text/css">
+    .table {table-layout:fixed;}
+</style>
+<body>
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="row row-lg">
+            <div class="col-sm-12">
+                <div class="btn-group hidden-xs" id="userToolbar" role="group">
+                </div>
+                <table id="userTable" >
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div >
+    <div class="form-group">
+        <form id="list_search_faci">
+            <div class="col-sm-10">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="input-group m-b"><span class="input-group-addon">名称</span>
+                            <input type="text" id="name" class="form-control" aria-label="..." placeholder="" >
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                         <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" onclick="fac_search()">搜索</button>
+                        </span>
+                    </div>
+                    <div class="col-md-1" id="add_button">
+                         <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" onclick="addUser()">添加</button>
+                        </span>
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                    <div id="history_search" style="margin-top: 3px;margin-left: 15px">
+
+                    </div>
+
+                </div>
+            </div>
+    <fieldset>
+
+        &nbsp;&nbsp;&nbsp;&nbsp;
+    </fieldset>
+        </form>
+    </div>
+</div>
+
+<div class="row" id="add" style="display: none">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5></h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <form class="form-horizontal m-t" id="commentForm" method="post">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">账户名 :</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="name" value=""  />
+                            <!--                            required="" aria-required="false"-->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">电话 :</label>
+                        <div class="col-sm-8">
+                            <input type="number" class="form-control" name="phone" value=""  />
+                            <!--                            required="" aria-required="false"-->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">密码 :</label>
+                        <div class="col-sm-8">
+                            <input type="password" class="form-control" name="password" value=""  />
+                            <!--                            required="" aria-required="false"-->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">姓名 :</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="memo" value=""  />
+                            <!--                            required="" aria-required="false"-->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">落地页文件夹 :</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="view" value=""  />
+                            <!--                            required="" aria-required="false"-->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                            适用平台 :<br/><br/>
+                            </label>
+                        <div class="col-sm-8" id="platform">
+                            <label style="font-weight: normal;"><input type="radio"  name="platform_id" style="margin-left: 7px" value="0"> <i></i>全部</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                            部门 :<br/><br/>
+                        </label>
+                        <div class="col-sm-8" id="department">
+                            <label style="font-weight: normal;"><input type="radio"  name="department_id" style="margin-left: 7px" value="0"> <i></i>筋斗云</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                            部门管理者 :<br/><br/>
+                        </label>
+                        <div class="col-sm-8" >
+                            <label style="font-weight: normal;"><input type="radio"  name="is_leader" style="margin-left: 7px" value="0"> <i></i>否</label>
+                            <label style="font-weight: normal;"><input type="radio"  name="is_leader" style="margin-left: 7px" value="1"> <i></i>是</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                            角色 :<br/><br/>
+                            <a href="javascript:void(0);" class="role-all">全选</a>|<a href="javascript:void(0);" class="role-invert">反选</a>|<a href="javascript:void(0);" class="role-cancel">取消</a>
+                        </label>
+                        <div class="col-sm-8" id="role_ids_1"></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+<script src="../js/jquery.min.js?v=2.1.4"></script>
+
+<script src="../js/public.js"></script>
+<script src="../js/bootstrap.min.js?v=3.3.6"></script>
+<script src="../js/layer/layer.js"></script>
+<script src="../js/laydate/laydate.js"></script>
+
+<script src="../js/content.min.js"></script>
+<script src="../js/plugins/bootstrap-table/bootstrap-table.js"></script>
+<script src="../js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="../js/demo/bootstrap-table-demo.min.js"></script>
+<script src="../js/bootstrapValidator.js"></script>
+<script src="../js/bootstrapValidator.min.js"></script>
+<script src="../js/index.js"></script>
+<script src="../js/plugins/bootstrap-select-1.13.9/js/bootstrap-select.js"></script>
+<script>
+    $(function () {
+        if($.inArray('admin/user_info/adduser',u_role_url) === -1){
+            $('#add_button').hide();
+        }
+        //全选
+        $(document).on('click','.role-all',function () {
+            $(this).parent('label').next('div').find('input').prop('checked','checked');
+        });
+        //反选
+        $(document).on('click','.role-invert',function () {
+            $(this).parent('label').next('div').find('input').each(function () {
+                if($(this).prop("checked"))
+                {
+                    $(this).prop("checked",false);
+                }else{
+                    $(this).prop("checked",true);
+                }
+            });
+        });
+        //取消
+        $(document).on('click','.role-cancel',function () {
+            $(this).parent('label').next('div').find('input').prop('checked',false);
+        });
+        setAuthGroupIds();
+
+    });
+
+    function setAuthGroupIds(status) {
+        //平台
+        requestData.data = {
+        };
+        ajaxGo('admin/auth_group/getList')
+        requestData.data.rows.forEach((item,index,array)=>{
+            //执行代码
+            var html = '<label style="font-weight: normal;"><input type="checkbox"  name="role_id" style="margin-left: 7px" value="'+item.id+'"> <i></i> '+item.title+'\n'+'</label>';
+
+            // var html = "<option value='"+item.id+"'>"+item.wechat_name+"</option>";
+            $('#role_ids_1').append(html);
+        });
+
+        //部门
+        requestData.data = {
+        };
+        ajaxGo('admin/department/getList')
+        requestData.data.rows.forEach((item,index,array)=>{
+            //执行代码
+            var html = '<label style="font-weight: normal;"><input type="radio"  name="department_id" style="margin-left: 7px" value="'+item.id+'"> <i></i> '+item.name+'\n'+'</label>';
+            // var html = "<option value='"+item.id+"'>"+item.wechat_name+"</option>";
+            $('#department').append(html);
+        });
+    }
+</script>
+
+<!--<script src="../js/demo/webuploader-demo.min.js"></script>-->
+<!--//下拉框js-->
+
+
+<!--<script src="../js/statistics/wechat_day.js"></script>-->
+<script>
+    function getDay(num, str) {
+        var today = new Date();
+        var nowTime = today.getTime();
+        var ms = 24*3600*1000*num;
+        today.setTime(parseInt(nowTime + ms));
+        var oYear = today.getFullYear();
+        var oMoth = (today.getMonth() + 1).toString();
+        if (oMoth.length <= 1) oMoth = '0' + oMoth;
+        var oDay = today.getDate().toString();
+        if (oDay.length <= 1) oDay = '0' + oDay;
+        return oYear + str + oMoth + str + oDay;
+    }
+</script>
+
+<script>
+    $(document).ready(function () {
+        //调用函数，初始化表格
+        initTable();
+        setPlatformIds();
+    });
+
+    //渲染平台条件
+    function setPlatformIds()
+    {
+        requestData.data = {
+        };
+        ajaxGo('admin/platform/getListToSelect');
+        requestData.data.forEach((item,index,array)=>{
+            //执行代码
+            var html = '<label style="font-weight: normal;"><input type="radio"  name="platform_id" style="margin-left: 7px" value="'+item.id+'"> <i></i> '+item.name+'\n'+'</label>';
+            // var html = "<option value='"+item.id+"'>"+item.wechat_name+"</option>";
+            $('#platform').append(html);
+        });
+    }
+
+    function initTable() {
+        $('#userToolbar').bootstrapTable('destroy');
+        // $('#userToolbar').css("height", 300);
+        $("#userToolbar").bootstrapTable({
+            // height:700,
+            url: __ROOT__ + 'admin/user_info/getList', //获取数据的Servlet地址
+            striped: true,  //表格显示条纹
+            pagination: true, //启动分页
+            sortName: 'id',
+            sortOrder:'desc',
+            pageSize: 10,  //每页显示的记录数
+            pageNumber:1, //当前第几页
+            pageList: [10, 15, 20, 25],  //记录数可选列表
+            search: false,
+            toolbar: '#list_search_faci',
+            showColumns: true,  //显示下拉框勾选要显示的列
+            showRefresh: true,  //显示刷新按钮
+            sidePagination: "server", //表示服务端请求
+            //设置为undefined可以获取pageNumber，pageSize，searchText，sortName，sortOrder
+            //设置为limit可以获取limit, offset, search, sort, order
+
+            responseHandler:function(data){
+                //远程数据加载之前,处理程序响应数据格式,对象包含的参数: 我们可以对返回的数据格式进行处理
+                //在ajax后我们可以在这里进行一些事件的处理
+                // requestCode = data.code;
+                // requestMessage = data.message;
+                // requestData = {
+                //     "head": {
+                //         "token": data.token,
+                //         "time": (new Date()).getTime(),
+                //         "version": "1.2.0",
+                //         "recode": "",
+                //     },
+                //     "data": data.data
+                // };
+                return data.data;
+            },
+            queryParamsType : "undefined",
+            // method: 'post',
+            queryParams: function queryParams(params) {   //设置查询参数
+                params = {
+                    //这里是在ajax发送请求的时候设置一些参数 params有什么东西，自己看看源码就知道了
+                    pageNumber: params.pageNumber,
+                    pageSize: params.pageSize,
+                    sortName: params.sortName,
+                    sortOrder: params.sortOrder,
+                    // id : {$_GET['id']},
+                    head : {'token' : getCookie('token')},
+                    name : $('#name').val(),
+                };
+
+                return params;
+            },
+            onLoadSuccess: function(data){  //加载成功时执行
+
+            },
+            onPostBody:function()
+            {
+                //重点就在这里，获取渲染后的数据列td的宽度赋值给对应头部的th,这样就表头和列就对齐了
+                // var header=$(".fixed-table-header table thead tr th");
+                // var body=$(".fixed-table-header table tbody tr td");
+                // var footer=$(".fixed-table-header table tr td");
+                // body.each(function(){
+                //     header.width((this).width());
+                //     footer.width((this).width());
+                // });
+            },
+            onLoadError: function(){  //加载失败时执行
+                layer.msg("加载数据失败", {time : 1500, icon : 2});
+            },
+            columns: [
+                {
+                    field: 'memo',
+                    title: '姓名',
+                    width : 50,
+                    align: 'center'
+                },
+                {
+                    title: '账户名',
+                    field: 'name',
+                    align: 'center',
+                    valign: 'middle',
+                    width : 50,
+                },
+                {
+                    field: 'phone',
+                    title: '手机号',
+                    width : 150,
+                    align: 'center'
+                },
+                {
+                    field: 'status',
+                    align: 'center',
+                    title: '状态',
+                    width : 100,
+                    formatter: function(value,row,index){
+                        let f;
+                        if($.inArray('admin/user_info/setuserstatus',u_role_url) !== -1){
+                            if(value === 0){
+                                f='<a href="javascript:void(0)"  onclick="setUserStatus('+row.id+',1)" >正常</a> ';
+                            }else {
+                                f='<a href="javascript:void(0)"  onclick="setUserStatus('+row.id+',0)" >禁用</a> ';
+                            }
+                        }else {
+                            if(value === 0){
+                                f='正常';
+                            }else {
+                                f='禁用';
+                            }
+                        }
+                        return f;
+                    }
+                },
+
+                {
+                    field: 'view',
+                    title: '落地页文件夹',
+                    width : 50,
+                    align: 'center'
+                },
+                {
+                    field: 'role_names',
+                    title: '角色',
+                    width : 200,
+                    align: 'center'
+                },
+                {
+                    field: 'platform_name',
+                    title: '所属平台',
+                    width : 50,
+                    align: 'center'
+                },
+                {
+                    field: 'operate',
+                    title: '操作',
+                    width : 100,
+                    align: 'center',
+                    formatter: function(value,row,index){
+                        let d = '';
+                        if($.inArray('admin/user_info/edituser',u_role_url) !== -1){
+                            d='<a href="javascript:void(0)" data_id="'+row.id+'"  onclick="editUser(this)" >编辑</a> ';
+                        }
+                        let f = '';
+                        if($.inArray('admin/user_info/deluser',u_role_url) !== -1){
+                            f='<a href="javascript:void(0)" data_id="'+row.id+'" onclick="delUser(this)" >删除</a> ';
+                        }
+
+                        return d+f;
+                    }
+                }
+            ]
+        });
+    }
+
+    //搜索
+    function fac_search() {
+        $('#userToolbar').bootstrapTable('refresh');
+    }
+
+    //编辑
+    function editUser(obj) {
+        requestData.data = {
+            'id' : $(obj).attr('data_id'),
+        };
+        ajaxGo('admin/user_info/getUserInfo');
+
+        $("input[name='name']").val(requestData.data.name);
+        $("input[name='phone']").val(requestData.data.phone);
+        $("input[name='view']").val(requestData.data.view);
+        $("input[name='memo']").val(requestData.data.memo);
+        $("input[name=platform_id][value="+requestData.data.platform_id+"]").attr('checked','true');
+        $("input[name=department_id][value="+requestData.data.department_id+"]").attr('checked','true');
+        $("input[name=is_leader][value="+requestData.data.is_leader+"]").attr('checked','true');
+        requestData.data.role_ids.forEach((item,index,array)=>{
+            $("input[name=role_id][value="+item+"]").attr('checked','true');
+        });
+        layer.open({
+            type: 1,
+            title: '编辑',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['90%', '90%'],
+            content: $('#add'),
+            btn: ['确定', '取消'], // 按钮
+            yes: function(index, layero){
+                layer.msg('确定修改？', {
+                    time: 0 //不自动关闭
+                    ,btn: ['确定', '取消']
+                    ,yes: function(index){
+                        editUserGo($(obj).attr('data_id'));
+                        if(requestCode === 0){
+                            fac_search();
+                            layer.close(index);
+                            layer.closeAll();
+                            layer.msg(requestMessage);
+                        }else {
+                            layer.msg(requestMessage);
+                        }
+                    }
+                });
+            }
+//            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
+        });
+
+    }
+
+    //修改
+    function editUserGo(id) {
+        let role_ids =[];//定义一个数组
+        $('input[name="role_id"]:checked').each(function(){
+            role_ids.push($(this).val());
+        });
+        let platform_id = $("input[name='platform_id']:checked").val();
+        let department_id = $("input[name='department_id']:checked").val();
+        let is_leader = $("input[name='is_leader']:checked").val();
+        requestData.data = {
+            'id' : id,
+            'name' : $("input[name='name']").val(),
+            'phone' : $("input[name='phone']").val(),
+            'password' : $("input[name='password']").val(),
+            'view' : $("input[name='view']").val(),
+            'memo' : $("input[name='memo']").val(),
+            'role_ids' : role_ids,
+            'platform_id':platform_id,
+            'is_leader' : is_leader,
+            'department_id':department_id
+        }
+        ajaxGo('admin/user_info/editUser')
+    }
+
+    //删除
+    function delUser(obj) {
+        layer.msg('确定删除？', {
+            time: 0 //不自动关闭
+            ,btn: ['确定', '取消']
+            ,yes: function(index){
+                requestData.data = {
+                    'id' : $(obj).attr('data_id')
+                };
+                ajaxGo('admin/user_info/delUser');
+                if(requestCode === 0){
+                    fac_search();
+                    layer.msg('删除成功!');
+                }else {
+                    layer.msg(requestMessage);
+                }
+            }
+        });
+    }
+
+    //添加
+    function addUser(obj) {
+        layer.open({
+            type: 1,
+            title: '添加',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['90%', '90%'],
+            content: $('#add'),
+            btn: ['确定', '取消'], // 按钮
+            yes: function(index, layero){
+                layer.msg('确定添加？', {
+                    time: 0 //不自动关闭
+                    ,btn: ['确定', '取消']
+                    ,yes: function(index){
+                        addUserGo();
+                        if(requestCode === 0){
+                            fac_search();
+                            layer.close(index);
+                            layer.closeAll();
+                            layer.msg(requestMessage);
+                        }else {
+                            layer.msg(requestMessage);
+                        }
+                    }
+                });
+            }
+//            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
+        });
+
+    }
+
+
+    function addUserGo(id) {
+        let role_ids =[];//定义一个数组
+        $('input[name="role_id"]:checked').each(function(){
+            role_ids.push($(this).val());
+        });
+        let platform_id = $("input[name='platform_id']:checked").val();
+        let department_id = $("input[name='department_id']:checked").val();
+        let is_leader = $("input[name='is_leader']:checked").val();
+        requestData.data = {
+            'id' : id,
+            'name' : $("input[name='name']").val(),
+            'phone' : $("input[name='phone']").val(),
+            'password' : $("input[name='password']").val(),
+            'view' : $("input[name='view']").val(),
+            'memo' : $("input[name='memo']").val(),
+            'role_ids' : role_ids,
+            'platform_id' :platform_id,
+            'is_leader' : is_leader,
+            'department_id':department_id
+        };
+        ajaxGo('admin/user_info/addUser')
+    }
+
+    //设置用户状态
+    function setUserStatus(id,status) {
+        layer.msg('确定修改？', {
+            time: 0 //不自动关闭
+            ,btn: ['确定', '取消']
+            ,yes: function(index){
+                requestData.data = {
+                    'id' : id,
+                    'status' : status
+                };
+                ajaxGo('admin/user_info/setUserStatus');
+                if(requestCode === 0){
+                    fac_search();
+                    layer.msg('修改成功!');
+                }else {
+                    layer.msg(requestMessage);
+                }
+            }
+        });
+    }
+
+</script>
+
+

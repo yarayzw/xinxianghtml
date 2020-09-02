@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>筋斗云管理系统</title>
+    <link href="../css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="../css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="../css/animate.min.css" rel="stylesheet">
+    <link href="../css/style.min862f.css?v=4.1.0" rel="stylesheet">
+
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/plugins/treeview/bootstrap-treeview.css" rel="stylesheet">
+    <link href="../js/bootstrap-table-master/dist/bootstrap-table.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/plugins/treeview/jquery.treegrid.min.css">
+    <link rel="stylesheet" href="../js/jqZTree/css/zTreeStyle/zTreeStyle.css" type="text/css">
+
+</head>
+
+<body>
+
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="row row-lg">
+            <div class="col-sm-12">
+                <div class="btn-group hidden-xs" id="tableToolbar" role="group">
+                </div>
+                <table id="table" >
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div >
+    <div class="form-group">
+        <form id="list_search_faci">
+            <div class="col-sm-10">
+                <div class="row">
+
+                    <div class="col-md-1" id="add_button">
+                         <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" onclick="add()">添加</button>
+                        </span>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row" id="add" style="display: none">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5></h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <form class="form-horizontal m-t" id="commentForm" method="post">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">部门名称 :</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="name" name="name" value=""  />
+                            <!--                            required="" aria-required="false"-->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">父级部门 :</label>
+                        <div class="col-sm-8">
+                            <ul id="tree" class="ztree" style="width:260px; overflow:auto;"></ul>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" id="add2" style="display: none">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5></h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <form class="form-horizontal m-t" id="commentForm2" method="post">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">部门名称 :</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="name2" name="name2" value=""  />
+                            <!--                            required="" aria-required="false"-->
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="ibox float-e-margins" id="qr_code_div" style="display: none">
+    <div class="ibox-content">
+        <div class="row row-lg">
+            <div class="col-sm-12">
+                <div class="btn-group hidden-xs" id="userToolbar" role="group">
+                </div>
+                <table id="userTable" >
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+
+<script src="../js/jquery.min.js"></script>
+<script src="../js/public.js"></script>
+<script src="../js/layer/layer.js"></script>
+
+<script src="../js/treegtid/bootstrap-table.min.js"></script>
+<!--<script src="../js/bootstrap-table-master/dist/extensions/treegrid/bootstrap-table-treegrid.js"></script>-->
+<script src="../js/treegtid/bootstrap-table-treegrid.js"></script>
+<script src="../js/treegtid/jquery.treegrid.min.js"></script>
+<script src="../js/plugins/treeview/bootstrap-treeview.js"></script>
+<script type="text/javascript" src="../js/jqZTree/js/jquery.ztree.core.js"></script>
+<script type="text/javascript" src="../js/jqZTree/js/jquery.ztree.excheck.js"></script>
+
+<script type="text/javascript">
+    var $table = $('#table');
+    var $tree = $('#tree');
+    $(function() {
+        if($.inArray('admin/department/adddepartment',u_role_url) === -1){
+            $('#add_button').hide();
+        }
+        initTableYy();
+    });
+    function initTableYy() {
+        $table.bootstrapTable('destroy');
+        $table.bootstrapTable({
+            url: __ROOT__ + 'admin/department/getList', //获取数据的Servlet地址
+            striped: true,  //表格显示条纹
+            pagination: false, //启动分页
+            sortName: 'id',
+            pageSize: 10,  //每页显示的记录数
+            pageNumber:1, //当前第几页
+            pageList: [10, 15, 20, 25],  //记录数可选列表
+            search: false,
+            toolbar: '#list_search_faci',
+            showRefresh: true,  //显示刷新按钮
+            sidePagination: "server", //表示服务端请求
+            //设置为undefined可以获取pageNumber，pageSize，searchText，sortName，sortOrder
+            //设置为limit可以获取limit, offset, search, sort, order
+            responseHandler:function(data){
+                return data.data.rows;
+            },
+            queryParamsType : "undefined",
+            // method: 'post',
+            queryParams: function queryParams(params) {   //设置查询参数
+                params = {
+                    //这里是在ajax发送请求的时候设置一些参数 params有什么东西，自己看看源码就知道了
+                    head : {'token' : getCookie('token')},
+                };
+                return params;
+            },
+            columns: [
+                {
+                    field: 'name',
+                    title: '部门名称' ,
+                    width:'30%'
+                },
+                {
+                    field: 'user_name',
+                    title: '部门管理者' ,
+                    width:'30%',
+                    align: 'center',
+                },
+                {
+                    field: 'emm',
+                    title: '操作',
+                    formatter: function(value,row,index){
+                        let e = '';
+                        if($.inArray('admin/department/adddepartment',u_role_url) !== -1){
+                            e='<a href="javascript:void(0)" data_id="'+row.id+'"   onclick="addDepartment2(this)" >添加子部门</a> ';
+                        }
+                        let d = '';
+                        if($.inArray('admin/department/editdepartment',u_role_url) !== -1){
+                            d='<a href="javascript:void(0)" data_id="'+row.id+'" data_name="'+row.name+'" data_url="'+row.url+'" data_pid="'+row.pid+'"  onclick="edit(this)" >编辑</a> ';
+                        }
+                        let f = '';
+                        if($.inArray('admin/department/deldepartment',u_role_url) !== -1){
+                            f='<a href="javascript:void(0)" data_id="'+row.id+'" onclick="del(this)" >删除</a> ';
+                        }
+                        let q = '';
+                        if($.inArray('admin/department/getalluser',u_role_url) !== -1){
+                            q='<a href="javascript:void(0)" data_id="'+row.id+'" onclick="lookUser(this)" >部门成员</a> ';
+                        }
+                        return e+d+f+q;
+                    }
+                },
+            ],
+            //在哪一列展开树形
+            treeShowField: 'name',
+            //指定父id列
+            parentIdField: 'pid',
+
+            onResetView: function(data) {
+                //console.log('load');
+                $table.treegrid({
+                    initialState: 'collapsed',// 所有节点都折叠
+                    // initialState: 'expanded',// 所有节点都展开，默认展开
+                    treeColumn: 0,
+                    // expanderExpandedClass: 'glyphicon glyphicon-minus',  //图标样式
+                    // expanderCollapsedClass: 'glyphicon glyphicon-plus',
+                    onChange: function() {
+                        $table.bootstrapTable('resetWidth');
+                    }
+                });
+                //只展开树形的第一级节点
+                $table.treegrid('getRootNodes').treegrid('expand');
+            },
+        });
+    }
+
+
+
+    function add() {
+        getTreeNew();
+        layer.open({
+            type: 1,
+            title: '添加',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['90%', '90%'],
+            content: $('#add'),
+            btn: ['确定', '取消'], // 按钮
+            yes: function(index, layero){
+                layer.msg('确定添加？', {
+                    time: 0 //不自动关闭
+                    ,btn: ['确定', '取消']
+                    ,yes: function(index){
+                        let treeObj=$.fn.zTree.getZTreeObj("tree");
+                        let nodes =  treeObj.getCheckedNodes(true);
+                        if(nodes.length === 0){
+                            layer.msg('请选择父级部门');
+                        }else {
+                            requestData.data = {
+                                pid : nodes[0]['id'],
+                                name : $('#name').val(),
+                            };
+                            ajaxGo('admin/department/addDepartment');
+                            if(requestCode === 0){
+                                fac_search();
+                                layer.close(index);
+                                layer.closeAll();
+                                layer.msg(requestMessage);
+                            }else {
+                                layer.msg(requestMessage);
+                            }
+                        }
+                    }
+                });
+            }
+//            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
+        });
+    }
+
+    //添加子部门
+    function addDepartment2(obj){
+        layer.open({
+            type: 1,
+            title: '添加',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['60%', '60%'],
+            content: $('#add2'),
+            btn: ['确定', '取消'], // 按钮
+            yes: function(index, layero){
+                layer.msg('确定添加？', {
+                    time: 0 //不自动关闭
+                    ,btn: ['确定', '取消']
+                    ,yes: function(index){
+                            requestData.data = {
+                                pid : $(obj).attr('data_id'),
+                                name : $('#name2').val(),
+                            };
+                            ajaxGo('admin/department/addDepartment');
+                            if(requestCode === 0){
+                                fac_search();
+                                layer.close(index);
+                                layer.closeAll();
+                                layer.msg(requestMessage);
+                            }else {
+                                layer.msg(requestMessage);
+                            }
+                        }
+                });
+            }
+//            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
+        });
+    }
+
+
+    let treeObj=$.fn.zTree.getZTreeObj("tree");
+
+    function edit(obj) {
+        getTreeNew();
+        $('#name').val($(obj).attr('data_name'));
+        onAsyncSuccess(parseInt($(obj).attr('data_pid')),'tree');
+        layer.open({
+            type: 1,
+            title: '编辑',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['90%', '90%'],
+            content: $('#add'),
+            btn: ['确定', '取消'], // 按钮
+            yes: function(index, layero){
+                layer.msg('确定添加？', {
+                    time: 0 //不自动关闭
+                    ,btn: ['确定', '取消']
+                    ,yes: function(index){
+                        let treeObj=$.fn.zTree.getZTreeObj("tree");
+                        let nodes =  treeObj.getCheckedNodes(true);
+                        if(nodes.length === 0){
+                            layer.msg('请选择父级部门');
+                        }else {
+                            requestData.data = {
+                                pid : nodes[0]['id'],
+                                name : $('#name').val(),
+                                id: $(obj).attr('data_id')
+                            };
+                            ajaxGo('admin/department/editDepartment');
+                            if(requestCode === 0){
+                                fac_search();
+                                layer.close(index);
+                                layer.closeAll();
+                                layer.msg(requestMessage);
+                            }else {
+                                layer.msg(requestMessage);
+                            }
+                        }
+                    }
+                });
+            }
+//            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
+        });
+    }
+
+    function del(obj) {
+        layer.msg('确定删除？', {
+            time: 0 //不自动关闭
+            ,btn: ['确定', '取消']
+            ,yes: function(index){
+                requestData.data = {
+                    id: $(obj).attr('data_id')
+                };
+                ajaxGo('admin/department/delDepartment');
+                if(requestCode === 0){
+                    fac_search();
+                    layer.msg('删除成功!');
+                }else {
+                    layer.msg(requestMessage);
+                }
+            }
+        });
+    }
+
+
+    var zTree;
+    var demoIframe;
+
+    var setting = {
+        view: {
+            dblClickExpand: false,
+            showLine: true,
+            selectedMulti: false
+        },
+        data: {
+            simpleData: {
+                enable: true,
+                idKey: "id",
+                pIdKey: "pid",
+                rootPId: ""
+            }
+        },
+
+        check: {
+            enable: true,
+            chkStyle: "radio",
+            radioType: "all",
+        },
+        callback: {
+            beforeClick: function (treeId, treeNode) {
+                var zTree = $.fn.zTree.getZTreeObj("tree");
+                if (treeNode.isParent) {
+                    zTree.expandNode(treeNode);
+                    return false;
+                } else {
+                    demoIframe.attr("src", treeNode.file + ".html");
+                    return true;
+                }
+            },
+            onAsyncSuccess: function(){
+                var zTree = $.fn.zTree.getZTreeObj("tree");
+                zTree.expandAll(true);
+            }
+        }
+    };
+
+    /**
+     * 选中树形
+     * @param id
+     * @param treeId
+     * @param treeNode
+     * @param msg
+     */
+    function onAsyncSuccess(id, treeId, treeNode, msg) {
+        var f = id;//所选的ID   例如 "12589"
+        var treeObj = $.fn.zTree.getZTreeObj(treeId);//ztree树的ID
+        var node = treeObj.getNodeByParam("id", f);//根据ID找到该节点
+        treeObj.checkNode(node);//根据该节点选中
+    };
+
+    function getTreeNew() {
+        requestData.data = {
+        };
+        ajaxGo('admin/department/getListByTree');
+        var t = $("#tree");
+        t = $.fn.zTree.init(t, setting, requestData.data);
+        demoIframe = $("#testIframe");
+        demoIframe.bind("load", loadReady);
+        t.expandAll(true);
+    }
+
+    function loadReady() {
+        var bodyH = demoIframe.contents().find("body").get(0).scrollHeight,
+            htmlH = demoIframe.contents().find("html").get(0).scrollHeight,
+            maxH = Math.max(bodyH, htmlH), minH = Math.min(bodyH, htmlH),
+            h = demoIframe.height() >= maxH ? minH : maxH;
+        if (h < 530) h = 530;
+        demoIframe.height(h);
+    }
+
+    function fac_search() {
+        $('#table').bootstrapTable('refresh');
+    }
+
+    //查看部门成员
+    function initUserTable(id) {
+        $('#userTable').bootstrapTable('destroy');
+        // $('#wechatDayToolbar').css("height", 300);
+        $("#userTable").bootstrapTable({
+            url: __ROOT__ + 'admin/user_info/getListByDepartmentId', //获取数据的Servlet地址
+            striped: true,  //表格显示条纹
+            pagination: true, //启动分页
+            sortName: 'id',
+            sortOrder:'desc',
+            pageSize: 10,  //每页显示的记录数
+            pageNumber:1, //当前第几页
+            pageList: [10, 15, 20, 25],  //记录数可选列表
+            search: false,
+            toolbar: '#list_search_faci_qr_code',
+            showColumns: true,  //显示下拉框勾选要显示的列
+            showRefresh: true,  //显示刷新按钮
+            sidePagination: "server", //表示服务端请求
+            responseHandler:function(data){
+                return data.data;
+            },
+            queryParamsType : "undefined",
+            // method: 'post',
+            queryParams: function queryParams(params) {   //设置查询参数
+                params = {
+                    //这里是在ajax发送请求的时候设置一些参数 params有什么东西，自己看看源码就知道了
+                    pageNumber: params.pageNumber,
+                    pageSize: params.pageSize,
+                    sortName: params.sortName,
+                    sortOrder: params.sortOrder,
+                    // id : {$_GET['id']},
+                    head : {'token' : getCookie('token')},
+                    id : id
+                };
+
+                return params;
+            },
+            onLoadSuccess: function(data){  //加载成功时执行
+
+            },
+            onLoadError: function(){  //加载失败时执行
+                layer.msg("加载数据失败", {time : 1500, icon : 2});
+            },
+            columns: [
+                {
+                    title: 'Id',
+                    field: 'id',
+                    align: 'center',
+                    width : 20,
+                },
+                {
+                    field: 'name',
+                    title: '名称',
+                    width : 20,
+                    align: 'center'
+                },
+                {
+                    field: 'phone',
+                    title: '电话',
+                    width : 20,
+                    align: 'center'
+                }
+            ]
+        });
+    }
+
+    function lookUser(obj) {
+        initUserTable($(obj).attr('data_id'));
+        layer.open({
+            type: 1,
+            title: '成员',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['80%', '80%'],
+            content: $('#qr_code_div'),
+            btn: ['确定', '取消'], // 按钮
+            yes: function(indexs, layero){
+                let row = $("#linkTable").bootstrapTable('getSelections');
+                if (row.length === 0) {
+                    layer.msg('请选择行');
+                }else {
+                    layer.msg('确定选择？', {
+                        time: 0 //不自动关闭
+                        ,btn: ['确定', '取消']
+                        ,yes: function(index) {
+                            row.forEach((item,index,array)=>{
+                                //执行代码
+                                var html = '<div style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"  onclick="delImg(this)" ><div><img style="width: 150px;height: 150px" name="qr_img" data_link_id="'+item.id+'" data_name="'+__IMG__+'/'+item.img_url+'" src="'+__IMG__+'/'+item.img_url+'"></div></div>';
+                                $('#upload-list').append(html);
+                            });
+                            layer.close(index);
+                            layer.close(indexs);
+                        }
+                    });
+                }
+
+            }
+        });
+    }
+
+</script>
+</html>

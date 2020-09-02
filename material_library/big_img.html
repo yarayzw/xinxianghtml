@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>筋斗云管理系统</title>
+    <link href="../css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="../css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="../css/animate.min.css" rel="stylesheet">
+    <link href="../css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <link href="../css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link href="../css/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../js/simditor-2.3.28/styles/simditor.css">
+    <link rel="stylesheet" type="text/css" href="../css/plugins/webuploader/webuploader.css">
+    <link rel="stylesheet" type="text/css" href="../css/demo/webuploader-demo.min.css">
+    <link rel="stylesheet" type="text/css" href="../js/plugins/bootstrap-select-1.13.9/dist/css/bootstrap-select.css">
+
+</head>
+
+<body>
+
+<style>
+
+    .label_list{
+        color: black;
+        margin-left: 10px;
+    }
+    .label_checked{
+        background: black;
+        color: white;
+        padding: 2px 2px;
+        border-radius:5px;
+    }
+
+    .right_font{
+        text-align: right;
+    }
+
+    .img_s{
+        width: 100%;
+        height: 100px;
+    }
+</style>
+
+<div class="row" id="big_img">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>大图素材 </h5>
+                <div class="ibox-tools">
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div class="row">
+                    <div class="col-sm-7 b-r" style="height: 160px">
+                        <span style="color: black">标签:</span>
+                        <span id="label_list">
+
+                        </span>
+                        <div class="right_font" style="margin-top: 120px">
+                            <span style="margin-right: 10px;cursor:pointer" onclick="delLabel()" >删除</span>
+                            <span style="margin-right: 10px;cursor:pointer" onclick="editLabel()" >编辑</span>
+                            <span onclick="addLabel()" style="cursor:pointer">添加标签</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 b-l" >
+                        <p class="text-center" >
+                        <div id="upload-big" style="cursor:pointer;float: left">
+                            <i class="glyphicon glyphicon-circle-arrow-up  big-icon"  id="upload-img"></i>&nbsp;&nbsp;&nbsp;
+                        </div>
+                        <button id="picker-big" style="display: none;">点击上传文件</button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-9" id="img_list">
+
+    </div>
+</div>
+
+<div class="row" id="addLable" style="display: none">
+    <div class="ibox-content">
+        <form class="form-horizontal m-t"  method="post">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">标签名称 :</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="label_name" id="label_name" value=""  />
+                    <!--                            required="" aria-required="false"-->
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+</body>
+
+<script src="../js/jquery.min.js?v=2.1.4"></script>
+<script src="../js/public.js"></script>
+<script src="../js/bootstrap.min.js?v=3.3.6"></script>
+<script src="../js/layer/layer.js"></script>
+<script src="../js/content.min.js"></script>
+<script src="../js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+<script src="../js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="../js/demo/bootstrap-table-demo.min.js"></script>
+<script src="../js/laydate/laydate.js"></script>
+<script src="../js/bootstrapValidator.js"></script>
+<script src="../js/bootstrapValidator.min.js"></script>
+<script src="../js/index.js"></script>
+<script src="../js/plugins/simditor/module.js"></script>
+<script src="../js/plugins/simditor/uploader.js"></script>
+<script src="../js/plugins/simditor/hotkeys.js"></script>
+<script src="../js/simditor-2.3.28/lib/simditor.js"></script>
+<script src="../js/plugins/webuploader/webuploader.min.js"></script>
+<!--<script src="../js/demo/webuploader-demo.min.js"></script>-->
+<script src="../js/plugins/bootstrap-select-1.13.9/js/bootstrap-select.js"></script>
+
+<script>
+
+
+    //图片上传插件初始化
+    $('#upload-big').click(function(event) {
+        $("#picker-big").find('input').click();
+    });
+    var uploader_big = WebUploader.create({
+        auto: true,// 选完文件后，是否自动上传。
+        // swf: 'https://cdn.bootcss.com/webuploader/0.1.1/Uploader.swf',// swf文件路径
+        server: __ROOT__ + 'thirdparty/oss/upload',// 文件接收服务端。
+        dnd: '#upload-big',
+        pick: '#picker-big',// 内部根据当前运行是创建，可能是input元素，也可能是flash. 这里是div的id
+        multiple: true, // 选择多个
+        chunked: true,// 开起分片上传。
+        threads: 5, // 上传并发数。允许同时最大上传进程数。
+        method: 'POST', // 文件上传方式，POST或者GET。
+        fileSizeLimit: 1024*1024*100*100, //验证文件总大小是否超出限制, 超出则不允许加入队列。
+        fileSingleSizeLimit: 1024*1024*100, //验证单个文件大小是否超出限制, 超出则不允许加入队列。
+        fileVal:'upload', // [默认值：'file'] 设置文件上传域的name。
+    });
+    uploader_big.on('uploadSuccess', function(file, response) {
+        if(0 === Label_id){
+            layer.msg('请选择标签')
+        }else {
+            requestData.data = {
+                'img_url' : response.path[0],
+                'tag_id' : Label_id,
+                'type': 2,
+            };
+            ajaxGo('admin/material_library/addMaterialLibrary');
+            layer.msg('上传成功');
+            getMaterialList();
+        }
+    });
+
+
+    $(document).ready(function () {
+        openMaterial();
+    });
+
+    let Label_type = 0; //标签类别
+    //打开素材库
+    function openMaterial()
+    {
+        Label_type = 2;
+        getListLabel();
+        getMaterialList();
+        // layer.open({
+        //     type: 1,
+        //     title: '大图素材',
+        //     shadeClose: true,
+        //     shade: 0.8,
+        //     area: ['85%', '80%'],
+        //     content: $('#big_img'),
+        //     btn: [ '取消'], // 按钮
+        // });
+
+    }
+
+    //切换标签
+    let Label_id = 0;
+    function changeLabel(obj) {
+        $('span').removeClass('label_checked');
+        $(obj).addClass('label_checked');
+        Label_id = parseInt($(obj).attr('data_id'));
+        getMaterialList();
+    }
+
+    //获取用户所有标签
+    function getListLabel() {
+        requestData.data = {
+            'type' : Label_type
+        };
+        ajaxGo('admin/source_tag/getAllList');
+        $('#label_list').empty();
+        requestData.data.forEach((item,index,array)=>{
+            //执行代码
+            //var html = "<option value='"+item.id+"'>"+item.name+"</option>";
+            if(item.id === Label_id){
+                var html = '<span class="label_list label_checked" style="cursor:pointer" onclick="changeLabel(this)" data_id = "'+item.id+'" >'+item.name+'</span>';
+            }else {
+                var html = '<span class="label_list" style="cursor:pointer" onclick="changeLabel(this)" data_id = "'+item.id+'" >'+item.name+'</span>';
+            }
+            $('#label_list').append(html);
+        });
+    }
+
+    //添加标签
+    function addLabel(){
+        layer.open({
+            type: 1,
+            title: '添加标签',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['60%', '50%'],
+            content: $('#addLable'),
+            btn: ['确定', '取消'], // 按钮
+            yes: function(addLabel, layero){
+                layer.msg('确定添加？', {
+                    time: 0 //不自动关闭
+                    ,btn: ['确定', '取消']
+                    ,yes: function(index){
+                        requestData.data = {
+                            'name' : $('#label_name').val(),
+                            'sort_order' : 0,
+                            'type' : Label_type
+                        };
+                        ajaxGo('admin/source_tag/add');
+                        if(requestCode === 0){
+                            getListLabel();
+                            layer.close(index);
+                            layer.close(addLabel);
+                            layer.msg('添加成功');
+                        }else {
+                            layer.msg(requestMessage);
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    //编辑标签
+    function editLabel(){
+        if(0 === Label_id){
+            layer.msg('请选择标签')
+        }else {
+            layer.open({
+                type: 1,
+                title: '修改标签',
+                shadeClose: true,
+                shade: 0.8,
+                area: ['60%', '50%'],
+                content: $('#addLable'),
+                btn: ['确定', '取消'], // 按钮
+                yes: function(editLabel, layero){
+                    layer.msg('确定修改？', {
+                        time: 0 //不自动关闭
+                        ,btn: ['确定', '取消']
+                        ,yes: function(index){
+                            requestData.data = {
+                                'id' : Label_id,
+                                'name' : $('#label_name').val(),
+                                'sort_order' : 0
+                            };
+                            ajaxGo('admin/source_tag/edit');
+                            if(requestCode === 0){
+                                getListLabel();
+                                layer.close(index);
+                                layer.close(editLabel);
+                                layer.msg('修改成功');
+                            }else {
+                                layer.msg(requestMessage);
+                            }
+                        }
+                    });
+                }
+            });
+
+        }
+    }
+
+    //删除标签
+    function delLabel() {
+        if(0 === Label_id){
+            layer.msg('请选择标签')
+        }else {
+            layer.msg('确定删除标签？', {
+                time: 0 //不自动关闭
+                ,btn: ['确定', '取消']
+                ,yes: function(index){
+                    requestData.data = {
+                        'id' : Label_id,
+                        'name' : $('#label_name').val(),
+                        'sort_order' : 0
+                    };
+                    ajaxGo('admin/source_tag/remove');
+                    if(requestCode === 0){
+                        getListLabel();
+                        layer.close(index);
+                        layer.msg('删除成功');
+                    }else {
+                        layer.msg(requestMessage);
+                    }
+                }
+            });
+            Label_id = 0;
+        }
+    }
+
+    //获取素材内容
+    function getMaterialList()
+    {
+        requestData.data = {
+            'tag_id' : Label_id,
+            'type': 2,
+        };
+        ajaxGo('admin/material_library/getListToSelect');
+        $('#img_list').empty();
+        requestData.data.forEach((item,index,array)=>{
+            //执行代码
+            //var html = "<option value='"+item.id+"'>"+item.name+"</option>";
+            var html = '<div class="col-sm-4 img_div">\n' +
+                '            <div>\n' +
+                '                <img  class="img_s" src="'+__IMG__+item.img_url+'" alt="" onclick="checkedImg('+item.id+')">\n' +
+                '            </div>\n' +
+                '            <div class="right_font">\n' +
+                '                <span style="margin-right: 10px" onclick="delImgMaterIal('+item.id+')">删除</span>\n' +
+                '                <span onclick="checkedImg('+item.id+')">使用此图!</span>\n' +
+                '                <input id="m_d_'+item.id+'" style="display: none" value="'+item.img_url+'" />\n' +
+                '            </div>\n' +
+                '        </div>';
+            $('#img_list').append(html);
+        });
+    }
+
+    //选择素材插入
+    function checkedImg(id) {
+        $('#upload-list-head').empty();
+        let img_url = $('#m_d_'+id).val();
+        var html = '<div  onclick="delImg(this)" ><img name="head_img" data_name="'+__IMG__+ img_url+'" src="'+__IMG__+ img_url+'"></div>';
+        $('#upload-list-head').append(html);
+        layer.msg('插入成功');
+    }
+
+    //删除素材
+    function delImgMaterIal(id)
+    {
+        layer.msg('确定删除？', {
+            time: 0 //不自动关闭
+            ,btn: ['确定', '取消']
+            ,yes: function(index){
+                requestData.data = {
+                    'id' : id
+                };
+                ajaxGo('admin/material_library/delMaterialLibrary');
+                if(requestCode === 0){
+                    getMaterialList();
+                    layer.msg('删除成功!');
+                }else {
+                    layer.msg(requestMessage);
+                }
+            }
+        });
+    }
+
+
+</script>
+

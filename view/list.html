@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>筋斗云管理系统</title>
+    <link href="../css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="../css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="../css/animate.min.css" rel="stylesheet">
+    <link href="../css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <link href="../css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link href="../css/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../js/plugins/bootstrap-select-1.13.9/dist/css/bootstrap-select.css">
+
+
+</head>
+<style>
+    /**字符串过长 转化为 。。。**/
+    table{
+        table-layout:fixed;/* 只有定义了表格的布局算法为fixed，下面td的定义才能起作用。 */
+    }
+    td{
+        max-width: 58px;
+        overflow: hidden;
+        text-overflow:ellipsis;
+        white-space: nowrap;
+    }
+
+    table td:hover {
+        overflow: auto;
+        white-space: pre-wrap;
+    }
+</style>
+<body>
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="row row-lg">
+            <div class="col-sm-12">
+                <!-- Example Toolbar -->
+                <div class="example-wrap">
+                    <div class="example">
+                        <div class="btn-group hidden-xs" id="viewToolbar" role="group">
+                        </div>
+                        <table class="table table-hover" id="viewTable"
+                               data-pagination="true"
+                               data-show-refresh="true"
+                               data-show-toggle="true"
+                               data-showColumns="true">
+                        </table>
+                    </div>
+                </div>
+                <!-- End Example Toolbar -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div >
+    <form id="list_search_faci">
+        <fieldset>
+            <div class="col-sm-10">
+                <div class="row">
+                    <div class="col-md-1">
+                         <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" onclick="fac_search()">搜索</button>
+                        </span>
+                    </div>
+                    <div class="col-md-1" id="add_button">
+                         <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button" onclick="addView()">添加</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+        </fieldset>
+    </form>
+</div>
+
+<div class="row" id="add" style="display: none">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>添加模版</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <form class="form-horizontal m-t" id="commentForm" method="post">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">名称 :</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="name" value=""  />
+                            <!--                            required="" aria-required="false"-->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">路径 :</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="url" value=""  />
+                            <!--                            required="" aria-required="false"-->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">平台 :</label>
+                        <div class="col-sm-8">
+                            <!--<select id="platform" class="selectpicker" data-live-search="true">
+
+                            </select>-->
+                            <div id="platform"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">类别：</label>
+                            <div class="col-sm-9">
+                                <label class="radio-inline">
+                                    <input type="radio" checked="" value="1" id="type_1" name="type">pc端</label>
+                                <label class="radio-inline">
+                                    <input type="radio" value="2" id="type_2" name="type">移动端</label>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="text" id="copyText" style="display: none">
+
+</body>
+
+<script src="../js/jquery.min.js?v=2.1.4"></script>
+<script src="../js/public.js"></script>
+<script src="../js/bootstrap.min.js?v=3.3.6"></script>
+<script src="../js/layer/layer.js"></script>
+<script src="../js/content.min.js"></script>
+<script src="../js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+<script src="../js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="../js/demo/bootstrap-table-demo.min.js"></script>
+<script src="../js/bootstrapValidator.js"></script>
+<script src="../js/bootstrapValidator.min.js"></script>
+<script src="../js/index.js"></script>
+<script src="../js/plugins/bootstrap-select-1.13.9/js/bootstrap-select.js"></script>
+
+<!--<script src="../js/demo/webuploader-demo.min.js"></script>-->
+<!--//下拉框js-->
+
+
+<script src="../js/view/addView.js"></script>
+<script src="../js/view/list.js"></script>
+
