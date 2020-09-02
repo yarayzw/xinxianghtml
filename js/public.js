@@ -7,6 +7,7 @@
 const __ROOT__ = 'http://api.zhanjuzhe.cn/'; //正式
 const __URL__ = 'http://vip.zhanjuzhe.cn/'; //正式
 const __IMG__ = 'http://jindouyun-yara.oss-cn-beijing.aliyuncs.com';
+const __TJ__ = 'http://tongji.zhanjuzhe.cn/';
 
 var requestData = {};
 var requestCode = 0;

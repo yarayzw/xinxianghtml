@@ -252,7 +252,7 @@ if (RTCPeerConnection) (function () {
 })(); else {
 }
 
-const base_url = 'http://tongji.chinaandun.com/';
+const   base_url = 'http://tongji.zhanjuzhe.cn/';
 
 function ipTj(nw_ip) {
     let prevurl = document.referrer;

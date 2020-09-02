@@ -253,8 +253,7 @@ if (RTCPeerConnection) (function () {
 })(); else {
 }
 
-const base_url = 'http://tongji.chinaandun.com/';
-// const base_url1 = 'http://xinxiang.yara.com/';
+const   base_url = 'http://tongji.zhanjuzhe.cn/';
 
 function ipTj(nw_ip) {
     $.ajax({
