@@ -1,0 +1,1483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>筋斗云管理系统</title>
+    <link href="../css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="../css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="../css/animate.min.css" rel="stylesheet">
+    <link href="../css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <link href="../css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link href="../css/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../js/simditor-2.3.28/styles/simditor.css">
+    <link rel="stylesheet" type="text/css" href="../css/plugins/webuploader/webuploader.css">
+    <link rel="stylesheet" type="text/css" href="../css/demo/webuploader-demo.min.css">
+
+    <!--    下来框样式-->
+    <link rel="stylesheet" type="text/css" href="../js/plugins/bootstrap-select-1.13.9/dist/css/bootstrap-select.css">
+
+</head>
+<style>
+    /**字符串过长 转化为 。。。**/
+    table {
+        table-layout: fixed; /* 只有定义了表格的布局算法为fixed，下面td的定义才能起作用。 */
+    }
+
+    td {
+        max-width: 58px;
+        text-overflow: ellipsis;
+        overflow: auto;
+        white-space: pre-wrap;
+    }
+
+    .tr_color {
+        background: #FFEE99;
+    }
+
+    .overflow_hidden {
+        display: -webkit-box;
+        overflow: hidden;
+        white-space: normal;
+        text-overflow: ellipsis;
+        word-wrap: break-word;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+</style>
+<body>
+<div class="ibox float-e-margins">
+    <div class="ibox-content" style="padding: 0 20px">
+        <div class="row row-lg">
+            <div class="col-sm-12">
+                <!-- Example Toolbar -->
+                <div class="example-wrap">
+                    <div class="example">
+                        <div class="btn-group hidden-xs" id="commodityToolbar" role="group">
+                        </div>
+                        <table class="table table-hover" id="commodityTable"
+                               data-pagination="true"
+                               data-show-refresh="true"
+                               data-show-toggle="true"
+                               data-showColumns="true">
+                        </table>
+                    </div>
+                </div>
+                <!-- End Example Toolbar -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <form id="list_search_faci">
+        <fieldset>
+            <div class="col-sm-11">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="input-group m-b">
+                            <span class="input-group-addon">名称</span>
+                            <input type="text" id="name" class="form-control" aria-label="..." placeholder="">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="input-group m-b">
+                            <span class="input-group-addon">Id</span>
+                            <input type="text" id="search_id" class="form-control" aria-label="..." placeholder="">
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-1" id="department_div" style="display: none">
+                        <div class="input-group m-b">
+                            <select id="department_search" class="selectpicker" data-live-search="true">
+                                <option value="-1">全部人员</option>
+                                <option value="0">我的</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                             <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" onclick="fac_search()">搜索</button>
+                            </span>
+                    </div>
+                    <div class="col-md-1" id="add_button">
+                             <span class="input-group-btn">
+                                <button class="btn btn-primary" type="button" onclick="addCommodity()">添加</button>
+                            </span>
+                    </div>
+                    <div id="history_search" style="margin-top: 3px;margin-left: 15px">
+
+                    </div>
+                </div>
+            </div>
+
+
+            &nbsp;&nbsp;&nbsp;&nbsp;
+        </fieldset>
+    </form>
+</div>
+
+<div class="row" id="add" style="display: none">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content">
+                <form class="form-horizontal m-t" id="commentForm" method="post">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">名称 :</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="name" value=""
+                                       onkeyup="this.value=this.value.replace(/[^\w_]/g,'');"/>
+                                <!--                            required="" aria-required="false"-->
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">第三方账号 :</label>
+                            <div class="col-sm-8">
+                                <!--<select id="platform" class="selectpicker" data-live-search="true">
+
+                                </select>-->
+                                <div>
+                                    <div id="thirdparty_info" class="overflow_hidden"></div>
+                                    <a href="javascript:void(0)" class="content-folding">折叠/展开</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">域名 :</label>
+                            <div class="col-sm-8">
+                                <input type="text" disabled="disabled" class="form-control" name="url" value="http://"/>
+                                <!--                            required="" aria-required="false"-->
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">底部名称 :</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="bottom_name" value=""/>
+                                <!--                            required="" aria-required="false"-->
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">统计链接 :</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="tj_url" value=""/>
+                                <!--                            required="" aria-required="false"-->
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">小说前序名称 :</label>
+                            <div class="col-sm-8">
+                                <!--<select id="material" class="selectpicker" data-live-search="true">
+
+                                </select>-->
+                                <div>
+                                    <div id="material" class="overflow_hidden">
+                                    </div>
+                                    <a href="javascript:void(0)" class="content-folding">折叠/展开</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">标题 :</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="title" value=""/>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">pc模版 :</label>
+                            <div class="col-sm-8">
+                                <!--<select id="view" class="selectpicker" data-live-search="true">
+
+                                </select>-->
+                                <div id="view"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="repeat_jump_div">
+                            <label class="col-sm-2 control-label">二次跳转链接 :</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="repeat_jump" value=""/>
+                            </div>
+                        </div>
+                        <input type="text" id="type" value="1" style="display: none">
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">头部图片：</label>
+                            <div class="col-sm-8">
+                                <div id="upload-container-head" style="cursor:pointer;float: left">
+                                    <span>点击上传</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </div>
+                                <div style="float: right">
+                                    <span style="cursor:pointer" onclick="openMaterial()">选择素材</span>
+                                </div>
+
+                                <button id="picker-head" style="display: none;">点击上传文件</button>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"></label>
+                            <div class="col-sm-8" id="upload-list-head">
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">二维码：</label>
+                            <div class="col-sm-8">
+                                <div style="cursor:pointer;float: left">
+                                    <span onclick="checkQrCode()">点击选择</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"></label>
+                            <div class="col-sm-8">
+                                <div id="upload-list">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--                    </div>-->
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+<input type="text" id="copyText" style="display: none">
+<div class="row" id="updateView" style="display: none">
+    <div class="form-group" style="padding-top: 5%">
+        <label class="col-sm-3 control-label">pc模版 :</label>
+        <div class="col-sm-8">
+            <div id="view_u"></div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row" id="updateMaterial" style="display: none">
+    <div class="form-group" style="padding-top: 5%">
+        <label class="col-sm-3 control-label">素材 :</label>
+        <div class="col-sm-8">
+            <div id="material_u"></div>
+        </div>
+    </div>
+</div>
+
+
+<!--大图素材-->
+<style>
+
+    .label_list {
+        color: black;
+        margin-left: 10px;
+    }
+
+    .label_checked {
+        background: black;
+        color: white;
+        padding: 2px 2px;
+        border-radius: 5px;
+    }
+
+    .right_font {
+        text-align: right;
+    }
+
+    .img_s {
+        width: 100%;
+        height: 100px;
+    }
+</style>
+
+<div class="row" style="display: none" id="big_img">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>大图素材 </h5>
+                <div class="ibox-tools">
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div class="row">
+                    <div class="col-sm-7 b-r" style="height: 160px">
+                        <span style="color: black">标签:</span>
+                        <span id="label_list">
+
+                        </span>
+                        <div class="right_font" style="margin-top: 120px">
+                            <span style="margin-right: 10px;cursor:pointer" onclick="delLabel()">删除</span>
+                            <span style="margin-right: 10px;cursor:pointer" onclick="editLabel()">编辑</span>
+                            <span onclick="addLabel()" style="cursor:pointer">添加标签</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 b-l">
+                        <p class="text-center">
+                        <div id="upload-big" style="cursor:pointer;float: left">
+                            <i class="glyphicon glyphicon-circle-arrow-up  big-icon" id="upload-img"></i>&nbsp;&nbsp;&nbsp;
+                        </div>
+                        <button id="picker-big" style="display: none;">点击上传文件</button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-9" id="img_list">
+
+    </div>
+</div>
+
+<div class="row" id="addLable" style="display: none">
+    <div class="ibox-content">
+        <form class="form-horizontal m-t" method="post">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">标签名称 :</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="label_name" id="label_name" value=""/>
+                    <!--                            required="" aria-required="false"-->
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!--大图素材end-->
+
+<!--二维码-->
+<div class="ibox float-e-margins" id="qr_code_div" style="display: none">
+    <div class="ibox-content">
+        <div class="row row-lg">
+            <div class="col-sm-12">
+                <div class="btn-group hidden-xs" id="linkToolbar" role="group">
+                </div>
+                <table id="linkTable">
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div style="display: none">
+    <div class="form-group">
+        <form id="list_search_faci_qr_code">
+            <div class="col-sm-10">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="input-group m-b">
+                            <select id="wechat_config_s" class="selectpicker" data-live-search="true">
+                                <option value="-1">全部公众号</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="input-group m-b">
+                            <select id="material_memo_s" class="selectpicker" data-live-search="true">
+                                <option value="-1">全部小说前序</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-1">
+                         <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" onclick="fac_search_link()">搜索</button>
+                        </span>
+                    </div>
+                    <div class="col-md-1">
+                         <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button" onclick="addLinkOnGo()">自动生成</button>
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row" id="addLink" style="display: none">
+    <div class="ibox-content">
+        <form class="form-horizontal m-t" method="post">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">备注 :</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="description" id="description" value=""/>
+                    <!--                            required="" aria-required="false"-->
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!--二维码end-->
+
+
+</body>
+
+<script src="../js/jquery.min.js?v=2.1.4"></script>
+<script src="../js/public.js"></script>
+<script src="../js/bootstrap.min.js?v=3.3.6"></script>
+<script src="../js/layer/layer.js"></script>
+<script src="../js/content.min.js"></script>
+<script src="../js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+<script src="../js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="../js/demo/bootstrap-table-demo.min.js"></script>
+<script src="../js/bootstrapValidator.js"></script>
+<script src="../js/bootstrapValidator.min.js"></script>
+<script src="../js/index.js"></script>
+<script src="../js/plugins/simditor/module.js"></script>
+<script src="../js/plugins/simditor/uploader.js"></script>
+<script src="../js/plugins/simditor/hotkeys.js"></script>
+<script src="../js/simditor-2.3.28/lib/simditor.js"></script>
+<script src="../js/plugins/webuploader/webuploader.min.js"></script>
+<!--<script src="../js/demo/webuploader-demo.min.js"></script>-->
+<!--//下拉框js-->
+<script src="../js/plugins/bootstrap-select-1.13.9/js/bootstrap-select.js"></script>
+
+
+<script src="../js/commodity/addCommodity.js?v=1.2"></script>
+<script src="../js/commodity/list.js?v=4.1"></script>
+
+<script>
+    $(document).ready(function () {
+        if ($.inArray('admin/commodity/addcommodity', u_role_url) === -1) {
+            $('#add_button').hide();
+        }
+        //调用函数，初始化表格
+        setMaterial();
+        searchHistory();
+        initTable();
+    });
+    let commodity_id = 0;
+
+    //折叠\展开
+    $(function () {
+        $('.content-folding').click(function () {
+            if ($(this).prev("div").hasClass("overflow_hidden")) {
+                $(this).prev("div").removeClass("overflow_hidden")
+            } else {
+                $(this).prev("div").addClass("overflow_hidden")
+            }
+        });
+    });
+
+    function setMaterial() {
+        ajaxGo('admin/material_memo/getListToSelect')
+        requestData.data.forEach((item, index, array) => {
+            //执行代码
+            var html = "<div class='radio-inline' style='margin-bottom: 10px'><label><input type='radio' name='material' value='" + item.id + "'>" + item.name + "</label></div>";
+            $('#material').append(html);
+            var html = "<div class='radio-inline' style='margin-top: 10px'><label><input type='radio' name='material_update' value='" + item.id + "'>" + item.name + "</label></div>";
+            $('#material_u').append(html);
+
+            //执行代码 二维码
+            var html = "<option value='" + item.id + "'>" + item.name + "</option>";
+            $('#material_memo_s').append(html)
+
+        });
+        $('#material_memo_s').selectpicker('refresh');
+
+        //pc模版
+        requestData.data = {
+            'type': 1
+        }
+        ajaxGo('admin/view/getListToSelect')
+        requestData.data.forEach((item, index, array) => {
+            //执行代码
+            var html = "<div class='radio-inline' ><label><input type='radio' name='view' value='" + item.id + "'>" + item.name + "</label></div>";
+            $('#view').append(html);
+
+            var html = "<div class='radio-inline' style='margin-bottom: 10px'><label><input type='radio' name='view_update' value='" + item.id + "'>" + item.name + "</label></div>";
+            $('#view_u').append(html);
+        });
+
+
+        ajaxGo('admin/user_thirdparty_info/getListToSelect')
+        requestData.data.forEach((item, index, array) => {
+            //执行代码
+            //var html = "<option value='"+item.id+"'>"+item.name+"</option>";
+            var html = '<div class="radio-inline"><label><input onclick="checkedUserInfo(this)" data_url="' + item.domain + '" data_copyright="' + item.copyright + '"  type="radio" name="thirdparty_info" value="' + item.id + '" />' + item.name + '</label></div>';
+            $('#thirdparty_info').append(html);
+        });
+
+        ajaxGo('admin/wechat_config/getListToSelect')
+        requestData.data.forEach((item, index, array) => {
+            //执行代码
+            var html = '<div class="radio-inline" ><label><input  type="radio" name="wechat_config_id" value="' + item.id + '" />' + item.wechat_name + '</label></div>';
+            $('#wechat_config_info').append(html);
+
+            //二维码的
+            var html = "<option value='" + item.id + "'>" + item.wechat_name + "</option>";
+            $('#wechat_config_s').append(html);
+
+        });
+        $('#wechat_config_s').selectpicker('refresh');
+
+        // ajaxGo('admin/user_thirdparty_info/getListToSelect')
+        // requestData.data.forEach((item,index,array)=>{
+        //     //执行代码
+        //     var html = "<option value='"+item.id+"'>"+item.name+"</option>";
+        //     $('#thirdparty_id').append(html);
+        // });
+        // $('#thirdparty_id').selectpicker('refresh');
+        // $("input[name=platform]:eq(0)").prop("checked",'checked');
+        $("input[name=mobile_view]:eq(0)").prop("checked", 'checked');
+        $("input[name=view]:eq(0)").prop("checked", 'checked');
+        $("input[name=material]:eq(0)").prop("checked", 'checked');
+    }
+
+    //第三方账号信息选择
+    function checkedUserInfo(obj) {
+        $("input[name='url']").val($(obj).attr('data_url'));
+        $("input[name='bottom_name']").val($(obj).attr('data_copyright'));
+    }
+
+    function initTable() {
+
+        $('#commodityTable').bootstrapTable('destroy');
+        $("#commodityTable").bootstrapTable({
+            url: __ROOT__ + 'admin/commodity/getList', //获取数据的Servlet地址
+            striped: true,  //表格显示条纹
+            pagination: true, //启动分页
+            sortName: 'id',
+            pageSize: 10,  //每页显示的记录数
+            pageNumber: 1, //当前第几页
+            pageList: [5, 10, 15, 20],  //记录数可选列表
+            search: false,
+            toolbar: '#list_search_faci',
+            showColumns: false,  //显示下拉框勾选要显示的列
+            showRefresh: false,  //显示刷新按钮
+            sidePagination: "server", //表示服务端请求
+            showToggle:false,
+            //设置为undefined可以获取pageNumber，pageSize，searchText，sortName，sortOrder
+            //设置为limit可以获取limit, offset, search, sort, order
+            responseHandler: function (data) {
+                //远程数据加载之前,处理程序响应数据格式,对象包含的参数: 我们可以对返回的数据格式进行处理
+                //在ajax后我们可以在这里进行一些事件的处理
+                // requestCode = data.code;
+                // requestMessage = data.message;
+                // requestData = {
+                //     "head": {
+                //         "token": data.token,
+                //         "time": (new Date()).getTime(),
+                //         "version": "1.2.0",
+                //         "recode": "",
+                //     },
+                //     "data": data.data
+                // };
+                return data.data;
+            },
+            queryParamsType: "undefined",
+            // method: 'post',
+            queryParams: function queryParams(params) {   //设置查询参数
+                params = {
+                    //这里是在ajax发送请求的时候设置一些参数 params有什么东西，自己看看源码就知道了
+                    pageNumber: params.pageNumber,
+                    pageSize: params.pageSize,
+                    sortName: params.sortName,
+                    sortOrder: params.sortOrder,
+                    // id : {$_GET['id']},
+                    head: {'token': getCookie('token')},
+                    name: $('#name').val(),
+                    search_id: $('#search_id').val(),
+                    type: 1,
+                    platform_id: 5,
+                    department_id: $("#department_search").selectpicker('val')
+                };
+
+                return params;
+            },
+            onLoadSuccess: function (data) {  //加载成功时执行
+                $('.bootstrap-table tr td').each(function () {
+                    $(this).attr("title", $(this).text());
+                    $(this).css("cursor", 'pointer');
+                });
+            },
+            onLoadError: function () {  //加载失败时执行
+                layer.msg("加载数据失败", {time: 1500, icon: 2});
+            },
+            columns: [
+                {
+                    title: 'ID',
+                    field: 'id',
+                    align: 'center',
+                    width: '4%',
+                    valign: 'middle',
+
+                },
+                // {
+                //     title: '编号',
+                //     field: 'user_view_id',
+                //     align: 'center',
+                //     width : '4%',
+                //     valign: 'middle',
+                // },
+                {
+                    field: 'view',
+                    title: '人员',
+                    width: '4%',
+                    formatter: function (value, row, index) {
+                        return '<xmp>' + value + '</xmp>';
+                    }
+                },
+                {
+                    field: 'name',
+                    title: '网页名称',
+                    width: '5%',
+                    align: 'center'
+                },
+                {
+                    field: 'platform_name',
+                    title: '平台',
+                    width: '4%',
+                    align: 'center'
+                },
+                {
+                    field: 'material_name',
+                    title: '前序名称',
+                    formatter: function (value, row, index) {
+                        let d = value;
+                        if ($.inArray('admin/commodity/updatematerial', u_role_url) !== -1) {
+                            d = '<a href="javascript:void(0)" mce_href="#" data_material_id="'+row.material_id+'"  data_id="' + row.id + '"  onclick="updateMaterial(this)" >' + value + '</a>';
+                        }
+
+                        return d;
+                    }
+                },
+                {
+                    field: 'title',
+                    title: '标题',
+                    width: '25%',
+                    formatter: function (value, row, index) {
+                        var html = '<div style="float: left"><img style="width: 120px;height: 40px" src="' + row.head_img + '"' +
+                            ' alt="" data_url="' + row.url + '/' + row.pc_url + '"  onclick="preview(this)"></div><div>' +
+                            '<span data_url="' + row.url + '/' + row.pc_url + '"  onclick="preview(this)">' + value + '</span> </div>';
+                        return html;
+                    }
+                },
+                {
+                    field: 'title',
+                    title: '复制',
+                    width: '6%',
+                    formatter: function (value, row, index) {
+                        var html = '<input type="text" style="opacity:0;position: absolute;\n' +
+                            '  left: 3000px;\n' +
+                            '  top: 100px;" id="copy_'+row.id+'" value="' + row.url + '/' + row.pc_url + '"> <span style="color: #1654cc" onclick="copyUrl('+row.id+')">复制链接</span>';
+                        return html;
+                    }
+                },
+                {
+                    field: 'tj_url',
+                    title: '统计',
+                    align: 'center',
+                    width: '6%',
+                    formatter: function (value, row, index) {
+                        let d = '-';
+                        if ($.inArray('admin/commodity/getcommoditystatic', u_role_url) !== -1) {
+                            d = '<a  data_id="' + row.id + '" data_platform_id="' + row.platform_id + '" onclick="lookTj(this)" >查看</a> ';
+                        }
+                        return d;
+                    }
+                },
+
+                {
+                    field: 'view_name',
+                    title: '模版',
+                    align: 'center',
+                    formatter: function (value, row, index) {
+                        let d = value;
+                        if ($.inArray('admin/commodity/updateview', u_role_url) !== -1) {
+                            d = '<a href="javascript:void(0)" mce_href="#" data_view_id="'+row.view_id+'"  data_id="' + row.id + '"  onclick="updateView(this)" >' + value + '</a>';
+                        }
+                        return d;
+                    }
+                },
+                {
+                    field: 'url',
+                    title: '域名',
+                    align: 'center'
+                },
+
+                {
+                    field: 'operate',
+                    title: '操作',
+                    width: '12%',
+                    align: 'center',
+                    formatter: function (value, row, index) {
+                        let a = '';
+                        if ($.inArray('admin/commodity/editcommodity', u_role_url) !== -1) {
+                            a = '<a mce_href="#" data_id="' + row.id + '" data_name="' + row.name + '" data_title="' + row.title + '" data_url="' + row.url + '"  onclick="editCommodity(this)" >编辑</a> ';
+                        }
+                        let e = '';
+                        if ($.inArray('admin/commodity/yulan', u_role_url) !== -1) {
+                            e = '<a mce_href="#"  data_url="' + row.url + '/' + row.pc_url + '"  onclick="preview(this)" >预览</a> ';
+                        }
+                        let f = '';
+                        if ($.inArray('admin/commodity/delcommodity', u_role_url) !== -1) {
+                            f = '<a mce_href="#"  data_id="' + row.id + '"  onclick="del(this)" >删除</a> ';
+                        }
+                        let g = '';
+                        if ($.inArray('admin/commodity/baobiao', u_role_url) !== -1) {
+                            g = '<a href="../../../source/creative/report.html?page_id=' + row.id + '" target="_blank">报表</a>';
+                        }
+                        return a + e + f + g;
+                    }
+                }
+            ]
+        });
+    }
+
+
+    //搜索
+    function fac_search() {
+        $('#commodityTable').bootstrapTable('refresh');
+        if ('' !== $('#search_id').val()) {
+            requestData.data = {
+                'log': $('#search_id').val()
+            };
+            ajaxGo('admin/Weakness/addWeakness');
+            searchHistory();
+        }
+    }
+
+    //添加
+    function addCommodity() {
+        $('#add_qr_code').hide();
+        $('#code_num').text(1);
+        layer.open({
+            type: 1,
+            title: '添加',
+            shadeClose: true,
+            shade: 0.8,
+            maxmin: true,
+            area: ['93%', '90%'],
+            content: $('#add'),
+            btn: ['确定', '取消'], // 按钮
+            yes: function (index, layero) {
+                layer.msg('确定添加？', {
+                    time: 0 //不自动关闭
+                    , btn: ['确定', '取消']
+                    , yes: function (index) {
+                        addCommodityGo();
+                        if (requestCode === 0) {
+                            fac_search();
+                            layer.close(index);
+                            layer.closeAll();
+                            layer.msg(requestMessage);
+                        } else {
+                            layer.msg(requestMessage);
+                        }
+                    }
+                });
+            }
+//            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
+        });
+    }
+
+    //编辑
+    function editCommodity(obj) {
+        $('#add_qr_code').show();
+        commodity_id = $(obj).attr('data_id');
+        requestData.data = {
+            'id': $(obj).attr('data_id')
+        }
+        ajaxGo('admin/commodity/getCommodityInfo');
+        $("input[name='name']").val(requestData.data.name);
+        $("input[name='title']").val(requestData.data.title);
+        $("input[name='url']").val(requestData.data.url);
+        $("input[name='tj_url']").val(requestData.data.tj_url);
+        $("input[name='bottom_name']").val(requestData.data.bottom_name);
+        $("input[name='repeat_jump']").val(requestData.data.repeat_jump);
+
+        $("input[type=radio][name=material][value='" + requestData.data.material_id + "']").attr("checked", 'checked');
+        $("input[type=radio][name=view][value='" + requestData.data.view_id + "']").attr("checked", 'checked');
+        $("input[type=radio][name=thirdparty_info][value='" + requestData.data.thirdparty_id + "']").attr("checked", 'checked');
+        $("input[type=radio][name=wechat_config_id][value='" + requestData.data.wechat_config_id + "']").attr("checked", 'checked');
+
+
+        let head_img = requestData.data.head_img.split('@@@');
+        $('#upload-list-head').empty();
+        head_img.forEach((item, index, array) => {
+            var html = '<div style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"  onclick="delImg(this)" ><img name="head_img" style="width: 70%;height: 70%" data_name="' + item + '" src="' + item + '"></div>';
+            //执行代码
+            $('#upload-list-head').append(html);
+        });
+
+        // let qr_img =requestData.data.qr_code_link.split('@@@');
+        $('#upload-list').empty();
+        requestData.data.qr_code_link.forEach((item, index, array) => {
+            //执行代码
+            if (requestData.data.code_num === (index + 1)) {
+                var html = '<div style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"  onclick="delImg(this)" ><div><img name="qr_img" style="width:150px;height:150px" data_link_id="' + item.link_id + '" data_name="' + item.url + '" src="' + item.url + '"></div><div style="color: red;text-align: center">使用中</div></div>';
+            }
+            if (requestData.data.code_num < (index + 1)) {
+                var html = '<div style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"  onclick="delImg(this)" ><div><img name="qr_img" style="width: 150px;height: 150px" data_link_id="' + item.link_id + '" data_name="' + item.url + '" src="' + item.url + '"></div><div style="color: #5fc55e;text-align: center">待使用</div></div>';
+            }
+            if (requestData.data.code_num > (index + 1)) {
+                var html = '<div style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"  onclick="delImg(this)" ><div><img name="qr_img" style="width: 150px;height: 150px" data_link_id="' + item.link_id + '" data_name="' + item.url + '" src="' + item.url + '"></div><div style="color: #ccc;text-align: center">已使用</div></div>';
+            }
+            $('#upload-list').append(html);
+        });
+
+        $('#platform').selectpicker('val', (requestData.data.platform_id));
+        $('#material').selectpicker('val', (requestData.data.material_id));
+        $('#view').selectpicker('val', (requestData.data.view_id));
+        // $('#thirdparty_id').selectpicker('val',(requestData.data.thirdparty_id));
+
+
+        layer.open({
+            type: 1,
+            title: '编辑',
+            shadeClose: true,
+            shade: 0.8,
+            maxmin: true,
+            area: ['93%', '90%'],
+            content: $('#add'),
+            btn: ['确定', '取消'], // 按钮
+            yes: function (index, layero) {
+                layer.msg('确定修改？', {
+                    time: 0 //不自动关闭
+                    , btn: ['确定', '取消']
+                    , yes: function (index) {
+                        editCommodityGo($(obj).attr('data_id'));
+                        if (requestCode === 0) {
+                            fac_search();
+                            layer.close(index);
+                            layer.closeAll();
+                            layer.msg(requestMessage);
+                        } else {
+                            layer.msg(requestMessage);
+                        }
+                    }
+                });
+            }
+//            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
+        });
+
+    }
+
+
+    //预览页面
+    function preview(obj) {
+        window.open($(obj).attr('data_url'), '_blank').location;
+    }
+
+    //删除
+    function del(obj) {
+        layer.msg('确定删除？', {
+            time: 0 //不自动关闭
+            , btn: ['确定', '取消']
+            , yes: function (index) {
+                requestData.data = {
+                    'id': $(obj).attr('data_id')
+                };
+                ajaxGo('admin/commodity/delCommodity');
+                if (requestCode === 0) {
+                    fac_search();
+                    layer.msg('删除成功!');
+                } else {
+                    layer.msg(requestMessage);
+                }
+            }
+        });
+    }
+
+    function updateView(obj) {
+        $("input[type=radio][name=view_update][value='" + $(obj).attr('data_view_id') + "']").attr("checked", 'checked');
+
+        layer.open({
+            type: 1,
+            title: '编辑',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['90%', '90%'],
+            content: $('#updateView'),
+            btn: ['确定', '取消'], // 按钮
+            yes: function (index, layero) {
+                layer.msg('确定修改？', {
+                    time: 0 //不自动关闭
+                    , btn: ['确定', '取消']
+                    , yes: function (index) {
+                        updateViewGo($(obj).attr('data_id'));
+                        if (requestCode === 0) {
+                            fac_search();
+                            layer.close(index);
+                            layer.closeAll();
+                            layer.msg(requestMessage);
+                        } else {
+                            layer.msg(requestMessage);
+                        }
+                    }
+                });
+            }
+//            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
+        });
+    }
+
+    function updateViewMobile(obj) {
+
+        layer.open({
+            type: 1,
+            title: '编辑',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['90%', '90%'],
+            content: $('#updateViewMobile'),
+            btn: ['确定', '取消'], // 按钮
+            yes: function (index, layero) {
+                layer.msg('确定修改？', {
+                    time: 0 //不自动关闭
+                    , btn: ['确定', '取消']
+                    , yes: function (index) {
+                        updateViewMobileGo($(obj).attr('data_id'));
+                        if (requestCode === 0) {
+                            fac_search();
+                            layer.close(index);
+                            layer.closeAll();
+                            layer.msg(requestMessage);
+                        } else {
+                            layer.msg(requestMessage);
+                        }
+                    }
+                });
+            }
+//            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
+        });
+    }
+
+    function updateMaterial(obj) {
+        $("input[type=radio][name=material_update][value='" + $(obj).attr('data_material_id') + "']").attr("checked", 'checked');
+
+        layer.open({
+            type: 1,
+            title: '编辑',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['90%', '90%'],
+            content: $('#updateMaterial'),
+            btn: ['确定', '取消'], // 按钮
+            yes: function (index, layero) {
+                layer.msg('确定修改？', {
+                    time: 0 //不自动关闭
+                    , btn: ['确定', '取消']
+                    , yes: function (index) {
+                        updateMaterialGo($(obj).attr('data_id'));
+                        if (requestCode === 0) {
+                            fac_search();
+                            layer.close(index);
+                            layer.closeAll();
+                            layer.msg(requestMessage);
+                        } else {
+                            layer.msg(requestMessage);
+                        }
+                    }
+                });
+            }
+//            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
+        });
+    }
+
+
+    function lookTj(obj) {
+
+        window.open(__URL__+'commodity/tj.html?platform_id=' + $(obj).attr('data_platform_id') + '&bb_id=' + $(obj).attr('data_id'), '_blank').location;
+
+
+//         layer.open({
+//             type: 1,
+//             title: '统计数据',
+//             shadeClose: true,
+//             shade: 0.8,
+//             area: ['85%', '98%'],
+//             content: $('#tj_div'),
+//             btn: ['刷新','取消'], // 按钮
+//             yes: function(index, layero){
+//                 layer.msg('正在加载');
+//
+//                 getTj($(obj).attr('data_id'),$(obj).attr('data_platform_id'));
+//             }
+// //            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
+//         });
+//         getTj($(obj).attr('data_id'),$(obj).attr('data_platform_id'));
+    }
+
+
+    //渲染搜索历史
+    function searchHistory() {
+        requestData.data = {
+            'platform_id': 5
+        };
+        ajaxGo('admin/Weakness/getListToSelect');
+        $('#history_search').empty();
+        let html = ' <div style="float: left;margin-left: 15px"> 历史记录： </div>';
+        $('#history_search').append(html);
+
+        requestData.data.forEach((item, index, array) => {
+            var html = '<div style="float: left;margin-right: 15px;margin-left: 5px">\n' +
+                '                    <span style="cursor:pointer" onclick="searchLog(this)" data_id = "' + item.log + '">' + item.view + ' - ' + item.log + '<div style="float:left;width:15px;height:15px;padding: 2px;position: relative;left: 76px;bottom:3px;color: #fff;cursor:pointer;border-radius: 50%;background: #ff0000;text-align: center;line-height: 12px" data_id = "' + item.id + '" onclick="delLog(this)">x</div>\n</span>\n' +
+                '                    ' +
+                '                </div>';
+            //执行代码
+            $('#history_search').append(html);
+        });
+
+    }
+
+    //删除搜索历史
+    function delLog(obj) {
+        layer.msg('确定删除？', {
+            time: 0 //不自动关闭
+            , btn: ['确定', '取消']
+            , yes: function (index) {
+                requestData.data = {
+                    'id': $(obj).attr('data_id')
+                };
+                ajaxGo('admin/Weakness/delWeakness');
+                if (requestCode === 0) {
+                    searchHistory();
+                    layer.msg('删除成功!');
+                } else {
+                    layer.msg(requestMessage);
+                }
+            }
+        });
+    }
+
+    //根据搜索历史搜索
+    function searchLog(obj) {
+        $('#search_id').val($(obj).attr('data_id'));
+        fac_search();
+    }
+
+
+
+</script>
+
+<script>
+
+    let Label_type = 0; //标签类别
+    //打开素材库
+    function openMaterial() {
+        Label_type = 2;
+        getListLabel();
+        getMaterialList();
+        layer.open({
+            type: 1,
+            title: '大图素材',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['85%', '80%'],
+            content: $('#big_img'),
+            btn: ['取消'], // 按钮
+        });
+
+    }
+
+    //切换标签
+    let Label_id = 0;
+
+    function changeLabel(obj) {
+        $('span').removeClass('label_checked');
+        $(obj).addClass('label_checked');
+        Label_id = parseInt($(obj).attr('data_id'));
+        getMaterialList();
+    }
+
+    //获取用户所有标签
+    function getListLabel() {
+        requestData.data = {
+            'type': Label_type
+        };
+        ajaxGo('admin/source_tag/getAllList');
+        $('#label_list').empty();
+        requestData.data.forEach((item, index, array) => {
+            //执行代码
+            //var html = "<option value='"+item.id+"'>"+item.name+"</option>";
+            if (item.id === Label_id) {
+                var html = '<span class="label_list label_checked" style="cursor:pointer" onclick="changeLabel(this)" data_id = "' + item.id + '" >' + item.name + '</span>';
+            } else {
+                var html = '<span class="label_list" style="cursor:pointer" onclick="changeLabel(this)" data_id = "' + item.id + '" >' + item.name + '</span>';
+            }
+            $('#label_list').append(html);
+        });
+    }
+
+    //添加标签
+    function addLabel() {
+        layer.open({
+            type: 1,
+            title: '添加标签',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['60%', '50%'],
+            content: $('#addLable'),
+            btn: ['确定', '取消'], // 按钮
+            yes: function (addLabel, layero) {
+                layer.msg('确定添加？', {
+                    time: 0 //不自动关闭
+                    , btn: ['确定', '取消']
+                    , yes: function (index) {
+                        requestData.data = {
+                            'name': $('#label_name').val(),
+                            'sort_order': 0,
+                            'type': Label_type
+                        };
+                        ajaxGo('admin/source_tag/add');
+                        if (requestCode === 0) {
+                            getListLabel();
+                            layer.close(index);
+                            layer.close(addLabel);
+                            layer.msg('添加成功');
+                        } else {
+                            layer.msg(requestMessage);
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    //编辑标签
+    function editLabel() {
+        if (0 === Label_id) {
+            layer.msg('请选择标签')
+        } else {
+            layer.open({
+                type: 1,
+                title: '修改标签',
+                shadeClose: true,
+                shade: 0.8,
+                area: ['60%', '50%'],
+                content: $('#addLable'),
+                btn: ['确定', '取消'], // 按钮
+                yes: function (editLabel, layero) {
+                    layer.msg('确定修改？', {
+                        time: 0 //不自动关闭
+                        , btn: ['确定', '取消']
+                        , yes: function (index) {
+                            requestData.data = {
+                                'id': Label_id,
+                                'name': $('#label_name').val(),
+                                'sort_order': 0
+                            };
+                            ajaxGo('admin/source_tag/edit');
+                            if (requestCode === 0) {
+                                getListLabel();
+                                layer.close(index);
+                                layer.close(editLabel);
+                                layer.msg('修改成功');
+                            } else {
+                                layer.msg(requestMessage);
+                            }
+                        }
+                    });
+                }
+            });
+
+        }
+    }
+
+    //删除标签
+    function delLabel() {
+        if (0 === Label_id) {
+            layer.msg('请选择标签')
+        } else {
+            layer.msg('确定删除标签？', {
+                time: 0 //不自动关闭
+                , btn: ['确定', '取消']
+                , yes: function (index) {
+                    requestData.data = {
+                        'id': Label_id,
+                        'name': $('#label_name').val(),
+                        'sort_order': 0
+                    };
+                    ajaxGo('admin/source_tag/remove');
+                    if (requestCode === 0) {
+                        getListLabel();
+                        layer.close(index);
+                        layer.msg('删除成功');
+                    } else {
+                        layer.msg(requestMessage);
+                    }
+                }
+            });
+            Label_id = 0;
+        }
+    }
+
+    //获取素材内容
+    function getMaterialList() {
+        requestData.data = {
+            'tag_id': Label_id,
+            'type': 2,
+        };
+        ajaxGo('admin/material_library/getListToSelect');
+        $('#img_list').empty();
+        requestData.data.forEach((item, index, array) => {
+            //执行代码
+            //var html = "<option value='"+item.id+"'>"+item.name+"</option>";
+            var html = '<div class="col-sm-4 img_div">\n' +
+                '            <div>\n' +
+                '                <img  class="img_s" src="' + __IMG__ + item.img_url + '" alt="" onclick="checkedImg(' + item.id + ')">\n' +
+                '            </div>\n' +
+                '            <div class="right_font">\n' +
+                '                <span style="margin-right: 10px" onclick="delImgMaterIal(' + item.id + ')">删除</span>\n' +
+                '                <span onclick="checkedImg(' + item.id + ')">使用此图!</span>\n' +
+                '                <input id="m_d_' + item.id + '" style="display: none" value="' + item.img_url + '" />\n' +
+                '            </div>\n' +
+                '        </div>';
+            $('#img_list').append(html);
+        });
+    }
+
+    //选择素材插入
+    function checkedImg(id) {
+        $('#upload-list-head').empty();
+        let img_url = $('#m_d_' + id).val();
+        var html = '<div  onclick="delImg(this)" ><img name="head_img" style="width: 70%;height: 70%" data_name="' + __IMG__ + img_url + '" src="' + __IMG__ + img_url + '"></div>';
+        $('#upload-list-head').append(html);
+        layer.msg('插入成功');
+    }
+
+    //删除素材
+    function delImgMaterIal(id) {
+        layer.msg('确定删除？', {
+            time: 0 //不自动关闭
+            , btn: ['确定', '取消']
+            , yes: function (index) {
+                requestData.data = {
+                    'id': id
+                };
+                ajaxGo('admin/material_library/delMaterialLibrary');
+                if (requestCode === 0) {
+                    getMaterialList();
+                    layer.msg('删除成功!');
+                } else {
+                    layer.msg(requestMessage);
+                }
+            }
+        });
+    }
+
+
+</script>
+
+<script>
+    //选择二维码
+    function checkQrCode() {
+        initQrCodeTable();
+        layer.open({
+            type: 1,
+            title: '二维码库',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['80%', '80%'],
+            content: $('#qr_code_div'),
+            btn: ['确定', '取消'], // 按钮
+            yes: function (indexs, layero) {
+                let row = $("#linkTable").bootstrapTable('getSelections');
+                if (row.length === 0) {
+                    layer.msg('请选择行');
+                } else {
+                    layer.msg('确定选择？', {
+                        time: 0 //不自动关闭
+                        , btn: ['确定', '取消']
+                        , yes: function (index) {
+                            row.forEach((item, index, array) => {
+                                //执行代码
+                                var html = '<div style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"  onclick="delImg(this)" ><div><img style="width: 150px;height: 150px" name="qr_img" data_link_id="' + item.id + '" data_name="' + __IMG__ + '/' + item.img_url + '" src="' + __IMG__ + '/' + item.img_url + '"></div></div>';
+                                $('#upload-list').append(html);
+                            });
+                            layer.close(index);
+                            layer.close(indexs);
+                        }
+                    });
+                }
+
+            }
+        });
+    }
+
+    function initQrCodeTable() {
+        $('#linkTable').bootstrapTable('destroy');
+        // $('#wechatDayToolbar').css("height", 300);
+        $("#linkTable").bootstrapTable({
+            url: __ROOT__ + 'admin/link/getList', //获取数据的Servlet地址
+            striped: true,  //表格显示条纹
+            pagination: false, //启动分页
+            sortName: 'id',
+            sortOrder: 'desc',
+            pageSize: 5,  //每页显示的记录数
+            pageNumber: 1, //当前第几页
+            pageList: [10, 15, 20, 25],  //记录数可选列表
+            search: false,
+            toolbar: '#list_search_faci_qr_code',
+            showColumns: false,  //显示下拉框勾选要显示的列
+            showRefresh: false,  //显示刷新按钮
+            sidePagination: "server", //表示服务端请求
+            responseHandler: function (data) {
+                return data.data;
+            },
+            queryParamsType: "undefined",
+            // method: 'post',
+            queryParams: function queryParams(params) {   //设置查询参数
+                params = {
+                    //这里是在ajax发送请求的时候设置一些参数 params有什么东西，自己看看源码就知道了
+                    pageNumber: params.pageNumber,
+                    pageSize: params.pageSize,
+                    sortName: params.sortName,
+                    sortOrder: params.sortOrder,
+                    // id : {$_GET['id']},
+                    head: {'token': getCookie('token')},
+                    name: $('#name').val(),
+                    wechat_config_id: $("#wechat_config_s").selectpicker('val'),
+                    material_memo_id: $("#material_memo_s").selectpicker('val'),
+                    type: 0,
+                };
+
+                return params;
+            },
+            onLoadSuccess: function (data) {  //加载成功时执行
+
+            },
+            onLoadError: function () {  //加载失败时执行
+                layer.msg("加载数据失败", {time: 1500, icon: 2});
+            },
+            columns: [
+                {
+                    title: '',
+                    field: 'checkbox',
+                    align: 'center',
+                    checkbox: true,
+                    width: 10,
+                    singleSelect: true
+                },
+                {
+                    title: 'Id',
+                    field: 'id',
+                    align: 'center',
+                    width: 10,
+                },
+                {
+                    field: 'link_id',
+                    title: '第三方链接id',
+                    width: 50,
+                    align: 'left',
+                    formatter: function (value, row, index) {
+                        return '<span style="color: #393939">'+row.description + '</span>'+
+                            '<br/><span style="color: #1654cc">'+row.url +'</span>' +
+                            '<br/><span style="color: #777">创建时间:'+row.create_at+'</span>';
+                    }
+                },
+                {
+                    field: 'description',
+                    title: '备注名称',
+                    width: 30,
+                    align: 'left',
+                    formatter: function (value, row, index) {
+                        return '<span style="color: #333">'+row.novel_name + '</span>'+
+                            '<br/><span style="color: #393939">' + row.checked_novel_name +'</span>'+
+                            '<br/><span style="color: #777">关注章节:第 ' + row.chapter +' 章</span>';
+                    }
+                },
+                {
+                    field: 'create_user_name',
+                    title: '创建人',
+                    width: 10,
+                    align: 'center'
+                },
+                {
+                    field: 'wechat_name',
+                    title: '公众号',
+                    width: 10,
+                    align: 'center'
+                },
+                {
+                    field: 'material_memo_name',
+                    title: '小说前序',
+                    width: 20,
+                    align: 'center'
+                },
+                {
+                    field: 'type',
+                    title: '状态',
+                    width: 10,
+                    align: 'center',
+                    formatter: function (value, row, index) {
+                        if (value === 0) {
+                            return '未使用';
+                        } else {
+                            return '已使用';
+                        }
+                    }
+                },
+            ]
+        });
+    }
+
+
+    //搜索
+    function fac_search_link() {
+        $('#linkTable').bootstrapTable('refresh');
+    }
+
+    //自动生成二维码
+    function addLinkOnGo() {
+        let wechat_config_id = $("#wechat_config_s").selectpicker('val');
+        let material_memo_id = $("#material_memo_s").selectpicker('val');
+        if (wechat_config_id === '-1' || material_memo_id === '-1') {
+            layer.msg('请选择公众号和小说前序');
+        } else {
+            layer.open({
+                type: 1,
+                title: '备注',
+                shadeClose: true,
+                shade: 0.8,
+                area: ['50%', '40%'],
+                content: $('#addLink'),
+                btn: ['确定', '取消'], // 按钮
+                yes: function (addLink, layero) {
+                    layer.msg('确定创建二维码？', {
+                        time: 0 //不自动关闭
+                        , btn: ['确定', '取消']
+                        , yes: function (index) {
+                            requestData.data = {
+                                'wechat_config_id': wechat_config_id,
+                                'material_memo_id': material_memo_id,
+                                'name': $('#description').val()
+                            };
+                            ajaxGo('admin/link/addZZYLinkOn');
+                            if (requestCode === 0) {
+                                fac_search_link();
+                                layer.msg('创建成功!');
+                                layer.close(index);
+                            } else {
+                                layer.msg(requestMessage);
+                            }
+                        }
+                    });
+                }
+            });
+
+        }
+    }
+
+    //复制链接
+    function copyUrl(id) {
+        $('#copy_'+id).select();
+        document.execCommand("Copy"); //执行浏览器复制命令
+        layer.msg('复制成功!')
+    }
+
+
+
+
+
+</script>
+
+
