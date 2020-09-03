@@ -497,14 +497,14 @@
                             'txt': txt,
                             'wechat_msg_config_id': $("#wechat_msg_config_id").selectpicker('val'),
                         }
-                        ajaxGo('admin/wx_msg_view/addLineToTxt')
+                        ajaxGo('admin/wx_msg_view/addLineToTxt');
                         if (requestCode === 0) {
                             fac_search();
                             layer.close(index);
                             layer.closeAll();
-                            layer.msg(requestMessage);
+                            layer.msg("操作成功");
                         } else {
-                            layer.msg(requestMessage);
+                            layer.msg("操作失败");
                         }
                     }
                 });
