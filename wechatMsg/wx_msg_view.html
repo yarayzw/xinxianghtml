@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>筋斗云管理系统</title>
+    <link href="../css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="../css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="../css/animate.min.css" rel="stylesheet">
+    <link href="../css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <link href="../css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link href="../css/plugins/bootstrap-table/bootstrap-table.css" rel="stylesheet">
+    <link rel="stylesheet" href="../js/simditor-2.3.28/styles/simditor.css">
+    <link rel="stylesheet" type="text/css" href="../css/plugins/webuploader/webuploader.css">
+    <link rel="stylesheet" type="text/css" href="../css/demo/webuploader-demo.min.css">
+    <link rel="stylesheet" type="text/css" href="../js/plugins/bootstrap-select-1.13.9/dist/css/bootstrap-select.css">
+
+</head>
+<style type="text/css">
+    .table {
+        table-layout: fixed;
+    }
+</style>
+<body>
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="row">
+            <div class="form-group">
+                <form id="list_search_faci">
+                    <div class="col-sm-10">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="input-group m-b">
+                                    <span class="input-group-addon">标题</span>
+                                    <input type="text" id="name" class="form-control" aria-label="..." placeholder="">
+                                </div>
+                            </div>
+
+                            <div class="col-md-1">
+                         <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" onclick="fac_search()">搜索</button>
+                        </span>
+                            </div>
+                            <div class="col-md-1" id="add_button">
+                         <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button" onclick="addWechatMsgView()">添加</button>
+                        </span>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div id="list">
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="row" id="add" style="display: none">
+    <div class="ibox-content">
+        <form class="form-horizontal m-t" id="commentForm" method="post">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">标题 :</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="name" value=""/>
+                    <!--                            required="" aria-required="false"-->
+                </div>
+            </div>
+            <!--<div class="form-group">
+                <label class="col-sm-3 control-label">类型 :</label>
+                <div class="col-sm-8">
+                    <select id="type" class="selectpicker" data-live-search="true">
+                        <option value="1">文字</option>
+                    </select>
+                </div>
+            </div>-->
+            <div class="form-group">
+                <label class="col-sm-2 control-label">模版内容：</label>
+                <div class="col-sm-9">
+                    <textarea name="text" id="editor"></textarea>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row" id="addLine" style="display: none">
+    <div class="ibox-content">
+        <form class="form-horizontal m-t" method="post">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">文字 :</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="txt" value=""/>
+                    <!--                            required="" aria-required="false"-->
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">链接 :</label>
+                <div class="col-sm-8">
+                    <div class="input-group m-b">
+                        <select id="wechat_msg_config_id" class="selectpicker" data-live-search="true">
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row" id="addSend" style="display: none">
+    <div class="ibox-content">
+        <form class="form-horizontal m-t" method="post">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">计划名称 :</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="plan_name" value=""/>
+                    <!--                            required="" aria-required="false"-->
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">定时发送 :</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="timing" value=""/>
+                </div>
+            </div>
+            <!--<div class="form-group">
+                <label class="col-sm-3 control-label">公众号 :<br><br><span style="cursor:pointer;color: #39aef5" onclick="wechatIdSelect(1)">全选</span> | <span style="cursor:pointer;color: #39aef5" onclick="wechatIdSelect(2)">反选</span> | <span style="cursor:pointer;color: #39aef5" onclick="wechatIdSelect(3)">取消</span></label>
+                <div class="col-sm-8" id="wechat_ids">
+                </div>
+            </div>-->
+            <div class="form-group">
+                <label class="col-sm-3 control-label">
+                    公众号(未使用) :<br/><br/>
+                    <a href="javascript:void(0);" class="select-wechat-all">全选</a>|<a href="javascript:void(0);"
+                                                                                      class="select-wechat-invert">反选</a>|<a
+                        href="javascript:void(0);" class="select-wechat-cancel">取消</a>
+                </label>
+                <div class="col-sm-8" id="wechat_ids_1"></div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">
+                    公众号(使用中) :<br/><br/>
+                    <a href="javascript:void(0);" class="select-wechat-all">全选</a>|<a href="javascript:void(0);"
+                                                                                      class="select-wechat-invert">反选</a>|<a
+                        href="javascript:void(0);" class="select-wechat-cancel">取消</a>
+                </label>
+                <div class="col-sm-8" id="wechat_ids_2"></div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">
+                    公众号(已打满) :<br/><br/>
+                    <a href="javascript:void(0);" class="select-wechat-all">全选</a>|<a href="javascript:void(0);"
+                                                                                      class="select-wechat-invert">反选</a>|<a
+                        href="javascript:void(0);" class="select-wechat-cancel">取消</a>
+                </label>
+                <div class="col-sm-8" id="wechat_ids_3"></div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">支付状态 :</label>
+                <div class="col-sm-8">
+                    <label>
+                        <input type="radio" checked="" value="2" name="is_pay"> <i></i>全部</label>
+                    <label>
+                        <input type="radio" checked="" value="1" name="is_pay"> <i></i> 已支付</label>
+                    <label>
+                        <input type="radio" checked="" value="0" name="is_pay"> <i></i> 未支付</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">活跃状态 :</label>
+                <div class="col-sm-8">
+                    <label>
+                        <input type="radio" checked="" value="3" name="is_active"> <i></i>全部</label>
+                    <label>
+                        <input type="radio" value="1" name="is_active"> <i></i> 48小时内</label>
+                    <label>
+                        <input type="radio" value="0" name="is_active"> <i></i> 48小时外</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">openid :</label>
+                <div class="col-sm-8">
+                    <div class="row">
+                        <div class="col-lg-8 col-sm-8 col-xs-8"><input type="text" class="form-control" name="openid"
+                                                                       value=""/></div>
+                        <div class="col-lg-4 col-sm-4 col-xs-4">
+                            <button class="btn btn-default" type="button" onclick="testSend()">测试发送</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+
+<script src="../js/jquery.min.js?v=2.1.4"></script>
+
+<script src="../js/public.js"></script>
+<script src="../js/bootstrap.min.js?v=3.3.6"></script>
+<script src="../js/layer/layer.js"></script>
+<script src="../js/laydate/laydate.js"></script>
+
+<script src="../js/content.min.js"></script>
+<script src="../js/plugins/bootstrap-table/bootstrap-table.js"></script>
+<script src="../js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="../js/demo/bootstrap-table-demo.min.js"></script>
+<script src="../js/bootstrapValidator.js"></script>
+<script src="../js/bootstrapValidator.min.js"></script>
+<script src="../js/plugins/simditor/module.js"></script>
+<script src="../js/plugins/simditor/uploader.js"></script>
+<script src="../js/plugins/simditor/hotkeys.js"></script>
+<script src="../js/simditor-2.3.28/lib/simditor.js"></script>
+<script src="../js/plugins/webuploader/webuploader.min.js"></script>
+<script src="../js/index.js"></script>
+<script src="../js/plugins/bootstrap-select-1.13.9/js/bootstrap-select.js"></script>
+
+<script>
+    $(function () {
+        //全选
+        $(document).on('click', '.select-wechat-all', function () {
+            $(this).parent('label').next('div').find('input').prop('checked', 'checked');
+        });
+        //反选
+        $(document).on('click', '.select-wechat-invert', function () {
+            $(this).parent('label').next('div').find('input').each(function () {
+                if ($(this).prop("checked")) {
+                    $(this).prop("checked", false);
+                } else {
+                    $(this).prop("checked", true);
+                }
+            });
+        });
+        //取消
+        $(document).on('click', '.select-wechat-cancel', function () {
+            $(this).parent('label').next('div').find('input').prop('checked', false);
+        });
+    });
+</script>
+<script>
+
+    //公众号选择 1全选2反选3取消全选
+    function wechatIdSelect(type) {
+        if (type === 1) {
+            $('input[name="wechat_ids"]').prop('checked', 'true');
+        } else if (type === 2) {
+            $("input[name='wechat_ids']").each(function () {
+                if ($(this).prop("checked")) {
+                    $(this).removeAttr("checked");
+                } else {
+                    $(this).prop("checked", "true");
+                }
+            })
+        } else {
+            $('input[name="wechat_ids"]').removeAttr("checked");
+        }
+    }
+
+    var editor = new Simditor({
+        toolbar: ['title', 'color', 'hr'],
+        textarea: '#editor',
+        placeholder: '写点什么...',
+        // defaultImage: '/static/home/images/logo.png',
+        imageButton: ['upload'],
+        upload: {
+            url: __ROOT__ + 'thirdparty/oss/upload',
+            params: {
+                "code": '01-200-101'
+            },
+            fileKey: 'file',
+            leaveConfirm: '正在上传文件..',
+            connectionCount: 3
+        }
+    });
+
+    $(document).ready(function () {
+        if($.inArray('admin/wx_msg_view/addwechatmsgview',u_role_url) === -1){
+            $('#add_button').hide();
+        }
+        setMaterial();
+        getAllView();
+    });
+
+    function setMaterial() {
+
+        //
+        requestData.data = {
+            'type': 1
+        };
+        ajaxGo('admin/wx_msg_config/getListToSelect')
+        requestData.data.forEach((item, index, array) => {
+            //执行代码
+            var html = "<option value='" + item.id + "'>" + item.name + "</option>";
+            $('#wechat_msg_config_id').append(html);
+        });
+        $('#wechat_msg_config_id').selectpicker('refresh');
+
+
+        setWechatIds(1);
+        setWechatIds(2);
+        setWechatIds(3);
+    }
+
+    /**
+     * 设置选择公众号
+     */
+    function setWechatIds(status) {
+        //公众号
+        requestData.data = {
+            'type': 1,
+            status: status,
+        };
+        ajaxGo('admin/wechat_config/getListToSelect')
+        requestData.data.forEach((item, index, array) => {
+            //执行代码
+            var html = '<label style="font-weight: normal;"><input type="checkbox"  name="wechat_ids" style="margin-left: 7px" value="' + item.id + '"> <i></i> ' + item.wechat_name + '\n' + '</label>';
+
+            // var html = "<option value='"+item.id+"'>"+item.wechat_name+"</option>";
+            $('#wechat_ids_' + status).append(html);
+        });
+        // $('#wechat_ids').selectpicker('refresh');
+    }
+
+
+    function getAllView() {
+        requestData.data = {
+            'name': $("#name").val(),
+        };
+        ajaxGo('admin/wx_msg_view/getAllView');
+        $('#list').empty();
+        requestData.data.forEach((item, index, array) => {
+            //执行代码
+            if (item.type === 1) {
+                if (item.over_time === 0) {
+                    var html = '<div class="col-sm-4">\n' +
+                        '                <div class="ibox float-e-margins">\n' +
+                        '                    <div class="ibox-title">\n' +
+                        '                        <h5>' + item.name + '</h5>  &nbsp; ' + item.send_status + '\n' +
+                        '                        <div class="ibox-tools">\n' +
+                        '                            <a name="button_send" onclick="sendViewGo(' + item.id + ')">\n' +
+                        '                                <i class="glyphicon glyphicon-send" ></i>\n' +
+                        '                            </a>\n' +
+                        '                            <a name="button_edit" onclick="editView(' + item.id + ')">\n' +
+                        '                                <i class="glyphicon glyphicon-pencil" ></i>\n' +
+                        '                            </a>\n' +
+                        '                            <a name="button_del" onclick="delView(' + item.id + ')">\n' +
+                        '                                <i class="fa fa-times" ></i>\n' +
+                        '                            </a>\n' +
+                        '                        </div>\n' +
+                        '                    </div>\n' +
+                        '                    <div onmouseup="selectText(' + item.id + ')" class="ibox-content">\n' +
+                        '                        \n' + item.info +
+                        '                    </div>\n' +
+                        '                </div>\n' +
+                        '            </div>';
+                } else {
+                    var html = '<div class="col-sm-4">\n' +
+                        '                <div class="ibox float-e-margins">\n' +
+                        '                    <div class="ibox-title">\n' +
+                        '                        <h5>' + item.name + '</h5> &nbsp; ' + item.send_status + ' <span id="day_show_' + item.id + '"></span><span id="hour_show' + item.id + '"></span><span id="minute_show' + item.id + '"></span><span id="second_show' + item.id + '"></span>)\n' +
+                        '                        <div class="ibox-tools">\n' +
+                        '                            <a name="button_send" onclick="sendViewGo(' + item.id + ')">\n' +
+                        '                                <i class="glyphicon glyphicon-send" ></i>\n' +
+                        '                            </a>\n' +
+                        '                            <a name="button_edit" onclick="editView(' + item.id + ')">\n' +
+                        '                                <i class="glyphicon glyphicon-pencil" ></i>\n' +
+                        '                            </a>\n' +
+                        '                            <a name="button_del" onclick="delView(' + item.id + ')">\n' +
+                        '                                <i class="fa fa-times" ></i>\n' +
+                        '                            </a>\n' +
+                        '                        </div>\n' +
+                        '                    </div>\n' +
+                        '                    <div onmouseup="selectText(' + item.id + ')" class="ibox-content">\n' +
+                        '                        \n' + item.info +
+                        '                    </div>\n' +
+                        '                </div>\n' +
+                        '            </div>';
+                    timer(item.over_time, item.id)
+                }
+            }
+            $('#list').append(html);
+            if($.inArray('admin/wx_msg_send/addwechatmsgsend',u_role_url) === -1){
+                $("a[name='button_send']").hide();
+            }
+            if($.inArray('admin/wx_msg_view/editwechatmsgurl',u_role_url) === -1){
+                $("a[name='button_edit']").hide();
+            }
+            if($.inArray('admin/wx_msg_view/delwchatview',u_role_url) === -1){
+                $("a[name='button_del']").hide();
+            }
+        });
+    }
+
+    //搜索
+    function fac_search() {
+        for (var i = dingshi_arr.length - 1; i >= 0; i--) {
+            // if (typeof array[i] !== 'undefined') {
+            clearInterval(dingshi_arr[i]);
+            // };
+        }
+        ;
+        getAllView();
+    }
+
+    //添加
+    function addWechatMsgView() {
+        layer.open({
+            type: 1,
+            title: '添加',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['80%', '96%'],
+            maxmin: true,
+            content: $('#add'),
+            btn: ['确定', '取消'], // 按钮
+            yes: function (index, layero) {
+                layer.msg('确定添加？', {
+                    time: 0 //不自动关闭
+                    , btn: ['确定', '取消']
+                    , yes: function (index) {
+                        addWechatMsgUrlGo();
+                        if (requestCode === 0) {
+                            fac_search();
+                            layer.close(index);
+                            layer.closeAll();
+                            layer.msg(requestMessage);
+                        } else {
+                            layer.msg(requestMessage);
+                        }
+                    }
+                });
+
+
+            }
+//            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
+        });
+
+    }
+
+    //提交落地页数据
+    function addWechatMsgUrlGo() {
+        var content = $(".simditor-body").html();
+
+        requestData.data = {
+            'name': $("input[name='name']").val(),
+            //'type': $("#type").selectpicker('val'),
+            type: 1,
+            'info': content,
+        }
+        ajaxGo('admin/wx_msg_view/addWechatMsgView')
+    }
+
+    //获取选中文本
+    let txt_select = '';
+
+    function selectText(id) {
+        var txt = window.getSelection ? window.getSelection() : document.selection.createRange().text;
+        if (txt_select !== txt.toString()) {
+            txt_select = txt.toString();
+            if ('' !== txt.toString()) {
+                if($.inArray('admin/wx_msg_view/addlinetotxt',u_role_url) === -1){
+                    return;
+                }else {
+                    addLineToTxt(id, txt.toString());
+                }
+            } else {
+                return;
+            }
+        } else {
+            return;
+        }
+    }
+
+    //给文本添加超链接
+    function addLineToTxt(id, txt) {
+        $("input[name='txt']").val(txt);
+        layer.open({
+            type: 1,
+            title: '添加链接',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['60%', '60%'],
+            content: $('#addLine'),
+            btn: ['确定', '取消'], // 按钮
+            yes: function (index, layero) {
+                layer.msg('确定修改？', {
+                    time: 0 //不自动关闭
+                    , btn: ['确定', '取消']
+                    , yes: function (index) {
+                        requestData.data = {
+                            'id': id,
+                            'txt': txt,
+                            'wechat_msg_config_id': $("#wechat_msg_config_id").selectpicker('val'),
+                        }
+                        ajaxGo('admin/wx_msg_view/addLineToTxt')
+                        if (requestCode === 0) {
+                            fac_search();
+                            layer.close(index);
+                            layer.closeAll();
+                            layer.msg(requestMessage);
+                        } else {
+                            layer.msg(requestMessage);
+                        }
+                    }
+                });
+
+
+            }
+//            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
+        });
+    }
+
+    //编辑
+    function editView(id) {
+        requestData.data = {
+            'id': id
+        }
+        ajaxGo('admin/wx_msg_view/findInfoById')
+        $("input[name='name']").val(requestData.data.name);
+        //$('#type').selectpicker('val',(requestData.data.type));
+        editor.setValue(requestData.data.info);
+        //$("#editor").text(requestData.data.info)
+        $(".simditor-body").html(requestData.data.info)
+
+        layer.open({
+            type: 1,
+            title: '编辑',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['80%', '96%'],
+            maxmin: true,
+            content: $('#add'),
+            btn: ['确定', '取消'], // 按钮
+            yes: function (index, layero) {
+                layer.msg('确定修改？', {
+                    time: 0 //不自动关闭
+                    , btn: ['确定', '取消']
+                    , yes: function (index) {
+                        editwechatMsgUrlGo(id);
+                        if (requestCode === 0) {
+                            fac_search();
+                            layer.close(index);
+                            layer.closeAll();
+                            layer.msg('修改成功');
+                        } else {
+                            layer.msg(requestMessage);
+                        }
+                    }
+                });
+
+
+            }
+//            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
+        });
+
+    }
+
+    //修改
+    function editwechatMsgUrlGo(id) {
+        var content = $(".simditor-body").html();
+
+        requestData.data = {
+            'id': id,
+            //'type' : $("#type").selectpicker('val'),
+            'type': 1,
+            'txt': content,
+            'name': $("input[name='name']").val(),
+        }
+        ajaxGo('admin/wx_msg_view/editWechatMsgUrl')
+
+    }
+
+    //添加消息
+    let view_ce_id = 0;
+
+    function sendViewGo(id) {
+        view_ce_id = id;
+        layer.open({
+            type: 1,
+            title: '发送计划',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['80%', '90%'],
+            content: $('#addSend'),
+            btn: ['确定', '取消'], // 按钮
+            yes: function (index, layero) {
+                layer.msg('确定添加？', {
+                    time: 0 //不自动关闭
+                    , btn: ['确定', '取消']
+                    , yes: function (index) {
+                        let wechat_ids = [];//定义一个数组
+                        $('input[name="wechat_ids"]:checked').each(function () {
+                            wechat_ids.push($(this).val());
+                        });
+                        requestData.data = {
+                            'view_id': id,
+                            'name': $("input[name='plan_name']").val(),
+                            'timing': $("input[name='timing']").val(),
+                            'wechat_ids': wechat_ids,
+                            'is_pay': $('input[name="is_pay"]:checked').val(),
+                            'is_active': $('input[name="is_active"]:checked').val()
+                        }
+                        ajaxGo('admin/wx_msg_send/addWechatMsgSend', '', false, 'http://tongji.chinaandun.com/');
+                        if (requestCode === 0) {
+                            fac_search();
+                            layer.close(index);
+                            layer.closeAll();
+                            layer.msg('添加成功');
+                        } else {
+                            layer.msg(requestMessage);
+                        }
+                    }
+                });
+
+
+            }
+//            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
+        });
+
+    }
+
+    //测试发送
+    function testSend() {
+        layer.msg('确定发送？', {
+            time: 0 //不自动关闭
+            , btn: ['确定', '取消']
+            , yes: function (index) {
+                requestData.data = {
+                    'view_id': view_ce_id,
+                    'openid': $("input[name='openid']").val()
+                }
+                ajaxGo('admin/wx_msg_send/testSend');
+                if (requestCode === 0) {
+                    layer.close(index);
+                    layer.msg('发送成功');
+                } else {
+                    layer.msg(requestMessage);
+                }
+            }
+        });
+
+    }
+
+    //删除
+    function delView(id) {
+        layer.msg('确定删除？', {
+            time: 0 //不自动关闭
+            , btn: ['确定', '取消']
+            , yes: function (index) {
+                requestData.data = {
+                    'id': id
+                };
+                ajaxGo('admin/wx_msg_view/delWchatView');
+                if (requestCode === 0) {
+                    fac_search();
+                    layer.msg('删除成功!');
+                } else {
+                    layer.msg(requestMessage);
+                }
+            }
+        });
+    }
+
+    let dingshi_arr = [];
+
+    //开启倒计时
+    function timer(intDiff, id) {
+        var day = 0,
+            hour = 0,
+            minute = 0,
+            second = 0;//时间默认值
+        if (intDiff > 0) {
+            day = Math.floor(intDiff / (60 * 60 * 24));
+            hour = Math.floor(intDiff / (60 * 60)) - (day * 24);
+            minute = Math.floor(intDiff / 60) - (day * 24 * 60) - (hour * 60);
+            second = Math.floor(intDiff) - (day * 24 * 60 * 60) - (hour * 60 * 60) - (minute * 60);
+        }
+        if (minute <= 9) minute = '0' + minute;
+        if (second <= 9) second = '0' + second;
+        $('#day_show_' + id).html(day + "天");
+        $('#hour_show' + id).html('<s id="h"></s>' + hour + '时');
+        $('#minute_show' + id).html('<s></s>' + minute + '分');
+        $('#second_show' + id).html('<s></s>' + second + '秒');
+        intDiff--;
+        dingshi_arr.push(setTimeout(function () {
+            timer(intDiff, id);
+        }, 1000));
+
+    }
+</script>
+<!--时间处理工具-->
+<script src="../js/moment.min.js"></script>
+<script>
+    $(function () {
+        laydate.render({
+            elem: 'input[name="timing"]',
+            type: 'datetime',
+            min: moment().format('YYYY-MM-DD HH:mm:ss'),
+            value: moment().format('YYYY-MM-DD HH:mm:ss')
+        });
+    })
+</script>
+<script src="../js/util.js"></script>
+<script src="../js/plugins/art-template/template-web.min.js"></script>
+<script id="icon-wrap" type="text/html">
+    <table class="table table-bordered emoji-wrap">
+        <tbody>
+        {{each rows val key}}
+        {{if ((key%16)==0)}}
+        <tr>{{/if}}
+            <td style="padding: 2px;" width="20" height="30" align="center"><a href="javascript:void(0)"><img
+                    data-fonticon-id="{{val.id}}" src="{{val.pic}}"
+                    style="max-width: 20px;width: 100%;height: auto;margin:0 auto;"></a></td>
+            {{if (((key+1)%16)==0)}}
+        </tr>
+        {{/if}}
+        {{/each}}
+        </tbody>
+    </table>
+</script>
+<script>
+    $(function () {
+        requestData = {
+            pageNumber: 1,
+            pageSize: 200,
+            sortName: 'id',
+            sortOrder: 'desc'
+        };
+        ajaxGo('admin/font_icon/getList');
+        var data = requestData.data;
+        var html = template('icon-wrap', data);
+        //insertContent("插入emoji");
+        $('.simditor').before(html)
+        $(document).on('click', '.emoji-wrap img', function () {
+            editor.focus();
+            var src = $(this).attr('src');
+            var id = $(this).attr('data-fonticon-id');
+            insertContent('<img data-fonticon-id="' + id + '" src="' + src + '" style="width: 26px;height: auto;"/>');
+            $('.simditor-placeholder').text("");
+        });
+    });
+</script>
+
