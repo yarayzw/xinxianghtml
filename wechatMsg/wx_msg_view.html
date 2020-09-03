@@ -292,7 +292,7 @@
         requestData.data = {
             'type': 1
         };
-        ajaxGo('admin/wx_msg_config/getListToSelect')
+        ajaxGo('admin/wechat_msg_config/getListToSelect')
         requestData.data.forEach((item, index, array) => {
             //执行代码
             var html = "<option value='" + item.id + "'>" + item.name + "</option>";

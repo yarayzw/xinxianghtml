@@ -36,8 +36,8 @@
             <div class="col-sm-10">
                 <div class="row">
                     <div class="col-md-2">
-                        <div class="input-group m-b"><span class="input-group-addon">链接名称</span>
-                            <input type="text" id="name" class="form-control" aria-label="..." placeholder="" >
+                        <div class="input-group m-b"><span class="input-group-addon">内容</span>
+                            <input type="text" id="content" class="form-control" aria-label="..." placeholder="" >
                         </div>
                     </div>
 
@@ -48,7 +48,7 @@
                     </div>
                     <div class="col-md-1" id="add_button">
                          <span class="input-group-btn">
-                            <button class="btn btn-default" type="button" onclick="addWechatMsgConfig()">添加</button>
+                            <button class="btn btn-default" type="button" onclick="add()">添加</button>
                         </span>
                     </div>
 
@@ -66,21 +66,17 @@
     <div class="ibox-content">
         <form class="form-horizontal m-t" id="commentForm" method="post">
             <div class="form-group">
-                <label class="col-sm-3 control-label">链接名称 :</label>
+                <label class="col-sm-3 control-label">模板 :</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control" name="name" value=""   />
-                    <!--                            required="" aria-required="false"-->
+                    <select name="view_id" class="form-control">
+                        <option value="">选择</option>
+                    </select>
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-3 control-label">分组 :</label>
+                <label class="col-sm-3 control-label">内容 :</label>
                 <div class="col-sm-8">
-                    <div class="radio-inline">
-                        <label><input type="radio" name="is_group" value="0" checked>否</label>
-                    </div>
-                    <div class="radio-inline">
-                        <label><input type="radio" name="is_group" value="1">是</label>
-                    </div>
+                    <input type="text" class="form-control" name="content" value=""   />
                 </div>
             </div>
 
@@ -111,10 +107,16 @@
 
 
     $(document).ready(function () {
-        if($.inArray('admin/wx_msg_config/addwechatmsgconfig',u_role_url) === -1){
+        if($.inArray('admin/wx_msg_view_worth/add',u_role_url) === -1){
             $('#add_button').hide();
         }
         initTable();
+    });
+    $(function () {
+        ajaxGo("admin/wx_msg_view/getAllView");
+        requestData.data.forEach(function (e) {
+            $('select[name=view_id]').append('<option value="'+e.id+'">'+e.name+'</option>');
+        });
     });
 
 
@@ -122,7 +124,7 @@
         $('#wechatMsgConfigTable').bootstrapTable('destroy');
         // $('#wechatDayToolbar').css("height", 300);
         $("#wechatMsgConfigTable").bootstrapTable({
-            url: __ROOT__ + 'admin/wx_msg_config/getWechatMsgConfigList', //获取数据的Servlet地址
+            url: __ROOT__ + 'admin/wx_msg_view_worth/getList', //获取数据的Servlet地址
             striped: true,  //表格显示条纹
             pagination: true, //启动分页
             sortName: 'id',
@@ -149,7 +151,7 @@
                     sortOrder: params.sortOrder,
                     // id : {$_GET['id']},
                     head : {'token' : getCookie('token')},
-                    name : $('#name').val(),
+                    content : $('#content').val(),
                 };
 
                 return params;
@@ -169,23 +171,21 @@
                     width : 100,
                 },
                 {
-                    field: 'name',
-                    title: '链接名称',
+                    field: 'view_id',
+                    title: '模板',
                     width : 80,
-                    align: 'center'
-                },
-                {
-                    field: 'is_group',
-                    title: '分组',
-                    width : 60,
                     align: 'center',
                     formatter: function(value,row,index){
-                        if (value){
-                            return "是";
-                        }else {
-                            return "否";
+                        if (row.view_info){
+                            return row.view_info.name;
                         }
                     }
+                },
+                {
+                    field: 'content',
+                    title: '内容',
+                    width : 60,
+                    align: 'center'
                 },
 
                 {
@@ -195,12 +195,12 @@
                     align: 'center',
                     formatter: function(value,row,index){
                         let a = '';
-                        if($.inArray('admin/wx_msg_config/editwechatmsgconfig',u_role_url) !== -1) {
-                            a = '<a href="#" mce_href="#" data_id="'+row.id+'" data_name="'+row.name+'"  data_is_group="'+row.is_group+'"  onclick="editWechatMsgConfig(this)" >编辑</a> ';
+                        if($.inArray('admin/wx_msg_view_worth/edit',u_role_url) !== -1) {
+                            a = '<a href="#" mce_href="#" data-id="'+row.id+'" data-view-id="'+row.view_id+'"  data-content="'+row.content+'"  onclick="edit(this)" >编辑</a> ';
                         }
                         let f = '';
-                        if($.inArray('admin/wx_msg_config/delwechatmsgconfig',u_role_url) !== -1) {
-                            f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="delWechatMsgConfig(this)" >删除</a>';
+                        if($.inArray('admin/wx_msg_view_worth/delete',u_role_url) !== -1) {
+                            f='<a href="#" mce_href="#" data-id="'+row.id+'"  onclick="del(this)" >删除</a>';
                         }
                         return a+f;
                     }
@@ -216,7 +216,7 @@
     }
 
     //添加
-    function addWechatMsgConfig() {
+    function add() {
         layer.open({
             type: 1,
             title: '添加',
@@ -230,7 +230,7 @@
                     time: 0 //不自动关闭
                     ,btn: ['确定', '取消']
                     ,yes: function(index){
-                        addWechatMsgConfigGo();
+                        addGo();
                         if(requestCode === 0){
                             fac_search();
                             layer.close(index);
@@ -250,19 +250,19 @@
     }
 
     //提交落地页数据
-    function addWechatMsgConfigGo() {
+    function addGo() {
         requestData.data = {
-            'name' : $("input[name='name']").val(),
-            'is_group' : $("input[name='is_group']:checked").val()
-        }
-        ajaxGo('admin/wx_msg_config/addWechatMsgConfig')
+            'view_id' : $("select[name=view_id] option:selected").val(),
+            'content' : $("input[name=content]").val()
+        };
+        ajaxGo('admin/wx_msg_view_worth/add');
     }
 
 
     //编辑
-    function editWechatMsgConfig(obj) {
-        $("input[name='name']").val($(obj).attr('data_name'));
-        $("input[name='is_group'][value="+$(obj).attr('data_is_group')+"]").prop("checked", "checked");
+    function edit(obj) {
+        $("select[name=view_id] option[value="+$(obj).attr('data-view-id')+"]").prop("selected", "selected");
+        $("input[name=content]").val($(obj).attr('data-content'));
         layer.open({
             type: 1,
             title: '编辑',
@@ -276,7 +276,7 @@
                     time: 0 //不自动关闭
                     ,btn: ['确定', '取消']
                     ,yes: function(index){
-                        editWechatMsgConfigGo($(obj).attr('data_id'));
+                        editGo($(obj).attr('data-id'));
                         if(requestCode === 0){
                             fac_search();
                             layer.close(index);
@@ -296,26 +296,26 @@
     }
 
     //修改
-    function editWechatMsgConfigGo(id) {
+    function editGo(id) {
         requestData.data = {
             'id' : id,
-            'name' : $("input[name='name']").val(),
-            'is_group' : $("input[name='is_group']:checked").val()
+            'view_id' : $("select[name='view_id'] option:selected").val(),
+            'content' : $("input[name='content']").val()
         };
-        ajaxGo('admin/wx_msg_config/editWechatMsgConfig')
+        ajaxGo('admin/wx_msg_view_worth/edit')
 
     }
 
     //删除
-    function delWechatMsgConfig(obj) {
+    function del(obj) {
         layer.msg('确定删除？', {
             time: 0 //不自动关闭
             ,btn: ['确定', '取消']
             ,yes: function(index){
                 requestData.data = {
-                    'id' : $(obj).attr('data_id')
+                    'id' : $(obj).attr('data-id')
                 };
-                ajaxGo('admin/wx_msg_config/delWechatMsgConfig');
+                ajaxGo('admin/wx_msg_view_worth/delete');
                 if(requestCode === 0){
                     fac_search();
                     layer.msg('删除成功!');
