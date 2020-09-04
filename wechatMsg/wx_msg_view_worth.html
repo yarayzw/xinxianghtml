@@ -15,6 +15,9 @@
 </head>
 <style type="text/css">
     .table {table-layout:fixed;}
+    .layui-layer-wrap{
+        width: 100%;
+    }
 </style>
 <body>
 <div class="ibox float-e-margins">
@@ -68,9 +71,7 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label">模板 :</label>
                 <div class="col-sm-8">
-                    <select name="view_id" class="form-control">
-                        <option value="">选择</option>
-                    </select>
+                    <div id="view_id_wrap"></div>
                 </div>
             </div>
             <div class="form-group">
@@ -115,7 +116,7 @@
     $(function () {
         ajaxGo("admin/wx_msg_view/getAllView");
         requestData.data.forEach(function (e) {
-            $('select[name=view_id]').append('<option value="'+e.id+'">'+e.name+'</option>');
+            $("#view_id_wrap").append('<label class="radio-inline"><input type="radio" name="view_id" value="'+e.id+'" />'+e.name+'</label>');
         });
     });
 
@@ -217,12 +218,13 @@
 
     //添加
     function add() {
+        $("input[name=view_id]:first").prop("checked","checked");
         layer.open({
             type: 1,
             title: '添加',
             shadeClose: true,
             shade: 0.8,
-            area: ['60%', '60%'],
+            area: ['80%', '60%'],
             content: $('#add'),
             btn: ['确定', '取消'], // 按钮
             yes: function(index, layero){
@@ -252,7 +254,7 @@
     //提交落地页数据
     function addGo() {
         requestData.data = {
-            'view_id' : $("select[name=view_id] option:selected").val(),
+            'view_id' : $("input[name=view_id]:checked").val(),
             'content' : $("input[name=content]").val()
         };
         ajaxGo('admin/wx_msg_view_worth/add');
@@ -261,14 +263,14 @@
 
     //编辑
     function edit(obj) {
-        $("select[name=view_id] option[value="+$(obj).attr('data-view-id')+"]").prop("selected", "selected");
+        $("input[name=view_id][value="+$(obj).attr('data-view-id')+"]").prop("checked", "checked");
         $("input[name=content]").val($(obj).attr('data-content'));
         layer.open({
             type: 1,
             title: '编辑',
             shadeClose: true,
             shade: 0.8,
-            area: ['60%', '60%'],
+            area: ['80%', '60%'],
             content: $('#add'),
             btn: ['确定', '取消'], // 按钮
             yes: function(index, layero){
@@ -299,7 +301,7 @@
     function editGo(id) {
         requestData.data = {
             'id' : id,
-            'view_id' : $("select[name='view_id'] option:selected").val(),
+            'view_id' : $("input[name='view_id']:checked").val(),
             'content' : $("input[name='content']").val()
         };
         ajaxGo('admin/wx_msg_view_worth/edit')
