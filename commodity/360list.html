@@ -106,9 +106,7 @@
                                 <button class="btn btn-primary" type="button" onclick="addCommodity()">添加</button>
                             </span>
                     </div>
-                    <div id="history_search" style="margin-top: 3px;margin-left: 15px">
 
-                    </div>
                 </div>
             </div>
 
@@ -450,7 +448,6 @@
         }
         //调用函数，初始化表格
         setMaterial();
-        searchHistory();
         initTable();
     });
     let commodity_id = 0;
@@ -741,7 +738,6 @@
                 'log': $('#search_id').val()
             };
             ajaxGo('admin/Weakness/addWeakness');
-            searchHistory();
         }
     }
 
@@ -1009,49 +1005,14 @@
 
     //渲染搜索历史
     function searchHistory() {
-        requestData.data = {
-            'platform_id': 1
-        };
-        ajaxGo('admin/Weakness/getListToSelect');
-        $('#history_search').empty();
-        let html = ' <div style="float: left;margin-left: 15px"> 历史记录： </div>';
-        $('#history_search').append(html);
 
-        requestData.data.forEach((item, index, array) => {
-            var html = '<div style="float: left;margin-right: 15px;margin-left: 5px">\n' +
-                '                    <span style="cursor:pointer" onclick="searchLog(this)" data_id = "' + item.log + '">' + item.view + ' - ' + item.log + '<div style="float:left;width:15px;height:15px;padding: 2px;position: relative;left: 76px;bottom:3px;color: #fff;cursor:pointer;border-radius: 50%;background: #ff0000;text-align: center;line-height: 12px" data_id = "' + item.id + '" onclick="delLog(this)">x</div>\n</span>\n' +
-                '                    ' +
-                '                </div>';
-            //执行代码
-            $('#history_search').append(html);
-        });
 
     }
 
-    //删除搜索历史
-    function delLog(obj) {
-        layer.msg('确定删除？', {
-            time: 0 //不自动关闭
-            , btn: ['确定', '取消']
-            , yes: function (index) {
-                requestData.data = {
-                    'id': $(obj).attr('data_id')
-                };
-                ajaxGo('admin/Weakness/delWeakness');
-                if (requestCode === 0) {
-                    searchHistory();
-                    layer.msg('删除成功!');
-                } else {
-                    layer.msg(requestMessage);
-                }
-            }
-        });
-    }
 
     //根据搜索历史搜索
     function searchLog(obj) {
-        $('#search_id').val($(obj).attr('data_id'));
-        fac_search();
+
     }
 
 

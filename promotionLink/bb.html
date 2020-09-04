@@ -166,11 +166,8 @@
                         if($.inArray('admin/promotion_b_b/delpromotionbb',u_role_url) !== -1){
                             f='<a href="#" mce_href="#" data_id="'+row.id+'"  onclick="delpromotionBB(this)" >删除</a> ';
                         }
-                        let c = '';
-                        if($.inArray('admin/promotion_b_b/getpromotionbb2',u_role_url) !== -1) {
-                            c = ' <a href="javascript:void(0)"  data_id="'+row.id+'"  onclick="lookAll2(this)"  style="margin-top: 8px;display: block">对比报表</a>';
-                        }
-                        return d + f + c;
+
+                        return d + f ;
                     }
                 }
             ]
@@ -187,9 +184,6 @@
         window.open('http://zjz.zhanjuzhe.cn/promotionLink/look.html?type=2&bb_id='+$(obj).attr('data_id'), '_blank').location;
     }
 
-    function lookAll2(obj) {
-        window.open('http://zjz.zhanjuzhe.cn/promotionLink/look2.html?&bb_id='+$(obj).attr('data_id'), '_blank').location;
-    }
 
     //删除
     function delpromotionBB(obj) {
