@@ -114,11 +114,11 @@
 
     //全选
     $(document).on('click','.role-all',function () {
-        $(this).parent('label').next('div').find('input').prop('checked','checked');
+        $(this).parents('label').next('div').find('input').prop('checked','checked');
     });
     //反选
     $(document).on('click','.role-invert',function () {
-        $(this).parent('label').next('div').find('input').each(function () {
+        $(this).parents('label').next('div').find('input').each(function () {
             if($(this).prop("checked"))
             {
                 $(this).prop("checked",false);
@@ -129,7 +129,7 @@
     });
     //取消
     $(document).on('click','.role-cancel',function () {
-        $(this).parent('label').next('div').find('input').prop('checked',false);
+        $(this).parents('label').next('div').find('input').prop('checked',false);
     });
 
     $(document).ready(function () {
