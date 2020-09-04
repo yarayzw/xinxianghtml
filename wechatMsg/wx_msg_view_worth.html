@@ -69,9 +69,15 @@
     <div class="ibox-content">
         <form class="form-horizontal m-t" id="commentForm" method="post">
             <div class="form-group">
-                <label class="col-sm-3 control-label">模板 :</label>
+                <label class="col-sm-3 control-label">
+                    模板 :
+                    <div class="check-handle">
+                        <a href="javascript:void(0);" class="role-all">全选</a>|<a href="javascript:void(0);" class="role-invert">反选</a>|<a href="javascript:void(0);" class="role-cancel">取消</a>
+                    </div>
+                </label>
                 <div class="col-sm-8">
-                    <div id="view_id_wrap" style="line-height: 2.2rem;"></div>
+                    <div id="view_id_wrap_add" style="line-height: 2.2rem;"></div>
+                    <div id="view_id_wrap_edit" style="line-height: 2.2rem;"></div>
                 </div>
             </div>
             <div class="form-group">
@@ -106,6 +112,25 @@
 
 <script>
 
+    //全选
+    $(document).on('click','.role-all',function () {
+        $(this).parent('label').next('div').find('input').prop('checked','checked');
+    });
+    //反选
+    $(document).on('click','.role-invert',function () {
+        $(this).parent('label').next('div').find('input').each(function () {
+            if($(this).prop("checked"))
+            {
+                $(this).prop("checked",false);
+            }else{
+                $(this).prop("checked",true);
+            }
+        });
+    });
+    //取消
+    $(document).on('click','.role-cancel',function () {
+        $(this).parent('label').next('div').find('input').prop('checked',false);
+    });
 
     $(document).ready(function () {
         if($.inArray('admin/wx_msg_view_worth/add',u_role_url) === -1){
@@ -116,7 +141,8 @@
     $(function () {
         ajaxGo("admin/wx_msg_view/getAllView");
         requestData.data.forEach(function (e) {
-            $("#view_id_wrap").append('<label class="radio-inline"><input type="radio" name="view_id" value="'+e.id+'" />'+e.name+'</label>');
+            $("#view_id_wrap_add").append('<label class="checkbox-inline"><input type="checkbox" name="view_id" value="'+e.id+'" />'+e.name+'</label>');
+            $("#view_id_wrap_edit").append('<label class="radio-inline"><input type="radio" name="view_id" value="'+e.id+'" />'+e.name+'</label>');
         });
     });
 
@@ -218,7 +244,10 @@
 
     //添加
     function add() {
-        $("input[name=view_id]:first").prop("checked","checked");
+        $(".check-handle").show();
+        $("#view_id_wrap_add").show();
+        $("#view_id_wrap_edit").hide();
+        $("input[name=view_id]").prop("checked",false);
         layer.open({
             type: 1,
             title: '添加',
@@ -232,6 +261,10 @@
                     time: 0 //不自动关闭
                     ,btn: ['确定', '取消']
                     ,yes: function(index){
+                        if($("input[name=view_id][type=checkbox]:checked").length<1){
+                            layer.msg("请选择模板",{icon:2});
+                            return false;
+                        }
                         addGo();
                         if(requestCode === 0){
                             fac_search();
@@ -253,8 +286,12 @@
 
     //提交落地页数据
     function addGo() {
+        var ids=[];
+        $("input[name=view_id][type=checkbox]:checked").each(function (i,e) {
+            ids.push($(e).val());
+        });
         requestData.data = {
-            'view_id' : $("input[name=view_id]:checked").val(),
+            'view_ids' : ids.join(","),
             'content' : $("input[name=content]").val()
         };
         ajaxGo('admin/wx_msg_view_worth/add');
@@ -263,7 +300,10 @@
 
     //编辑
     function edit(obj) {
-        $("input[name=view_id][value="+$(obj).attr('data-view-id')+"]").prop("checked", "checked");
+        $(".check-handle").hide();
+        $("#view_id_wrap_add").hide();
+        $("#view_id_wrap_edit").show();
+        $("input[name=view_id][type=radio][value="+$(obj).attr('data-view-id')+"]").prop("checked", "checked");
         $("input[name=content]").val($(obj).attr('data-content'));
         layer.open({
             type: 1,
@@ -301,7 +341,7 @@
     function editGo(id) {
         requestData.data = {
             'id' : id,
-            'view_id' : $("input[name='view_id']:checked").val(),
+            'view_id' : $("input[name='view_id'][type=radio]:checked").val(),
             'content' : $("input[name='content']").val()
         };
         ajaxGo('admin/wx_msg_view_worth/edit')
