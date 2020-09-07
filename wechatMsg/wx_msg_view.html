@@ -262,14 +262,49 @@
         // $('#wechat_ids').selectpicker('refresh');
     }
 
+    /**
+     * 过滤列表
+     * @param list
+     * @param categoryId
+     * @returns {[]}
+     */
+    function getViewList(list,categoryId) {
+        var data=[];
+        list.forEach(function (e) {
+            if (e.category_id==categoryId){
+                data.push(e);
+            }
+        });
+        return data;
+    }
 
     function getAllView() {
         requestData.data = {
-            'name': $("#name").val(),
+            name: $("#name").val(),
+            category_id:1,
         };
         ajaxGo('admin/wx_msg_view/getAllView');
-        $('#list').empty();
-        requestData.data.forEach((item, index, array) => {
+        //$('#list').empty();
+        var list=requestData.data;
+        appendviewHtml("关注24小时内",getViewList(list,1));
+        appendviewHtml("关注24-48小时",getViewList(list,2));
+        appendviewHtml("关注48-72小时",getViewList(list,3));
+        appendviewHtml("关注72小时后",getViewList(list,4));
+        appendviewHtml("关注7天后",getViewList(list,5));
+        appendviewHtml("非活跃用户激活",getViewList(list,6));
+    }
+
+    /**
+     * 添加html
+     * @param title
+     * @param list
+     */
+    function appendviewHtml(title,list) {
+        $('#list').append('<div class="col-sm-12" style="background: rgba(0,0,0,.5);border-radius: 3px;color: white;margin-bottom: 10px;"><h3 style="text-align: center;">'+title+'</h3></div>');
+        if (list.length<1){
+            return;
+        }
+        list.forEach((item, index, array) => {
             //执行代码
             var html = '<div class="col-sm-3">\n' +
                 '                <div class="ibox float-e-margins">\n' +
@@ -469,7 +504,7 @@
             //'type' : $("#type").selectpicker('val'),
             'type': 1,
             'txt': content,
-            'name': $("input[name='name']").val(),
+            'name': $("input[name='name']").val()
         }
         ajaxGo('admin/wx_msg_view/editWechatMsgUrl')
 
