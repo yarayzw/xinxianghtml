@@ -49,6 +49,12 @@
                             <button class="btn btn-primary" type="button" onclick="addWechatMsgView()">添加</button>
                         </span>
                             </div>
+                            <button type="button" class="btn btn-default" onclick="filterView(1)">关注24小时内</button>
+                            <button type="button" class="btn btn-default" onclick="filterView(2)">关注24-48小时</button>
+                            <button type="button" class="btn btn-default" onclick="filterView(3)">关注48-72小时</button>
+                            <button type="button" class="btn btn-default" onclick="filterView(4)">关注72小时后</button>
+                            <button type="button" class="btn btn-default" onclick="filterView(5)">关注7天后</button>
+                            <button type="button" class="btn btn-default" onclick="filterView(6)">非活跃用户激活</button>
                         </div>
                     </div>
 
@@ -353,12 +359,12 @@
         ajaxGo('admin/wx_msg_view/getAllView');
         //$('#list').empty();
         var list=requestData.data;
-        appendviewHtml("关注24小时内",getViewList(list,1));
-        appendviewHtml("关注24-48小时",getViewList(list,2));
-        appendviewHtml("关注48-72小时",getViewList(list,3));
-        appendviewHtml("关注72小时后",getViewList(list,4));
-        appendviewHtml("关注7天后",getViewList(list,5));
-        appendviewHtml("非活跃用户激活",getViewList(list,6));
+        appendviewHtml("关注24小时内",getViewList(list,1),1);
+        appendviewHtml("关注24-48小时",getViewList(list,2),2);
+        appendviewHtml("关注48-72小时",getViewList(list,3),3);
+        appendviewHtml("关注72小时后",getViewList(list,4),4);
+        appendviewHtml("关注7天后",getViewList(list,5),5);
+        appendviewHtml("非活跃用户激活",getViewList(list,6),6);
     }
 
     /**
@@ -366,8 +372,9 @@
      * @param title
      * @param list
      */
-    function appendviewHtml(title,list) {
-        $('#list').append('<div class="col-sm-12" style="background: rgba(0,0,0,.5);border-radius: 3px;color: white;margin-bottom: 10px;"><h3 style="text-align: center;">'+title+'</h3></div>');
+    function appendviewHtml(title,list,suffix) {
+        var  htmlList=[];
+        htmlList.push('<div class="col-sm-12" style="background: rgba(0,0,0,.5);border-radius: 3px;color: white;margin-bottom: 10px;"><h3 style="text-align: center;">'+title+'</h3></div>');
         if (list.length<1){
             return;
         }
@@ -375,7 +382,7 @@
             //执行代码
             if (item.type === 1) {
                 if (item.over_time === 0) {
-                    var html = '<div class="col-sm-3">\n' +
+                    var html = '<div class="col-sm-3" style="width: 20%;">\n' +
                         '                <div class="ibox float-e-margins">\n' +
                         '                    <div class="ibox-title">\n' +
                         '                        <h5>' + item.name + '</h5>  &nbsp; ' + item.send_status + '\n' +
@@ -397,7 +404,7 @@
                         '                </div>\n' +
                         '            </div>';
                 } else {
-                    var html = '<div class="col-sm-3">\n' +
+                    var html = '<div class="col-sm-3" style="width: 20%;">\n' +
                         '                <div class="ibox float-e-margins">\n' +
                         '                    <div class="ibox-title">\n' +
                         '                        <h5>' + item.name + '</h5> &nbsp; ' + item.send_status + ' <span id="day_show_' + item.id + '"></span><span id="hour_show' + item.id + '"></span><span id="minute_show' + item.id + '"></span><span id="second_show' + item.id + '"></span>)\n' +
@@ -421,7 +428,7 @@
                     timer(item.over_time, item.id)
                 }
             }
-            $('#list').append(html);
+            htmlList.push(html);
             if($.inArray('admin/wx_msg_send/addwechatmsgsend',u_role_url) === -1){
                 $("a[name='button_send']").hide();
             }
@@ -432,8 +439,19 @@
                 $("a[name='button_del']").hide();
             }
         });
+
+        $('#list').append('<div class="view-list-wrap" id="wrap_'+suffix+'">'+htmlList.join("")+'</div>');
     }
 
+    /**
+     * 筛选view
+     * @param suffix
+     */
+    function filterView(suffix) {
+        console.log(suffix)
+        $(".view-list-wrap:not(#wrap_"+suffix+")").hide();
+        $("#wrap_"+suffix).show();
+    }
     //搜索
     function fac_search() {
         for (var i = dingshi_arr.length - 1; i >= 0; i--) {
