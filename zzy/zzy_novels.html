@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>筋斗云管理系统</title>
+    <link href="../css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="../css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="../css/animate.min.css" rel="stylesheet">
+    <link href="../css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <link href="../css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link href="../css/plugins/bootstrap-table/bootstrap-table.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../js/plugins/bootstrap-select-1.13.9/dist/css/bootstrap-select.css">
+
+</head>
+<style type="text/css">
+    .table {table-layout:fixed;}
+    .layui-layer-wrap{
+        width: 100%;
+    }
+</style>
+<body>
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="row row-lg">
+            <div class="col-sm-12">
+                <div class="btn-group hidden-xs" id="wechatMsgConfigToolbar" role="group">
+                </div>
+                <table id="wechatMsgConfigTable" >
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div >
+    <div class="form-group">
+        <form id="list_search_faci">
+            <div class="col-sm-10">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="input-group m-b"><span class="input-group-addon">标题</span>
+                            <input type="text" id="title" class="form-control" aria-label="..." placeholder="" >
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="input-group m-b"><span class="input-group-addon">公众号</span>
+                            <select id="wechat_config_id" class="form-control">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-1">
+                         <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" onclick="fac_search()">搜索</button>
+                        </span>
+                    </div>
+                    <div class="col-md-1" id="add_button">
+                         <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" onclick="add()">添加</button>
+                        </span>
+                    </div>
+
+                </div>
+            </div>
+            <fieldset>
+
+                &nbsp;&nbsp;&nbsp;&nbsp;
+            </fieldset>
+        </form>
+    </div>
+</div>
+
+<div class="row" id="add" style="display: none">
+    <div class="ibox-content">
+        <form class="form-horizontal m-t" id="commentForm" method="post">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">
+                    公众号 :
+                </label>
+                <div class="col-sm-8" id="wechat_config_id_wrap">
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">小说ID :</label>
+                <div class="col-sm-8">
+                    <input type="number" class="form-control" name="novel_id" value=""   />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">开始收费章节 :</label>
+                <div class="col-sm-8">
+                    <input type="number" class="form-control" name="start_charge_id" value=""   />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">收费章节书币 :</label>
+                <div class="col-sm-8">
+                    <input type="number" class="form-control" name="start_charge_price" value=""   />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">缩略图 :</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="thumb" value=""   />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">标题 :</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="title" value=""   />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">派单指数 :</label>
+                <div class="col-sm-8">
+                    <input type="number" class="form-control" name="rank" value=""   />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">上线时间 :</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="online_time" value=""   />
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+<div id="customCharge" style="display: none;">
+    <div class="ibox-content">
+        <form class="form-horizontal m-t" id="custom-charge-form" method="post">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">
+                    小说 :
+                </label>
+                <div class="col-sm-8">
+                    <input type="text" value="" name="novel_name" class="form-control" readonly>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">
+                    单章价格 :
+                </label>
+                <div class="col-sm-8">
+                    <select name="unit_price" class="form-control">
+                        <option value=""></option>
+                        <option value="35">35书币</option>
+                        <option value="40">40书币</option>
+                        <option value="45">45书币</option>
+                        <option value="50">50书币</option>
+                        <option value="55">55书币</option>
+                        <option value="60">60书币</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">
+                    开始收费章节 :
+                </label>
+                <div class="col-sm-8">
+                    <input type="text" value="第20章" name="start_charge_id" class="form-control" readonly>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">
+                    公众号 :
+                </label>
+                <div class="col-sm-8" id="public_wechat_wrap">
+
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+
+<script src="../js/jquery.min.js?v=2.1.4"></script>
+
+<script src="../js/public.js"></script>
+<script src="../js/bootstrap.min.js?v=3.3.6"></script>
+<script src="../js/layer/layer.js"></script>
+<script src="../js/laydate/laydate.js"></script>
+
+<script src="../js/content.min.js"></script>
+<script src="../js/plugins/bootstrap-table/bootstrap-table.js"></script>
+<script src="../js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="../js/demo/bootstrap-table-demo.min.js"></script>
+<script src="../js/bootstrapValidator.js"></script>
+<script src="../js/bootstrapValidator.min.js"></script>
+<script src="../js/index.js"></script>
+<script src="../js/plugins/bootstrap-select-1.13.9/js/bootstrap-select.js"></script>
+
+
+<script>
+
+    $(function () {
+        ajaxGo("admin/wechat_config/getListToSelect");
+        requestData.data.forEach(function (e) {
+            $("#wechat_config_id").append('<option value="'+e.id+'">'+e.wechat_name+'</option>');
+            $("#wechat_config_id_wrap").append('<label class="radio-inline"><input type="radio" name="wechat_config_id" value="'+e.id+'">'+e.wechat_name+'</label>');
+            $("#public_wechat_wrap").append('<label class="checkbox-inline"><input type="checkbox" name="wechat_config_id" value="'+e.id+'">'+e.wechat_name+'</label>');
+        });
+
+    });
+
+    $(document).ready(function () {
+        if($.inArray('admin/zzy_novels/add',u_role_url) === -1){
+            $('#add_button').hide();
+        }
+        initTable();
+    });
+
+
+    function initTable() {
+        $('#wechatMsgConfigTable').bootstrapTable('destroy');
+        // $('#wechatDayToolbar').css("height", 300);
+        $("#wechatMsgConfigTable").bootstrapTable({
+            url: __ROOT__ + 'admin/zzy_novels/getList', //获取数据的Servlet地址
+            striped: true,  //表格显示条纹
+            pagination: true, //启动分页
+            sortName: 'id',
+            pageSize: 10,  //每页显示的记录数
+            pageNumber:1, //当前第几页
+            pageList: [10, 15, 20, 25],  //记录数可选列表
+            search: false,
+            toolbar: '#list_search_faci',
+            showColumns: false,  //显示下拉框勾选要显示的列
+            showRefresh: false,  //显示刷新按钮
+            sidePagination: "server", //表示服务端请求
+            showToggle:false,
+            responseHandler:function(data){
+                return data.data;
+            },
+            queryParamsType : "undefined",
+            // method: 'post',
+            queryParams: function queryParams(params) {   //设置查询参数
+                params = {
+                    //这里是在ajax发送请求的时候设置一些参数 params有什么东西，自己看看源码就知道了
+                    pageNumber: params.pageNumber,
+                    pageSize: params.pageSize,
+                    sortName: params.sortName,
+                    sortOrder: params.sortOrder,
+                    // id : {$_GET['id']},
+                    head : {'token' : getCookie('token')},
+                    title : $('#title').val(),
+                    wechat_config_id:$("#wechat_config_id option:selected").val()
+                };
+
+                return params;
+            },
+            onLoadSuccess: function(data){  //加载成功时执行
+
+            },
+            onLoadError: function(){  //加载失败时执行
+                layer.msg("加载数据失败", {time : 1500, icon : 2});
+            },
+            columns: [
+                {
+                    title: 'Id',
+                    field: 'id',
+                    align: 'center',
+                    valign: 'middle',
+                    width : 30,
+                },
+                {
+                    field: 'thumb',
+                    title: '缩略图',
+                    width : 40,
+                    align: 'center',
+                    formatter: function(value,row,index){
+                        if (value!=""){
+                            return '<img src="'+value+'" style="width: 60px;height: auto;"/>';
+                        }
+                    }
+                },
+                {
+                    field: 'title',
+                    title: '书名',
+                    width : 60,
+                    align: 'center'
+                },
+                {
+                    field: 'rank',
+                    title: '派单指数',
+                    width : 40,
+                    align: 'center'
+                },
+                {
+                    field: 'online_time',
+                    title: '上架时间',
+                    width : 60,
+                    align: 'center'
+                },
+                {
+                    field: 'start_charge_id',
+                    title: '开始收费章节',
+                    width : 30,
+                    align: 'center'
+                },
+                {
+                    field: 'start_charge_price',
+                    title: '收费章节价格',
+                    width : 30,
+                    align: 'center'
+                },
+                {
+                    field: 'wechat_config_id',
+                    title: '公众号',
+                    width : 30,
+                    align: 'center',
+                    formatter: function(value,row,index){
+                        if (row.wechat_config_info){
+                            return row.wechat_config_info.wechat_name;
+                        }
+                    }
+                },
+                {
+                    field: 'operate',
+                    title: '操作',
+                    width : 70,
+                    align: 'center',
+                    formatter: function(value,row,index){
+                        let a = '';
+                        if($.inArray('admin/zzy_novels/edit',u_role_url) !== -1) {
+                            a = '<a href="#" mce_href="#" data-id="'+row.id+'" data-view-id="'+row.view_id+'"  data-content="'+row.content+'"  onclick="edit(this)" >编辑</a> ';
+                        }
+                        let f = '';
+                        if($.inArray('admin/zzy_novels/delete',u_role_url) !== -1) {
+                            f='<a href="#" mce_href="#" data-id="'+row.id+'"  onclick="del(this)" >删除</a>';
+                        }
+                        let e="";
+                        if($.inArray('admin/zzy_novels/customnovelcharge',u_role_url) !== -1) {
+                            e = '&nbsp;<a href="javascript:void(0);" data-id="' + row.id + '" onclick="customCharge(this)">自定义收费</a>';
+                        }
+                        return a+f+e;
+                    }
+                }
+            ]
+        });
+    }
+
+    //自定义收费
+    function customCharge(obj) {
+        var id=$(obj).attr("data-id");
+        requestData.data={
+            id:id
+        };
+        ajaxGo("admin/zzy_novels/detail");
+        var data=requestData.data;
+        $("#custom-charge-form").find("input[name=novel_name]").val(data.title);
+        $("#custom-charge-form").find("select[name=unit_price] option[value="+data.start_charge_price+"]").prop("selected","selected");
+        $("#custom-charge-form").find("input[name=start_charge_id]").val("第"+data.start_charge_id+"章");
+        $("#custom-charge-form").find("input[name=wechat_config_id][value="+data.wechat_config_id+"]").prop("checked","checked");
+        layer.open({
+            type: 1,
+            title: '小说自定义价格',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['50%', '50%'],
+            content: $('#customCharge'),
+            btn: ['确定', '取消'], // 按钮
+            yes: function (index, layero) {
+                layer.msg('确定更改？', {
+                    time: 0 //不自动关闭
+                    , btn: ['确定', '取消']
+                    , yes: function (index) {
+                        var wechatConfigIdList=[];
+                        $("#custom-charge-form").find("input[name=wechat_config_id]:checked").each(function (e) {
+                            wechatConfigIdList.push(parseInt($(this).val()));
+                        });
+                        requestData.data={
+                            ids:id,
+                            unit_price:$("#custom-charge-form").find("select[name=unit_price] option:selected").val(),
+                            start_charge_idx:$("#custom-charge-form").find("input[name=start_charge_id]").val().replace("第","").replace("章",""),
+                            wechat_config_ids:wechatConfigIdList.join(","),
+                        };
+                        ajaxGo("admin/zzy_novels/customNovelCharge");
+                        if (requestCode==0){
+                            layer.closeAll();
+                        }
+                        layer.msg(requestMessage);
+                    }
+                });
+            }
+        });
+    }
+
+    //搜索
+    function fac_search() {
+        $('#wechatMsgConfigTable').bootstrapTable('refresh');
+    }
+
+    //添加
+    function add() {
+        layer.open({
+            type: 1,
+            title: '添加',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['80%', '70%'],
+            content: $('#add'),
+            btn: ['确定', '取消'], // 按钮
+            yes: function(index, layero){
+                layer.msg('确定添加？', {
+                    time: 0 //不自动关闭
+                    ,btn: ['确定', '取消']
+                    ,yes: function(index){
+                        if($("input[name=view_id][type=checkbox]:checked").length<1){
+                            layer.msg("请选择模板",{icon:2});
+                            return false;
+                        }
+                        addGo();
+                        if(requestCode === 0){
+                            fac_search();
+                            layer.close(index);
+                            layer.closeAll();
+                            layer.msg(requestMessage);
+                        }else {
+                            layer.msg(requestMessage);
+                        }
+                    }
+                });
+
+
+            }
+//            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
+        });
+
+    }
+
+    //提交数据
+    function addGo() {
+        requestData.data = {
+            'wechat_config_id' : $('#add').find('input[name=wechat_config_id]:checked').val(),
+            'start_charge_id' : $('#add').find('input[name=start_charge_id]').val(),
+            'start_charge_price' : $('#add').find('input[name=start_charge_price]').val(),
+            'novel_id' : $('#add').find('input[name=novel_id]').val(),
+            'title' : $('#add').find('input[name=title]').val(),
+            'thumb' : $('#add').find("input[name=thumb]").val(),
+            'rank' : $('#add').find("input[name=rank]").val(),
+            'online_time' : $('#add').find("input[name=online_time]").val(),
+        };
+        ajaxGo('admin/zzy_novels/add');
+    }
+
+
+    //编辑
+    function edit(obj) {
+        var id=$(obj).attr('data-id');
+        requestData.data={
+            id:id
+        };
+        ajaxGo("admin/zzy_novels/detail");
+        var data=requestData.data;
+        $('#add').find('input[name=wechat_config_id][value='+data.wechat_config_id+']').prop('checked',true);
+        $('#add').find('input[name=start_charge_id]').val(data.start_charge_id);
+        $('#add').find('input[name=start_charge_price]').val(data.start_charge_price);
+        $('#add').find('input[name=novel_id]').val(data.novel_id);
+        $('#add').find('input[name=title]').val(data.title);
+        $('#add').find('input[name=thumb]').val(data.thumb);
+        $('#add').find('input[name=rank]').val(data.rank);
+        $('#add').find('input[name=online_time]').val(data.online_time);
+        layer.open({
+            type: 1,
+            title: '编辑',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['80%', '60%'],
+            content: $('#add'),
+            btn: ['确定', '取消'], // 按钮
+            yes: function(index, layero){
+                layer.msg('确定修改？', {
+                    time: 0 //不自动关闭
+                    ,btn: ['确定', '取消']
+                    ,yes: function(index){
+                        editGo($(obj).attr('data-id'));
+                        if(requestCode === 0){
+                            fac_search();
+                            layer.close(index);
+                            layer.closeAll();
+                            layer.msg(requestMessage);
+                        }else {
+                            layer.msg(requestMessage);
+                        }
+                    }
+                });
+
+
+            }
+//            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
+        });
+
+    }
+
+    //修改
+    function editGo(id) {
+        requestData.data = {
+            'id' : id,
+            'wechat_config_id' : $('#add').find('input[name=wechat_config_id]:checked').val(),
+            'start_charge_id' : $('#add').find('input[name=start_charge_id]').val(),
+            'start_charge_price' : $('#add').find('input[name=start_charge_price]').val(),
+            'novel_id' : $('#add').find('input[name=novel_id]').val(),
+            'title' : $('#add').find('input[name=title]').val(),
+            'thumb' : $('#add').find("input[name=thumb]").val(),
+            'rank' : $('#add').find("input[name=rank]").val(),
+            'online_time' : $('#add').find("input[name=online_time]").val(),
+        };
+        ajaxGo('admin/zzy_novels/edit')
+
+    }
+
+    //删除
+    function del(obj) {
+        layer.msg('确定删除？', {
+            time: 0 //不自动关闭
+            ,btn: ['确定', '取消']
+            ,yes: function(index){
+                requestData.data = {
+                    'id' : $(obj).attr('data-id')
+                };
+                ajaxGo('admin/zzy_novels/delete');
+                if(requestCode === 0){
+                    fac_search();
+                    layer.msg('删除成功!');
+                }else {
+                    layer.msg(requestMessage);
+                }
+            }
+        });
+    }
+</script>
+
+
