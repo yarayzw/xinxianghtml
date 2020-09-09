@@ -605,7 +605,7 @@
                             'is_pay': $('input[name="is_pay"]:checked').val(),
                             'is_active': $('input[name="is_active"]:checked').val()
                         }
-                        ajaxGo('admin/wechat_msg_send/addWechatMsgSend', '', false, 'http://tongji.chinaandun.com/');
+                        ajaxGo('admin/wechat_msg_send/addWechatMsgSend');
                         if (requestCode === 0) {
                             fac_search();
                             layer.close(index);
