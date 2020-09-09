@@ -464,13 +464,7 @@
                                 '<div style="color: #777;margin-top: 6px;">创建时间:'+row.start_time+'</div>';
                         }
                     },
-                    {
-                        field: 'bind_user_name',
-                        title: '人员',
-                        sortable:true,
-                        width : 10,
-                        align: 'center'
-                    },
+
                     {
                         field: 'novel_name',
                         title: '入口页面',
@@ -536,6 +530,13 @@
                             }
                             return e;
                         }
+                    },
+                    {
+                        field: 'user_name',
+                        title: '人员',
+                        sortable:true,
+                        width : 10,
+                        align: 'center'
                     },
                     {
                         field: 'recharge_nums',
