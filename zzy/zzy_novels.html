@@ -345,6 +345,7 @@
 
     //自定义收费
     function customCharge(obj) {
+        $("#custom-charge-form").find("input[name=wechat_config_id]").prop("checked",false);
         var id=$(obj).attr("data-id");
         requestData.data={
             id:id
