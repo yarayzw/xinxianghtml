@@ -43,14 +43,6 @@
                             <input type="text" id="title" class="form-control" aria-label="..." placeholder="" >
                         </div>
                     </div>
-                    <div class="col-md-2">
-                        <div class="input-group m-b"><span class="input-group-addon">公众号</span>
-                            <select id="wechat_config_id" class="form-control">
-                                <option value=""></option>
-                            </select>
-                        </div>
-                    </div>
-
                     <div class="col-md-1">
                          <span class="input-group-btn">
                             <button class="btn btn-default" type="button" onclick="fac_search()">搜索</button>
@@ -61,7 +53,11 @@
                             <button class="btn btn-default" type="button" onclick="add()">添加</button>
                         </span>
                     </div>
-
+                    <div class="col-md-1">
+                         <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" onclick="wechatCustomCharge()">自定义收费</button>
+                         </span>
+                    </div>
                 </div>
             </div>
             <fieldset>
@@ -77,7 +73,8 @@
         <form class="form-horizontal m-t" id="commentForm" method="post">
             <div class="form-group">
                 <label class="col-sm-3 control-label">
-                    公众号 :
+                    公众号 :<br/>
+                    <a href="javascript:void(0);" class="role-all">全选</a>|<a href="javascript:void(0);" class="role-invert">反选</a>|<a href="javascript:void(0);" class="role-cancel">取消</a>
                 </label>
                 <div class="col-sm-8" id="wechat_config_id_wrap">
 
@@ -166,7 +163,8 @@
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label">
-                    公众号 :
+                    公众号 :<br/>
+                    <a href="javascript:void(0);" class="role-all">全选</a>|<a href="javascript:void(0);" class="role-invert">反选</a>|<a href="javascript:void(0);" class="role-cancel">取消</a>
                 </label>
                 <div class="col-sm-8" id="public_wechat_wrap">
 
@@ -176,6 +174,15 @@
     </div>
 </div>
 
+<div id="wechat-custom-charge" style="display: none;">
+    <div class="ibox-content">
+        <div class="row row-lg">
+            <div class="col-sm-12">
+                <table id="public-wechat-table"></table>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 
 <script src="../js/jquery.min.js?v=2.1.4"></script>
@@ -194,14 +201,33 @@
 <script src="../js/index.js"></script>
 <script src="../js/plugins/bootstrap-select-1.13.9/js/bootstrap-select.js"></script>
 
-
+<script>
+    //全选
+    $(document).on('click','.role-all',function () {
+        $(this).parents('label').next('div').find('input').prop('checked','checked');
+    });
+    //反选
+    $(document).on('click','.role-invert',function () {
+        $(this).parents('label').next('div').find('input').each(function () {
+            if($(this).prop("checked"))
+            {
+                $(this).prop("checked",false);
+            }else{
+                $(this).prop("checked",true);
+            }
+        });
+    });
+    //取消
+    $(document).on('click','.role-cancel',function () {
+        $(this).parents('label').next('div').find('input').prop('checked',false);
+    });
+</script>
 <script>
 
     $(function () {
         ajaxGo("admin/wechat_config/getListToSelect");
         requestData.data.forEach(function (e) {
-            $("#wechat_config_id").append('<option value="'+e.id+'">'+e.wechat_name+'</option>');
-            $("#wechat_config_id_wrap").append('<label class="radio-inline"><input type="radio" name="wechat_config_id" value="'+e.id+'">'+e.wechat_name+'</label>');
+            $("#wechat_config_id_wrap").append('<label class="checkbox-inline"><input type="checkbox" name="wechat_config_id" value="'+e.id+'">'+e.wechat_name+'</label>');
             $("#public_wechat_wrap").append('<label class="checkbox-inline"><input type="checkbox" name="wechat_config_id" value="'+e.id+'">'+e.wechat_name+'</label>');
         });
 
@@ -246,8 +272,7 @@
                     sortOrder: params.sortOrder,
                     // id : {$_GET['id']},
                     head : {'token' : getCookie('token')},
-                    title : $('#title').val(),
-                    wechat_config_id:$("#wechat_config_id option:selected").val()
+                    title : $('#title').val()
                 };
 
                 return params;
@@ -308,26 +333,15 @@
                     align: 'center'
                 },
                 {
-                    field: 'wechat_config_id',
-                    title: '公众号',
-                    width : 30,
-                    align: 'center',
-                    formatter: function(value,row,index){
-                        if (row.wechat_config_info){
-                            return row.wechat_config_info.wechat_name;
-                        }
-                    }
-                },
-                {
                     field: 'operate',
                     title: '操作',
                     width : 70,
                     align: 'center',
                     formatter: function(value,row,index){
                         let a = '';
-                        if($.inArray('admin/zzy_novels/edit',u_role_url) !== -1) {
+                        /*if($.inArray('admin/zzy_novels/edit',u_role_url) !== -1) {
                             a = '<a href="#" mce_href="#" data-id="'+row.id+'" data-view-id="'+row.view_id+'"  data-content="'+row.content+'"  onclick="edit(this)" >编辑</a> ';
-                        }
+                        }*/
                         let f = '';
                         if($.inArray('admin/zzy_novels/delete',u_role_url) !== -1) {
                             f='<a href="#" mce_href="#" data-id="'+row.id+'"  onclick="del(this)" >删除</a>';
@@ -435,8 +449,12 @@
 
     //提交数据
     function addGo() {
+        var wechatConfigIdList=[];
+        $("#add").find("input[name=wechat_config_id]:checked").each(function (e) {
+            wechatConfigIdList.push(parseInt($(this).val()));
+        });
         requestData.data = {
-            'wechat_config_id' : $('#add').find('input[name=wechat_config_id]:checked').val(),
+            'wechat_config_ids' : wechatConfigIdList.join(","),
             'start_charge_id' : $('#add').find('input[name=start_charge_id]').val(),
             'start_charge_price' : $('#add').find('input[name=start_charge_price]').val(),
             'novel_id' : $('#add').find('input[name=novel_id]').val(),
@@ -533,6 +551,117 @@
             }
         });
     }
+</script>
+
+
+<script>
+    function wechatCustomCharge()
+    {
+        layer.open({
+            type: 1,
+            title: '自定义收费',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['80%', '60%'],
+            content: $('#wechat-custom-charge'),
+            btn: ['确定', '取消'], // 按钮
+            yes: function(index, layero){
+                layer.msg('确定更新小说？', {
+                    time: 0 //不自动关闭
+                    , btn: ['确定', '取消']
+                    , yes: function (index) {
+                        var rows = $('#public-wechat-table').bootstrapTable('getAllSelections');
+                        var idList=[];
+                        rows.forEach(function (e) {
+                            idList.push(e.id);
+                        });
+                        requestData.data={
+                            ids:idList.join(",")
+                        };
+                        ajaxGo("admin/zzy_novels/publicCharge");
+                        if (requestCode==0){
+                            layer.closeAll();
+                        }
+                        layer.msg(requestMessage);
+                    }
+                });
+            }
+        });
+    }
+    <!--公众号table-->
+    $(function () {
+        $("#public-wechat-table").bootstrapTable({
+            url: __ROOT__ + 'admin/wechat_config/getList', //获取数据的Servlet地址
+            striped: true,  //表格显示条纹
+            pagination: true, //启动分页
+            sortName: 'id',
+            pageSize: 10,  //每页显示的记录数
+            pageNumber: 1, //当前第几页
+            pageList: [10, 15, 20, 25],  //记录数可选列表
+            search: false,
+            showColumns: false,  //显示下拉框勾选要显示的列
+            showRefresh: false,  //显示刷新按钮
+            sidePagination: "server", //表示服务端请求
+            showToggle: false,
+            responseHandler: function (data) {
+                return data.data;
+            },
+            queryParamsType: "undefined",
+            // method: 'post',
+            queryParams: function queryParams(params) {   //设置查询参数
+                params = {
+                    //这里是在ajax发送请求的时候设置一些参数 params有什么东西，自己看看源码就知道了
+                    pageNumber: params.pageNumber,
+                    pageSize: params.pageSize,
+                    sortName: params.sortName,
+                    sortOrder: params.sortOrder,
+                    // id : {$_GET['id']},
+                    head: {'token': getCookie('token')},
+                };
+
+                return params;
+            },
+            onLoadSuccess: function (data) {  //加载成功时执行
+
+            },
+            onLoadError: function () {  //加载失败时执行
+                layer.msg("加载数据失败", {time: 1500, icon: 2});
+            },
+            rowStyle:function(row, index){
+                if (!row.is_charge){
+                    return {classes:"warning"};
+                }
+                return {};
+            },
+            columns: [
+                {
+                    checkbox:true,
+                    width:10
+                },
+                {
+                    title: 'Id',
+                    field: 'id',
+                    align: 'center',
+                    valign: 'middle',
+                    width: 20,
+                },
+                {
+                    title: '名称',
+                    field: 'name',
+                    align: 'center',
+                    valign: 'middle',
+                    width: 30,
+                },
+                {
+                    title: '公众号',
+                    field: 'wechat_name',
+                    align: 'center',
+                    valign: 'middle',
+                    width: 30,
+                },
+            ]
+        });
+    });
 </script>
 
 
