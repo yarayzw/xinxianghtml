@@ -578,7 +578,7 @@
                         requestData.data={
                             ids:idList.join(",")
                         };
-                        ajaxGo("admin/plan/publicNovelsCharge");
+                        ajaxGo("admin/plan/publicNovelsCharge", '', false, __TJ__);
                         if (requestCode==0){
                             layer.closeAll();
                         }
