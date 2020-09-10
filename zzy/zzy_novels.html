@@ -578,7 +578,7 @@
                         requestData.data={
                             ids:idList.join(",")
                         };
-                        ajaxGo("admin/zzy_novels/publicCharge");
+                        ajaxGo("admin/plan/publicNovelsCharge");
                         if (requestCode==0){
                             layer.closeAll();
                         }
@@ -591,9 +591,9 @@
     <!--公众号table-->
     $(function () {
         $("#public-wechat-table").bootstrapTable({
-            url: __ROOT__ + 'admin/wechat_config/getList', //获取数据的Servlet地址
+            url: __ROOT__ + 'admin/wechat_config/getListToSelect', //获取数据的Servlet地址
             striped: true,  //表格显示条纹
-            pagination: true, //启动分页
+            pagination: false, //启动分页
             sortName: 'id',
             pageSize: 10,  //每页显示的记录数
             pageNumber: 1, //当前第几页
@@ -646,18 +646,25 @@
                     width: 20,
                 },
                 {
-                    title: '名称',
-                    field: 'name',
-                    align: 'center',
-                    valign: 'middle',
-                    width: 30,
-                },
-                {
                     title: '公众号',
                     field: 'wechat_name',
                     align: 'center',
                     valign: 'middle',
                     width: 30,
+                },
+                {
+                    title: '批量设置收费',
+                    field: 'is_charge',
+                    align: 'center',
+                    valign: 'middle',
+                    width: 10,
+                    formatter: function(value,row,index){
+                        if (value){
+                            return '是';
+                        }else {
+                            return '否';
+                        }
+                    }
                 },
             ]
         });
