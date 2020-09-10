@@ -59,7 +59,11 @@
                             <button class="btn btn-default" type="button" onclick="addWechatMsgUrl()">添加</button>
                         </span>
                     </div>
-
+                    <div class="col-md-1" id="del_all" >
+                         <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" onclick="delAll()">批量删除</button>
+                        </span>
+                    </div>
                 </div>
             </div>
             <fieldset>
@@ -201,6 +205,14 @@
             },
             columns: [
                 {
+                    title: '',
+                    field: 'checkbox',
+                    align: 'center',
+                    checkbox : true,
+                    width : 5,
+                    singleSelect:true
+                },
+                {
                     title: 'Id',
                     field: 'id',
                     align: 'center',
@@ -220,9 +232,82 @@
                     align: 'center'
                 },
                 {
+                    field: 'activity_name',
+                    title: '活动名称',
+                    width : 20,
+                    align: 'center',
+                    formatter: function(value,row,index){
+                        if(value !== 0){
+                            let a = '';
+                            switch (value.toString()) {
+                                case '48':
+                                    a = '充15送1500书券';
+                                    break;
+                                case '47':
+                                    a = '充28送2800书券';
+                                    break;
+                                case '46':
+                                    a = '充88送10000书券';
+                                    break;
+                                case '42':
+                                    a = '充19送1000书券,再送9元优惠券，优惠券7天有效，充值金额大于30元才可使用';
+                                    break;
+                                case '41':
+                                    a = '充16送700书券,再送9元优惠券，优惠券7天有效，充值金额大于30元才可使用';
+                                    break;
+                                case '40':
+                                    a = '充9.9送590书券,再送4元优惠券，优惠券7天有效，充值金额大于30元才可使用';
+                                    break;
+                                case '45':
+                                    a = '充50送2000书券';
+                                    break;
+                                case '39':
+                                    a = '充66送6600书券';
+                                    break;
+                                case '43':
+                                    a = '充36送3600书券';
+                                    break;
+                                case '38':
+                                    a = '充18送800书券';
+                                    break;
+                                case '49':
+                                    a = '充5送500书券';
+                                    break;
+                                case '50':
+                                    a = '充9送900书券';
+                                    break;
+                                case '51':
+                                    a = '充30送1500书券';
+                                    break;
+                                case '44':
+                                    a = '充12送1200书券';
+                                    break;
+                                case '32':
+                                    a = '充20无赠送';
+                                    break;
+                                case '59':
+                                    a = '充23送1000书券';
+                                    break;
+                                case '56':
+                                    a = '充23无赠送';
+                                    break;
+                                case '52':
+                                    a = '充30送800书券';
+                                    break;
+                                case '54':
+                                    a = '充15送1000书券';
+                                    break;
+                            }
+                            return a + ' (限充'+row.restrictions_num+'次)';
+                        }else {
+                            return row.nt_name;
+                        }
+                    }
+                },
+                {
                     field: 'url',
                     title: '链接地址',
-                    width : 100,
+                    width : 70,
                     align: 'center'
                 },
                 {
@@ -366,6 +451,45 @@
             }
         });
     }
+
+    //批量删除
+    function delAll() {
+        let row = $("#wechatConfigUrlTable").bootstrapTable('getSelections');
+        if (row.length === 0) {
+            layer.msg('请选择行');
+        }else {
+            let link_ids = [];
+            let bb_time_min = '';
+            row.forEach((item,index,array)=>{
+                link_ids.push(item.id)
+                if(bb_time_min === ''){
+                    bb_time_min = item.link_create_time;
+                }else {
+                    if(item.link_create_time < bb_time_min){
+                        bb_time_min = item.link_create_time;
+                    }
+                }
+            });
+            layer.msg('确定删除？', {
+                time: 0 //不自动关闭
+                ,btn: ['确定', '取消']
+                ,yes: function(index){
+                    requestData.data = {
+                        'ids' : link_ids,
+                    };
+                    ajaxGo('admin/wechat_msg_url/delAll');
+                    if(requestCode === 0){
+                        layer.close(index);
+                        layer.msg(requestMessage);
+                        fac_search();
+                    }else {
+                        layer.msg(requestMessage);
+                    }
+                }
+            });
+        }
+    }
+
 </script>
 
 
