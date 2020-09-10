@@ -292,8 +292,8 @@
             laydate.render({
                 elem: '#start_time' //指定元素
                 ,event:"focus",
-                value: getDay(-15, '-'),
-                min: getDay(-15, '-'),
+                value: getDay(-7, '-'),
+                min: getDay(-7, '-'),
                 done: function(value, date, endDate){
                     start_time = value;
                     var startDate = new Date(value).getTime();

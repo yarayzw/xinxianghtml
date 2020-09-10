@@ -480,10 +480,10 @@
                     ajaxGo('admin/wechat_msg_url/delAll');
                     if(requestCode === 0){
                         layer.close(index);
-                        layer.msg(requestMessage);
+                        layer.msg('删除成功');
                         fac_search();
                     }else {
-                        layer.msg(requestMessage);
+                        layer.msg('删除失败');
                     }
                 }
             });
