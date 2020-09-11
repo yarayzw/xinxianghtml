@@ -43,6 +43,14 @@
                             <input type="text" id="title" class="form-control" aria-label="..." placeholder="" >
                         </div>
                     </div>
+                    <div class="col-md-2">
+                        <div class="input-group m-b"><span class="input-group-addon">类型</span>
+                            <select id="is_manual" class="form-control">
+                                <option value="0">自动抓取</option>
+                                <option value="1">手动添加</option>
+                            </select>
+                        </div>
+                    </div>
                     <div class="col-md-1">
                          <span class="input-group-btn">
                             <button class="btn btn-default" type="button" onclick="fac_search()">搜索</button>
@@ -58,6 +66,30 @@
                             <button type="button" class="btn btn-default" onclick="wechatCustomCharge()">自定义收费</button>
                          </span>
                     </div>
+                    <div class="col-md-1">
+                         <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" onclick="novelChargeList()">执行日志</button>
+                         </span>
+                    </div>
+                </div>
+                <div id="date-filter">
+                    <input type="hidden" id="date">
+                    <button type="button"
+                            class="btn btn-default"
+                            data-type="1">
+                        今日全部小说
+                    </button>
+                    <button type="button"
+                            class="btn btn-default"
+                            data-type="2">
+                        今日新增小说
+                    </button>
+                    <button type="button" class="btn btn-default"
+                            data-type="3" style="position:relative;">
+                        历史新增小说
+                        <input type="text" id="datef" style="position: absolute;left: 0;top: 0;width: 100%;height: 100%;opacity: 0;">
+                    </button>
+                    <button type="button" class="btn btn-default" data-type="4">全部</button>
                 </div>
             </div>
             <fieldset>
@@ -183,6 +215,15 @@
         </div>
     </div>
 </div>
+<div id="custom-charge-status-list" style="display: none;">
+    <div class="ibox-content">
+        <div class="row row-lg">
+            <div class="col-sm-12">
+                <table id="custom-charge-status-table"></table>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 
 <script src="../js/jquery.min.js?v=2.1.4"></script>
@@ -240,6 +281,31 @@
         initTable();
     });
 
+    //时间筛选
+    $('#date-filter button').click(function () {
+        const type=$(this).attr("data-type");
+        if (type==1){//今日全部
+            $('#date').val("date_format(update_time,'%y%m%d') = date_format(NOW(),'%y%m%d')");
+            initTable();
+        }else if (type==2){//今日新增
+            $('#date').val("date_format(create_time,'%y%m%d') = date_format(NOW(),'%y%m%d')");
+            initTable();
+        }else if (type==3){//历史新增
+
+        }else if (type==4){//全部
+            $('#date').val('');
+            initTable();
+        }
+    });
+
+    //时间选择
+    laydate.render({
+        elem: '#datef'
+        ,done:function (value, date) {
+            $('#date').val("date_format(create_time,'%y%m%d') = date_format('"+value+"','%y%m%d')");
+            initTable();
+        }
+    });
 
     function initTable() {
         $('#wechatMsgConfigTable').bootstrapTable('destroy');
@@ -272,7 +338,9 @@
                     sortOrder: params.sortOrder,
                     // id : {$_GET['id']},
                     head : {'token' : getCookie('token')},
-                    title : $('#title').val()
+                    title : $('#title').val(),
+                    is_manual : $('#is_manual option:selected').val(),
+                    date:$("#date").val(),
                 };
 
                 return params;
@@ -579,6 +647,7 @@
             area: ['80%', '60%'],
             content: $('#wechat-custom-charge'),
             btn: ['确定', '取消'], // 按钮
+            maxmin:true,
             yes: function(index, layero){
                 layer.msg('确定更新小说？', {
                     time: 0 //不自动关闭
@@ -667,7 +736,7 @@
                     width: 30,
                 },
                 {
-                    title: '批量设置收费',
+                    title: '是否自定义书币',
                     field: 'is_charge',
                     align: 'center',
                     valign: 'middle',
@@ -679,10 +748,34 @@
                             return '否';
                         }
                     }
-                },
+                }
+
             ]
         });
     });
+</script>
+<script>
+    function novelChargeList(wechatConfigId)
+    {
+        layer.open({
+            type: 2,
+            title: '设置书币结果',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['80%', '60%'],
+            maxmin:true,
+            content: './zzy_novels_charge.html',
+            id:'custom-charge-status-list-layer'
+        });
+    }
+    
+    function customNovelChargeSingle(id) {
+        requestData.data={
+            id:id
+        };
+        ajaxGo("admin/zzy_novels/customNovelChargeSingle");
+        layer.msg(requestMessage);
+    }
 </script>
 
 
