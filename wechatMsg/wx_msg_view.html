@@ -55,6 +55,7 @@
                             <button type="button" class="btn btn-default" onclick="filterView(4)">关注72小时后</button>
                             <button type="button" class="btn btn-default" onclick="filterView(5)">关注7天后</button>
                             <button type="button" class="btn btn-default" onclick="filterView(6)">非活跃用户激活</button>
+                            <button type="button" class="btn btn-default" onclick="filterView(7)">未支付订单</button>
                         </div>
                     </div>
 
@@ -298,6 +299,7 @@
         appendviewHtml("关注72小时后",getViewList(list,4),4);
         appendviewHtml("关注7天后",getViewList(list,5),5);
         appendviewHtml("非活跃用户激活",getViewList(list,6),6);
+        appendviewHtml("未支付订单",getViewList(list,7),7);
     }
 
     /**
