@@ -427,9 +427,7 @@
         if (time >= qr_code_s.length) {
             time = time % qr_code_s.length;
         }
-        $('#qrcode_bottom').attr('src',qr_code_s[time]);
-        $('#qrcode_rigth').attr('src',qr_code_s[time]);
-
+        $('#qr_code_bottom').attr('src',qr_code_s[time]);
     });
     function getNow(s) {
         return s < 10 ? '0' + s: s;
