@@ -333,6 +333,24 @@
                     align: 'center'
                 },
                 {
+                    field: 'charge_status',
+                    title: '设置书币状态',
+                    width : 30,
+                    align: 'center',
+                    formatter: function(value,row,index){
+                        switch (value) {
+                            case 0:
+                                return '初始化';
+                            case 1:
+                                return '执行中';
+                            case 2:
+                                return '成功';
+                            case 3:
+                                return '失败';
+                        }
+                    }
+                },
+                {
                     field: 'operate',
                     title: '操作',
                     width : 70,
@@ -424,10 +442,6 @@
                     time: 0 //不自动关闭
                     ,btn: ['确定', '取消']
                     ,yes: function(index){
-                        if($("input[name=view_id][type=checkbox]:checked").length<1){
-                            layer.msg("请选择模板",{icon:2});
-                            return false;
-                        }
                         addGo();
                         if(requestCode === 0){
                             fac_search();
