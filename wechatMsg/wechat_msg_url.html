@@ -167,6 +167,7 @@
             striped: true,  //表格显示条纹
             pagination: true, //启动分页
             sortName: 'id',
+            sortOrder: 'desc',
             pageSize: 10,  //每页显示的记录数
             pageNumber:1, //当前第几页
             pageList: [10, 15, 20, 25],  //记录数可选列表
@@ -217,12 +218,12 @@
                     field: 'id',
                     align: 'center',
                     valign: 'middle',
-                    width : 20,
+                    width : 10,
                 },
                 {
                     field: 'wechat_name',
                     title: '公众号名称',
-                    width : 20,
+                    width : 10,
                     align: 'center'
                 },
                 {
@@ -309,6 +310,45 @@
                     title: '链接地址',
                     width : 70,
                     align: 'center'
+                },
+                {
+                    field: 'is_use',
+                    title: '状态',
+                    width : 10,
+                    align: 'center',
+                    formatter: function(value,row,index){
+                        if(value === 1){
+                            return '使用中';
+                        }else {
+                            return '未使用';
+                        }
+                    }
+                },
+                {
+                    field: 'create_at',
+                    title: '创建时间',
+                    width : 20,
+                    align: 'center',
+                    // formatter: function(value,row,index){
+                    //     if(value === 1){
+                    //         return '使用中';
+                    //     }else {
+                    //         return '未使用';
+                    //     }
+                    // }
+                },
+                {
+                    field: 'over_time',
+                    title: '到期时间',
+                    width : 20,
+                    align: 'center',
+                    // formatter: function(value,row,index){
+                    //     if(value === 1){
+                    //         return '使用中';
+                    //     }else {
+                    //         return '未使用';
+                    //     }
+                    // }
                 },
                 {
                     field: 'operate',
