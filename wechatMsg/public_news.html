@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>筋斗云管理系统</title>
+    <link href="../css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+</head>
+<body>
+
+<div style="width: 90%;margin: 0 auto;">
+    <div style="padding-top: 30px;">
+        <div class="row" style="display: flex;">
+            <label>素材分类：</label>
+            <div style="flex:1;">
+                <span style="padding: 0 8px 18px 8px;">48小时外</span>
+                <span style="padding: 0 8px 18px 8px;">已充值</span>
+            </div>
+            <a href="javascript:void(0);">新建素材分类</a>
+        </div>
+        <div class="row" style="display: flex;margin-top: 20px;">
+            <label>公众号（使用中）：
+                <br/>
+                <a href="javascript:void(0);" class="role-all">全选</a>|<a href="javascript:void(0);" class="role-invert">反选</a>|<a href="javascript:void(0);" class="role-cancel">取消</a>
+            </label>
+            <div style="flex: 1;">
+                <label class="checkbox-inline">
+                    <input type="checkbox">腊梅书坊
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox">猎奇书坊
+                </label>
+            </div>
+            <span><a href="javascript:void(0);">一键同步所有公众号图文</a></span>
+        </div>
+
+        <div class="row" style="margin-top: 30px;">
+            <p style="display: flex;justify-content: space-between;">
+                <span><b>公众号：</b><span style="color: rgb(0,152,0)">好梦文学</span></span>
+                <span style="color: gray;">更新时间：2020-09-16 12:12:12</span>
+            </p>
+        </div>
+        <div class="row" style="border: 1px solid black;padding: 6px;display: flex;flex-wrap: wrap;">
+            <div style="width: 300px;margin: 6px;">
+                <div style="display: flex;justify-content: space-between">
+                    <span>新版雪佛兰</span>
+                    <span style="background: black;color: white;padding: 0 3px;">48小时外</span>
+                </div>
+                <div style="margin-top: 8px;">
+                    <img src="https://mmbiz.qlogo.cn/mmbiz_jpg/dtx5cc74uKufOsic6p2PnQhryG1dB5uBwgic6AYG6eFtiaUNltibz48vw47PGN6gicYO6fPAOdibpjh5rV65EROHFbvg/640?wx_fmt=jpeg"
+                         rel="noreferrer"
+                         alt=""
+                         style="width: 100%;overflow: hidden;">
+                </div>
+                <div style="display: flex;align-items:center;margin-top: 3px;">
+                    <div style="width: 50px;">
+                        <img src="https://mmbiz.qlogo.cn/mmbiz_jpg/dtx5cc74uKsIWkcXpOpbWTZUqVc1lQSMhbKzKONUx7CVvM58xUibILHtxc6BNJvHJZZ0ib0tkCYiaNa6gWoyFSiaTg/640?wx_fmt=jpeg"
+                             alt=""
+                             style="width: 100%;overflow:hidden;">
+                    </div>
+                    <div style="padding:0 3px;">标题</div>
+                </div>
+                <div style="display: flex;align-items:center;margin-top: 3px;">
+                    <div style="width: 50px;">
+                        <img src="https://mmbiz.qlogo.cn/mmbiz_jpg/dtx5cc74uKsIWkcXpOpbWTZUqVc1lQSMhbKzKONUx7CVvM58xUibILHtxc6BNJvHJZZ0ib0tkCYiaNa6gWoyFSiaTg/640?wx_fmt=jpeg"
+                             alt=""
+                             style="width: 100%;overflow:hidden;">
+                    </div>
+                    <div style="padding:0 3px;">标题</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="../js/jquery.min.js?v=2.1.4"></script>
+<script src="../js/public.js"></script>
+<script src="../js/bootstrap.min.js?v=3.3.6"></script>
+<script src="../js/layer/layer.js"></script>
+<script src="../js/laydate/laydate.js"></script>
+
+<script>
+    //全选
+    $(document).on('click','.role-all',function () {
+        $(this).parents('label').next('div').find('input').prop('checked','checked');
+    });
+    //反选
+    $(document).on('click','.role-invert',function () {
+        $(this).parents('label').next('div').find('input').each(function () {
+            if($(this).prop("checked"))
+            {
+                $(this).prop("checked",false);
+            }else{
+                $(this).prop("checked",true);
+            }
+        });
+    });
+    //取消
+    $(document).on('click','.role-cancel',function () {
+        $(this).parents('label').next('div').find('input').prop('checked',false);
+    });
+</script>
+</body>
+</html>
