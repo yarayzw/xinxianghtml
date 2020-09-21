@@ -13,7 +13,7 @@
             <br/>
             <a href="javascript:void(0);" class="role-all">全选</a>|<a href="javascript:void(0);" class="role-invert">反选</a>|<a href="javascript:void(0);" class="role-cancel">取消</a>
         </label>
-        <div style="flex: 1;">
+        <div style="flex: 1;" id="public_wechat_wrap">
             <label class="checkbox-inline">
                 <input type="checkbox">腊梅书坊
             </label>
@@ -23,9 +23,9 @@
         </div>
         <div style="padding: 10px;">
             <div class="input-group">
-                <span class="input-group-addon" style="background: none;border: none;">测试用户ID:</span>
-                <input type="text" class="form-control">
-                <span class="input-group-addon" style="background: rgb(64,158,255);color: white;">测试发送</span>
+                <span class="input-group-addon" style="background: none;border: none;">测试用户OPENID:</span>
+                <input type="text" class="form-control" id="openid">
+                <span class="input-group-addon" style="background: rgb(64,158,255);color: white;" onclick="testSend()">测试发送</span>
             </div>
         </div>
     </div>
@@ -33,10 +33,10 @@
         <div style="flex: 1;">
             <div>消息类型
                 <label class="radio-inline">
-                    <input type="radio">图文消息
+                    <input type="radio" checked>图文消息
                 </label>
             </div>
-            <div class="row" style="width:100%;border: 1px solid black;padding: 6px;display: flex;flex-wrap: wrap;">
+            <div class="row" style="width:100%;border: 1px solid black;padding: 6px;display: flex;flex-wrap: wrap;" id="news-wrap">
                 <div style="width: 300px;margin: 6px;">
                     <div style="display: flex;justify-content: space-between">
                         <span>新版雪佛兰</span>
@@ -69,66 +69,73 @@
 
         </div>
         <div style="background: rgb(245,247,250);padding:10px;">
-            <form class="form-horizontal m-t">
+            <form class="form-horizontal m-t" id="addWechatMaterialLogForm">
+                <input type="hidden" name="material_type_id">
                 <div class="form-group">
-                    <label class="col-sm-4 control-label">增币活动 :</label>
+                    <label class="col-sm-4 control-label">发送时间 :</label>
                     <div class="col-sm-8">
-                        <div class="input-group">
-                            <input type="text" class="form-control">
-                            <span class="input-group-addon" style="background: rgb(64,158,255);color: white;">手动创建</span>
-                        </div>
-                        <div style="margin-top: 3px;">
+                        <input type="text" name="start_time" class="form-control datef">
+                        <!--<div style="margin-top: 3px;">
                             <span style="color: #0bb20c;">提示：自动创建成功</span>
                             <span style="color: #ee1e2d;display: none;">提示：自动创建失败，请手动创建</span>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-4 control-label">接收客户端  :</label>
+                    <label class="col-sm-4 control-label">间隔日期  :</label>
                     <div class="col-sm-8">
-                        <div class="btn-group" role="group">
-                            <button type="button" class="btn btn-default">全部</button>
-                            <button type="button" class="btn btn-default">IOS</button>
-                            <button type="button" class="btn btn-default">安卓</button>
-                            <button type="button" class="btn btn-default">未知</button>
-                        </div>
+                        <input type="number" name="next_day" class="form-control">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-4 control-label">粉丝性别  :</label>
+                    <label class="col-sm-4 control-label">粉丝性别:</label>
                     <div class="col-sm-8">
-                        <div class="btn-group" role="group">
-                            <button type="button" class="btn btn-default">全部</button>
-                            <button type="button" class="btn btn-default">男</button>
-                            <button type="button" class="btn btn-default">女</button>
-                            <button type="button" class="btn btn-default">未知</button>
-                        </div>
+                        <label class="radio-inline">
+                            <input type="radio" name="sex" value="0" checked>未知
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="sex" value="1">男
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="sex" value="2">女
+                        </label>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-4 control-label">支付状态  :</label>
                     <div class="col-sm-8">
-                        <div class="btn-group" role="group">
-                            <button type="button" class="btn btn-default">全部</button>
-                            <button type="button" class="btn btn-default">已充值</button>
-                            <button type="button" class="btn btn-default">未充值</button>
-                        </div>
+                        <label class="radio-inline">
+                            <input type="radio" name="is_pay" value="0">未支付
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="is_pay" value="1">已支付
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="is_pay" value="2" checked>全部
+                        </label>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-4 control-label">互动时间  :</label>
                     <div class="col-sm-8">
-                        <div class="btn-group" role="group">
-                            <button type="button" class="btn btn-default">全部</button>
-                            <button type="button" class="btn btn-default">48小时内</button>
-                            <button type="button" class="btn btn-default">48小时外</button>
-                        </div>
+                        <label class="radio-inline">
+                            <input type="radio" name="is_active" value="0">48小时内
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="is_active" value="1">48小时外
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="is_active" value="2" checked>全部
+                        </label>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-12" style="text-align: right;">
                         <button class="btn btn-sm btn-default">取消</button>
-                        <button class="btn btn-sm btn-default" style="background: rgb(64,158,255);color: white;border-color:rgb(64,158,255);">保存</button>
+                        <button class="btn btn-sm btn-default"
+                                type="button"
+                                onclick="addWechatMaterialLog()"
+                                style="background: rgb(64,158,255);color: white;border-color:rgb(64,158,255);">保存</button>
                     </div>
                 </div>
             </form>
@@ -141,10 +148,13 @@
                 <table class="table">
                     <thead>
                         <tr>
+                            <th></th>
                             <th>新建时间（赠币活动创建时间）</th>
                             <th>发送时间</th>
+                            <th>状态</th>
                             <th>发送成功</th>
                             <th>发送失败</th>
+                            <th>操作</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -187,6 +197,170 @@
         $(this).parents('label').next('div').find('input').prop('checked',false);
     });
 </script>
+
+<script>
+    $(function () {
+        //公众号
+        getPublicList();
+        getMsgList();
+        getLogList();
+    });
+    //获取公众号
+    function getPublicList() {
+        ajaxGo("admin/wechat_config/getListToSelect");
+        $('#public_wechat_wrap').empty();
+        requestData.data.forEach(function (e) {
+            $("#public_wechat_wrap").append('<label class="checkbox-inline"><input type="checkbox" name="wechat_config_id" value="'+e.id+'">'+e.wechat_name+'</label>');
+        });
+    }
+
+    //时间选择
+    laydate.render({
+        elem: '.datef'
+        ,type: 'datetime'
+    });
+
+
+    function getMsgList() {
+        ajaxGo("admin/wechat_material/getListToMsg");
+        console.log(requestData)
+        var list=requestData.data;
+        var htmlList=[];
+        list.forEach(function (e) {
+            var content=JSON.parse(e.content);
+            var news_item=content['news_item'];
+            var ahtml='<div style="width: 300px;margin: 6px;">\n' +
+                '                <div style="display: flex;justify-content: space-between">\n' +
+                '                    <span>'+news_item[0]['title']+'</span>\n' +
+                '                    <span style="background: black;color: white;padding: 0 3px;">'+(e.type_name!=null?e.type_name:'未知')+'</span>\n' +
+                '                </div>\n' +
+                '                <div style="margin-top: 8px;">\n' +
+                '                    <img src="'+news_item[0]['thumb_url']+'"\n' +
+                '                         rel="noreferrer"\n' +
+                '                         alt=""\n' +
+                '                         style="width: 100%;overflow: hidden;">\n' +
+                '                </div>\n' +'{{childrenNode}}'+
+                '            </div>';
+            var bhtml=[];
+            for (var i=1;i<news_item.length;i++){
+                bhtml.push('<div style="display: flex;align-items:center;margin-top: 3px;">\n' +
+                    '                    <div style="width: 50px;">\n' +
+                    '                        <img src="'+news_item[i]['thumb_url']+'"\n' +
+                    '                             alt=""\n' +
+                    '                             style="width: 100%;overflow:hidden;">\n' +
+                    '                    </div>\n' +
+                    '                    <div style="padding:0 3px;">'+news_item[i]['title']+'</div>\n' +
+                    '                </div>');
+            }
+            ahtml=ahtml.replace("{{childrenNode}}",bhtml.join(""));
+
+            htmlList.push(ahtml);
+
+        });
+        $('#addWechatMaterialLogForm input[name=material_type_id]').val(list[0]['type_id']);
+        $('#news_wrap').empty();
+        $('#news_wrap').append(htmlList.join(""));
+    }
+
+    //创建群发
+    function addWechatMaterialLog() {
+        requestData.data={
+            start_time:$('#addWechatMaterialLogForm input[name=start_time]').val(),
+            next_day:$('#addWechatMaterialLogForm input[name=next_day]').val(),
+            sex:$('#addWechatMaterialLogForm input[name=sex]').val(),
+            is_pay:$('#addWechatMaterialLogForm input[name=is_pay]').val(),
+            is_active:$('#addWechatMaterialLogForm input[name=is_active]').val(),
+            material_type_id:$('#addWechatMaterialLogForm input[name=material_type_id]').val(),
+        };
+        ajaxGo("admin/wechat_material_log/addWechatMaterialLog");
+        if(requestCode === 0){
+            layer.close(index);
+            layer.closeAll();
+            layer.msg(requestMessage);
+        }else {
+            layer.msg(requestMessage);
+        }
+    }
+    //记录列表
+    function getLogList() {
+        ajaxGo("admin/wechat_material_log/getList");
+        console.log(requestData)
+        var list=requestData.data.rows;
+        $('tbody').empty();
+        list.forEach(function (e) {
+            var statusStr="-";
+            switch (e.status) {
+                case 0:
+                    statusStr='<span style="color: green;">开启</span>';
+                    break;
+                case 1:
+                    statusStr='<span style="color: red;">暂停</span>';
+                    break;
+            }
+            var actions=[];
+            //if (e.status==0){
+                actions.push('<a href="javascript:void(0);" onclick="suspendstart('+e.id+',1)">暂停</a>&nbsp;');
+                actions.push('<a href="javascript:void(0);" onclick="suspendstart('+e.id+',0)">开启</a>&nbsp;');
+            //}
+            $('tbody').append('<tr>' +
+                    '<td><input type="radio" name="id" data-id="'+e.id+'" data-mt-id="'+e.material_type_id+'"></td>'+
+                    '<td>'+e.create_at+'</td>'+
+                    '<td>'+e.time+'</td>'+
+                    '<td>'+statusStr+'</td>'+
+                    '<td>'+e.success+'</td>'+
+                    '<td>'+e.error+'</td>'+
+                    '<td>'+actions.join("")+'</td>'+
+                '</tr>');
+        });
+
+    }
+
+    //暂停启动
+    function suspendstart(id,status) {
+        requestData.data={
+            id:id,
+            status:status
+        };
+        ajaxGo("admin/wechat_material_log/delWechatMaterialLog");
+        if(requestCode === 0){
+            getLogList();
+            layer.close(index);
+            layer.closeAll();
+            layer.msg(requestMessage);
+        }else {
+            layer.msg(requestMessage);
+        }
+    }
+    
+    //测试发送
+    function testSend() {
+        var openid=$('#openid').val();
+        var material_type_id=$('input[name="id"]:checked').attr('data-mt-id');
+        if (openid==undefined||openid==""){
+            layer.msg("请填写OPENID",{icon:2});
+            return;
+        }
+        if (material_type_id==undefined||material_type_id==""){
+            layer.msg("请选择一项日志",{icon:2});
+            return;
+        }
+        requestData.data={
+            open_id:openid,
+            material_type_id:material_type_id
+        };
+        ajaxGo("admin/wechat_material_log/testSend");
+        if(requestCode === 0){
+            getLogList();
+            layer.close(index);
+            layer.closeAll();
+            layer.msg(requestMessage);
+        }else {
+            layer.msg(requestMessage);
+        }
+    }
+</script>
+
+
 
 </body>
 </html>
