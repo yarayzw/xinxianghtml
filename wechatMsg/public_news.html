@@ -167,7 +167,7 @@
                 {{/each}}
                 <div style="margin-top: 10px;">
                     {{if val.type_id==0}}
-                    <a href="javascript:void(0);" onclick="editCategory('{{val.id}}')">修改分类</a>
+                    <a href="javascript:void(0);" onclick="editTypeId('{{val.id}}')">修改分类</a>
                     {{/if}}
                 </div>
             </div>
@@ -355,7 +355,7 @@
     }
     
     //修改分类
-    function editCategory(id) {
+    function editTypeId(id) {
         $('#edit-category-html').find("input[type=radio]").prop('checked',false);
         layer.open({
             type: 1,
@@ -376,7 +376,7 @@
                             return;
                         }
                         requestData.data = {
-                            material_ids:id,
+                            material_ids:[id],
                             type_id: type_id
                         };
                         ajaxGo('admin/wechat_material/setMaterial2Type');
