@@ -20,7 +20,7 @@
             <label>素材分类：</label>
             <div style="flex:1;" id="category_wrap">
                 <span style="padding: 0 8px 18px 8px;" onclick="getNewsList(-1)">[全部]</span>
-                <span style="padding: 0 8px 18px 8px;" onclick="getNewsList(0)">[未知]</span>
+                <span style="padding: 0 8px 18px 8px;" onclick="getNewsList(0)">[未分类]</span>
             </div>
             <a href="javascript:void(0);" onclick="addCategory()">新建素材分类</a>
         </div>
@@ -143,7 +143,7 @@
                 {{if k==0}}
                 <div style="display: flex;justify-content: space-between">
                     <span>{{v.title}}</span>
-                    <span style="background: black;color: white;padding: 0 3px;">{{val.type_name==null?'未知':val.type_name}}</span>
+                    <span style="background: black;color: white;padding: 0 3px;">{{val.type_name==null?'未分类':val.type_name}}</span>
                 </div>
                 <div style="margin-top: 8px;">
                     <img src="{{v.thumb_url}}"
