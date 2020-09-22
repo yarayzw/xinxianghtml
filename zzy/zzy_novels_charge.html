@@ -135,6 +135,16 @@
             },
             columns: [
                 {
+                    field: 'wechat_config_id',
+                    title: '公众号',
+                    width : 30,
+                    formatter: function(value,row,index){
+                        if (row.wechat_config_info){
+                            return row.wechat_config_info.wechat_name;
+                        }
+                    }
+                },
+                {
                     field: 'title',
                     title: '书名',
                     width : 40,

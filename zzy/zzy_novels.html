@@ -68,28 +68,28 @@
                     </div>
                     <div class="col-md-1">
                          <span class="input-group-btn">
-                            <button type="button" class="btn btn-default" onclick="novelChargeList()">执行日志</button>
+                            <button type="button" class="btn btn-primary" onclick="novelChargeList()">执行日志</button>
                          </span>
                     </div>
-                </div>
-                <div id="date-filter">
-                    <input type="hidden" id="date">
-                    <button type="button"
-                            class="btn btn-default"
-                            data-type="1">
-                        今日全部小说
-                    </button>
-                    <button type="button"
-                            class="btn btn-default"
-                            data-type="2">
-                        今日新增小说
-                    </button>
-                    <button type="button" class="btn btn-default"
-                            data-type="3" style="position:relative;">
-                        历史新增小说
-                        <input type="text" id="datef" style="position: absolute;left: 0;top: 0;width: 100%;height: 100%;opacity: 0;">
-                    </button>
-                    <button type="button" class="btn btn-default" data-type="4">全部</button>
+                    <div id="date-filter">
+                        <input type="hidden" id="date">
+                        <button type="button"
+                                class="btn btn-white"
+                                data-type="1">
+                            今日全部小说
+                        </button>
+                        <button type="button"
+                                class="btn btn-white"
+                                data-type="2">
+                            今日新增小说
+                        </button>
+                        <button type="button" class="btn btn-white"
+                                data-type="3" style="position:relative;">
+                            历史新增小说
+                            <input type="text" id="datef" style="position: absolute;left: 0;top: 0;width: 100%;height: 100%;opacity: 0;">
+                        </button>
+                        <button type="button" class="btn btn-white" data-type="4">全部</button>
+                    </div>
                 </div>
             </div>
             <fieldset>
@@ -545,7 +545,7 @@
             'rank' : $('#add').find("input[name=rank]").val(),
             'online_time' : $('#add').find("input[name=online_time]").val(),
         };
-        ajaxGo('admin/zzy_novels/add');
+        ajaxGo('admin/plan/PublicChargeWithNovel', '', false, __TJ__);
     }
 
 

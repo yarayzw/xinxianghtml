@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>筋斗云管理系统</title>
+    <link href="../css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <style>
+        .layui-layer-wrap{
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+<div style="width: 90%;margin: 0 auto;">
+    <div style="padding-top: 30px;">
+        <div class="row" style="display: flex;">
+            <label>素材分类：</label>
+            <div style="flex:1;" id="category_wrap">
+                <span style="padding: 0 8px 18px 8px;">48小时外</span>
+                <span style="padding: 0 8px 18px 8px;">已充值</span>
+            </div>
+            <a href="javascript:void(0);" onclick="addCategory()">新建素材分类</a>
+        </div>
+        <div class="row" style="display: flex;margin-top: 20px;">
+            <label>公众号（使用中）：
+                <br/>
+                <a href="javascript:void(0);" class="role-all">全选</a>|<a href="javascript:void(0);" class="role-invert">反选</a>|<a href="javascript:void(0);" class="role-cancel">取消</a>
+            </label>
+            <div style="flex: 1;" id="public_wechat_wrap">
+                <label class="checkbox-inline">
+                    <input type="checkbox">腊梅书坊
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox">猎奇书坊
+                </label>
+            </div>
+            <span><a href="javascript:void(0);" onclick="syncPublic()">一键同步所有公众号图文</a></span>
+        </div>
+
+        <div class="row" style="margin-top: 30px;">
+            <p style="display: flex;justify-content: space-between;">
+                <span><b>公众号：</b><span style="color: rgb(0,152,0)" id="public_name">好梦文学</span></span>
+                <span style="color: gray;">更新时间：<span id="update-timer">-</span></span>
+            </p>
+        </div>
+        <div class="row" style="border: 1px solid black;padding: 6px;display: flex;flex-wrap: wrap;" id="news_wrap">
+            <div style="width: 300px;margin: 6px;">
+                <div style="display: flex;justify-content: space-between">
+                    <span>新版雪佛兰</span>
+                    <span style="background: black;color: white;padding: 0 3px;">48小时外</span>
+                </div>
+                <div style="margin-top: 8px;">
+                    <img src="https://mmbiz.qlogo.cn/mmbiz_jpg/dtx5cc74uKufOsic6p2PnQhryG1dB5uBwgic6AYG6eFtiaUNltibz48vw47PGN6gicYO6fPAOdibpjh5rV65EROHFbvg/640?wx_fmt=jpeg"
+                         rel="noreferrer"
+                         alt=""
+                         style="width: 100%;overflow: hidden;">
+                </div>
+                <div style="display: flex;align-items:center;margin-top: 3px;">
+                    <div style="width: 50px;">
+                        <img src="https://mmbiz.qlogo.cn/mmbiz_jpg/dtx5cc74uKsIWkcXpOpbWTZUqVc1lQSMhbKzKONUx7CVvM58xUibILHtxc6BNJvHJZZ0ib0tkCYiaNa6gWoyFSiaTg/640?wx_fmt=jpeg"
+                             alt=""
+                             style="width: 100%;overflow:hidden;">
+                    </div>
+                    <div style="padding:0 3px;">标题</div>
+                </div>
+                <div style="display: flex;align-items:center;margin-top: 3px;">
+                    <div style="width: 50px;">
+                        <img src="https://mmbiz.qlogo.cn/mmbiz_jpg/dtx5cc74uKsIWkcXpOpbWTZUqVc1lQSMhbKzKONUx7CVvM58xUibILHtxc6BNJvHJZZ0ib0tkCYiaNa6gWoyFSiaTg/640?wx_fmt=jpeg"
+                             alt=""
+                             style="width: 100%;overflow:hidden;">
+                    </div>
+                    <div style="padding:0 3px;">标题</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="../js/jquery.min.js?v=2.1.4"></script>
+<script src="../js/public.js"></script>
+<script src="../js/bootstrap.min.js?v=3.3.6"></script>
+<script src="../js/layer/layer.js"></script>
+<script src="../js/laydate/laydate.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/moment.js/1.0.0/moment.min.js"></script>
+
+<script>
+    //全选
+    $(document).on('click','.role-all',function () {
+        $(this).parents('label').next('div').find('input').prop('checked','checked');
+    });
+    //反选
+    $(document).on('click','.role-invert',function () {
+        $(this).parents('label').next('div').find('input').each(function () {
+            if($(this).prop("checked"))
+            {
+                $(this).prop("checked",false);
+            }else{
+                $(this).prop("checked",true);
+            }
+        });
+    });
+    //取消
+    $(document).on('click','.role-cancel',function () {
+        $(this).parents('label').next('div').find('input').prop('checked',false);
+    });
+</script>
+
+<div class="row" id="category-html" style="display: none">
+    <div class="ibox-content">
+        <form class="form-horizontal m-t" id="commentForm" method="post">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">名称 :</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="name" value=""   />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    $(function () {
+        //分类
+        getCategoryList();
+        //公众号
+        getPublicList();
+        getNewsList(-1);
+    });
+    //获取公众号
+    function getPublicList() {
+        ajaxGo("admin/wechat_config/getListToSelect");
+        $('#public_wechat_wrap').empty();
+        requestData.data.forEach(function (e) {
+            $("#public_wechat_wrap").append('<label class="checkbox-inline"><input type="checkbox" name="wechat_config_id" value="'+e.id+'">'+e.wechat_name+'</label>');
+        });
+    }
+
+    //获取分类
+    function getCategoryList() {
+        ajaxGo("admin/wechat_material_type/getListToSelect");
+        $("#category_wrap").empty();
+        requestData.data.forEach(function (e) {
+            $('#category_wrap').append('<span style="padding: 0 8px 18px 8px;" onclick="getNewsList('+e.id+')" ondblclick="editCategory('+e.id+',\''+e.name+'\')">'+e.name+'</span>');
+        });
+        console.log(requestData);
+    }
+    //添加分类
+    function addCategory() {
+        layer.open({
+            type: 1,
+            title: '新建分类',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['60%', '60%'],
+            content: $('#category-html'),
+            btn: ['确定', '取消'], // 按钮
+            yes: function (index, layero) {
+                layer.msg('确定添加？', {
+                    time: 0 //不自动关闭
+                    , btn: ['确定', '取消']
+                    , yes: function (index) {
+                        requestData.data={
+                            name:$('#category-html input[name=name]').val()
+                        };
+                        ajaxGo("admin/wechat_material_type/addWechatMaterialType");
+                        if(requestCode === 0){
+                            layer.close(index);
+                            layer.closeAll();
+                            layer.msg(requestMessage);
+                        }else {
+                            layer.msg(requestMessage);
+                        }
+                    }
+                })
+            }
+        });
+    }
+
+    //编辑分类
+    function editCategory(id,name) {
+        $('#category-html input[name=name]').val(name);
+        layer.open({
+            type: 1,
+            title: '编辑分类',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['60%', '60%'],
+            content: $('#category-html'),
+            btn: ['确定', '取消'], // 按钮
+            yes: function (index, layero) {
+                layer.msg('确定修改？', {
+                    time: 0 //不自动关闭
+                    , btn: ['确定', '取消']
+                    , yes: function (index) {
+                        requestData.data={
+                            name:$('#category-html input[name=name]').val(),
+                            id:id
+                        };
+                        ajaxGo("admin/wechat_material_type/editWechatMaterialType");
+                        if(requestCode === 0){
+                            layer.close(index);
+                            layer.closeAll();
+                            layer.msg(requestMessage);
+                        }else {
+                            layer.msg(requestMessage);
+                        }
+                    }
+                })
+            }
+        });
+    }
+    //删除分类
+    function delCategory(id) {
+        layer.msg('确定删除？', {
+            time: 0 //不自动关闭
+            , btn: ['确定', '取消']
+            , yes: function (index) {
+                requestData.data={
+                    id:id
+                };
+                ajaxGo("admin/wechat_material_type/delWechatMaterialType");
+                if(requestCode === 0){
+                    layer.close(index);
+                    layer.closeAll();
+                    layer.msg(requestMessage);
+                }else {
+                    layer.msg(requestMessage);
+                }
+            }
+        })
+    }
+    
+    //同步所有公众号
+    function syncPublic() {
+        var wechatConfigIdList=[];
+        $("#public_wechat_wrap").find("input[name=wechat_config_id]:checked").each(function (e) {
+            wechatConfigIdList.push(parseInt($(this).val()));
+        });
+        if (wechatConfigIdList.length<1){
+            layer.msg('请选择公众号',{icon:2});
+            return;
+        }
+        layer.msg('确定同步所选公众号？', {
+            time: 0 //不自动关闭
+            , btn: ['确定', '取消']
+            , yes: function (index) {
+                requestData.data = {
+                    wechat_config_ids:JSON.stringify(wechatConfigIdList)
+                };
+
+                ajaxGo("admin/wechat_material/getWechatMaterial2Tx");
+                if(requestCode === 0){
+                    layer.close(index);
+                    layer.closeAll();
+                    layer.msg(requestMessage);
+                }else {
+                    layer.msg(requestMessage);
+                }
+            }
+        });
+
+    }
+
+    //查询素材
+    function getNewsList(type_id) {
+        requestData.data={
+            type_id:type_id
+        };
+        ajaxGo("admin/wechat_material/getListToSelect");
+        var row=requestData.data.row;
+        for(var k in requestData.data.row){
+            $('#public_name').text(k);
+            var list=row[k];
+            var htmlList=[];
+            list.forEach(function (e) {
+                var content=JSON.parse(e.content);
+                var news_item=content['news_item'];
+                var ahtml='<div style="width: 300px;margin: 6px;">\n' +
+                    '                <div style="display: flex;justify-content: space-between">\n' +
+                    '                    <span>'+news_item[0]['title']+'</span>\n' +
+                    '                    <span style="background: black;color: white;padding: 0 3px;">'+(e.type_name!=null?e.type_name:'未知')+'</span>\n' +
+                    '                </div>\n' +
+                    '                <div style="margin-top: 8px;">\n' +
+                    '                    <img src="'+news_item[0]['thumb_url']+'"\n' +
+                    '                         rel="noreferrer"\n' +
+                    '                         alt=""\n' +
+                    '                         style="width: 100%;overflow: hidden;">\n' +
+                    '                </div>\n' +'{{childrenNode}}'+
+                    '            </div>';
+                var bhtml=[];
+                for (var i=1;i<news_item.length;i++){
+                    bhtml.push('<div style="display: flex;align-items:center;margin-top: 3px;">\n' +
+                        '                    <div style="width: 50px;">\n' +
+                        '                        <img src="'+news_item[i]['thumb_url']+'"\n' +
+                        '                             alt=""\n' +
+                        '                             style="width: 100%;overflow:hidden;">\n' +
+                        '                    </div>\n' +
+                        '                    <div style="padding:0 3px;">'+news_item[i]['title']+'</div>\n' +
+                        '                </div>');
+                }
+                ahtml=ahtml.replace("{{childrenNode}}",bhtml.join(""));
+
+                htmlList.push(ahtml);
+
+            });
+            $('#news_wrap').empty();
+            $('#news_wrap').append(htmlList.join(""));
+            $('#update-timer').text(moment().format('YYYY-MM-DD HH:mm:ss'));
+        }
+    }
+</script>
+</body>
+</html>
