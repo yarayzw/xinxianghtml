@@ -232,27 +232,32 @@
 
     //创建群发
     function addWechatMaterialLog() {
-        var material_type_id=$('input[name=material_type_id]:checked').val();
-        if (!material_type_id||!material_type_id==null){
-            layer.msg('请选择素材发送',{icon:2});
-            return;
-        }
-        requestData.data={
-            start_time:$('#addWechatMaterialLogForm input[name=start_time]').val(),
-            next_day:$('#addWechatMaterialLogForm input[name=next_day]').val(),
-            sex:$('#addWechatMaterialLogForm input[name=sex]').val(),
-            is_pay:$('#addWechatMaterialLogForm input[name=is_pay]').val(),
-            is_active:$('#addWechatMaterialLogForm input[name=is_active]').val(),
-            material_type_id:material_type_id,
-        };
-        ajaxGo("admin/wechat_material_log/addWechatMaterialLog",'发送失败',false,'http://tongji.zhanjuzhe.cn/');
-        if(requestCode === 0){
-            layer.close(index);
-            layer.closeAll();
-            layer.msg(requestMessage);
-        }else {
-            layer.msg(requestMessage);
-        }
+        layer.msg('确定保存？', {
+            time: 0 //不自动关闭
+            , btn: ['确定', '取消']
+            , yes: function (index) {
+                var material_type_id = $('input[name=material_type_id]:checked').val();
+                if (!material_type_id || !material_type_id == null) {
+                    layer.msg('请选择素材发送', {icon: 2});
+                    return;
+                }
+                requestData.data = {
+                    start_time: $('#addWechatMaterialLogForm input[name=start_time]').val(),
+                    next_day: $('#addWechatMaterialLogForm input[name=next_day]').val(),
+                    sex: $('#addWechatMaterialLogForm input[name=sex]').val(),
+                    is_pay: $('#addWechatMaterialLogForm input[name=is_pay]').val(),
+                    is_active: $('#addWechatMaterialLogForm input[name=is_active]').val(),
+                    material_type_id: material_type_id,
+                };
+                ajaxGo("admin/wechat_material_log/addWechatMaterialLog", '发送失败', false, 'http://tongji.zhanjuzhe.cn/');
+                if (requestCode === 0) {
+                    layer.close(index);
+                    layer.closeAll();
+                    layer.msg(requestMessage);
+                } else {
+                    layer.msg(requestMessage);
+                }
+            }});
     }
     //记录列表
     function getLogList() {
