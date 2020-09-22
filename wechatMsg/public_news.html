@@ -247,7 +247,7 @@
             , btn: ['确定', '取消']
             , yes: function (index) {
                 requestData.data = {
-                    wechat_config_ids:JSON.stringify(wechatConfigIdList)
+                    wechat_config_ids:wechatConfigIdList
                 };
 
                 ajaxGo("admin/wechat_material/getWechatMaterial2Tx");
