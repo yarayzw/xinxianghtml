@@ -19,8 +19,8 @@
         <div class="row" style="display: flex;">
             <label>素材分类：</label>
             <div style="flex:1;" id="category_wrap">
-                <span style="padding: 0 8px 18px 8px;">48小时外</span>
-                <span style="padding: 0 8px 18px 8px;">已充值</span>
+                <span style="padding: 0 8px 18px 8px;" onclick="getNewsList(-1)">[全部]</span>
+                <span style="padding: 0 8px 18px 8px;" onclick="getNewsList(0)">[未知]</span>
             </div>
             <a href="javascript:void(0);" onclick="addCategory()">新建素材分类</a>
         </div>
@@ -143,7 +143,7 @@
                 {{if k==0}}
                 <div style="display: flex;justify-content: space-between">
                     <span>{{v.title}}</span>
-                    <span style="background: black;color: white;padding: 0 3px;">{{val.type_name}}</span>
+                    <span style="background: black;color: white;padding: 0 3px;">{{val.type_name==null?'未知':val.type_name}}</span>
                 </div>
                 <div style="margin-top: 8px;">
                     <img src="{{v.thumb_url}}"
@@ -165,12 +165,28 @@
                 </div>
                 {{/if}}
                 {{/each}}
+                <div style="margin-top: 10px;">
+                    {{if val.type_id==0}}
+                    <a href="javascript:void(0);" onclick="editCategory('{{$value.id}}')">修改分类</a>
+                    {{/if}}
+                </div>
             </div>
             {{/each}}
         </div>
     </div>
 {{/each}}
 </script>
+<div id="edit-category-html" style="display: none;">
+    <div class="ibox-content">
+        <form class="form-horizontal m-t" id="editCategoryForm" method="post">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">分类 :</label>
+                <div class="col-sm-8 category-list">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 <script>
     $(function () {
         //分类
@@ -191,9 +207,10 @@
     //获取分类
     function getCategoryList() {
         ajaxGo("admin/wechat_material_type/getListToSelect");
-        $("#category_wrap").empty();
+        //$("#category_wrap").empty();
         requestData.data.forEach(function (e) {
             $('#category_wrap').append('<span style="padding: 0 8px 18px 8px;" onclick="getNewsList('+e.id+')" ondblclick="editCategory('+e.id+',\''+e.name+'\')">'+e.name+'</span>');
+            $('.category-list').append('<label class="radio-inline"><input type="radio" name="category_id" value="'+e.id+'">'+e.name+'</label>');
         });
         console.log(requestData);
     }
@@ -317,6 +334,7 @@
 
     //查询素材
     function getNewsList(type_id) {
+        var load=layer.load(2);
         requestData.data={
             type_id:type_id
         };
@@ -333,6 +351,46 @@
         requestData.data.row=row;
         var html=template("news-list",{data:requestData.data});
         $('#public_list').html(html);
+        layer.close(load);
+    }
+    
+    //修改分类
+    function editCategory(id) {
+        $('#edit-category-html').find("input[type=radio]").prop('checked',false);
+        layer.open({
+            type: 1,
+            title: '修改分类',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['60%', '60%'],
+            content: $('#edit-category-html'),
+            btn: ['确定', '取消'], // 按钮
+            yes: function (index, layero) {
+                layer.msg('确定修改分类？', {
+                    time: 0 //不自动关闭
+                    , btn: ['确定', '取消']
+                    , yes: function (index) {
+                        var type_id=$('#edit-category-html').find("input[type=radio]:checked").val();
+                        if (!type_id||type_id==null){
+                            layer.msg('请选择分类',{icon:2});
+                            return;
+                        }
+                        requestData.data = {
+                            material_ids:id,
+                            type_id: type_id
+                        };
+                        ajaxGo('admin/wechat_material/setMaterial2Type');
+                        if(requestCode === 0){
+                            layer.close(index);
+                            layer.closeAll();
+                            layer.msg(requestMessage);
+                        }else {
+                            layer.msg(requestMessage);
+                        }
+                    }
+                });
+            }
+        });
     }
 </script>
 </body>
