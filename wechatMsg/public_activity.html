@@ -37,7 +37,7 @@
                     <input type="radio" checked>图文消息
                 </label>
             </div>
-            <div class="row" style="width:100%;border: 1px solid black;padding: 6px;display: flex;flex-wrap: wrap;" id="news-wrap">
+            <div class="row" style="width:100%;border: 1px solid black;padding: 6px;display: flex;flex-wrap: wrap;" id="news_wrap">
                 <!--<div style="width: 300px;margin: 6px;">
                     <div style="display: flex;justify-content: space-between">
                         <span>新版雪佛兰</span>
@@ -288,6 +288,9 @@
         console.log(requestData)
         var list=requestData.data.rows;
         $('tbody').empty();
+        if(list.length < 1){
+            return;
+        }
         list.forEach(function (e) {
             var statusStr="-";
             switch (e.status) {
