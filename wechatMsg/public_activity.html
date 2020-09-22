@@ -131,6 +131,9 @@
                         <tr>
                             <th>新建时间（赠币活动创建时间）</th>
                             <th>发送时间</th>
+                            <th>性别</th>
+                            <th>支付状态</th>
+                            <th>发送状态</th>
                             <th>状态</th>
                             <th>发送成功</th>
                             <th>发送失败</th>
@@ -242,7 +245,7 @@
             is_active:$('#addWechatMaterialLogForm input[name=is_active]').val(),
             material_type_id:material_type_id,
         };
-        ajaxGo("admin/wechat_material_log/addWechatMaterialLog");
+        ajaxGo("admin/wechat_material_log/addWechatMaterialLog",'发送失败',false,'http://tongji.zhanjuzhe.cn/');
         if(requestCode === 0){
             layer.close(index);
             layer.closeAll();
@@ -271,13 +274,58 @@
                     break;
             }
             var actions=[];
-            actions.push('<a href="javascript:void(0);" onclick="suspendstart('+e.id+',1)">暂停</a>&nbsp;');
-            actions.push('<a href="javascript:void(0);" onclick="suspendstart('+e.id+',0)">开启</a>&nbsp;');
+            if (e.status==0){
+                actions.push('<a href="javascript:void(0);" onclick="suspendstart('+e.id+',1)">暂停</a>&nbsp;');
+            }else {
+                actions.push('<a href="javascript:void(0);" onclick="suspendstart('+e.id+',0)">开启</a>&nbsp;');
+            }
             actions.push('<a href="javascript:void(0);" onclick="testSend('+e.material_type_id+',0)">测试发送</a>&nbsp;');
 
+            var sexStr;
+            switch (e.sex) {
+                case 0:
+                    sexStr="未知";
+                    break;
+                case 1:
+                    sexStr="男";
+                    break;
+                case 2:
+                    sexStr="女";
+                    break;
+                case 3:
+                    sexStr="全部";
+                    break;
+            }
+            var payStr;
+            switch (e.is_pay) {
+                case 0:
+                    payStr="未支付";
+                    break;
+                case 1:
+                    payStr="支付";
+                    break;
+                case 2:
+                    payStr="全部";
+                    break;
+            }
+            var typeStr;
+            switch (e.type) {
+                case 0:
+                    typeStr="未发送";
+                    break;
+                case 1:
+                    typeStr="发送中";
+                    break;
+                case 2:
+                    typeStr="发送完成";
+                    break;
+            }
             $('tbody').append('<tr>' +
                     '<td>'+e.create_at+'</td>'+
                     '<td>'+e.time+'</td>'+
+                    '<td>'+sexStr+'</td>'+
+                    '<td>'+payStr+'</td>'+
+                    '<td>'+typeStr+'</td>'+
                     '<td>'+statusStr+'</td>'+
                     '<td>'+e.success+'</td>'+
                     '<td>'+e.error+'</td>'+
