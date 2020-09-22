@@ -257,6 +257,7 @@
                 } else {
                     layer.msg(requestMessage);
                 }
+                getLogList();
             }});
     }
     //记录列表
@@ -362,13 +363,13 @@
                 };
                 ajaxGo("admin/wechat_material_log/delWechatMaterialLog");
                 if (requestCode === 0) {
-                    getLogList();
                     layer.close(index);
                     layer.closeAll();
                     layer.msg(requestMessage);
                 } else {
                     layer.msg(requestMessage);
                 }
+                getLogList();
             }
         });
     }
