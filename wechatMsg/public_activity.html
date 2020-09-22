@@ -8,28 +8,6 @@
 </head>
 <body>
 <div style="width: 90%;margin: 0 auto;padding: 10px 0;">
-    <div style="background: rgb(245,247,250);padding:10px;display: flex;">
-        <label>
-            公众号（使用中）：
-            <br/>
-            <a href="javascript:void(0);" class="role-all">全选</a>|<a href="javascript:void(0);" class="role-invert">反选</a>|<a href="javascript:void(0);" class="role-cancel">取消</a>
-        </label>
-        <div style="flex: 1;" id="public_wechat_wrap">
-            <label class="checkbox-inline">
-                <input type="checkbox">腊梅书坊
-            </label>
-            <label class="checkbox-inline">
-                <input type="checkbox">猎奇书坊
-            </label>
-        </div>
-        <div style="padding: 10px;">
-            <div class="input-group">
-                <span class="input-group-addon" style="background: none;border: none;">测试用户OPENID:</span>
-                <input type="text" class="form-control" id="openid">
-                <span class="input-group-addon" style="background: rgb(64,158,255);color: white;" onclick="testSend()">测试发送</span>
-            </div>
-        </div>
-    </div>
     <div style="margin-top: 30px;display: flex;">
         <div style="flex: 1;">
             <div>消息类型
@@ -69,9 +47,8 @@
             </div>
 
         </div>
-        <div style="background: rgb(245,247,250);padding:10px;">
+        <div style="background: rgb(245,247,250);padding:10px;width: 400px;">
             <form class="form-horizontal m-t" id="addWechatMaterialLogForm">
-                <input type="hidden" name="material_type_id">
                 <div class="form-group">
                     <label class="col-sm-4 control-label">发送时间 :</label>
                     <div class="col-sm-8">
@@ -149,7 +126,6 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th></th>
                             <th>新建时间（赠币活动创建时间）</th>
                             <th>发送时间</th>
                             <th>状态</th>
@@ -159,12 +135,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>2020-09-16 12:12:12</td>
-                            <td>2020-09-16 12:12:12</td>
-                            <td>20</td>
-                            <td>3</td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -201,19 +171,9 @@
 
 <script>
     $(function () {
-        //公众号
-        getPublicList();
         getMsgList();
         getLogList();
     });
-    //获取公众号
-    function getPublicList() {
-        ajaxGo("admin/wechat_config/getListToSelect");
-        $('#public_wechat_wrap').empty();
-        requestData.data.forEach(function (e) {
-            $("#public_wechat_wrap").append('<label class="checkbox-inline"><input type="checkbox" name="wechat_config_id" value="'+e.id+'">'+e.wechat_name+'</label>');
-        });
-    }
 
     //时间选择
     laydate.render({
@@ -241,6 +201,7 @@
                 '                         alt=""\n' +
                 '                         style="width: 100%;overflow: hidden;">\n' +
                 '                </div>\n' +'{{childrenNode}}'+
+                '<div style="margin-top: 10px;"><label class="radio-inline"><input type="radio" name="material_type_id" value="'+e.type_id+'">选择</label></div>'+
                 '            </div>';
             var bhtml=[];
             for (var i=1;i<news_item.length;i++){
@@ -265,13 +226,18 @@
 
     //创建群发
     function addWechatMaterialLog() {
+        var material_type_id=$('input[name=material_type_id]:checked').val();
+        if (!material_type_id||!material_type_id==null){
+            layer.msg('请选择素材发送',{icon:2});
+            return;
+        }
         requestData.data={
             start_time:$('#addWechatMaterialLogForm input[name=start_time]').val(),
             next_day:$('#addWechatMaterialLogForm input[name=next_day]').val(),
             sex:$('#addWechatMaterialLogForm input[name=sex]').val(),
             is_pay:$('#addWechatMaterialLogForm input[name=is_pay]').val(),
             is_active:$('#addWechatMaterialLogForm input[name=is_active]').val(),
-            material_type_id:$('#addWechatMaterialLogForm input[name=material_type_id]').val(),
+            material_type_id:material_type_id,
         };
         ajaxGo("admin/wechat_material_log/addWechatMaterialLog");
         if(requestCode === 0){
@@ -302,12 +268,11 @@
                     break;
             }
             var actions=[];
-            //if (e.status==0){
-                actions.push('<a href="javascript:void(0);" onclick="suspendstart('+e.id+',1)">暂停</a>&nbsp;');
-                actions.push('<a href="javascript:void(0);" onclick="suspendstart('+e.id+',0)">开启</a>&nbsp;');
-            //}
+            actions.push('<a href="javascript:void(0);" onclick="suspendstart('+e.id+',1)">暂停</a>&nbsp;');
+            actions.push('<a href="javascript:void(0);" onclick="suspendstart('+e.id+',0)">开启</a>&nbsp;');
+            actions.push('<a href="javascript:void(0);" onclick="testSend('+e.material_type_id+',0)">测试发送</a>&nbsp;');
+
             $('tbody').append('<tr>' +
-                    '<td><input type="radio" name="id" data-id="'+e.id+'" data-mt-id="'+e.material_type_id+'"></td>'+
                     '<td>'+e.create_at+'</td>'+
                     '<td>'+e.time+'</td>'+
                     '<td>'+statusStr+'</td>'+
@@ -321,46 +286,62 @@
 
     //暂停启动
     function suspendstart(id,status) {
-        requestData.data={
-            id:id,
-            status:status
-        };
-        ajaxGo("admin/wechat_material_log/delWechatMaterialLog");
-        if(requestCode === 0){
-            getLogList();
-            layer.close(index);
-            layer.closeAll();
-            layer.msg(requestMessage);
-        }else {
-            layer.msg(requestMessage);
+        var msg="";
+        switch (status) {
+            case 1:
+                msg="确定暂停？";
+                break;
+            case 0:
+                msg="确定开启？";
+                break;
         }
+
+        layer.msg(msg, {
+            time: 0 //不自动关闭
+            , btn: ['确定', '取消']
+            , yes: function (index) {
+                requestData.data = {
+                    id: id,
+                    status: status
+                };
+                ajaxGo("admin/wechat_material_log/delWechatMaterialLog");
+                if (requestCode === 0) {
+                    getLogList();
+                    layer.close(index);
+                    layer.closeAll();
+                    layer.msg(requestMessage);
+                } else {
+                    layer.msg(requestMessage);
+                }
+            }
+        });
     }
     
     //测试发送
-    function testSend() {
-        var openid=$('#openid').val();
-        var material_type_id=$('input[name="id"]:checked').attr('data-mt-id');
-        if (openid==undefined||openid==""){
-            layer.msg("请填写OPENID",{icon:2});
-            return;
-        }
-        if (material_type_id==undefined||material_type_id==""){
-            layer.msg("请选择一项日志",{icon:2});
-            return;
-        }
-        requestData.data={
-            open_id:openid,
-            material_type_id:material_type_id
-        };
-        ajaxGo("admin/wechat_material_log/testSend");
-        if(requestCode === 0){
-            getLogList();
+    function testSend(material_type_id) {
+        layer.prompt({title: '请输入OPENID', formType: 2}, function(text, index){
             layer.close(index);
-            layer.closeAll();
-            layer.msg(requestMessage);
-        }else {
-            layer.msg(requestMessage);
-        }
+            var openid=text;
+
+            if (openid==undefined||openid==""){
+                layer.msg("请填写OPENID",{icon:2});
+                return;
+            }
+            requestData.data={
+                open_id:openid,
+                material_type_id:material_type_id
+            };
+            ajaxGo("admin/wechat_material_log/testSend");
+            if(requestCode === 0){
+                getLogList();
+                layer.close(index);
+                layer.closeAll();
+                layer.msg(requestMessage);
+            }else {
+                layer.msg(requestMessage);
+            }
+        });
+
     }
 </script>
 
