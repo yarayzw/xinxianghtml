@@ -384,7 +384,7 @@
                     id: id,
                     status: status
                 };
-                ajaxGo("admin/wechat_material_log/delWechatMaterialLog");
+                ajaxGo("admin/wechat_material_log/delWechatMaterialLog", '修改失败', false, 'http://tongji.zhanjuzhe.cn/');
                 if (requestCode === 0) {
                     layer.close(index);
                     layer.closeAll();
