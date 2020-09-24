@@ -131,6 +131,7 @@
                         <tr>
                             <th>新建时间（赠币活动创建时间）</th>
                             <th>发送时间</th>
+                            <th>链接状态</th>
                             <th>性别</th>
                             <th>支付状态</th>
                             <th>发送状态</th>
@@ -140,12 +141,26 @@
                             <th>操作</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="tbody">
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
+</div>
+
+<div  id="error_log" style="display: none">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>公众号</th>
+            <th>错误信息</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody id="error_tbody">
+        </tbody>
+    </table>
 </div>
 
 <script src="../js/jquery.min.js?v=2.1.4"></script>
@@ -265,27 +280,30 @@
         ajaxGo("admin/wechat_material_log/getList");
         console.log(requestData)
         var list=requestData.data.rows;
-        $('tbody').empty();
+        $('#tbody').empty();
         if(list.length < 1){
             return;
         }
         list.forEach(function (e) {
             var statusStr="-";
-            switch (e.status) {
-                case 0:
-                    statusStr='<span style="color: green;">开启</span>';
-                    break;
-                case 1:
-                    statusStr='<span style="color: red;">暂停</span>';
-                    break;
-            }
+                switch (e.status) {
+                    case 0:
+                        statusStr='<span style="color: green;">开启</span>';
+                        break;
+                    case 1:
+                        statusStr='<span style="color: red;">暂停</span>';
+                        break;
+                }
+
             var actions=[];
-            if (e.status==0){
-                actions.push('<a href="javascript:void(0);" onclick="suspendstart('+e.id+',1)">暂停</a>&nbsp;');
-            }else {
-                actions.push('<a href="javascript:void(0);" onclick="suspendstart('+e.id+',0)">开启</a>&nbsp;');
+            if(0 === e.type) {
+                if (e.status == 0) {
+                    actions.push('<a href="javascript:void(0);" onclick="suspendstart(' + e.id + ',1)">暂停</a>&nbsp;');
+                } else {
+                    actions.push('<a href="javascript:void(0);" onclick="suspendstart(' + e.id + ',0)">开启</a>&nbsp;');
+                }
             }
-            actions.push('<a href="javascript:void(0);" onclick="testSend('+e.material_type_id+',0)">测试发送</a>&nbsp;');
+            actions.push('<a href="javascript:void(0);" onclick="testSend('+e.material_type_id+')">测试发送</a>&nbsp;');
 
             var sexStr;
             switch (e.sex) {
@@ -326,15 +344,20 @@
                     typeStr="发送完成";
                     break;
             }
-            $('tbody').append('<tr>' +
+            let error = 0;
+            if(e.error > 0){
+                error = '<a href="javascript:void(0);" onclick="lookError(' + e.id + ',0)">'+e.error+'</a>&nbsp;';
+            }
+            $('#tbody').append('<tr>' +
                     '<td>'+e.create_at+'</td>'+
-                    '<td>'+e.time+'</td>'+
+                '<td>'+e.time+'</td>'+
+                '<td>'+e.log_msg+'</td>'+
                     '<td>'+sexStr+'</td>'+
                     '<td>'+payStr+'</td>'+
                     '<td>'+typeStr+'</td>'+
                     '<td>'+statusStr+'</td>'+
                     '<td>'+e.success+'</td>'+
-                    '<td>'+e.error+'</td>'+
+                    '<td>'+error+'</td>'+
                     '<td>'+actions.join("")+'</td>'+
                 '</tr>');
         });
@@ -399,6 +422,64 @@
             }
         });
 
+    }
+
+    //错误日志
+    function lookError(id) {
+        errorLists(id);
+        layer.open({
+            type: 1,
+            title: '错误日志',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['60%', '60%'],
+            content: $('#error_log'),
+            btn: ['取消'], // 按钮
+//            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
+        });
+    }
+
+    function errorLists(id) {
+        requestData.data={
+            send_id : id
+        };
+        ajaxGo("admin/wechat_material_log/lookErrorList");
+        var list=requestData.data.rows;
+        $('#error_tbody').empty();
+        if(list.length < 1){
+            return;
+        }
+        list.forEach(function (e) {
+
+            var actions=[];
+
+            actions.push('<a href="javascript:void(0);" onclick="againSend('+e.id+','+id+')">重新发送</a>&nbsp;');
+
+            $('#error_tbody').append('<tr>' +
+                '<td>'+e.wechat_name+'</td>'+
+                '<td>'+e.code+'</td>'+
+                '<td>'+actions.join("")+'</td>'+
+                '</tr>');
+        });
+    }
+
+    /**
+     * 重新发送错误日志
+     * @param id
+     */
+    function againSend(id,m_id) {
+        layer.msg('确定重新发送？', {
+            time: 0 //不自动关闭
+            , btn: ['确定', '取消']
+            , yes: function (index) {
+                requestData.data = {
+                    'id': id,
+                };
+                ajaxGo('admin/wechat_material_log/againSend')
+                errorLists(m_id);
+                layer.msg(requestMessage);
+            }
+        });
     }
 </script>
 
