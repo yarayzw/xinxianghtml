@@ -133,9 +133,10 @@
                             <th>发送时间</th>
                             <th>链接状态</th>
                             <th>性别</th>
-                            <th>支付状态</th>
-                            <th>发送状态</th>
-                            <th>状态</th>
+                            <th>是否支付</th>
+                            <th>互动时间</th>
+                            <th>发送结果</th>
+                            <th>运行状态</th>
                             <th>发送成功</th>
                             <th>发送失败</th>
                             <th>操作</th>
@@ -286,15 +287,18 @@
         }
         list.forEach(function (e) {
             var statusStr="-";
+            if (0 !== e.type) {
+                statusStr = '结束';
+            } else {
                 switch (e.status) {
                     case 0:
-                        statusStr='<span style="color: green;">开启</span>';
+                        statusStr = '<span style="color: green;">开启</span>';
                         break;
                     case 1:
-                        statusStr='<span style="color: red;">暂停</span>';
+                        statusStr = '<span style="color: red;">暂停</span>';
                         break;
                 }
-
+            }
             var actions=[];
             if(0 === e.type) {
                 if (e.status == 0) {
@@ -344,6 +348,21 @@
                     typeStr="发送完成";
                     break;
             }
+            let as  = '';
+            switch (e.is_active) {
+                case 0:
+                    as="48小时内";
+                    break;
+                case 1:
+                    as="48小时外";
+                    break;
+                case 2:
+                    as="全部";
+                    break;
+            }
+            if(e.log_msg === ''){
+                e.log_msg = '正常';
+            }
             let error = 0;
             if(e.error > 0){
                 error = '<a href="javascript:void(0);" onclick="lookError(' + e.id + ',0)">'+e.error+'</a>&nbsp;';
@@ -353,7 +372,8 @@
                 '<td>'+e.time+'</td>'+
                 '<td>'+e.log_msg+'</td>'+
                     '<td>'+sexStr+'</td>'+
-                    '<td>'+payStr+'</td>'+
+                '<td>'+payStr+'</td>'+
+                '<td>'+as+'</td>'+
                     '<td>'+typeStr+'</td>'+
                     '<td>'+statusStr+'</td>'+
                     '<td>'+e.success+'</td>'+
@@ -384,7 +404,7 @@
                     id: id,
                     status: status
                 };
-                ajaxGo("admin/wechat_material_log/delWechatMaterialLog", '修改失败', false, 'http://tongji.zhanjuzhe.cn/');
+                ajaxGo("admin/wechat_material_log/delWechatMaterialLog");
                 if (requestCode === 0) {
                     layer.close(index);
                     layer.closeAll();
