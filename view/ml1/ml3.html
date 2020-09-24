@@ -142,10 +142,20 @@
         </div>
         <div id="fuzhi_tanchuang" style="display: none;">
             <div style="width: 320px;height: auto;padding: 10px;">
-                <img src="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/jc.gif"
+                <div style="background: rgba(255,50,50,0.5);padding: 5px;text-align: center;color: white;border-radius: 3px;">
+                    微信关注教程
+                </div>
+                <img src="/static/ml/ml3/guanzhu.gif"
                      alt=""
                      style="width: 100%;margin: 0 auto;">
+                <div style="margin-top: 10px;text-align: center;">
+                    <img src="/static/ml/ml3/down_icon.png" alt="">
+                    <div style="margin-top: 10px;color: green;">
+                        已成功复制微信
+                    </div>
+                </div>
                 <button type="button"
+                        onclick="toWx()"
                         style="width: 80%;
                 background: rgb(14,136,235);
                 border: none;
@@ -154,9 +164,7 @@
                 padding: 8px 0px;
                 display: block;
                 margin: 10px auto;"
-                data-clipboard-target="#fixspan"
-                class="codeBtn"
-                >一键复制公众号</button>
+                >前往微信</button>
             </div>
         </div>
         <!--微信外-->
@@ -177,7 +185,8 @@
             <p class="showapp" style="text-align: center; display: none;"><img
                     src="/static/ml/ml3/wx02.gif" width="100%"></p>
             <a href="javascript:;">
-                <button class="pa copy_btn3 code-btn ifengLookori wxapp">
+                <button class="codeBtn pa copy_btn3 code-btn ifengLookori wxapp"
+                        data-clipboard-target="#fixspan">
                     点此一键复制公众号
                 </button>
             </a>
@@ -257,7 +266,7 @@
         <br>
         <div class="fixfot"
              style="width:100%; max-width:750px; background:none; border:none; position:fixed; bottom:-6px; z-index:1000; display:none;">
-            <button class="codeBtn"
+            <button class="codeBtn code-btn"
                     data-clipboard-target="#fixspan"
                     style="position:absolute; left:0; width:100%; height:100%; background:#0C0; color:#FFF; z-index:1000; opacity:0;"></button>
             <img width="50%" src="/static/ml/ml3/wxgzh.gif">
@@ -356,10 +365,17 @@
                     return false;
                 }
             }
+
+            /**
+             * 跳转微信
+             */
+            function toWx()
+            {
+                window.location.href="weixin://";
+            }
             $(function () {
                 var clipboard = new Clipboard('.codeBtn');
                 clipboard.on('success', function(e) {
-                    window.location.href="weixin://";
                 });
 
                 clipboard.on('error', function(e) {
