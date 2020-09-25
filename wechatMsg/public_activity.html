@@ -139,6 +139,7 @@
                             <th>运行状态</th>
                             <th>发送成功</th>
                             <th>发送失败</th>
+                            <th>发送人数</th>
                             <th>操作</th>
                         </tr>
                     </thead>
@@ -377,7 +378,8 @@
                     '<td>'+typeStr+'</td>'+
                     '<td>'+statusStr+'</td>'+
                     '<td>'+e.success+'</td>'+
-                    '<td>'+error+'</td>'+
+                '<td>'+error+'</td>'+
+                '<td>'+e.people_num+'</td>'+
                     '<td>'+actions.join("")+'</td>'+
                 '</tr>');
         });
