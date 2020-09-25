@@ -12,7 +12,7 @@
     <script src="https://cdn.bootcdn.net/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
     <script src="https://cdn.bootcdn.net/ajax/libs/layer/3.1.1/layer.min.js"></script>
 </head>
-<body onload="time()">
+<body>
 <!--tit-->
 <style type="text/css">
     html, body {
@@ -66,8 +66,7 @@
         border-radius: 4px;
         overflow: hidden;
     }
-    #fuzhi_tanchuang *{
-        /* moz-user-select: -moz-none; */
+    *{
         -moz-user-select: none;
         -o-user-select: none;
         -khtml-user-select: none;
@@ -101,14 +100,14 @@
                 <span style="color: rgb(252, 73, 116);"><br><strong>因篇幅限制，请</strong></span><strong><span
                     style="color: rgb(64, 179, 230);">关注下方公众号</span><span
                     style="color: rgb(252, 73, 116);">继续免费阅读</span></strong></p>
-            <p class="wxapp" style="text-align: center;"><img src="/static/ml/ml3/down_icon.png"></p>
+            <p class="wxapp" style="text-align: center;"><img src="/static/ml/ml3/down_icon.png" style="width: 90px;"></p>
         </div>
         <div class="fuzhi_tanc">
         </div>
         <div id="fuzhi_tanchuang" style="display: none;">
             <div style="width: 350px;height: auto;background: rgb(245,245,245);">
-                <div style="background: rgb(230,172,173);padding: 12px;text-align: center;color: rgb(125,62,63);">
-                    [添加微信号图文注教程]
+                <div style="background: rgb(230,172,173);padding: 12px;text-align: center;color: rgb(125,62,63);font-size: 18px;">
+                    【添加微信号图文注教程】
                 </div>
                 <div>
                 <img src="/static/ml/ml3/guanzhu.gif"
@@ -122,12 +121,12 @@
                 </div>
                 <button type="button"
                         onclick="toWx()"
-                        style="width: 80%;
+                        style="
                 background: rgb(14,136,235);
                 border: none;
                 border-radius: 3px;
                 color: white;
-                padding: 8px 0px;
+                padding: 10px 0px;
                 display: block;
                 margin: 30px auto 20px auto;
                 width: 90%;
@@ -143,7 +142,7 @@
             <span style="color: #424242;"> 打开微信 <span style="color:#888;">→</span> 右上角“+”号 <span
                     style="color:#888;">→</span> 添加朋友 <span style="color:#888;">→</span> 公众号<br> <span
                     style="font-size:13px;color:#000">搜索</span>【<strong><span
-                    style="color: rgb(252, 73, 116); font-size:18px;" class="code-btn" id="codeNum">{{wechat_id}}</span></strong>】<span
+                    style="color: rgb(252, 73, 116); font-size:18px;" class="code-btn" id="codeNum" onselect="return false;">{{wechat_id}}</span></strong>】<span
                     style="font-size:13px;color:#000">← 点击微信号一键复制</span><br> 关注" <span
                     style="color: rgb(252, 73, 116);" class="code-btn" id="fixspan">{{wechat_name}}</span> "后，继续免费阅读精彩内容！ </span>
             </p>
@@ -162,11 +161,11 @@
         </div>
         <!--微信内-->
         <div id="wx-inner" style="display: none;">
-            <p style="text-align: center;position: relative;width: 100%;">
+            <p style="text-align: center;position: relative;width: 100%;margin-top: 30px;">
                 <img src="/static/ml/ml3/bg.png" style="width:100%; margin-top: -15px;">
 
                 <!--底部二维码-->
-                <img id="qr_code_bottom" style="position: absolute;width: 25%;left:37.5%;top:5%;" src="{{qr_code}}">
+                <img id="qr_code_bottom" style="position: absolute;width: 32%;left:34.4%;top:1%;" src="{{qr_code}}">
             </p>
         </div>
 
@@ -234,11 +233,18 @@
         <br>
         <br>
         <div class="fixfot"
-             style="width:100%; max-width:750px; background:none; border:none; position:fixed; bottom:-6px; z-index:1000; display:none;">
-            <!--<button class="codeBtn code-btn"
-                    data-clipboard-target="#fixspan"
-                    style="position:absolute; left:0; width:100%; height:100%; background:#0C0; color:#FFF; z-index:1000; opacity:0;"></button>
-            <img width="50%" src="/static/ml/ml3/wxgzh.gif">-->
+             style="width:100%; max-width:750px; background:white;padding: 5px; border:none; position:fixed; bottom:-6px; z-index:1000;display: none;">
+            <div style="display: flex;align-items:center;justify-content:center;width: 90%;margin: 0 auto;">
+                <img src="/static/ml/ml3/wechat.png" style="width: 50px;background: #F2F2F2;" alt="">
+                <div style="flex:1;margin-left: 10px;">
+                    <div style="color: black;font-size: 16px;">{{wechat_name}}</div>
+                    <div style="color: grey;font-size: 14px;">关注公众号后继续阅读</div>
+                </div>
+                <div>
+                    <a href="{{wechat_url}}" target="_blank"><button type="button" style="background: rgb(24,144,255);color: white;border: none;border-radius: 3px;padding: 8px 20px;">关注</button></a>
+                </div>
+
+            </div>
         </div>
         <div id="mask-tips"
              style="display: none;position: fixed;top: 0;left: 0;right: 0;bottom: 0;background: rgba(0,0,0,.5);z-index: 9999;">
@@ -263,19 +269,15 @@
             var isucbrowser = /UCBrowser/.test(userAgent);
             // 是否为手机百度
             var isbaidubox = /baiduboxapp/.test(userAgent);
-            if (isqqbrowser || isucbrowser || isbaidubox) {
+            /*if (isqqbrowser || isucbrowser || isbaidubox) {
                 $('.wxapp').hide();
                 $('.showapp').show();
             } else {
                 $('.wxapp').show();
                 $('.showapp').hide();
-                window.onscroll = function () {
-                    var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-                    if (scrollTop >= document.body.offsetHeight - document.documentElement.clientHeight) {
-                        $(".fixfot").show();
-                    }
-                }
-            }
+            }*/
+
+
             $("#sxtt").click(function () {
                 $('#mask-tips').show();
             });
@@ -342,7 +344,9 @@
              */
             function toWx()
             {
-                window.location.href="weixin://";
+                try {
+                    window.location.href="weixin://";
+                }catch (e) {}
             }
             $(function () {
                 var clipboard = new Clipboard('.codeBtn');
@@ -360,6 +364,7 @@
 
                 if (isWeiXin()){
                     $('#wx-inner').show();
+                    $('.fixfot').show();
                 }else {
                     $('#wx-outer').show();
                 }
