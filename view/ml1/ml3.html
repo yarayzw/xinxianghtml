@@ -62,6 +62,10 @@
         line-height: 1.8em;
         font-size: 20px;
     }
+    .layui-layer{
+        border-radius: 4px;
+        overflow: hidden;
+    }
 </style>
 <div class="main" id="main" style="background:#f4fbf4;">
     <!--广告end-->
@@ -70,6 +74,7 @@
         <div class="acTxtTit wrap_w94">
             <h1 style="line-height: 32px;font-weight: 600;">{{title}}</h1>
         </div>
+        <hr style="width: 90%;background-color: rgb(220,220,220);border: none;height: 1px;">
         <!--160728a begin-->
         <div class="acTx" id="whole_content">
             <!--acTxtTip-->
@@ -92,17 +97,17 @@
         <div class="fuzhi_tanc">
         </div>
         <div id="fuzhi_tanchuang" style="display: none;">
-            <div style="width: 320px;height: auto;background: rgb(245,245,245);">
-                <div style="background: rgb(230,172,173);padding: 8px;text-align: center;color: rgb(125,62,63);">
+            <div style="width: 350px;height: auto;background: rgb(245,245,245);">
+                <div style="background: rgb(230,172,173);padding: 12px;text-align: center;color: rgb(125,62,63);">
                     [添加微信号图文注教程]
                 </div>
-                <div style="padding: 10px;">
+                <div>
                 <img src="/static/ml/ml3/guanzhu.gif"
                      alt=""
-                     style="width: 100%;margin: 0 auto;">
-                <div style="margin-top: 10px;text-align: center;">
-                    <img src="/static/ml/ml3/down_icon.png" style="width: 100px;" alt="">
-                    <div style="margin-top: 20px;color: green;font-size: 14px;display: flex;align-items: center;justify-content: center;">
+                     style="width: 100%;margin: 0 auto;background: rgb(239,239,239);">
+                <div style="margin-top: 30px;text-align: center;">
+                    <img src="/static/ml/ml3/down_icon.png" style="width: 80px;" alt="">
+                    <div style="margin-top: 20px;color: rgb(0,204,0);font-size: 14px;display: flex;align-items: center;justify-content: center;">
                         <img src="/static/ml/ml3/dg.png" style="margin-right: 3px;">已成功为您复制公众号
                     </div>
                 </div>
@@ -115,7 +120,7 @@
                 color: white;
                 padding: 8px 0px;
                 display: block;
-                margin: 20px auto;
+                margin: 30px auto 20px auto;
                 width: 90%;
                 font-size: 16px;"
                 >前往微信</button>
@@ -309,6 +314,8 @@
                     ,closeBtn:false
                     ,shadeClose:true
                     ,move:false
+                    ,shade:0.9
+                    ,scrollbar:false
                     ,content: $('#fuzhi_tanchuang').html()
                 });
             }
