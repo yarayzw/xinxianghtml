@@ -111,9 +111,16 @@
                 <span style="color: rgb(252, 73, 116);">下一章：出大事了！</span></p>
             <p class="wxapp"
                style="font-size: medium; white-space: normal; text-shadow: none;margin-top: 0px;text-align:center;line-height: 1.2em;font-size:16px;">
-                <span style="color: rgb(252, 73, 116);"><br><strong>因篇幅限制，请</strong></span><strong><span
-                    style="color: rgb(64, 179, 230);">长按二维码识别</span><span
-                    style="color: rgb(252, 73, 116);">关注后继续阅读</span></strong></p>
+                <span id="wx-inner-tips" style="display: none;">
+                    <span style="color: rgb(252, 73, 116);"><br><strong>因篇幅限制，请</strong></span><strong><span
+                        style="color: rgb(64, 179, 230);">长按二维码识别</span><span
+                        style="color: rgb(252, 73, 116);">关注后继续阅读</span></strong>
+                </span>
+                <span id="wx-outer-tips" style="display: none;">
+                    <span style="color: rgb(252, 73, 116);"><br><strong>因篇幅限制，请</strong></span>
+                    <strong><span style="color: rgb(64, 179, 230);">关注下方公众号</span><span style="color: rgb(252, 73, 116);">继续免费阅读</span></strong>
+                </span>
+            </p>
             <p class="wxapp" style="text-align: center;"><img src="/static/ml/ml3/down_icon.png" style="width: 90px;"></p>
         </div>
         <div class="fuzhi_tanc">
@@ -247,7 +254,7 @@
         <br>
         <br>
         <div class="fixfot"
-             style="width:100%; max-width:750px; background:white;padding: 5px; border:none; position:fixed; bottom:-6px; z-index:1000;display: none;">
+             style="width:100%; max-width:750px; background:white;padding: 10px 5px 30px 5px; border:none; position:fixed; bottom:-6px; z-index:1000;display: none;">
             <div style="display: flex;align-items:center;justify-content:center;width: 90%;margin: 0 auto;">
                 <img src="/static/ml/ml3/wechat.png" style="width: 50px;background: #F2F2F2;" alt="">
                 <div style="flex:1;margin-left: 10px;">
@@ -384,8 +391,10 @@
                             $(".fixfot").show();
                         }
                     };
+                    $('#wx-inner-tips').show();
                 }else {
                     $('#wx-outer').show();
+                    $('#wx-outer-tips').show();
                 }
             });
         </script>
