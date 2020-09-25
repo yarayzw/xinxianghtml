@@ -66,6 +66,27 @@
         border-radius: 4px;
         overflow: hidden;
     }
+
+    @media(min-width: 300px){
+        #qr_code_bottom{
+            top: -3%;
+        }
+    }
+    @media(min-width: 400px){
+        #qr_code_bottom{
+            top: -2%;
+        }
+    }
+    @media(min-width: 450px){
+        #qr_code_bottom{
+            top: -1%;
+        }
+    }
+    @media(min-width: 500px){
+        #qr_code_bottom{
+            top: 1%;
+        }
+    }
 </style>
 <div class="main" id="main" style="background:#f4fbf4;">
     <!--广告end-->
@@ -90,8 +111,8 @@
             <p class="wxapp"
                style="font-size: medium; white-space: normal; text-shadow: none;margin-top: 0px;text-align:center;line-height: 1.2em;font-size:16px;">
                 <span style="color: rgb(252, 73, 116);"><br><strong>因篇幅限制，请</strong></span><strong><span
-                    style="color: rgb(64, 179, 230);">关注下方公众号</span><span
-                    style="color: rgb(252, 73, 116);">继续免费阅读</span></strong></p>
+                    style="color: rgb(64, 179, 230);">长按二维码识别</span><span
+                    style="color: rgb(252, 73, 116);">关注公众号继续阅读</span></strong></p>
             <p class="wxapp" style="text-align: center;"><img src="/static/ml/ml3/down_icon.png" style="width: 90px;"></p>
         </div>
         <div class="fuzhi_tanc">
@@ -102,7 +123,7 @@
                     【添加微信公众号图文教程】
                 </div>
                 <div>
-                <img src="/static/ml/ml3/guanzhu.gif"
+                <img src="/static/ml/ml3/wx-attention-guide.gif"
                      alt=""
                      style="width: 100%;margin: 0 auto;background: rgb(239,239,239);">
                 <div style="margin-top: 30px;text-align: center;">
@@ -118,12 +139,12 @@
                 border: none;
                 border-radius: 3px;
                 color: white;
-                padding: 10px 0px;
+                padding: 14px 0px;
                 display: block;
                 margin: 30px auto 20px auto;
                 width: 90%;
-                font-size: 16px;"
-                >前往微信</button>
+                font-size: 18px;"
+                >前往微信&nbsp;>></button>
                 </div>
             </div>
         </div>
@@ -157,7 +178,7 @@
                 <img src="/static/ml/ml3/bg.png" style="width:100%; margin-top: -15px;">
 
                 <!--底部二维码-->
-                <img id="qr_code_bottom" style="position: absolute;width: 32%;left:34.4%;top:1%;" src="{{qr_code}}">
+                <img id="qr_code_bottom" style="position: absolute;width: 32%;left:34.4%;" src="{{qr_code}}">
             </p>
         </div>
 
@@ -268,8 +289,6 @@
                 $('.wxapp').show();
                 $('.showapp').hide();
             }*/
-
-
             $("#sxtt").click(function () {
                 $('#mask-tips').show();
             });
@@ -357,7 +376,13 @@
 
                 if (isWeiXin()){
                     $('#wx-inner').show();
-                    $('.fixfot').show();
+                    window.onscroll=function(){
+                        var scrollTop = document.documentElement.scrollTop||document.body.scrollTop;
+                        if(scrollTop>=document.body.offsetHeight-document.documentElement.clientHeight)
+                        {
+                            $(".fixfot").show();
+                        }
+                    };
                 }else {
                     $('#wx-outer').show();
                 }
