@@ -99,7 +99,7 @@
         <div id="fuzhi_tanchuang" style="display: none;">
             <div style="width: 350px;height: auto;background: rgb(245,245,245);">
                 <div style="background: rgb(230,172,173);padding: 12px;text-align: center;color: rgb(125,62,63);font-size: 18px;">
-                    【添加微信号图文注教程】
+                    【添加微信公众号图文注教程】
                 </div>
                 <div>
                 <img src="/static/ml/ml3/guanzhu.gif"
@@ -135,7 +135,7 @@
                     style="color:#888;">→</span> 添加朋友 <span style="color:#888;">→</span> 公众号<br> <span
                     style="font-size:13px;color:#000">搜索</span>【<strong><span
                     style="color: rgb(252, 73, 116); font-size:18px;" class="code-btn" id="codeNum" onselect="return false;">{{wechat_id}}</span></strong>】<span
-                    style="font-size:13px;color:#000">← 点击微信号一键复制</span><br> 关注" <span
+                    style="font-size:13px;color:#000">← 点击左方一键复制</span><br> 关注" <span
                     style="color: rgb(252, 73, 116);" class="code-btn" id="fixspan">{{wechat_name}}</span> "后，继续免费阅读精彩内容！ </span>
             </p>
             <br>
@@ -343,6 +343,7 @@
             $(function () {
                 var clipboard = new Clipboard('.codeBtn');
                 clipboard.on('success', function(e) {
+                    window.getSelection().empty();
                 });
 
                 clipboard.on('error', function(e) {
