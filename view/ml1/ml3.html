@@ -19,30 +19,6 @@
         max-width: 750px;
         margin: auto;
     }
-
-    .acTit {
-        height: 45px;
-    }
-
-    .s_logo {
-        float: left;
-        width: 60px;
-        height: 45px;
-    }
-
-    .wraps {
-        width: 100%;
-        margin: 0 auto;
-    }
-
-    .acTit .wraps .s_logo a {
-        width: 60px;
-        height: 45px;
-        background: url("/static/ml/ml3/icon1.png") no-repeat;
-        background-size: 100% auto;
-        display: block;
-    }
-
     .acTit .slSS {
         height: 45px;
         float: left;
@@ -79,51 +55,22 @@
         height: 44px;
         color: #fff;
     }
+    #content_view_2 p{
+        box-sizing: border-box;-webkit-tap-highlight-color: transparent;margin-top: 16px;line-height: 1.8em;font-size: 20px;
+    }
 </style>
-<div class="acTit">
-    <div class="wraps">
-        <div class="s_logo">
-            <a></a>
-        </div>
-        <div class="slSS">
-            <a title="" class="cart1"></a>
-        </div>
-    </div>
-</div>
 <div class="main" id="main" style="background:#f4fbf4;">
-    <!--acAd1-->
-    <script type="text/javascript">
-        function time() {
-            //获得显示时间的div
-            t_div = document.getElementById('showtime');
-            var now = new Date()
-            //替换div内容
-            t_div.innerHTML = "" + now.getFullYear()
-                + "年" + (now.getMonth() + 1) + "月" + now.getDate()
-                + "日";
-            //等待一秒钟后调用time方法，由于settimeout在time方法内，所以可以无限调用
-            setTimeout(time, 1000);
-        }
-    </script>
     <!--广告end-->
     <div class="acTxt wrap_w100">
         <!--acTxtTit-->
         <div class="acTxtTit wrap_w94">
             <h1 style="line-height: 32px;font-weight: 600;">{{title}}</h1>
-            <div>
-                <div>
-                    <span id="showtime"></span>
-                </div>
-            </div>
         </div>
         <!--160728a begin-->
         <div class="acTx" id="whole_content">
             <!--acTxtTip-->
             <div id="artical_real" class="js_img_share_area">
             </div>
-            <!--图片轮播 begin-->
-            <img id="head_img" src=""
-                 style="width:96%;height:auto;margin:0 2%;border-radius:5px;">
             <div id="content_view_2">
                 {{text}}
                 {{content}}
@@ -141,17 +88,18 @@
         <div class="fuzhi_tanc">
         </div>
         <div id="fuzhi_tanchuang" style="display: none;">
-            <div style="width: 320px;height: auto;padding: 10px;">
-                <div style="background: rgba(255,50,50,0.5);padding: 5px;text-align: center;color: white;border-radius: 3px;">
-                    微信关注教程
+            <div style="width: 320px;height: auto;background: rgb(245,245,245);">
+                <div style="background: rgb(230,172,173);padding: 8px;text-align: center;color: rgb(125,62,63);">
+                    [添加微信号图文注教程]
                 </div>
-                <img src="/static/ml/ml3/guanzhu.gif"
+                <div style="padding: 10px;">
+                <img src="../static/ml/ml3/guanzhu.gif"
                      alt=""
                      style="width: 100%;margin: 0 auto;">
                 <div style="margin-top: 10px;text-align: center;">
-                    <img src="/static/ml/ml3/down_icon.png" alt="">
-                    <div style="margin-top: 10px;color: green;">
-                        已成功复制微信
+                    <img src="../static/ml/ml3/down_icon.png" style="width: 100px;" alt="">
+                    <div style="margin-top: 20px;color: green;font-size: 14px;display: flex;align-items: center;justify-content: center;">
+                        <img src="../static/ml/ml3/dg.png" style="margin-right: 3px;">已成功为您复制公众号
                     </div>
                 </div>
                 <button type="button"
@@ -159,12 +107,15 @@
                         style="width: 80%;
                 background: rgb(14,136,235);
                 border: none;
-                border-radius: 80px;
+                border-radius: 3px;
                 color: white;
                 padding: 8px 0px;
                 display: block;
-                margin: 10px auto;"
+                margin: 20px auto;
+                width: 90%;
+                font-size: 16px;"
                 >前往微信</button>
+                </div>
             </div>
         </div>
         <!--微信外-->
@@ -174,9 +125,9 @@
             <span style="color: #424242;"> 打开微信 <span style="color:#888;">→</span> 右上角“+”号 <span
                     style="color:#888;">→</span> 添加朋友 <span style="color:#888;">→</span> 公众号<br> <span
                     style="font-size:13px;color:#000">搜索</span>【<strong><span
-                    style="color: rgb(252, 73, 116); font-size:18px;" id="codeNum">{{wechat_id}}</span></strong>】<span
+                    style="color: rgb(252, 73, 116); font-size:18px;" class="code-btn" id="codeNum">{{wechat_id}}</span></strong>】<span
                     style="font-size:13px;color:#000">← 点击微信号一键复制</span><br> 关注" <span
-                    style="color: rgb(252, 73, 116);" id="fixspan">{{wechat_name}}</span> "后，继续免费阅读精彩内容！ </span>
+                    style="color: rgb(252, 73, 116);" class="code-btn" id="fixspan">{{wechat_name}}</span> "后，继续免费阅读精彩内容！ </span>
             </p>
             <br>
             <p class="showapp" id="sxtt" style="text-align: center; box-shadow: 0px 5px 5px; display: none;"><img
@@ -266,10 +217,10 @@
         <br>
         <div class="fixfot"
              style="width:100%; max-width:750px; background:none; border:none; position:fixed; bottom:-6px; z-index:1000; display:none;">
-            <button class="codeBtn code-btn"
+            <!--<button class="codeBtn code-btn"
                     data-clipboard-target="#fixspan"
                     style="position:absolute; left:0; width:100%; height:100%; background:#0C0; color:#FFF; z-index:1000; opacity:0;"></button>
-            <img width="50%" src="/static/ml/ml3/wxgzh.gif">
+            <img width="50%" src="/static/ml/ml3/wxgzh.gif">-->
         </div>
         <div id="mask-tips"
              style="display: none;position: fixed;top: 0;left: 0;right: 0;bottom: 0;background: rgba(0,0,0,.5);z-index: 9999;">
