@@ -198,7 +198,8 @@
     //获取公众号
     function getPublicList() {
         requestData.data = {
-            'type': 2
+            'type': 1,
+            status: 2,
         };
         ajaxGo("admin/wechat_config/getListToSelect");
         $('#public_wechat_wrap').empty();
