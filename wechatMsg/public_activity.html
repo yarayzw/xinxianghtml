@@ -266,7 +266,7 @@
                     is_active: $('#addWechatMaterialLogForm input[name=is_active]:checked').val(),
                     material_type_id: material_type_id,
                 };
-                ajaxGo("admin/wechat_material_log/addWechatMaterialLog", '发送失败', false, 'http://tongji.zhanjuzhe.cn/');
+                ajaxGo("admin/wechat_material_log/addWechatMaterialLog");
                 if (requestCode === 0) {
                     layer.close(index);
                     layer.closeAll();
@@ -367,6 +367,12 @@
             let error = 0;
             if(e.error > 0){
                 error = '<a href="javascript:void(0);" onclick="lookError(' + e.id + ',0)">'+e.error+'</a>&nbsp;';
+            }
+            if(e.type !== 0){
+                e.log_msg = '正常';
+            }
+            if(e.log_msg === '' || e.log_msg === '-'){
+                e.log_msg = '正常';
             }
             $('#tbody').append('<tr>' +
                     '<td>'+e.create_at+'</td>'+
