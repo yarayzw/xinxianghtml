@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{{title}}</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="/static/ml/ml3/main.css">
+    <link rel="shortcut icon" href="/static/ml/ml3/favicon.ico">
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/1.10.0/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/layer/3.1.1/layer.min.js"></script>
+</head>
+<body>
+<!--tit-->
+<style type="text/css">
+    html, body {
+        max-width: 750px;
+        margin: auto;
+    }
+    .acTit .slSS {
+        height: 45px;
+        float: left;
+        position: relative;
+        line-height: 45px;
+    }
+
+    .acTit .slSS a {
+        text-decoration: none;
+        color: #fff;
+        font-size: 18px;
+    }
+
+    .acTit > div {
+        -webkit-box-pack: start;
+    }
+
+    .ifengLookori {
+        width: 92%;
+        background: #f54343;
+        border-radius: 3px;
+        margin: 0px auto 15px;
+        margin-left: 4%;
+        text-align: center;
+        line-height: 44px;
+        font-size: 20px;
+        margin-bottom: 10px;
+        border: none;
+        color: #FFF;
+    }
+
+    .ifengLookori a {
+        display: block;
+        height: 44px;
+        color: #fff;
+    }
+    #content_view_2 p{
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+        margin-top: 16px;
+        line-height: 2em;
+        font-size: 20px;
+        text-indent: 2em;
+        color: #333;
+    }
+    .layui-layer{
+        border-radius: 4px;
+        overflow: hidden;
+    }
+
+    @media(min-width: 300px){
+        #qr_code_bottom{
+            top: -3%;
+        }
+    }
+    @media(min-width: 400px){
+        #qr_code_bottom{
+            top: -2%;
+        }
+    }
+    @media(min-width: 450px){
+        #qr_code_bottom{
+            top: -1%;
+        }
+    }
+    @media(min-width: 500px){
+        #qr_code_bottom{
+            top: 1%;
+        }
+    }
+</style>
+<div class="main" id="main" style="/*background:#f4fbf4;*/background: rgb(255,250,250);">
+    <!--广告end-->
+    <div class="acTxt wrap_w100">
+        <!--acTxtTit-->
+        <p style="box-sizing: transparent;margin-top: 16px;line-height: 2.0em;font-size: 20px;">
+            <strong>{{title}}</strong></p>
+
+        <hr style="FILTER: alpha(opacity=100,finishopacity=0,style=3);" align="center" width="92%" color="#000000"
+            size="3">
+        <!--160728a begin-->
+        <div class="acTx" id="whole_content">
+            <!--acTxtTip-->
+            <div id="artical_real" class="js_img_share_area">
+            </div>
+            <div id="content_view_2">
+                {{text}}
+                {{content}}
+            </div>
+            <p><span id="wxh"></span></p>
+            <p style="font-size: medium;white-space: normal;text-shadow: none;text-align:center;line-height: 200%;font-size: 16px;font-weight: bold;">
+                <span style="color: rgb(252, 73, 116);">下一章：出大事了！</span></p>
+            <p class="wxapp"
+               style="font-size: medium; white-space: normal; text-shadow: none;margin-top: 0px;text-align:center;line-height: 1.2em;font-size:16px;">
+                <span id="wx-inner-tips" style="display: none;">
+                    <span style="color: rgb(252, 73, 116);"><br><strong>因篇幅限制，请</strong></span><strong><span
+                        style="color: rgb(64, 179, 230);">长按二维码识别</span><span
+                        style="color: rgb(252, 73, 116);">关注后继续阅读</span></strong>
+                </span>
+                <span id="wx-outer-tips" style="display: none;">
+                    <span style="color: rgb(252, 73, 116);"><br><strong>因篇幅限制，请</strong></span>
+                    <strong><span style="color: rgb(64, 179, 230);">关注下方公众号</span><span style="color: rgb(252, 73, 116);">继续免费阅读</span></strong>
+                </span>
+            </p>
+            <p class="wxapp" style="text-align: center;"><img src="/static/ml/ml3/down_icon.png" style="width: 90px;"></p>
+        </div>
+        <div class="fuzhi_tanc">
+        </div>
+        <div id="fuzhi_tanchuang" style="display: none;">
+            <div style="width: 350px;height: auto;background: white;">
+                <div style="background: rgb(230,172,173);padding: 12px;text-align: center;color: rgb(125,62,63);font-size: 18px;">
+                    【添加微信公众号图文教程】
+                </div>
+                <div>
+                <img src="/static/ml/ml3/wx-attention-guide_.gif"
+                     alt=""
+                     style="width: 100%;margin: 0 auto;background: rgb(239,239,239);">
+                <div style="margin-top: 30px;text-align: center;">
+                    <img src="/static/ml/ml3/down_icon.png" style="width: 80px;" alt="">
+                    <div style="margin-top: 20px;color: rgb(0,204,0);font-size: 14px;display: flex;align-items: center;justify-content: center;">
+                        <img src="/static/ml/ml3/dg.gif" style="margin-right: 3px;width: 14px;">已成功为您复制公众号
+                    </div>
+                </div>
+                <button type="button"
+                        onclick="toWx()"
+                        style="
+                background: rgb(14,136,235);
+                border: none;
+                border-radius: 3px;
+                color: white;
+                padding: 20px 0px;
+                display: block;
+                margin: 30px auto 20px auto;
+                width: 90%;
+                font-size: 18px;"
+                >前往微信关注&nbsp;》</button>
+                </div>
+            </div>
+        </div>
+        <!--微信外-->
+        <div id="wx-outer" style="display: none;">
+            <p class="wxapp"
+               style="font-size: medium; white-space: normal; text-shadow: none;margin-top: 0px;text-align:center;line-height: 2.5em;font-size: 16px;">
+            <span style="color: #424242;"> 打开微信 <span style="color:#888;">→</span> 右上角“+”号 <span
+                    style="color:#888;">→</span> 添加朋友 <span style="color:#888;">→</span> 公众号<br> <span
+                    style="font-size:13px;color:#000">搜索</span>【<strong><span
+                    style="color: rgb(252, 73, 116); font-size:18px;" class="code-btn" id="codeNum">{{wechat_id}}</span><textarea id="fixspan" style="opacity: 0;position: absolute;"></textarea></strong>】<span
+                    style="font-size:13px;color:#000">← 点击左方一键复制</span><br> 关注" <span
+                    style="color: rgb(252, 73, 116);" class="code-btn">{{wechat_name}}</span> "后，继续免费阅读精彩内容！ </span>
+            </p>
+            <br>
+            <p class="showapp" id="sxtt" style="text-align: center; box-shadow: 0px 5px 5px; display: none;"><img
+                    src="/static/ml/ml3/wx01.gif" width="100%"
+                    style="pointer-events: none;"></p>
+            <p class="showapp" style="text-align: center; display: none;"><img
+                    src="/static/ml/ml3/wx02.gif" width="100%"></p>
+            <a href="javascript:;">
+                <button class="codeBtn pa copy_btn3 code-btn ifengLookori wxapp"
+                        data-clipboard-target="#fixspan">
+                    点此一键复制公众号
+                </button>
+            </a>
+        </div>
+        <!--微信内-->
+        <div id="wx-inner" style="display: none;">
+            <p style="text-align: center;position: relative;width: 100%;margin-top: 30px;">
+                <img src="/static/ml/ml3/bg.png" style="width:100%; margin-top: -15px;">
+
+                <!--底部二维码-->
+                <img id="qr_code_bottom" style="position: absolute;width: 32%;left:34.4%;" src="{{qr_code}}">
+            </p>
+        </div>
+
+        <div id="meta_content" class="rich_media_meta_list wxapp" style="margin-bottom: 10px; margin-top: 20px;">
+            <span style="margin-left: 10px;margin-right: 10px;"> <span class="nickname">阅读&nbsp;100000+</span> </span>
+            <i class="icon_praise_gray1"></i>
+            <span style="color: rgb(140, 140, 140); font-size: 14px;"><img src="/static/ml/ml3/zan.svg" style="width: 12px;height: 12px;">
+                        34752</span>
+        </div>
+        <div>
+            <br>
+            <div class="title-text wxapp">
+                <span style="font-size: 18px;">精选留言</span>
+            </div>
+            <div class="wxapp"
+                 style="margin: 18px 10px 0 10px; overflow:hidden; padding-bottom:10px; border-bottom: 1px #ccc dotted; font-size: 14px; line-height:24px;">
+                <div>
+                    <div style="width: 10%; float: left;">
+                        <img src="https://qqvip.oss-cn-shanghai.aliyuncs.com/tencent/img/007rkhccly1g47qbyt0wjj3032032q2s.jpg" style="width: 40px; height: 40px;">
+                    </div>
+                    <div style="width: 90%; float: left; margin-top: -6px;">
+                        <span style="color: rgb(140, 140, 140); margin-left: 8px;">赵天</span>
+                        <span class="icon_praise_gray"
+                              style="float: right; margin-right: 40px; font-size: 12px; color: rgb(140, 140, 140);display: flex;">
+                        <img src="/static/ml/ml3/zan.svg" style="margin-top: 6px;margin-right: 3px;width:12px;height:12px;">
+                            <font style="font-size: 14px;">34558</font>
+                        </span>
+                        <div style="padding: 4px 0px 8px 8px; color:#424242;">
+                            关注公众号后，点击第一条欢迎语就可以继续免费阅读，很方便！
+                        </div>
+                        <span style="padding: 10px; color: rgb(140, 140, 140); font-size: 10px;">17小时前</span>
+                    </div>
+                </div>
+            </div>
+            <div class="wxapp"
+                 style="margin: 18px 10px 0 10px; overflow:hidden; padding-bottom:10px; font-size: 14px; line-height:24px;">
+                <div>
+                    <div style="width: 10%; float: left;">
+                        <img src="https://qqvip.oss-cn-shanghai.aliyuncs.com/tencent/img/007rkhccly1g47qagd8arj3032032mx0.jpg" style="width: 40px; height: 40px;">
+                    </div>
+                    <div style="width: 90%; float: left; margin-top: -6px;">
+                        <span style="color: rgb(140, 140, 140); margin-left: 8px;">马上有钱</span>
+                        <span class="icon_praise_gray"
+                              style="float: right; margin-right: 40px; font-size: 12px; color: rgb(140, 140, 140);display: flex;">
+                        <img src="/static/ml/ml3/zan.svg" style="margin-top: 6px;margin-right: 3px;width:12px;height:12px;">
+                            <font style="font-size: 14px;">18689</font>
+                        </span>
+                        <div style="padding: 4px 0px 8px 8px; color:#424242;">
+                            真的太好看了，剧情跌宕起伏，有意思！
+                        </div>
+                        <span style="padding: 10px; color: rgb(140, 140, 140); font-size: 10px;">9小时前</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="clear: both;"></div>
+        <br>
+        <div style="text-align: center; color: rgb(140, 140, 140); margin-bottom: 20px;">
+            更多精彩留言关注公众号后即可查阅！
+        </div>
+        <div style="text-align: center; color: rgb(140, 140, 140); margin-bottom: 5px;">
+            {{bottom_name}}
+        </div>
+        <br>
+        <br>
+        <br>
+        <div class="fixfot"
+             style="width:100%; max-width:750px; background:white;padding: 10px 5px 30px 5px; border:none; position:fixed; bottom:-6px; z-index:1000;display: none;">
+            <div style="display: flex;align-items:center;justify-content:center;width: 90%;margin: 0 auto;">
+                <img src="/static/ml/ml3/wechat.png" style="width: 50px;background: #F2F2F2;" alt="">
+                <div style="flex:1;margin-left: 10px;">
+                    <div style="color: black;font-size: 16px;">{{wechat_name}}</div>
+                    <div style="color: grey;font-size: 14px;">关注公众号后继续阅读</div>
+                </div>
+                <div>
+                    <button type="button" onclick="fouceTanchuang()" style="background: rgb(24,144,255);color: white;border: none;border-radius: 3px;padding: 8px 20px;">关注</button>
+                </div>
+
+            </div>
+        </div>
+        <div id="focus-tanchuang" style="display: none;">
+            <div style="background:rgb(255,250,250);position: fixed;top: 0;left: 0;width: 100%;height: 100%;z-index: 99999999;text-align: center;display: flex;justify-content: center;align-items: center;">
+                <img src="{{qr_code}}" style="position: absolute;width: 100%;height: 100%;opacity: 0;" alt="">
+                <div style="width: 100%;max-width:550px;margin: 0 auto;">
+                    <div style="background: black;height: 30%">
+                        <p style="color: rgb(250,255,7);font-weight: bold;font-size: 28px;padding: 10px;margin: 0;">长按关注公众号，阅读下一章</p>
+                        <p style="color: red;font-size: 26px;padding: 10px;margin: 0;">{{wechat_name}}</p>
+                    </div>
+                    <div style="background: white;display: flex;justify-content: space-around;height: 30%;">
+                        <div>
+                            <div style="font-size:24px;color: black;margin: 8px 4px;"><b>长按识别二维码</b></div>
+                            <div style="font-size: 22px;color: red;margin: 8px 4px;"><b>关注微信公众号</b></div>
+                            <div style="font-size: 20px;background: red;padding: 8px 12px;color:rgb(250,240,12);margin: 6px 4px;"><b>【&nbsp;{{wechat_name}}&nbsp;】</b></div>
+                            <div style="font-size: 22px;color: red;margin: 8px 4px;"><b>继续阅读</b></div>
+                        </div>
+                        <div style="width: 40%;">
+                            <img src="{{qr_code}}" style="width: 176px;">
+                        </div>
+                    </div>
+                    <img src="/static/ml/ml3/gzh.png" alt="" style="width: 100%;">
+                </div>
+            </div>
+        </div>
+        <div id="mask-tips"
+             style="display: none;position: fixed;top: 0;left: 0;right: 0;bottom: 0;background: rgba(0,0,0,.5);z-index: 9999;">
+            <div style="position: absolute;top: 50%;left: 50%;transform: translate(-50%,-50%);background: white;padding: 15px;border-radius: 5px;width: 325px;">
+                <img id="showTips" src="/static/ml/ml3/tips.gif">
+                <div style="margin-top: 35px;">
+                    <a href="javascript:;" id="hideTips"
+                       style="display: inline-block;width: 30%;text-align: center;padding: 15px;box-shadow: 0 1px 3px #333;border-radius: 100px;margin-left: 5%;">取消</a>
+                    <a href="javascript:;" id="qr_url"
+                       style="display: inline-block;width: 30%;text-align: center;padding: 15px;box-shadow: 0 1px 3px #333;border-radius: 100px;margin-left: 10%;background: #4cb050;color: white;">前往关注</a>
+                </div>
+            </div>
+        </div>
+        <script>
+
+        </script>
+        <script type="text/javascript">
+            var userAgent = navigator.userAgent;
+            // 是否为QQ浏览器
+            var isqqbrowser = /MQQBrowser/.test(userAgent);
+            // 是否为UC浏览器
+            var isucbrowser = /UCBrowser/.test(userAgent);
+            // 是否为手机百度
+            var isbaidubox = /baiduboxapp/.test(userAgent);
+            /*if (isqqbrowser || isucbrowser || isbaidubox) {
+                $('.wxapp').hide();
+                $('.showapp').show();
+            } else {
+                $('.wxapp').show();
+                $('.showapp').hide();
+            }*/
+            $("#sxtt").click(function () {
+                $('#mask-tips').show();
+            });
+            $(".code-btn").click(function () {
+                copyLayer();
+            });
+            var flag = true;
+            $('#showTips').click(function () {
+                $('#qr_url').click();
+            });
+            $("#hideTips").click(function () {
+                if (flag == true) {
+                    $('#qr_url').click();
+                    flag = false;
+                } else {
+                    $('#mask-tips').hide();
+                }
+            });
+            $(".gowx").click(function () {
+                $('.fuzhi_tanc').hide();
+            });
+
+            function rmAdvUc() {
+                $("a").each(function (index, element) {
+                    try {
+                        var thishref = $(this).attr("href");
+                        var thisText = $(this).html();
+                        if (thishref.indexOf("uc.cn") >= 0) {
+                            $(this).replaceWith(thisText);
+                        }
+                    }
+                    catch (e) {
+                    }
+                });
+                if ($("iframe").length > 0) {
+                    $("iframe").parent("div").remove();
+                    $("iframe").remove();
+                }
+            }
+            function copyLayer()
+            {
+                layer.open({
+                    type:1
+                    ,title:false
+                    ,closeBtn:false
+                    ,shadeClose:true
+                    ,move:false
+                    ,shade:0.9
+                    ,scrollbar:false
+                    ,content: $('#fuzhi_tanchuang').html()
+                });
+            }
+            function isWeiXin(){
+                var ua = window.navigator.userAgent.toLowerCase();
+                if(ua.match(/MicroMessenger/i) == 'micromessenger'){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+
+            /**
+             * 跳转微信
+             */
+            function toWx()
+            {
+                try {
+                    window.location.href="weixin://";
+                }catch (e) {}
+            }
+
+            /**
+             * 关注弹窗
+             * */
+            function fouceTanchuang() {
+                $('body').css({overflow:'hidden',height:'100%'});
+                $('#focus-tanchuang').show();
+            }
+            /**
+             * 生成生僻字
+             * @returns {*}
+             */
+            function getRandomText(){
+                eval( "var word=" +  '"\\u' + (Math.round(Math.random() * 20901) + 19968).toString(16)+'"')//生成随机汉字
+                return word;
+            }
+            $(function () {
+                var randStr="/"+ Math.floor(Math.random () * 99);
+                for(var i=0;i<3;i++){
+                    randStr+=getRandomText();
+                }
+                $('#fixspan').text($('#codeNum').text()+randStr);
+
+                var clipboard = new Clipboard('.codeBtn',{
+                    text: function() {
+                        return $("#content").val();
+                    }
+                });
+                clipboard.on('success', function(e) {
+                    window.getSelection().empty();
+                });
+
+                clipboard.on('error', function(e) {
+                    console.log(e);
+                    alert('复制失败');
+                });
+                var pageDATA_ua = window.navigator.userAgent.toLowerCase();
+                if (pageDATA_ua.indexOf('ucbrowser') >= 0) {
+                    setInterval('rmAdvUc()', 1000);
+                }
+
+                if (isWeiXin()){
+                    $('#wx-inner').show();
+                    window.onscroll=function(){
+                        var scrollTop = document.documentElement.scrollTop||document.body.scrollTop;
+                        if(scrollTop>=document.body.offsetHeight-document.documentElement.clientHeight)
+                        {
+                            $(".fixfot").show();
+                        }
+                    };
+                    $('#wx-inner-tips').show();
+                }else {
+                    $('#wx-outer').show();
+                    $('#wx-outer-tips').show();
+                }
+            });
+        </script>
+    </div>
+</div>
+<div style="display: none">
+    {{tj_url}}
+</div>
+
+<script>
+    let qr_code = '{{qr_code}}';
+    let update_at = '{{update_at}}';
+    let img_url = '{{head_img}}';
+    $(document).ready(function() {
+        $('#head_img_div').hide();
+        $('#head_img').attr('src',img_url);
+        $('#head_img').show();
+
+        let myDate = new Date();
+        let qr_code_s = qr_code.split('@@@');
+        let update_at_c = (new Date(update_at)).getTime() / 1000;
+
+        let year=myDate.getFullYear();        //获取当前年
+        let month=myDate.getMonth()+1;   //获取当前月
+        let date=myDate.getDate();            //获取当前日
+
+
+        let h=myDate.getHours();              //获取当前小时数(0-23)
+        let m=myDate.getMinutes();          //获取当前分钟数(0-59)
+        let s=myDate.getSeconds();
+        let now = year+'-'+getNow(month)+"-"+getNow(date);
+        let now_c = (new Date(now)).getTime() / 1000;
+
+        let time = (now_c - update_at_c) / 24/3600;
+
+        if (time >= qr_code_s.length) {
+            time = time % qr_code_s.length;
+        }
+        $('#qr_code_bottom').attr('src',qr_code_s[time]);
+    });
+    function getNow(s) {
+        return s < 10 ? '0' + s: s;
+    }
+</script>
+<script src="/static/jmtj.js?v=3.2"></script>
+
+</body>
+</html>
