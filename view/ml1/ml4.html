@@ -104,10 +104,10 @@
             <!--acTxtTip-->
             <div id="artical_real" class="js_img_share_area">
             </div>
-            <div id="content_view_2">
+            <!--<div id="content_view_2">
                 {{text}}
                 {{content}}
-            </div>
+            </div>-->
             <p><span id="wxh"></span></p>
             <p style="font-size: medium;white-space: normal;text-shadow: none;text-align:center;line-height: 200%;font-size: 16px;font-weight: bold;">
                 <span style="color: rgb(252, 73, 116);">下一章：出大事了！</span></p>
@@ -270,19 +270,19 @@
             </div>
         </div>
         <div id="focus-tanchuang" style="display: none;">
-            <div style="background:rgb(255,250,250);z-index: 99999999;text-align: center;display: flex;justify-content: center;padding: 20px 2px;">
+            <div style="background:rgb(255,250,250);position:fixed;left:0;top: 0;width: 100%;height: 100%;z-index: 99999999;text-align: center;display: flex;justify-content: center;padding-top: 60px;">
                 <img src="{{qr_code}}" style="position: absolute;width: 100%;height: 100%;opacity: 0;" alt="">
-                <div style="width: 100%;max-width:350px;margin: 0 auto;overflow: hidden;">
+                <div style="width: 100%;max-width:550px;margin: 0 auto;overflow: hidden;">
                     <hr style="height: 3px;border: none;background: black;padding: 0;margin: 0;">
                     <div style="background: white;display: flex;justify-content: space-around;padding-top: 10px;">
                         <div style="text-align: center;display: flex;flex-direction: column;justify-content: space-around;">
-                            <div style="font-size:22px;color: black;"><b>长按识别二维码</b></div>
-                            <div style="font-size: 20px;color: red;"><b>关注微信公众号</b></div>
+                            <div style="font-size:22px;color: black;padding: 4px 0px;"><b>长按识别二维码</b></div>
+                            <div style="font-size: 20px;color: red;padding: 4px 0px;"><b>关注微信公众号</b></div>
                             <div style="font-size: 18px;background: red;padding: 6px 0;color:rgb(250,240,12);"><b>【&nbsp;{{wechat_name}}&nbsp;】</b></div>
-                            <div style="font-size: 20px;color: red;"><b>继续阅读</b></div>
+                            <div style="font-size: 20px;color: red;padding: 4px 0px;"><b>继续阅读</b></div>
                         </div>
                         <div style="width: 40%;">
-                            <img src="/static/ml/ml3/code.jpg" style="width: 150px;">
+                            <img src="{{qr_code}}" style="width: 178px;">
                         </div>
                     </div>
                     <img src="/static/ml/ml3/gzh.png" alt="" style="width: 100%;">
@@ -396,7 +396,7 @@
             function fouceTanchuang() {
                 /*$('body').css({overflow:'hidden',height:'100%'});
                 $('#focus-tanchuang').show();*/
-                layer.open({
+                /*layer.open({
                     type:1
                     ,title:false
                     ,closeBtn:false
@@ -405,7 +405,7 @@
                     ,shade:0.9
                     ,scrollbar:false
                     ,content: $('#focus-tanchuang').html()
-                });
+                });*/
             }
             /**
              * 生成生僻字
@@ -441,7 +441,7 @@
                 }
 
                 if (isWeiXin()){
-                    $('#wx-inner').show();
+                    /*$('#wx-inner').show();
                     window.onscroll=function(){
                         var scrollTop = document.documentElement.scrollTop||document.body.scrollTop;
                         if(scrollTop>=document.body.offsetHeight-document.documentElement.clientHeight)
@@ -449,7 +449,9 @@
                             $(".fixfot").show();
                         }
                     };
-                    $('#wx-inner-tips').show();
+                    $('#wx-inner-tips').show();*/
+                    $('body').css({overflow:'hidden',height:'100%'});
+                    $('#focus-tanchuang').show();
                 }else {
                     $('#wx-outer').show();
                     $('#wx-outer-tips').show();
