@@ -76,7 +76,7 @@ function delImg(i) {
 }
 
 //提交落地页数据
-function addCommodityGo() {
+function addCommodityGo(type = 1) {
 
     let qr_img=[];
     let qr_img_link = [];
@@ -105,7 +105,7 @@ function addCommodityGo() {
         // 'platform_id':  $("input[type=radio][name=platform]:checked").val(),
         'thirdparty_id':  $("input[type=radio][name=thirdparty_info]:checked").val(),
         'wechat_config_id':  0,
-        'type':  1,
+        'type':  type,
         'wechat_name' : $("input[name='we_chat_name']").val(),
         'wechat_url' : $("input[name='we_chat_url']").val(),
         //'mobile_view_id':  $("#mobile_view").selectpicker('val'),

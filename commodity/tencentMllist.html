@@ -207,7 +207,7 @@
                                 <div id="view"></div>
                             </div>
                         </div>
-                        
+
                         <input type="text" id="type" value="1" style="display: none">
 
                         <div class="form-group">
@@ -590,7 +590,7 @@
                     head: {'token': getCookie('token')},
                     name: $('#name').val(),
                     search_id: $('#search_id').val(),
-                    type: 1,
+                    type: 2,
                     is_pc:0,
                     platform_id: 5,
                     department_id: $("#department_search").selectpicker('val')
@@ -768,7 +768,7 @@
                     time: 0 //不自动关闭
                     , btn: ['确定', '取消']
                     , yes: function (index) {
-                        addCommodityGo();
+                        addCommodityGo(2);
                         if (requestCode === 0) {
                             fac_search();
                             layer.close(index);
