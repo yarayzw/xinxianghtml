@@ -338,11 +338,14 @@
                     break;
             }
             var typeStr;
+            let log_msg = '正常';
             switch (e.type) {
                 case 0:
+                    log_msg = e.log_msg;
                     typeStr="未发送";
                     break;
                 case 1:
+                    log_msg = e.log_msg;
                     typeStr="发送中";
                     break;
                 case 2:
@@ -361,19 +364,11 @@
                     as="全部";
                     break;
             }
-            if(e.log_msg === ''){
-                e.log_msg = '正常';
-            }
             let error = 0;
             if(e.error > 0){
                 error = '<a href="javascript:void(0);" onclick="lookError(' + e.id + ',0)">'+e.error+'</a>&nbsp;';
             }
-            if(e.type !== 0){
-                e.log_msg = '正常';
-            }
-            if(e.log_msg === '' || e.log_msg === '-'){
-                e.log_msg = '正常';
-            }
+
             $('#tbody').append('<tr>' +
                     '<td>'+e.create_at+'</td>'+
                 '<td>'+e.time+'</td>'+
