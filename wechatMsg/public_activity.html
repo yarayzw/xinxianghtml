@@ -266,7 +266,7 @@
                     is_active: $('#addWechatMaterialLogForm input[name=is_active]:checked').val(),
                     material_type_id: material_type_id,
                 };
-                ajaxGo("admin/wechat_material_log/addWechatMaterialLog");
+                ajaxGo("admin/wechat_material_log/addWechatMaterialLog", '创建失败', false, 'http://tongji.zhanjuzhe.cn/');
                 if (requestCode === 0) {
                     layer.close(index);
                     layer.closeAll();
