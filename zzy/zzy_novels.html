@@ -288,6 +288,7 @@
         var yestdayDate=moment()
             .subtract(1, "days")
             .format("YYYY-MM-DD");
+        $('#is_manual option[value=0]').prop('selected',true);
         if (type==1){//今日全部
             $('#date').val("date_format(update_time,'%y%m%d') = date_format('"+yestdayDate+"','%y%m%d')");
             initTable();
@@ -300,6 +301,7 @@
             $('#date').val('');
             initTable();
         }
+        $('#date').val("");
     });
 
     //时间选择
