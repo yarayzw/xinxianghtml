@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a href="" id="go">授权</a>
+<script src="../js/jquery.min.js?v=2.1.4"></script>
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: 'http://authapi.zhanjuzhe.cn/wechatThirdparty/auth/getPreAuthCode',
+            data:{
+
+            },
+            method:"POST",
+            dataType:"json",
+            success:function(data){
+                let uri = 'https://devp.zhanjuzhe.cn/thirdparty/uri.html';
+                let url = 'https://mp.weixin.qq.com/cgi-bin/componentloginpage?component_appid='+data.appid+'&pre_auth_code='+data.pre_auth_code+'&redirect_uri='+uri+'&auth_type=1';
+                $('#go').attr("href",url);
+            },
+            error:function(){
+            }
+        });
+
+    });
+</script>
+</body>
+</html>
