@@ -17,7 +17,7 @@
             method:"POST",
             dataType:"json",
             success:function(data){
-                let uri = 'https://devp.zhanjuzhe.cn/thirdparty/uri.html';
+                let uri = 'https://wxauth.zhanjuzhe.cn/thirdparty/uri.html';
                 let url = 'https://mp.weixin.qq.com/cgi-bin/componentloginpage?component_appid='+data.appid+'&pre_auth_code='+data.pre_auth_code+'&redirect_uri='+uri+'&auth_type=1';
                 $('#go').attr("href",url);
             },
