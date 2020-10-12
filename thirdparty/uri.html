@@ -11,12 +11,12 @@ gogogogogo
 <script>
     $(document).ready(function () {
         $.ajax({
-            url: 'http://authapi.zhanjuzhe.cn/wechatThirdparty/auth/apiQueryAuth',
+            url: 'https://authapi.zhanjuzhe.cn/wechatThirdparty/auth/apiQueryAuth',
             data:{
                 'authorization_code': getUrlParam('auth_code')
             },
             method:"POST",
-            dataType:"jsonp",
+            dataType:"json",
             success:function(data){
                 alert(data.msg);
             },
