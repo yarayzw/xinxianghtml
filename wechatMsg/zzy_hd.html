@@ -123,6 +123,12 @@
                                     </select>
                                 </div>
                             </div>
+                            <div id="div_config1">
+                                <label class="col-sm-2 control-label">消息替换文本 :</label>
+                                <div class="col-sm-3">
+                                    <input type="text" class="form-control" name="text_info" value=""  />
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
 
@@ -202,8 +208,10 @@
     function checkedRK(type){
         if(type === 0){
             $('#div_config').show();
+            $('#div_config1').show();
         }else {
             $('#div_config').hide();
+            $('#div_config1').hide();
         }
     }
 
@@ -471,6 +479,12 @@
                     }
                 },
                 {
+                    field: 'text_info',
+                    title: '消息替换文本',
+                    width : 50,
+                    align: 'center',
+                },
+                {
                     field: 'over_time',
                     title: '到期时间',
                     width : 20,
@@ -512,6 +526,7 @@
                 ,yes: function(index){
                     requestData.data = {
                         'name' : $("input[name='name']").val(),
+                        'text_info' : $("input[name='text_info']").val(),
                         'template_ids': $("input[type=radio][name=type]:checked").val(),
                         'start_time' : $("input[name='start_time']").val(),
                         'end_time' : $("input[name='end_time']").val(),
