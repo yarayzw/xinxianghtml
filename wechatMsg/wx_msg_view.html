@@ -291,7 +291,7 @@
             category_id:1,
         };
         ajaxGo('admin/wx_msg_view/getAllView');
-        //$('#list').empty();
+        $('#list').empty();
         var list=requestData.data;
         appendviewHtml("关注24小时内",getViewList(list,1),1);
         appendviewHtml("关注24-48小时",getViewList(list,2),2);
@@ -358,7 +358,6 @@
             clearInterval(dingshi_arr[i]);
             // };
         }
-        ;
         getAllView();
     }
 
