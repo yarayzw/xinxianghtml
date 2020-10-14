@@ -282,6 +282,7 @@
         requestData.data = {
             'type': 1,
             status: status,
+            channel_config_id : 1
         };
         ajaxGo('admin/wechat_config/getListToSelect')
         requestData.data.forEach((item, index, array) => {
