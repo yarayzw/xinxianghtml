@@ -191,28 +191,17 @@
             },
             columns: [
                 {
-                    title: 'Id',
-                    field: 'id',
-                    align: 'center',
-                    valign: 'middle',
-                    width : 100,
-                },
-                {
-                    field: 'view_id',
-                    title: '模板',
-                    width : 80,
-                    align: 'center',
-                    formatter: function(value,row,index){
-                        if (row.view_info){
-                            return row.view_info.name;
-                        }
-                    }
-                },
-                {
-                    field: 'content',
+                    field: 'name',
                     title: '内容',
                     width : 60,
                     align: 'center'
+                },
+
+                {
+                    field: 'info',
+                    title: '模板',
+                    width : 80,
+                    align: 'left',
                 },
 
                 {
@@ -223,11 +212,11 @@
                     formatter: function(value,row,index){
                         let a = '';
                         if($.inArray('admin/wx_msg_view_worth/edit',u_role_url) !== -1) {
-                            a = '<a href="#" mce_href="#" data-id="'+row.id+'" data-view-id="'+row.view_id+'"  data-content="'+row.content+'"  onclick="edit(this)" >编辑</a> ';
+                            a = '<a href="javascript:void(0)" data-name="'+row.name+'"  onclick="edit(this)" >编辑</a> ';
                         }
                         let f = '';
                         if($.inArray('admin/wx_msg_view_worth/delete',u_role_url) !== -1) {
-                            f='<a href="#" mce_href="#" data-id="'+row.id+'"  onclick="del(this)" >删除</a>';
+                            f='<a href="javascript:void(0)"  data-name="'+row.name+'"  onclick="del(this)" >删除</a>';
                         }
                         return a+f;
                     }
@@ -300,10 +289,16 @@
 
     //编辑
     function edit(obj) {
-        $(".check-handle").hide();
-        $("#view_id_wrap_add").hide();
-        $("#view_id_wrap_edit").show();
-        $("input[name=view_id][type=radio][value="+$(obj).attr('data-view-id')+"]").prop("checked", "checked");
+        // $(".check-handle").hide();
+        // $("#view_id_wrap_add").hide();
+        $("#view_id_wrap_edit").hide();
+        requestData.data = {
+            'name' : $(obj).attr('data-name'),
+        };
+        ajaxGo('admin/wx_msg_view_worth/getNameCheck');
+        requestData.data.forEach((item,index,array)=>{
+            $("input[name='view_id'][value='"+item.view_id+"']").prop("checked",true);
+        });
         $("input[name=content]").val($(obj).attr('data-content'));
         layer.open({
             type: 1,
@@ -318,7 +313,7 @@
                     time: 0 //不自动关闭
                     ,btn: ['确定', '取消']
                     ,yes: function(index){
-                        editGo($(obj).attr('data-id'));
+                        editGo($(obj).attr('data-name'));
                         if(requestCode === 0){
                             fac_search();
                             layer.close(index);
@@ -338,10 +333,14 @@
     }
 
     //修改
-    function editGo(id) {
+    function editGo(name) {
+        var ids=[];
+        $("input[name=view_id][type=checkbox]:checked").each(function (i,e) {
+            ids.push($(e).val());
+        });
         requestData.data = {
-            'id' : id,
-            'view_id' : $("input[name='view_id'][type=radio]:checked").val(),
+            'name' : name,
+            'ids' : ids,
             'content' : $("input[name='content']").val()
         };
         ajaxGo('admin/wx_msg_view_worth/edit')
@@ -355,7 +354,7 @@
             ,btn: ['确定', '取消']
             ,yes: function(index){
                 requestData.data = {
-                    'id' : $(obj).attr('data-id')
+                    'name' : $(obj).attr('data-name')
                 };
                 ajaxGo('admin/wx_msg_view_worth/delete');
                 if(requestCode === 0){

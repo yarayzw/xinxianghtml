@@ -69,6 +69,11 @@
                             <button class="btn btn-default" type="button" onclick="fac_search()">搜索</button>
                         </span>
                     </div>
+                    <div class="col-md-1" id="againGet" style="display: none">
+                         <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" onclick="againGet()">重新抓取</button>
+                        </span>
+                    </div>
                     <br>
                     <br>
                     <br>
@@ -176,6 +181,10 @@
 
 
     $(document).ready(function () {
+
+        if($.inArray('admin/statistics/getwechatdaylist/againget',u_role_url) !== -1){
+            $('#againGet').show();
+        }
         start_time = getDay(-1, '-');
         end_time = getDay(-1, '-');
         //调用函数，初始化表格
@@ -212,7 +221,8 @@
                 }
             });
             initTable();
-        }else {
+        }
+        else {
             laydate.render({
                 elem: '#start_time' //指定元素
                 ,event:"focus",
@@ -741,6 +751,11 @@
             $('#update_user_no').html(requestData.data.msg);
         }
     }
+
+    function againGet() {
+        window.open('', '_blank').location;
+    }
+
 </script>
 
 
