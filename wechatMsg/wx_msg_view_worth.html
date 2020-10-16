@@ -208,7 +208,12 @@
                     width : 80,
                     align: 'left',
                 },
-
+                {
+                    field: 'sort',
+                    title: '排序',
+                    width : 10,
+                    align: 'center',
+                },
                 {
                     field: 'operate',
                     title: '操作',
@@ -217,7 +222,7 @@
                     formatter: function(value,row,index){
                         let a = '';
                         if($.inArray('admin/wx_msg_view_worth/edit',u_role_url) !== -1) {
-                            a = '<a href="javascript:void(0)" data-id="'+i+'"  onclick="edit(this)" >编辑</a> ';
+                            a = '<a href="javascript:void(0)" data-id="'+i+'"  data-sort="'+row.sort+'" onclick="edit(this)" >编辑</a> ';
                         }
                         let f = '';
                         if($.inArray('admin/wx_msg_view_worth/delete',u_role_url) !== -1) {
@@ -298,6 +303,7 @@
 
     //编辑
     function edit(obj) {
+        $("input[name=sort]").val($(obj).attr('data-sort'));
         let key = $(obj).attr('data-id');
         // $(".check-handle").hide();
         // $("#view_id_wrap_add").hide();
