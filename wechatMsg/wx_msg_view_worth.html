@@ -212,11 +212,11 @@
                     formatter: function(value,row,index){
                         let a = '';
                         if($.inArray('admin/wx_msg_view_worth/edit',u_role_url) !== -1) {
-                            a = '<a href="javascript:void(0)" data-name="'+row.name+'"  onclick="edit(this)" >编辑</a> ';
+                            a = '<a href="javascript:void(0)" data-name="'+row.name+'"  onclick="edit('+row.name+')" >编辑</a> ';
                         }
                         let f = '';
                         if($.inArray('admin/wx_msg_view_worth/delete',u_role_url) !== -1) {
-                            f='<a href="javascript:void(0)"  data-name="'+row.name+'"  onclick="del(this)" >删除</a>';
+                            f='<a href="javascript:void(0)"  data-name="'+row.name+'"  onclick="del('+row.name+')" >删除</a>';
                         }
                         return a+f;
                     }
@@ -288,12 +288,12 @@
 
 
     //编辑
-    function edit(obj) {
+    function edit(name) {
         // $(".check-handle").hide();
         // $("#view_id_wrap_add").hide();
         $("#view_id_wrap_edit").hide();
         requestData.data = {
-            'name' : $(obj).attr('data-name'),
+            'name' : name,
         };
         ajaxGo('admin/wx_msg_view_worth/getNameCheck');
         requestData.data.forEach((item,index,array)=>{
@@ -313,7 +313,7 @@
                     time: 0 //不自动关闭
                     ,btn: ['确定', '取消']
                     ,yes: function(index){
-                        editGo($(obj).attr('data-name'));
+                        editGo(name);
                         if(requestCode === 0){
                             fac_search();
                             layer.close(index);
@@ -348,13 +348,13 @@
     }
 
     //删除
-    function del(obj) {
+    function del(name) {
         layer.msg('确定删除？', {
             time: 0 //不自动关闭
             ,btn: ['确定', '取消']
             ,yes: function(index){
                 requestData.data = {
-                    'name' : $(obj).attr('data-name')
+                    'name' : name
                 };
                 ajaxGo('admin/wx_msg_view_worth/delete');
                 if(requestCode === 0){
