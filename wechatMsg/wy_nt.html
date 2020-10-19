@@ -27,7 +27,6 @@
                             <label class="col-sm-2 control-label">小说名称 :</label>
                             <div class="col-sm-3">
                                 <input type="text" class="form-control" name="name" value=""  />
-
                             </div>
                             <label class="col-sm-2 control-label">小说id :</label>
                             <div class="col-sm-3">
@@ -218,7 +217,7 @@
         requestData.data = {
             'type': 1,
             status: status,
-            channel_config_id : 1
+            channel_config_id : 10
         };
         ajaxGo('admin/wechat_config/getListToSelect')
         requestData.data.forEach((item, index, array) => {
@@ -265,8 +264,7 @@
                     // id : {$_GET['id']},
                     head : {'token' : getCookie('token')},
                     name : $('#name').val(),
-                    channel_config_id : 1
-
+                    channel_config_id : 10
                 };
 
                 return params;
@@ -345,7 +343,7 @@
                     formatter: function(value,row,index){
                         var html = '<input type="text" style="opacity:0;position: absolute;\n' +
                             '  left: 3000px;\n' +
-                            '  top: 100px;cursor:pointer" id="copy_'+row.id+'" value="' + row.url + '/' + row.pc_url + '"> <span style="color: #1654cc;cursor:pointer" onclick="copyUrl('+row.id+')">复制链接</span>';
+                            '  top: 100px;cursor:pointer" id="copy_'+row.id+'" value="' + row.url + '"> <span style="color: #1654cc;cursor:pointer" onclick="copyUrl('+row.id+')">复制链接</span>';
                         return html;
                     }
                 },
