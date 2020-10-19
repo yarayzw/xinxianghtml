@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>筋斗云管理系统</title>
+    <link href="../css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="../css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="../css/animate.min.css" rel="stylesheet">
+    <link href="../css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <link href="../css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link href="../css/plugins/bootstrap-table/bootstrap-table.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../js/plugins/bootstrap-select-1.13.9/dist/css/bootstrap-select.css">
+
+</head>
+<style type="text/css">
+    .table {table-layout:fixed;}
+</style>
+<body>
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="row row-lg">
+            <div class="col-sm-12">
+                <div class="btn-group hidden-xs" id="zzyHDToolbar" role="group">
+                    <form class="form-horizontal m-t" id="list_search_faci" method="post">
+                        <div class="col-sm-12">
+                            <label class="col-sm-2 control-label">活动名称 :</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" name="name" value=""  />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                        </div>
+                        <div class="col-sm-12">
+                            <label class="col-sm-2 control-label">活动金额 :</label>
+                            <div class="col-sm-8">
+                                <label style="font-weight: normal;"><input type="radio" checked="checked"  name="type" style="margin-left: 7px" value="3001"  onclick="checkedRK(0)"> <i></i>充值9元</label>
+                                <label style="font-weight: normal;"><input type="radio"  name="type" style="margin-left: 7px" value="3006"  onclick="checkedRK(0)"> <i></i>充值9元（老用户首充）送9元红包(仅未充值老用户（注册时间大于24小时）可见该充值项，每个用户限充1次，充完后提示活动结束)</label>
+                                <label style="font-weight: normal;"><input type="radio"  name="type" style="margin-left: 7px" value="1011009"  onclick="checkedRK(0)"> <i></i>充值9元送9元红包</label>
+                                <label style="font-weight: normal;"><input type="radio"  name="type" style="margin-left: 7px" value="3002"  onclick="checkedRK(0)"> <i></i>充值18元送18元红包</label>
+                                <label style="font-weight: normal;"><input type="radio"  name="type" style="margin-left: 7px" value="1010013"  onclick="checkedRK(0)"> <i></i>充值19元送十元红包</label>
+                                <label style="font-weight: normal;"><input type="radio"  name="type" style="margin-left: 7px" value="1021002" onclick="checkedRK(0)"> <i></i>充值19元送19元红包</label>
+                                <label style="font-weight: normal;"><input type="radio"  name="type" style="margin-left: 7px" value="1020002" onclick="checkedRK(0)"> <i></i>充值23元送10元红包</label>
+                                <label style="font-weight: normal;"><input type="radio"  name="type" style="margin-left: 7px" value="1015004"  onclick="checkedRK(0)"> <i></i>充值28元送22元红包</label>
+                                <label style="font-weight: normal;"><input type="radio"  name="type" style="margin-left: 7px" value="1019003"  onclick="checkedRK(0)"> <i></i>充值29元送11元红包</label>
+                                <label style="font-weight: normal;"><input type="radio"  name="type" style="margin-left: 7px" value="1015002"  onclick="checkedRK(0)"> <i></i>充值36元送36元红包</label>
+                                <label style="font-weight: normal;"><input type="radio"  name="type" style="margin-left: 7px" value="1019004"  onclick="checkedRK(0)"> <i></i>充值49元送21元红包</label>
+                                <label style="font-weight: normal;"><input type="radio"  name="type" style="margin-left: 7px" value="3003" onclick="checkedRK(0)"> <i></i>充值55元送66元红包</label>
+                                <label style="font-weight: normal;"><input type="radio"  name="type" style="margin-left: 7px" value="1022003"  onclick="checkedRK(0)"> <i></i>充值77元送77元红包</label>
+                                <label style="font-weight: normal;"><input type="radio"  name="type" style="margin-left: 7px" value="1026002"  onclick="checkedRK(0)"> <i></i>充值88元送88元红包</label>
+                                <label style="font-weight: normal;"><input type="radio"  name="type" style="margin-left: 7px" value="1027002"  onclick="checkedRK(0)"> <i></i>充值99元送99元红包</label>
+                                <label style="font-weight: normal;"><input type="radio"  name="type" style="margin-left: 7px" value="1023002"  onclick="checkedRK(0)"> <i></i>365元包一年</label>
+                                <label style="font-weight: normal;"><input type="radio"  name="type" style="margin-left: 7px" value="1024002"  onclick="checkedRK(0)"> <i></i>399元包一年</label>
+                                <label style="font-weight: normal;"><input type="radio"  name="type" style="margin-left: 7px" value="1021003"  onclick="checkedRK(0)"> <i></i>499元包一年</label>
+                                <label style="font-weight: normal;"><input type="radio"  name="type" style="margin-left: 7px" value="1025002"  onclick="checkedRK(0)"> <i></i>666元包一年</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                        </div>
+                        <div class="col-sm-12">
+                            <label class="col-sm-2 control-label">活动时间 :</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="laydate-icon form-control layer-date" name="start_time" id="start_time" value=""  />
+                            </div>
+                            <div class="col-sm-1" style="text-align: center;width: 50px">
+                                至
+                            </div>
+                            <div class="col-sm-2">
+                                <input type="text" class="laydate-icon form-control layer-date" name="end_time" id="end_time" value=""  />
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                        </div>
+                        <div class="col-sm-12">
+                            <label class="col-sm-2 control-label">限购次数 :</label>
+                            <div class="col-sm-3">
+                                <select id="per_user_limit" class="selectpicker" data-live-search="true">
+                                    <option value="1">1次</option>
+                                    <option value="2">2次</option>
+                                    <option value="3">3次</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                        </div>
+                        <div class="col-sm-12">
+                            <label class="col-sm-2 control-label">用户属性 :</label>
+                            <div class="col-sm-3">
+                                <label style="font-weight: normal;"><input type="radio"  name="user_type" style="margin-left: 7px" value="0"   checked="checked"> <i></i>所有用户</label>
+                                <label style="font-weight: normal;"><input type="radio"  name="user_type" style="margin-left: 7px" value="4" > <i></i>注册时间小于1天的用户</label>
+                                <label style="font-weight: normal;"><input type="radio"  name="user_type" style="margin-left: 7px" value="1" > <i></i>注册时间大于1天的用户</label>
+                                <label style="font-weight: normal;"><input type="radio"  name="user_type" style="margin-left: 7px" value="2" > <i></i>注册时间大于3天的用户</label>
+                                <label style="font-weight: normal;"><input type="radio"  name="user_type" style="margin-left: 7px" value="3" > <i></i>注册时间大于7天的用户</label>
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+
+                        </div>
+                        <div class="col-sm-12">
+                            <label class="col-sm-2 control-label">活动页标题 :</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" name="promotion_text" value=""  />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                        </div>
+                        <div class="col-sm-12">
+                            <label class="col-sm-2 control-label">入链接库 :</label>
+                            <div class="col-sm-3">
+                                <label style="font-weight: normal;"><input type="radio"  name="is_rk" style="margin-left: 7px" value="0" checked="checked" onclick="checkedRK(0)"> <i></i>是</label>
+                                <label style="font-weight: normal;"><input type="radio"  name="is_rk" style="margin-left: 7px" value="1" onclick="checkedRK(1)"> <i></i>否</label>
+                            </div>
+                            <div class="form-group">
+                            </div>
+                            <div id="div_config">
+                                <label class="col-sm-2 control-label">链接名称 :</label>
+                                <div class="col-sm-3">
+                                    <select id="wechat_msg_config" class="selectpicker" data-live-search="true">
+                                    </select>
+                                </div>
+                            </div>
+                            <div id="div_config1">
+                                <label class="col-sm-2 control-label">消息替换文本 :</label>
+                                <div class="col-sm-3">
+                                    <input type="text" class="form-control" name="text_info" value=""  />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">
+                                    公众号(未使用) :<br/><br/>
+                                    <a href="javascript:void(0);" class="select-wechat-all">全选</a>|<a href="javascript:void(0);"
+                                                                                                      class="select-wechat-invert">反选</a>|<a
+                                        href="javascript:void(0);" class="select-wechat-cancel">取消</a>
+                                </label>
+                                <div class="col-sm-8" id="wechat_ids_1"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">
+                                    公众号(使用中) :<br/><br/>
+                                    <a href="javascript:void(0);" class="select-wechat-all">全选</a>|<a href="javascript:void(0);"
+                                                                                                      class="select-wechat-invert">反选</a>|<a
+                                        href="javascript:void(0);" class="select-wechat-cancel">取消</a>
+                                </label>
+                                <div class="col-sm-8" id="wechat_ids_2"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">
+                                    公众号(已打满) :<br/><br/>
+                                    <a href="javascript:void(0);" class="select-wechat-all">全选</a>|<a href="javascript:void(0);"
+                                                                                                      class="select-wechat-invert">反选</a>|<a
+                                        href="javascript:void(0);" class="select-wechat-cancel">取消</a>
+                                </label>
+                                <div class="col-sm-7" id="wechat_ids_3"></div>
+                                <div class="col-sm-1" >
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-primary" style="width: 150px" type="button" onclick="add()">生成</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+                <table id="zzyHDTable" style="width: 1400px;margin: 0 auto">
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row" i style="display: none">
+    <div class="ibox-content">
+    </div>
+</div>
+
+</body>
+
+<script src="../js/jquery.min.js?v=2.1.4"></script>
+
+<script src="../js/public.js"></script>
+<script src="../js/bootstrap.min.js?v=3.3.6"></script>
+<script src="../js/layer/layer.js"></script>
+<script src="../js/laydate/laydate.js"></script>
+
+<script src="../js/content.min.js"></script>
+<script src="../js/plugins/bootstrap-table/bootstrap-table.js"></script>
+<script src="../js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="../js/demo/bootstrap-table-demo.min.js"></script>
+<script src="../js/bootstrapValidator.js"></script>
+<script src="../js/bootstrapValidator.min.js"></script>
+<script src="../js/index.js"></script>
+<script src="../js/plugins/bootstrap-select-1.13.9/js/bootstrap-select.js"></script>
+
+
+<script>
+
+    function checkedRK(type){
+        if(type === 0){
+            $('#div_config').show();
+            $('#div_config1').show();
+        }else {
+            $('#div_config').hide();
+            $('#div_config1').hide();
+        }
+    }
+
+    $(function () {
+        //全选
+        $(document).on('click', '.select-wechat-all', function () {
+            $(this).parent('label').next('div').find('input').prop('checked', 'checked');
+        });
+        //反选
+        $(document).on('click', '.select-wechat-invert', function () {
+            $(this).parent('label').next('div').find('input').each(function () {
+                if ($(this).prop("checked")) {
+                    $(this).prop("checked", false);
+                } else {
+                    $(this).prop("checked", true);
+                }
+            });
+        });
+        //取消
+        $(document).on('click', '.select-wechat-cancel', function () {
+            $(this).parent('label').next('div').find('input').prop('checked', false);
+        });
+    });
+
+    $(document).ready(function () {
+        setMaterial();
+        initTable();
+    });
+
+    function setMaterial() {
+
+        //
+        requestData.data = {
+            'type': 1
+        };
+        ajaxGo('admin/wechat_msg_config/getListToSelect')
+        requestData.data.forEach((item, index, array) => {
+            //执行代码
+            var html = "<option value='" + item.id + "'>" + item.name + "</option>";
+            $('#wechat_msg_config_id').append(html);
+        });
+        $('#wechat_msg_config_id').selectpicker('refresh');
+
+
+        setWechatIds(1);
+        setWechatIds(2);
+        setWechatIds(3);
+
+
+        //链接库
+        requestData.data = {
+            'type' : 1
+        };
+        ajaxGo('admin/wechat_msg_config/getListToSelect');
+        requestData.data.forEach((item,index,array)=>{
+            //执行代码
+            var html = "<option value='"+item.id+"'>"+item.name+"</option>";
+            $('#wechat_msg_config').append(html);
+        });
+        $('#wechat_msg_config').selectpicker('refresh');
+    }
+
+    /**
+     * 设置选择公众号
+     */
+    function setWechatIds(status) {
+        //公众号
+        requestData.data = {
+            'type': 1,
+            status: status,
+            channel_config_id : 10
+        };
+        ajaxGo('admin/wechat_config/getListToSelect')
+        requestData.data.forEach((item, index, array) => {
+            //执行代码
+            var html = '<label style="font-weight: normal;"><input type="checkbox"  name="wechat_ids" style="margin-left: 7px" value="' + item.id + '"> <i></i> ' + item.wechat_name + '\n' + '</label>';
+
+            // var html = "<option value='"+item.id+"'>"+item.wechat_name+"</option>";
+            $('#wechat_ids_' + status).append(html);
+        });
+        // $('#wechat_ids').selectpicker('refresh');
+    }
+
+
+    function initTable() {
+        $('#zzyHDTable').bootstrapTable('destroy');
+        // $('#wechatDayToolbar').css("height", 300);
+        $("#zzyHDTable").bootstrapTable({
+            url: __ROOT__ + 'admin/wechat_msg_config_h_d/getZZYLinkHDList', //获取数据的Servlet地址
+            striped: true,  //表格显示条纹
+            pagination: true, //启动分页
+            sortName: 'id',
+            sortOrder: 'desc',
+            pageSize: 10,  //每页显示的记录数
+            pageNumber:1, //当前第几页
+            pageList: [10, 15, 20, 25],  //记录数可选列表
+            search: false,
+            toolbar: '#list_search_faci',
+            showColumns: false,  //显示下拉框勾选要显示的列
+            showRefresh: false,  //显示刷新按钮
+            sidePagination: "server", //表示服务端请求
+            showToggle:false,
+            responseHandler:function(data){
+                return data.data;
+            },
+            queryParamsType : "undefined",
+            // method: 'post',
+            queryParams: function queryParams(params) {   //设置查询参数
+                params = {
+                    //这里是在ajax发送请求的时候设置一些参数 params有什么东西，自己看看源码就知道了
+                    pageNumber: params.pageNumber,
+                    pageSize: params.pageSize,
+                    sortName: params.sortName,
+                    sortOrder: params.sortOrder,
+                    // id : {$_GET['id']},
+                    head : {'token' : getCookie('token')},
+                    name : $('#name').val(),
+                    channel_config_id : 10
+                };
+
+                return params;
+            },
+            onLoadSuccess: function(data){  //加载成功时执行
+
+            },
+            onLoadError: function(){  //加载失败时执行
+                layer.msg("加载数据失败", {time : 1500, icon : 2});
+            },
+            columns: [
+                {
+                    title: 'Id',
+                    field: 'id',
+                    align: 'center',
+                    valign: 'middle',
+                    width : 10,
+                },
+                {
+                    field: 'wechat_name',
+                    title: '公众号名称',
+                    width : 20,
+                    align: 'center',
+                },
+                {
+                    field: 'name',
+                    title: '活动名称',
+                    width : 20,
+                    align: 'center',
+                    formatter: function(value,row,index){
+                        return '<div style="color: #393939">'+row.name + '</div>'+
+                            '<div style="color: #777;margin-top: 6px;">'+row.promotion+'</div>';
+                    }
+                },
+                {
+                    field: 'start_time',
+                    title: '活动时间',
+                    width : 40,
+                    align: 'center',
+                    formatter: function(value,row,index){
+                        return value + ' <br>' + row.end_time;
+                    }
+                },
+                {
+                    field: 'user_type',
+                    title: '用户属性',
+                    width : 20,
+                    align: 'center',
+                    formatter: function(value,row,index){
+                        let a = '';
+                        switch (value.toString()) {
+                            case '0':
+                                a = '所有用户';
+                                break;
+                            case '4':
+                                a = '注册时间小于1天的用户';
+                                break;
+                            case '1':
+                                a = '注册时间大于1天的用户';
+                                break;
+                            case '2':
+                                a = '注册时间大于3天的用户';
+                                break;
+                            case '3':
+                                a = '注册时间大于7天的用户';
+                                break;
+                            default:
+                                a = '未知';
+                                break;
+                        }
+                    }
+                },
+                {
+                    field: 'type',
+                    title: '充值金额',
+                    width : 40,
+                    align: 'center',
+                    formatter: function(value,row,index){
+                        let a = '';
+                        switch (value.toString()) {
+                            case '3001':
+                                a = '充值9元';
+                                break;
+                            case '3006':
+                                a = '充值9元（老用户首充）送9元红包(仅未充值老用户（注册时间大于24小时）可见该充值项，每个用户限充1次，充完后提示活动结束)';
+                                break;
+                            case '1011009':
+                                a = '充值9元送9元红包';
+                                break;
+                            case '3002':
+                                a = '充值18元送18元红包';
+                                break;
+                            case '1010013':
+                                a = '充值19元送十元红包';
+                                break;
+                            case '1021002':
+                                a = '充值19元送19元红包';
+                                break;
+                            case '1020002':
+                                a = '充值23元送10元红包';
+                                break;
+                            case '1015004':
+                                a = '充值28元送22元红包';
+                                break;
+                            case '1019003':
+                                a = '充值29元送11元红包';
+                                break;
+                            case '1015002':
+                                a = '充值36元送36元红包';
+                                break;
+                            case '1019004':
+                                a = '充值49元送21元红包';
+                                break;
+                            case '3003':
+                                a = '充值55元送66元红包';
+                                break;
+                            case '1022003':
+                                a = '充值77元送77元红包';
+                                break;
+                            case '1026002':
+                                a = '充值88元送88元红包';
+                                break;
+                            case '1027002':
+                                a = '充值99元送99元红包';
+                                break;
+                            case '1023002':
+                                a = '365元包一年';
+                                break;
+                            case '1024002':
+                                a = '399元包一年';
+                                break;
+                            case '1021003':
+                                a = '499元包一年';
+                                break;
+                            case '1025002':
+                                a = '666元包一年';
+                                break;
+                        }
+                        return a + ' (限充'+row.restrictions_num+'次)';
+                    }
+                },
+                {
+                    field: 'msg_config_id',
+                    title: '入库状态',
+                    width : 20,
+                    align: 'center',
+                    formatter: function(value,row,index){
+                        if(value === 0){
+                            return '未入库';
+                        }else {
+                            return '已入库';
+                        }
+                    }
+                },
+                {
+                    field: 'url',
+                    title: '链接',
+                    width : 60,
+                    align: 'center',
+                    formatter: function(value,row,index){
+                        return '<a href="javascript:void(0)">'+value+'</a>';
+                    }
+                },
+                {
+                    field: 'text_info',
+                    title: '消息替换文本',
+                    width : 50,
+                    align: 'center',
+                },
+                {
+                    field: 'over_time',
+                    title: '到期时间',
+                    width : 20,
+                    align: 'center'
+                },
+                {
+                    field: 'is_active',
+                    title: '复制',
+                    width : 30,
+                    align: 'center',
+                    formatter: function(value,row,index){
+                        var html = '<input type="text" style="opacity:0;position: absolute;\n' +
+                            '  left: 3000px;\n' +
+                            '  top: 100px;cursor:pointer" id="copy_'+row.id+'" value="' + row.url + '/' + row.pc_url + '"> <span style="color: #1654cc;cursor:pointer" onclick="copyUrl('+row.id+')">复制链接</span>';
+                        return html;
+                    }
+                },
+            ]
+        });
+    }
+
+    //搜索
+    function fac_search() {
+        $('#zzyHDTable').bootstrapTable('refresh');
+    }
+
+    //添加
+    function add() {
+        let wechat_ids = [];//定义一个数组
+        $('input[name="wechat_ids"]:checked').each(function () {
+            wechat_ids.push($(this).val());
+        });
+        if(wechat_ids.length === 0){
+            layer.msg('请选择公众号')
+        }else {
+            let msg_config_id = 0;
+            let is_rk = $("input[type=radio][name=type]:checked").val();
+            if(is_rk.toString() === '0'){
+                msg_config_id = $("#wechat_msg_config").selectpicker('val');
+            }
+            layer.msg('确定生成？', {
+                time: 0 //不自动关闭
+                ,btn: ['确定', '取消']
+                ,yes: function(index){
+                    requestData.data = {
+                        'name' : $("input[name='name']").val(),
+                        'text_info' : $("input[name='text_info']").val(),
+                        'template_ids': $("input[type=radio][name=type]:checked").val(),
+                        'start_time' : start_time,
+                        'end_time' : end_time,
+                        'per_user_limit' : $("#per_user_limit").selectpicker('val'),
+                        'user_type' : $("input[type=radio][name=user_type]:checked").val(),
+                        'promotion_text': $("input[name='promotion_text']").val(),
+                        'msg_config_id' : msg_config_id,
+                        'wechat_ids':wechat_ids
+                    };
+                    ajaxGo('admin/wechat_msg_config_h_d/addZZYLinkHD');
+                    if(requestCode === 0){
+                        fac_search();
+                        layer.close(index);
+                        layer.closeAll();
+                        layer.msg(requestMessage);
+                    }else {
+                        layer.msg(requestMessage);
+                    }
+                }
+            });
+
+        }
+
+    }
+    //复制链接
+    function copyUrl(id) {
+        $('#copy_'+id).select();
+        document.execCommand("Copy"); //执行浏览器复制命令
+        layer.msg('复制成功!')
+    }
+</script>
+<script src="../js/moment.min.js"></script>
+
+<script>
+    let start_time = getDay(0, '-');
+    let end_time = getDay(1, '-');
+    $(function () {
+        start_time = getDay(0, '-');
+        end_time = getDay(1, '-');
+        laydate.render({
+            elem: '#start_time' //指定元素
+            ,event:"focus",
+            value: getDay(0, '-'),
+            done: function(value, date, endDate){
+                start_time = value;
+                var startDate = new Date(value).getTime();
+                var endTime = new Date($('#end_time').val()).getTime();
+                if(endTime < startDate) {
+                    layer.msg('结束时间不能小于开始时间');
+                    $('#start_time').val($('#end_time').val());
+                }
+            }
+        });
+        laydate.render({
+            elem: '#end_time' //指定元素
+            ,event:"focus",
+            value: getDay(1, '-'),
+            done: function(value, date, endDate){
+                end_time = value;
+                var startDate = new Date($('#start_time').val()).getTime();
+                var endTime = new Date(value).getTime();
+                if(endTime < startDate) {
+                    layer.msg('结束时间不能小于开始时间');
+                    $('#end_time').val($('#start_time').val());
+                }
+            }
+        });
+    });
+    function getDay(num, str) {
+        var today = new Date();
+        var nowTime = today.getTime();
+        var ms = 24*3600*1000*num;
+        today.setTime(parseInt(nowTime + ms));
+        var oYear = today.getFullYear();
+        var oMoth = (today.getMonth() + 1).toString();
+        if (oMoth.length <= 1) oMoth = '0' + oMoth;
+        var oDay = today.getDate().toString();
+        if (oDay.length <= 1) oDay = '0' + oDay;
+        return oYear + str + oMoth + str + oDay;
+    }
+</script>
+
