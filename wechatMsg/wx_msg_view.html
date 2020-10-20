@@ -273,7 +273,7 @@
             var html = ' <div class="form-group">\n' +
                 '                <label class="col-sm-3 control-label">'+ item.name + ' :</label>\n' +
                 '                <div class="col-sm-8">\n' +
-                '                    <input type="text" class="form-control" data_id = '+item.id+' name="channel" value=""/>\n' +
+                '                    <input type="text" class="form-control" id="channel_'+item.id+'" data_id = '+item.id+' name="channel" value=""/>\n' +
                 '                    <!--                            required="" aria-required="false"-->\n' +
                 '                </div>\n' +
                 '            </div>';
@@ -485,6 +485,15 @@
     //给文本添加超链接
     function addLineToTxt(id, txt) {
         $("input[name='txt']").val(txt);
+        requestData.data = {
+            'txt': txt,
+            'wechat_msg_config_id': id,
+        };
+        ajaxGo('admin/wx_msg_view/getLineToTxt');
+        $("input[name='channel']").val('');
+        requestData.data.data.forEach((item, index, array) => {
+           $('#channel_'+item.key).val(item.val)
+        });
         layer.open({
             type: 1,
             title: '添加链接',
