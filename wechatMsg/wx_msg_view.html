@@ -117,6 +117,9 @@
                     </div>
                 </div>
             </div>
+            <div id="channel_config">
+
+            </div>
         </form>
     </div>
 </div>
@@ -124,6 +127,26 @@
 <div class="row" id="addSend" style="display: none">
     <div class="ibox-content">
         <form class="form-horizontal m-t" method="post">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">
+                        公众号(未使用) :<br/><br/>
+                    </label>
+                    <div class="col-sm-8" id="wechat_ids_1"></div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">
+                        公众号(使用中) :<br/><br/>
+                    </label>
+                    <div class="col-sm-8" id="wechat_ids_2"></div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">
+                        公众号(已打满) :<br/><br/>
+                    </label>
+                    <div class="col-sm-7" id="wechat_ids_3"></div>
+                </div>
+            </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label">openid :</label>
                 <div class="col-sm-8">
@@ -136,6 +159,15 @@
                     </div>
                 </div>
             </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">预览 :</label>
+                <div class="col-sm-8">
+                     <textarea name="" id="view_text_info" cols="90" rows="30" disabled>
+                     </textarea>
+                </div>
+            </div>
+
+
         </form>
     </div>
 </div>
@@ -227,7 +259,27 @@
         }
         setMaterial();
         getAllView();
+        setChannelConfig();
     });
+
+    function setChannelConfig() {
+        requestData.data = {
+        };
+        ajaxGo('admin/channel_config/getListToSelect')
+        $('#channel_config').empty();
+
+        requestData.data.forEach((item, index, array) => {
+            //执行代码
+            var html = ' <div class="form-group">\n' +
+                '                <label class="col-sm-3 control-label">'+ item.name + ' :</label>\n' +
+                '                <div class="col-sm-8">\n' +
+                '                    <input type="text" class="form-control" data_id = '+item.id+' name="channel" value=""/>\n' +
+                '                    <!--                            required="" aria-required="false"-->\n' +
+                '                </div>\n' +
+                '            </div>';
+            $('#channel_config').append(html);
+        });
+    }
 
     function setMaterial() {
 
@@ -261,7 +313,7 @@
         ajaxGo('admin/wechat_config/getListToSelect')
         requestData.data.forEach((item, index, array) => {
             //执行代码
-            var html = '<label style="font-weight: normal;"><input type="checkbox"  name="wechat_ids" style="margin-left: 7px" value="' + item.id + '"> <i></i> ' + item.wechat_name + '\n' + '</label>';
+            var html = '<label style="font-weight: normal;"><input type="radio"  name="wechat_ids" style="margin-left: 7px" onclick="getInfo('+item.id+')" value="' + item.id + '"> <i></i> ' + item.wechat_name + '\n' + '</label>';
 
             // var html = "<option value='"+item.id+"'>"+item.wechat_name+"</option>";
             $('#wechat_ids_' + status).append(html);
@@ -442,6 +494,14 @@
             content: $('#addLine'),
             btn: ['确定', '取消'], // 按钮
             yes: function (index, layero) {
+                let channel =[];
+                $("input[name='channel']").each(function(){
+                    let arr = [
+                        $(this).attr('data_id'),
+                        $(this).val()
+                    ];
+                    channel.push(arr);
+                });
                 layer.msg('确定修改？', {
                     time: 0 //不自动关闭
                     , btn: ['确定', '取消']
@@ -450,6 +510,7 @@
                             'id': id,
                             'txt': txt,
                             'wechat_msg_config_id': $("#wechat_msg_config_id").selectpicker('val'),
+                            'channel' : channel
                         }
                         ajaxGo('admin/wx_msg_view/addLineToTxt');
                         if (requestCode === 0) {
@@ -539,7 +600,7 @@
             title: '测试发送',
             shadeClose: true,
             shade: 0.8,
-            area: ['80%', '60%'],
+            area: ['80%', '80%'],
             content: $('#addSend'),
             btn: [ '取消'], // 按钮
         });
@@ -554,7 +615,8 @@
             , yes: function (index) {
                 requestData.data = {
                     'view_id': view_ce_id,
-                    'openid': $("input[name='openid']").val()
+                    'openid': $("input[name='openid']").val(),
+                    'wechat_config_id':$("input[type=radio][name=wechat_ids]:checked").val()
                 };
                 ajaxGo('admin/wx_msg_view/testSend');
                 if (requestCode === 0) {
@@ -566,6 +628,21 @@
             }
         });
 
+    }
+
+    //根据公众号id 模版id获取发送样式
+    function getInfo(wechat_config_id) {
+        requestData.data = {
+            'wechat_config_id': wechat_config_id,
+            'view_id': view_ce_id,
+        };
+        ajaxGo('admin/wx_msg_view/getViewTextInfo');
+        if (requestCode === 0) {
+            $('#view_text_info').empty();
+            $('#view_text_info').val(requestData.data.text_info);
+        } else {
+            layer.msg(requestMessage);
+        }
     }
 
 
