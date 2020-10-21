@@ -54,7 +54,7 @@
                             <button type="button" class="btn btn-default" onclick="filterView(3)">关注48-72小时</button>
                             <button type="button" class="btn btn-default" onclick="filterView(4)">关注72小时后</button>
                             <button type="button" class="btn btn-default" onclick="filterView(5)">关注7天后</button>
-                            <button type="button" class="btn btn-default" onclick="filterView(6)">非活跃用户激活</button>
+<!--                            <button type="button" class="btn btn-default" onclick="filterView(6)">非活跃用户激活</button>-->
                             <button type="button" class="btn btn-default" onclick="filterView(7)">未支付订单</button>
                         </div>
                     </div>
@@ -108,15 +108,15 @@
                     <!--                            required="" aria-required="false"-->
                 </div>
             </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label">链接 :</label>
-                <div class="col-sm-8">
-                    <div class="input-group m-b">
-                        <select id="wechat_msg_config_id" class="selectpicker" data-live-search="true">
-                        </select>
-                    </div>
-                </div>
-            </div>
+<!--            <div class="form-group">-->
+<!--                <label class="col-sm-3 control-label">链接 :</label>-->
+<!--                <div class="col-sm-8">-->
+<!--                    <div class="input-group m-b">-->
+<!--                        <select id="wechat_msg_config_id" class="selectpicker" data-live-search="true">-->
+<!--                        </select>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
             <div id="channel_config">
 
             </div>
@@ -306,13 +306,13 @@
             'type': 1
         };
         ajaxGo('admin/wechat_msg_config/getListToSelect')
-        requestData.data.forEach((item, index, array) => {
-            //执行代码
-            var html = "<option value='" + item.id + "'>" + item.name + "</option>";
-            $('#wechat_msg_config_id').append(html);
-        });
+        // requestData.data.forEach((item, index, array) => {
+        //     //执行代码
+        //     var html = "<option value='" + item.id + "'>" + item.name + "</option>";
+        //     $('#wechat_msg_config_id').append(html);
+        // });
         msgConfig = requestData.data;
-        $('#wechat_msg_config_id').selectpicker('refresh');
+        // $('#wechat_msg_config_id').selectpicker('refresh');
 
         setWechatIds(1);
         setWechatIds(2);
@@ -549,7 +549,7 @@
                         requestData.data = {
                             'id': id,
                             'txt': txt,
-                            'wechat_msg_config_id': $("#wechat_msg_config_id").selectpicker('val'),
+                            'wechat_msg_config_id': 1,
                             'channel' : channel,
                             'channel_info' : channel_msg_id,
                         }
