@@ -515,6 +515,7 @@
         requestData.data.data.channel_info.forEach((item, index, array) => {
             $('#wechat_msg_config_id_'+item.key).val(item.val);
         });
+        $('#wechat_msg_config_id').val(requestData.data.data.config_id);
         $('.selectpicker').selectpicker('refresh');
         layer.open({
             type: 1,
