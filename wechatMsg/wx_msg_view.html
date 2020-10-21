@@ -262,6 +262,7 @@
         setChannelConfig();
     });
 
+    let channel_id = [];
     function setChannelConfig() {
         requestData.data = {
         };
@@ -269,6 +270,7 @@
         $('#channel_config').empty();
 
         requestData.data.forEach((item, index, array) => {
+            channel_id.push(item.id)
             //执行代码
             var html = ' <div class="form-group">\n' +
                 '                <label class="col-sm-3 control-label">'+ item.name + ' :</label>\n' +
@@ -278,9 +280,24 @@
                 '                </div>\n' +
                 '            </div>';
             $('#channel_config').append(html);
+            var html = ' <div class="form-group">\n' +
+                '                <label class="col-sm-3 control-label"> </label>\n' +
+                '                <div class="col-sm-8">\n' +
+                '<select id="wechat_msg_config_id_'+item.id+'" class="selectpicker" data-live-search="true">\n' +
+                '                        </select>' +
+
+                '            </div>';
+            $('#channel_config').append(html);
+            msgConfig.forEach((item_) => {
+                //执行代码
+                var html = "<option value='" + item_.id + "'>" + item_.name + "</option>";
+                $('#wechat_msg_config_id_'+item.id).append(html);
+            });
+            $('#wechat_msg_config_id_'+item.id).selectpicker('refresh');
         });
     }
 
+    let msgConfig;
     function setMaterial() {
 
         //
@@ -293,8 +310,8 @@
             var html = "<option value='" + item.id + "'>" + item.name + "</option>";
             $('#wechat_msg_config_id').append(html);
         });
+        msgConfig = requestData.data;
         $('#wechat_msg_config_id').selectpicker('refresh');
-
 
         setWechatIds(1);
         setWechatIds(2);
@@ -491,9 +508,13 @@
         };
         ajaxGo('admin/wx_msg_view/getLineToTxt');
         $("input[name='channel']").val('');
-        requestData.data.data.forEach((item, index, array) => {
+        requestData.data.data.text_info.forEach((item, index, array) => {
            $('#channel_'+item.key).val(item.val)
         });
+        requestData.data.data.channel_info.forEach((item, index, array) => {
+            $('#wechat_msg_config_id_'+item.key).val(item.val);
+        });
+        $('.selectpicker').selectpicker('refresh');
         layer.open({
             type: 1,
             title: '添加链接',
@@ -511,6 +532,14 @@
                     ];
                     channel.push(arr);
                 });
+                let channel_msg_id = [];
+                channel_id.forEach((item, index, array) => {
+                    let arr_ = [
+                        item,
+                        $('#wechat_msg_config_id_'+item).selectpicker('val')
+                    ];
+                    channel_msg_id.push(arr_);
+                });
                 layer.msg('确定修改？', {
                     time: 0 //不自动关闭
                     , btn: ['确定', '取消']
@@ -519,7 +548,8 @@
                             'id': id,
                             'txt': txt,
                             'wechat_msg_config_id': $("#wechat_msg_config_id").selectpicker('val'),
-                            'channel' : channel
+                            'channel' : channel,
+                            'channel_info' : channel_msg_id,
                         }
                         ajaxGo('admin/wx_msg_view/addLineToTxt');
                         if (requestCode === 0) {
