@@ -530,7 +530,7 @@
             layer.msg('请选择公众号')
         }else {
             let msg_config_id = 0;
-            let is_rk = $("input[type=radio][name=type]:checked").val();
+            let is_rk = $("input[type=radio][name=is_rk]:checked").val();
             if(is_rk.toString() === '0'){
                 msg_config_id = $("#wechat_msg_config").selectpicker('val');
             }
