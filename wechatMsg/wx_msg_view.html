@@ -273,14 +273,6 @@
             channel_id.push(item.id)
             //执行代码
             var html = ' <div class="form-group">\n' +
-                '                <label class="col-sm-3 control-label">'+ item.name + ' :</label>\n' +
-                '                <div class="col-sm-8">\n' +
-                '                    <input type="text" class="form-control" id="channel_'+item.id+'" data_id = '+item.id+' name="channel" value=""/>\n' +
-                '                    <!--                            required="" aria-required="false"-->\n' +
-                '                </div>\n' +
-                '            </div>';
-            $('#channel_config').append(html);
-            var html = ' <div class="form-group">\n' +
                 '                <label class="col-sm-3 control-label"> </label>\n' +
                 '                <div class="col-sm-8">\n' +
                 '<select id="wechat_msg_config_id_'+item.id+'" class="selectpicker" data-live-search="true">\n' +
@@ -288,6 +280,15 @@
 
                 '            </div>';
             $('#channel_config').append(html);
+            var html = ' <div class="form-group">\n' +
+                '                <label class="col-sm-3 control-label">'+ item.name + ' :</label>\n' +
+                '                <div class="col-sm-8">\n' +
+                '                    <input type="text" class="form-control" id="channel_'+item.id+'" data_id = '+item.id+' name="channel" value=""/>\n' +
+                '                    <!--                            required="" aria-required="false"-->\n' +
+                '                </div>\n' +
+                '            </div>';
+            $('#channel_config').append(html);
+
             msgConfig.forEach((item_) => {
                 //执行代码
                 var html = "<option value='" + item_.id + "'>" + item_.name + "</option>";
@@ -520,7 +521,7 @@
             title: '添加链接',
             shadeClose: true,
             shade: 0.8,
-            area: ['60%', '60%'],
+            area: ['60%', '90%'],
             content: $('#addLine'),
             btn: ['确定', '取消'], // 按钮
             yes: function (index, layero) {
