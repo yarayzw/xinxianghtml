@@ -213,6 +213,7 @@
         list.forEach(function (e) {
             var content=JSON.parse(e.content);
             var news_item=content['news_item'];
+            console.log(news_item);
             var ahtml='<div style="width: 300px;margin: 6px;">\n' +
                 '                <div style="display: flex;justify-content: space-between">\n' +
                 '                    <span>'+news_item[0]['title']+'</span>\n' +
