@@ -76,7 +76,7 @@ $(document).ready(function() {
         var viewH = $(window).height();  //可见高度
         var contentH = $(document).height();  //内容高度
 
-        if (contentH - (scroH + viewH) <= 500){  //距离底部高度小于100px
+        if (contentH - (scroH + viewH) <= 650){  //距离底部高度小于100px
             let is_go_run = 1;
 
             console.log(123123)
