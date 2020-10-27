@@ -78,8 +78,6 @@ $(document).ready(function() {
 
         if (contentH - (scroH + viewH) <= 650){  //距离底部高度小于100px
             is_go_run = 1;
-
-            console.log(123123)
         }
     });
 });
