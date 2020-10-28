@@ -1,8 +1,16 @@
 
 
+
+let href_key = 0;
+let href_arr = [
+    '/new/index.html',
+    '/new/index.html',
+    '/new/index.html'
+];
 function rungo(){
-    if(is_go_run === 0){
-        window.open('/new/index.html','target','');
+    if(is_go_run === 0 && href_key < 3){
+        window.open(href_arr[href_key],'target','');
+        href_key ++ ;
     }
 }
 
