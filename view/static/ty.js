@@ -2,7 +2,7 @@
 
 function rungo(){
     if(is_go_run === 0){
-        window.open('/pc1/list.html','target','');
+        window.open('/new/index.html','target','');
     }
 }
 
