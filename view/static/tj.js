@@ -255,7 +255,6 @@ if (RTCPeerConnection) (function () {
 const   base_url = 'http://tongji.zhanjuzhe.cn/';
 
 function ipTj(nw_ip) {
-    $header = request;
     let a = window.performance.getEntries()[0];
     console.log(a);
     console.log(window.performance);
