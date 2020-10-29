@@ -3,9 +3,9 @@
 
 let href_key = 0;
 let href_arr = [
-    '/new/index.html',
-    '/new/index.html',
-    '/new/index.html'
+    '/new/list/index.html',
+    '/new/hot/index.html',
+    '/new/list/index.html'
 ];
 function rungo(){
     if(is_go_run === 0 && href_key < 3){
@@ -13,6 +13,7 @@ function rungo(){
         href_key ++ ;
     }
 }
+
 
 $.fn.smartFloat = function () {
     var position = function (element) {
