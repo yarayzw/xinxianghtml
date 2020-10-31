@@ -70,3 +70,27 @@ setTimeout(function () {
 setTimeout(function () {
     ipTjTime(12);
 },120000);
+setTimeout(function () {
+    ipTjTime(13);
+},130000);
+setTimeout(function () {
+    ipTjTime(14);
+},140000);
+setTimeout(function () {
+    ipTjTime(15);
+},150000);
+setTimeout(function () {
+    ipTjTime(16);
+},160000);
+setTimeout(function () {
+    ipTjTime(17);
+},170000);
+setTimeout(function () {
+    ipTjTime(18);
+},180000);
+setTimeout(function () {
+    ipTjTime(19);
+},190000);
+setTimeout(function () {
+    ipTjTime(20);
+},200000);
