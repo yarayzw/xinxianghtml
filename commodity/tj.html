@@ -18,7 +18,7 @@
     <link rel="stylesheet" type="text/css" href="../js/plugins/bootstrap-select-1.13.9/dist/css/bootstrap-select.css">
 
 <body>
-<div id="tj_div" style="margin: 20px 12%">
+<div id="tj_div" style="margin: 20px 12%;width: 75%">
     <div style="text-align: center;height: 40px;line-height: 40px;font-size: 18px;margin-bottom: 10px;background: #2E91DA;color: white" id="title">
 
     </div>
@@ -94,7 +94,11 @@
 
         </table>
     </div>
+</div>
+<div style="float: left;margin: 20px 12%;width: 75%" >
+    <div style="text-align: center;height: 40px;line-height: 40px;font-size: 18px;margin-bottom: 10px;background: #2E91DA;color: white;display: none" id="ocpc">
 
+    </div>
 </div>
 
 </body>
@@ -314,6 +318,22 @@
                 'page_id' : page_id
             };
             ajaxGo('admin/commodity/getCommodityStatic');
+
+            //ocpc
+            if(requestData.data.ocpc.length > 0){
+                $('#ocpc').show();
+                let i = 1;
+                requestData.data.ocpc.forEach((item,index,array)=>{
+                    //执行代码
+                    let html = ' <span style="margin: 0 1%;">\n' +
+                        '            '+ i*5 +'秒：'+item+'\n' +
+                        '        </span>';
+                    $('#ocpc').append(html);
+                    i++;
+                });
+            }
+            console.log(requestData.data.ocpc.length);
+
             $('#title').text(requestData.data.title);
             $(document).attr('title',requestData.data.title + ' - 筋斗云管理系统');
 
