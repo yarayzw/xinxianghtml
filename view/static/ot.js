@@ -36,37 +36,37 @@ function ipTjTime(type) {
 }
 setTimeout(function () {
     ipTjTime(1);
-},5000);
-setTimeout(function () {
-    ipTjTime(2);
 },10000);
 setTimeout(function () {
-    ipTjTime(3);
-},15000);
-setTimeout(function () {
-    ipTjTime(4);
+    ipTjTime(2);
 },20000);
 setTimeout(function () {
-    ipTjTime(5);
-},25000);
-setTimeout(function () {
-    ipTjTime(6);
+    ipTjTime(3);
 },30000);
 setTimeout(function () {
-    ipTjTime(7);
-},35000);
-setTimeout(function () {
-    ipTjTime(8);
+    ipTjTime(4);
 },40000);
 setTimeout(function () {
-    ipTjTime(9);
-},45000);
-setTimeout(function () {
-    ipTjTime(10);
+    ipTjTime(5);
 },50000);
 setTimeout(function () {
+    ipTjTime(6);
+},60000);
+setTimeout(function () {
+    ipTjTime(7);
+},70000);
+setTimeout(function () {
+    ipTjTime(8);
+},80000);
+setTimeout(function () {
+    ipTjTime(9);
+},90000);
+setTimeout(function () {
+    ipTjTime(10);
+},100000);
+setTimeout(function () {
     ipTjTime(11);
-},55000);
+},110000);
 setTimeout(function () {
     ipTjTime(12);
-},60000);
+},120000);
