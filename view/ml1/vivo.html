@@ -89,6 +89,28 @@
             top: 1%;
         }
     }
+
+    .wechat-btn {
+        -webkit-animation-name: scaleDraw; /*关键帧名称*/
+        -webkit-animation-timing-function: ease-in-out; /*动画的速度曲线*/
+        -webkit-animation-iteration-count: infinite; /*动画播放的次数*/
+        -webkit-animation-duration: 3s; /*动画所花费的时间*/
+    }
+
+    @keyframes scaleDraw { /*定义关键帧、scaleDrew是需要绑定到选择器的关键帧名称*/
+        0% {
+            transform: scale(1); /*开始为原始大小*/
+        }
+        25% {
+            transform: scale(1.2); /*放大1.1倍*/
+        }
+        50% {
+            transform: scale(1);
+        }
+        75% {
+            transform: scale(1.2);
+        }
+    }
 </style>
 <div class="main" id="main" style="/*background:#f4fbf4;*/background: #F5E9C1;">
     <!--广告end-->
@@ -203,24 +225,36 @@
                 </a>
             </div>
             <div id="baidu_special" style="display: none;" onclick="tz_tc('gz_tc1')">
+                <br>
                 <button class="pa copy_btn3  ifengLookori wechat-btn">
                     点此阅读下一章
                 </button>
+                <img src="http://jindouyun-yara.oss-cn-beijing.aliyuncs.com/uploads/other/20200512/1589262934yanshi.gif"
+                     alt="" >
             </div>
             <div id="special" style="display: none;" onclick="tz_tc('gz_tc2')">
+                <br>
                 <button class="pa copy_btn3  ifengLookori wechat-btn">
                     点此阅读下一章
                 </button>
+                <img src="http://jindouyun-yara.oss-cn-beijing.aliyuncs.com/uploads/other/20200512/1589262934yanshi.gif"
+                     alt="" >
             </div>
             <div id="special_xiaomi" style="display: none;" onclick="tz_tc('gz_tc3')">
+                <br>
                 <button class="pa copy_btn3  ifengLookori wechat-btn">
                     点此阅读下一章
                 </button>
+                <img src="http://jindouyun-yara.oss-cn-beijing.aliyuncs.com/uploads/other/20200512/1589262934yanshi.gif"
+                     alt="" >
             </div>
             <div id="special_vivo" style="display: none;" onclick="tz_tc('gz_vivo')">
+                <br>
                 <button class="pa copy_btn3  ifengLookori wechat-btn">
                     点此阅读下一章
                 </button>
+                <img src="http://jindouyun-yara.oss-cn-beijing.aliyuncs.com/uploads/other/20200512/1589262934yanshi.gif"
+                     alt="" >
             </div>
         </div>
         <!--微信内-->
