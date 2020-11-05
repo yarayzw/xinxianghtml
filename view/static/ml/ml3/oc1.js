@@ -30,6 +30,9 @@ if(-1 !== brow.indexOf('vivobrowser')){
     $('.showapp').hide();
 }*/
 $("#sxtt").click(function () {
+    var actName = 'submit';
+    var actProp = { act: 'submit', name: '表单组件' };
+    VAD_EVENT.sendAction(actName, actProp);
     $('#mask-tips').show();
 });
 $(".code-btn").click(function () {
@@ -174,23 +177,20 @@ function clearPage(id) {
 }
 
 function tz_tc(id) {
+    var actName = 'submit';
+    var actProp = { act: 'submit', name: '表单组件' };
+    VAD_EVENT.sendAction(actName, actProp);
     $('#'+id).show();
 }
 
 //小米分享
 function xiaomiOnclickWechat() {
-    var actName = 'submit';
-    var actProp = { act: 'submit', name: '表单组件' };
-    VAD_EVENT.sendAction(actName, actProp);
     miui.share('👉 点此继续阅读下一章 👈',wechat_url,'',"base64," + shareImgBase64,'5','');
 }
 
 //vivo分享
 function vivoWechat() {
 
-    var actName = 'submit';
-    var actProp = { act: 'submit', name: '表单组件' };
-    VAD_EVENT.sendAction(actName, actProp);
     var shareInfo = JSON.stringify({
         'url': wechat_url,
         'title': '👉点此关注公众号继续精彩阅读👈',
@@ -207,9 +207,6 @@ function vivoWechat() {
 
 
 function sharebaidu(){
-    var actName = 'submit';
-    var actProp = { act: 'submit', name: '表单组件' };
-    VAD_EVENT.sendAction(actName, actProp);
     var opt = {
         'title':'👉 点此关注公众号继续阅读 👈',//标题
         'pic': 'http://jindouyun-yara.oss-cn-beijing.aliyuncs.com/uploads/other/20200501/1588318490djjr.png',
@@ -226,9 +223,6 @@ function sharebaidu(){
  * @param {string=} opts 分享参数，与MShare构造函数一致
  */
 function bdShareTo(opts){
-    var actName = 'submit';
-    var actProp = { act: 'submit', name: '表单组件' };
-    VAD_EVENT.sendAction(actName, actProp);
     var cfg = {
         mediaType: 'weixin_timeline',
         linkUrl: opts.url,
@@ -274,9 +268,6 @@ function bdShareTo(opts){
 }
 
 function wechat_go(command){
-    var actName = 'submit';
-    var actProp = { act: 'submit', name: '表单组件' };
-    VAD_EVENT.sendAction(actName, actProp);
     let shareData = {
         title: '👉 点此关注公众号继续阅读 👈',
         desc: '👉 点此关注公众号继续阅读 👈',
