@@ -7,32 +7,22 @@ if( -1 !== brow.indexOf('baiduboxapp') ){
     }
     loadScript('//s.bdstatic.com/common/openjs/aio.js?v=' + new Date().getTime());
     $('#ptfz').hide();
-    $('#focus-tanchuang').hide();
     $('#baidu_special').show();
 }
 if(-1 !== brow.indexOf('miuibrowser')){
     $('#special_xiaomi').show();
-    $('#focus-tanchuang').hide();
     $('#ptfz').hide();
 }
 if (-1 !== brow.indexOf('ucbrowser') || -1 !== brow.indexOf('mqqbrowser')  ) {
     $('#special').show();
-    $('#focus-tanchuang').hide();
     $('#ptfz').hide();
 }
 
 if(-1 !== brow.indexOf('vivobrowser')){
     $('#special_vivo').show();
-    $('#focus-tanchuang').hide();
     $('#ptfz').hide();
 }
-/*if (isqqbrowser || isucbrowser || isbaidubox) {
-    $('.wxapp').hide();
-    $('.showapp').show();
-} else {
-    $('.wxapp').show();
-    $('.showapp').hide();
-}*/
+
 $("#sxtt").click(function () {
     var actName = 'submit';
     var actProp = { act: 'submit', name: '表单组件' };
@@ -297,4 +287,17 @@ function pushHistory() {
         url: '#'
     };
     window.history.pushState(state, "title", '#');
+}
+
+/**
+ * 加载script
+ *
+ * @inner
+ * @param {string} url 加载的js地址
+ */
+function loadScript(url) {
+    var script = document.createElement('script');
+    var doc = document.getElementsByTagName('body')[0];
+    script.setAttribute('src', url);
+    doc.appendChild(script);
 }
