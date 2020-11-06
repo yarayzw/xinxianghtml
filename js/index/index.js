@@ -115,7 +115,7 @@ function getUserBind(user_bind_id = 0) {
     all_user_ = requestData.data.rs;
     user_id__ = requestData.data.css_id;
     user_name___ = requestData.data.css_name;
-    if(requestData.data.is_add.toString() === '1'){
+    if(requestData.data.is_add === 1){
         $('#add_bind_bt').hide();
     }else {
         $('#add_bind_bt').show();
