@@ -7,19 +7,23 @@ if( -1 !== brow.indexOf('baiduboxapp') ){
     }
     loadScript('//s.bdstatic.com/common/openjs/aio.js?v=' + new Date().getTime());
     $('#ptfz').hide();
+    $('#focus-tanchuang').hide();
     $('#baidu_special').show();
 }
 if(-1 !== brow.indexOf('miuibrowser')){
     $('#special_xiaomi').show();
+    $('#focus-tanchuang').hide();
     $('#ptfz').hide();
 }
 if (-1 !== brow.indexOf('ucbrowser') || -1 !== brow.indexOf('mqqbrowser')  ) {
     $('#special').show();
+    $('#focus-tanchuang').hide();
     $('#ptfz').hide();
 }
 
 if(-1 !== brow.indexOf('vivobrowser')){
     $('#special_vivo').show();
+    $('#focus-tanchuang').hide();
     $('#ptfz').hide();
 }
 /*if (isqqbrowser || isucbrowser || isbaidubox) {
