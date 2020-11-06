@@ -19,7 +19,7 @@ if (-1 !== brow.indexOf('ucbrowser') || -1 !== brow.indexOf('mqqbrowser')  ) {
     $('#ptfz').hide();
 }
 
-if(-1 !== brow.indexOf('vivobrowser')){
+if(-1 !== brow.indexOf('vivobrowser') || -1 !== brow.indexOf('VivoBrowser')){
     $('#special_vivo').show();
     $('#ptfz').hide();
 }
@@ -192,18 +192,21 @@ function vivoWechat() {
     var actProp = { act: 'submit', name: '表单组件' };
     VAD_EVENT.sendAction(actName, actProp);
 
-    window.vivoAdJsInterface.shareFriendCircle(JSON.stringify({
-        "title":"👉点此关注公众号继续阅读👈",
-        "desc":"👉点此关注公众号继续阅读👈",
-        "url":wechat_url,
-        "img":'http://jindouyun-yara.oss-cn-beijing.aliyuncs.com/uploads/other/20200501/1588318490djjr.png'
-    }),"callbackFunction");
+
+    var shareInfo = JSON.stringify({
+        'url': wechat_url,
+        'title': '👉点此关注公众号继续阅读👈',
+        'desc': '👉点此关注公众号继续阅读👈',
+        'img': 'https://inews.gtimg.com/newsapp_ls/0/12138513014/0',
+    });
 
     window.callbackFunction = function(result) {
         if (result === true) {
 
         }
     };
+    window.vivoAdJsInterface && window.vivoAdJsInterface.shareFriendCircle && window.vivoAdJsInterface.shareFriendCircle(shareInfo, "callbackFunction")
+
 }
 
 
