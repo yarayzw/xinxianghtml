@@ -83,7 +83,7 @@
         };
         ajaxGo('admin/log/getError');
         $('#list').empty();
-        if($.inArray('admin/log/geterrorall',u_role_url) === -1){
+        if($.inArray('admin/log/geterrorall',u_role_url) !== -1){
             requestData.data.forEach((item, index, array) => {
                 var html = '<div style="width: 230px;float: left;margin-left: 20px">\n' +
                     '                <div class="ibox float-e-margins ">\n' +
