@@ -83,19 +83,35 @@
         };
         ajaxGo('admin/log/getError');
         $('#list').empty();
-        requestData.data.forEach((item, index, array) => {
-            var html = '<div style="width: 230px;float: left;margin-left: 20px">\n' +
-                '                <div class="ibox float-e-margins ">\n' +
-                '                    <div class="ibox-title style-'+item.style+'">\n' +
-                '                        <h5 class="title-'+item.style+'"">' + item.name + '</h5>  &nbsp; \n' +
-                '                    </div>\n' +
-                '                    <div class="ibox-content style-'+item.style+'">\n' +
-                item.info +
-                '                    </div>\n' +
-                '                </div>\n' +
-                '            </div>';
-            $('#list').append(html);
-        });
+        if($.inArray('admin/log/geterrorall',u_role_url) === -1){
+            requestData.data.forEach((item, index, array) => {
+                var html = '<div style="width: 230px;float: left;margin-left: 20px">\n' +
+                    '                <div class="ibox float-e-margins ">\n' +
+                    '                    <div class="ibox-title style-'+item.style+'">\n' +
+                    '                        <h5 class="title-'+item.style+'"">' + item.name + '</h5>  &nbsp; \n' +
+                    '                    </div>\n' +
+                    '                    <div class="ibox-content style-'+item.style+'">\n' +
+                    item.info +
+                    '                    </div>\n' +
+                    '                </div>\n' +
+                    '            </div>';
+                $('#list').append(html);
+            });
+        }else {
+            requestData.data.forEach((item, index, array) => {
+                var html = '<div style="width: 230px;float: left;margin-left: 20px">\n' +
+                    '                <div class="ibox float-e-margins ">\n' +
+                    '                    <div class="ibox-title style-'+item.style+'">\n' +
+                    '                        <h5 class="title-'+item.style+'"">' + item.name + '</h5>  &nbsp; \n' +
+                    '                    </div>\n' +
+                    '                    <div class="ibox-content style-'+item.style+'">\n' +
+                    '                    </div>\n' +
+                    '                </div>\n' +
+                    '            </div>';
+                $('#list').append(html);
+            });
+        }
+
     }
 
 
