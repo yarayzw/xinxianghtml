@@ -81,36 +81,70 @@
     function getAllView() {
         requestData.data = {
         };
-        ajaxGo('admin/log/getError');
-        $('#list').empty();
-        if($.inArray('admin/log/geterrorall',u_role_url) !== -1){
-            requestData.data.forEach((item, index, array) => {
-                var html = '<div style="width: 230px;float: left;margin-left: 20px">\n' +
-                    '                <div class="ibox float-e-margins ">\n' +
-                    '                    <div class="ibox-title style-'+item.style+'">\n' +
-                    '                        <h5 class="title-'+item.style+'"">' + item.name + '</h5>  &nbsp; \n' +
-                    '                    </div>\n' +
-                    '                    <div class="ibox-content style-'+item.style+'">\n' +
-                    item.info +
-                    '                    </div>\n' +
-                    '                </div>\n' +
-                    '            </div>';
-                $('#list').append(html);
-            });
-        }else {
-            requestData.data.forEach((item, index, array) => {
-                var html = '<div style="width: 230px;float: left;margin-left: 20px">\n' +
-                    '                <div class="ibox float-e-margins ">\n' +
-                    '                    <div class="ibox-title style-'+item.style+'">\n' +
-                    '                        <h5 class="title-'+item.style+'"">' + item.name + '</h5>  &nbsp; \n' +
-                    '                    </div>\n' +
-                    '                    <div class="ibox-content style-'+item.style+'">\n' +
-                    '                    </div>\n' +
-                    '                </div>\n' +
-                    '            </div>';
-                $('#list').append(html);
-            });
-        }
+        $.ajax({
+            url: __ROOT__ + 'admin/log/getError',
+            data:requestData,
+            method:"POST",
+            dataType:"json",
+            async: true,
+            success:function(data){
+                requestCode = data.code;
+                u_id = data.user_info.u_id;
+                setCookie('u_id',data.user_info.u_id);
+
+                // if(data.user_info.u_id === '0'){
+                //     window.location.replace('http://zs-zixun.yarayzw.com/'+"login");
+                // }
+                requestMessage = data.message;
+                requestData = {
+                    "head": {
+                        "token": data.token,
+                        "time": (new Date()).getTime(),
+                        "version": "1.2.0",
+                        "recode": "",
+                    },
+                    "data": data.data
+                };
+                setCookie('token',data.token);
+                $('#list').empty();
+                if($.inArray('admin/log/geterrorall',u_role_url) !== -1){
+                    requestData.data.forEach((item, index, array) => {
+                        var html = '<div style="width: 230px;float: left;margin-left: 20px">\n' +
+                            '                <div class="ibox float-e-margins ">\n' +
+                            '                    <div class="ibox-title style-'+item.style+'">\n' +
+                            '                        <h5 class="title-'+item.style+'"">' + item.name + '</h5>  &nbsp; \n' +
+                            '                    </div>\n' +
+                            '                    <div class="ibox-content style-'+item.style+'">\n' +
+                            item.info +
+                            '                    </div>\n' +
+                            '                </div>\n' +
+                            '            </div>';
+                        $('#list').append(html);
+                    });
+                }else {
+                    requestData.data.forEach((item, index, array) => {
+                        var html = '<div style="width: 230px;float: left;margin-left: 20px">\n' +
+                            '                <div class="ibox float-e-margins ">\n' +
+                            '                    <div class="ibox-title style-'+item.style+'">\n' +
+                            '                        <h5 class="title-'+item.style+'"">' + item.name + '</h5>  &nbsp; \n' +
+                            '                    </div>\n' +
+                            '                    <div class="ibox-content style-'+item.style+'">\n' +
+                            '                    </div>\n' +
+                            '                </div>\n' +
+                            '            </div>';
+                        $('#list').append(html);
+                    });
+                }
+                return data;
+            },
+            error:function(){
+            },
+            complete: function(){
+                isClick=false;
+            }
+        });
+        // ajaxGo('admin/log/getError','',true);
+
 
     }
 
