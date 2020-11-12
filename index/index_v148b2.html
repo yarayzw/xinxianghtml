@@ -1,21 +1,106 @@
 <!DOCTYPE html>
-<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>信息</title>
-    <link rel="shortcut icon" href="favicon.ico">
-    <link href="../css/bootstrap.min.css" rel="stylesheet"/>
-</head>
-<body class="gray-bg">
-<div class="wrapper wrapper-content">
+    <title>筋斗云管理系统</title>
+    <link href="../css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="../css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="../css/animate.min.css" rel="stylesheet">
+    <link href="../css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <link href="../css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link href="../css/plugins/bootstrap-table/bootstrap-table.css" rel="stylesheet">
+    <link rel="stylesheet" href="../js/simditor-2.3.28/styles/simditor.css">
+    <link rel="stylesheet" type="text/css" href="../css/plugins/webuploader/webuploader.css">
+    <link rel="stylesheet" type="text/css" href="../css/demo/webuploader-demo.min.css">
+    <link rel="stylesheet" type="text/css" href="../js/plugins/bootstrap-select-1.13.9/dist/css/bootstrap-select.css">
 
-    <div class="row  white-bg text-center">
-        <div class="col-sm-12" style="padding:60px;">
-            <h1 style="font-size: 50px;font-weight: bold;color: #838fa1;">筋斗云管理平台</h1>
-            <h2 style="line-height:30px;font-size: 30px;margin-top: 20px;text-align: center;color: #dce2ec;">Welcome to use this system</h2>
+</head>
+<style type="text/css">
+    .table {
+        table-layout: fixed;
+    }
+</style>
+<body>
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="row">
+            <div id="list" style="width: 1620px;">
+
+            </div>
+
         </div>
     </div>
 </div>
+
+
+
 </body>
-</html>
+
+<script src="../js/jquery.min.js?v=2.1.4"></script>
+
+<script src="../js/public.js"></script>
+<script src="../js/bootstrap.min.js?v=3.3.6"></script>
+<script src="../js/layer/layer.js"></script>
+<script src="../js/laydate/laydate.js"></script>
+
+<script src="../js/content.min.js"></script>
+<script src="../js/plugins/bootstrap-table/bootstrap-table.js"></script>
+<script src="../js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="../js/demo/bootstrap-table-demo.min.js"></script>
+<script src="../js/bootstrapValidator.js"></script>
+<script src="../js/bootstrapValidator.min.js"></script>
+<script src="../js/plugins/simditor/module.js"></script>
+<script src="../js/plugins/simditor/uploader.js"></script>
+<script src="../js/plugins/simditor/hotkeys.js"></script>
+<script src="../js/simditor-2.3.28/lib/simditor.js"></script>
+<script src="../js/plugins/webuploader/webuploader.min.js"></script>
+<script src="../js/index.js"></script>
+<script src="../js/plugins/bootstrap-select-1.13.9/js/bootstrap-select.js"></script>
+<style>
+    .style-0{
+        background-color: whitesmoke;
+    }
+    .style-1{
+        background-color: red;
+    }
+    .title-1{
+        color: black;
+    }
+    .style-2{
+        background-color: #FFF68F;
+    }
+</style>
+<script>
+
+    $(document).ready(function () {
+        getAllView();
+    });
+
+
+    function getAllView() {
+        requestData.data = {
+        };
+        ajaxGo('admin/log/getError');
+        $('#list').empty();
+        requestData.data.forEach((item, index, array) => {
+            var html = '<div style="width: 230px;float: left;margin-left: 20px">\n' +
+                '                <div class="ibox float-e-margins ">\n' +
+                '                    <div class="ibox-title style-'+item.style+'">\n' +
+                '                        <h5 class="title-'+item.style+'"">' + item.name + '</h5>  &nbsp; \n' +
+                '                    </div>\n' +
+                '                    <div class="ibox-content style-'+item.style+'">\n' +
+                item.info +
+                '                    </div>\n' +
+                '                </div>\n' +
+                '            </div>';
+            $('#list').append(html);
+        });
+    }
+
+
+</script>
+
+<script src="../js/util.js"></script>
+<script src="../js/plugins/art-template/template-web.min.js"></script>
+
