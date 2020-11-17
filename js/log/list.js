@@ -53,10 +53,7 @@ function initTable() {
             return params;
         },
         onLoadSuccess: function(data){  //加载成功时执行
-            $('.bootstrap-table tr td').each(function () {
-                $(this).attr("title", $(this).text());
-                $(this).css("cursor", 'pointer');
-            });
+           
         },
         onLoadError: function(){  //加载失败时执行
             layer.msg("加载数据失败", {time : 1500, icon : 2});
