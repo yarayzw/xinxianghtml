@@ -113,6 +113,19 @@ function initTable() {
                 }
             },
             {
+                field: 'wechat_url',
+                width : '10%',
+                title: '关注链接',
+                formatter: function(value,row,index){
+                    if(value===''){
+                        return '未修改';
+                    }else {
+                        var f = value;
+                        return f;
+                    }
+                }
+            },
+            {
                 field: 'info',
                 title: '详情',
                 width : '35%',
