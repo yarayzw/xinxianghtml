@@ -77,7 +77,19 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="form-group">
 
+                        </div>
+                        <div class="col-sm-12" id="div_config2">
+                            <label class="col-sm-2 control-label">推送性别类型 :</label>
+                            <div class="col-sm-3">
+                                <select id="ts_sex" class="selectpicker" data-live-search="true">
+                                    <option value="3">通用</option>
+                                    <option value="1">男</option>
+                                    <option value="2">女</option>
+                                </select>
+                            </div>
+                        </div>
                         <div class="form-group">
 
                         </div>
@@ -373,9 +385,11 @@
             layer.msg('请选择公众号')
         }else {
             let msg_config_id = 0;
+            let ts_sex = -1;
             let is_rk = $("input[type=radio][name=is_rk]:checked").val();
             if(is_rk.toString() === '0'){
                 msg_config_id = $("#wechat_msg_config").selectpicker('val');
+                ts_sex = $("#ts_sex").selectpicker('val');
             }
             layer.msg('确定生成？', {
                 time: 0 //不自动关闭
@@ -392,6 +406,7 @@
                         'wechat_ids':wechat_ids,
                         'chapter_idx':$("input[name='chapter_idx']").val(),
                         'guide_chapter_idx':$("input[name='guide_chapter_idx']").val(),
+                        'ts_sex' : ts_sex
                     };
                     ajaxGo('admin/wechat_msg_config_n_t/addZZYLinkNt');
                     if(requestCode === 0){

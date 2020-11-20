@@ -109,6 +109,24 @@
     </div>
 </div>
 
+<div id="updateSex" style="display: none">
+    <div class="ibox-content">
+        <form class="form-horizontal m-t" id="commentForms" method="post">
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">推送性别类型 :</label>
+                <div class="col-sm-8">
+                    <select id="ts_sex" class="selectpicker" data-live-search="true">
+                        <option value="3">通用</option>
+                        <option value="1">男</option>
+                        <option value="2">女</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
 </body>
 
 <script src="../js/jquery.min.js?v=2.1.4"></script>
@@ -324,6 +342,24 @@
                     align: 'center'
                 },
                 {
+                    field: 'sex',
+                    title: '推送性别类型',
+                    width : 10,
+                    align: 'center',
+                    formatter: function(value,row,index){
+                        switch (value) {
+                            case 3:
+                                return  '<a href="#" mce_href="#"  data_id="'+row.id+'" data_sex="'+value+'"  onclick="updateSex(this)" >通用</a>';
+                            case 0:
+                                return  '<a href="#" mce_href="#"  data_id="'+row.id+'" data_sex="'+value+'"  onclick="updateSex(this)" >未知</a>';
+                            case 1:
+                                return  '<a href="#" mce_href="#"  data_id="'+row.id+'" data_sex="'+value+'"  onclick="updateSex(this)" >男</a>';
+                            case 2:
+                                return  '<a href="#" mce_href="#"  data_id="'+row.id+'" data_sex="'+value+'"  onclick="updateSex(this)" >女</a>';
+                        }
+                    }
+                },
+                {
                     field: 'is_use',
                     title: '状态',
                     width : 10,
@@ -374,7 +410,7 @@
                         }
                         let f = '';
                         if($.inArray('admin/wechat_msg_url/delwechatmsgurl',u_role_url) !== -1) {
-                            f='<a href="#" mce_href="#" " data_id="'+row.id+'"  onclick="delWechatMsgUrl(this)" >删除</a>';
+                            f='<a href="#" mce_href="#"  data_id="'+row.id+'"  onclick="delWechatMsgUrl(this)" >删除</a>';
                         }
                         return a+f;
                     }
@@ -544,6 +580,47 @@
             });
         }
     }
+
+    //修改链接的推送性别类型
+    function updateSex(obj) {
+        $('#ts_sex').selectpicker('val',($(obj).attr('data_sex')));
+
+        layer.open({
+            type: 1,
+            title: '修改推送性别类型',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['60%', '60%'],
+            content: $('#updateSex'),
+            btn: ['确定', '取消'], // 按钮
+            yes: function(index, layero){
+                layer.msg('确定修改？', {
+                    time: 0 //不自动关闭
+                    ,btn: ['确定', '取消']
+                    ,yes: function(index){
+                        requestData.data = {
+                            'id' : $(obj).attr('data_id'),
+                            'sex': $("#ts_sex").selectpicker('val')
+                        };
+                        ajaxGo('admin/wechat_msg_url/updateSex');
+                        if(requestCode === 0){
+                            fac_search();
+                            layer.close(index);
+                            layer.closeAll();
+                            layer.msg(requestMessage);
+                        }else {
+                            layer.msg(requestMessage);
+                        }
+                    }
+                });
+
+
+            }
+//            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
+        });
+
+    }
+
 
 </script>
 

@@ -148,6 +148,16 @@
                 </div>
             </div>
             <div class="form-group">
+                <label class="col-sm-2 control-label">推送性别类型 :</label>
+                <div class="col-sm-3">
+                    <select id="ts_sex" class="selectpicker" data-live-search="true">
+                        <option value="3">通用</option>
+                        <option value="1">男</option>
+                        <option value="2">女</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
                 <label class="col-sm-3 control-label">openid :</label>
                 <div class="col-sm-8">
                     <div class="row">
@@ -657,7 +667,8 @@
                 requestData.data = {
                     'view_id': view_ce_id,
                     'openid': $("input[name='openid']").val(),
-                    'wechat_config_id':$("input[type=radio][name=wechat_ids]:checked").val()
+                    'wechat_config_id':$("input[type=radio][name=wechat_ids]:checked").val(),
+                    'sex' : $("#ts_sex").selectpicker('val'),
                 };
                 ajaxGo('admin/wx_msg_view/testSend');
                 if (requestCode === 0) {
@@ -675,6 +686,7 @@
     function getInfo(wechat_config_id) {
         requestData.data = {
             'wechat_config_id': wechat_config_id,
+            'sex' : $("#ts_sex").selectpicker('val'),
             'view_id': view_ce_id,
         };
         ajaxGo('admin/wx_msg_view/getViewTextInfo');
