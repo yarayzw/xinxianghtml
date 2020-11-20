@@ -49,6 +49,11 @@
                             </select>
                         </div>
                     </div>
+                    <div class="col-md-2">
+                        <div class="input-group m-b"><span class="input-group-addon">替换文本</span>
+                            <input type="text" id="s_text" class="form-control" aria-label="..." placeholder="" >
+                        </div>
+                    </div>
                     <div class="col-md-1">
                          <span class="input-group-btn">
                             <button class="btn btn-default" type="button" onclick="fac_search()">搜索</button>
@@ -114,13 +119,11 @@
         <form class="form-horizontal m-t" id="commentForms" method="post">
 
             <div class="form-group">
-                <label class="col-sm-3 control-label">推送性别类型 :</label>
-                <div class="col-sm-8">
-                    <select id="ts_sex" class="selectpicker" data-live-search="true">
-                        <option value="3">通用</option>
-                        <option value="1">男</option>
-                        <option value="2">女</option>
-                    </select>
+                <label class="col-sm-5 control-label">推送性别类型 :</label>
+                <div class="col-sm-5">
+                    <label style="font-weight: normal;"><input type="radio"  name="ts_sex" style="margin-left: 7px" value="3"> <i></i>通用</label>
+                    <label style="font-weight: normal;"><input type="radio"  name="ts_sex" style="margin-left: 7px" value="1"> <i></i>男</label>
+                    <label style="font-weight: normal;"><input type="radio"  name="ts_sex" style="margin-left: 7px" value="2"> <i></i>女</label>
                 </div>
             </div>
         </form>
@@ -215,7 +218,7 @@
                     sortOrder: params.sortOrder,
                     // id : {$_GET['id']},
                     head : {'token' : getCookie('token')},
-                    name : $('#name').val(),
+                    name : $('#s_text').val(),
                     wechat_msg_config_id : $("#wechat_msg_url_s").selectpicker('val'),
                     wechat_config_id : $("#wechat_config_s").selectpicker('val'),
                 };
@@ -583,14 +586,13 @@
 
     //修改链接的推送性别类型
     function updateSex(obj) {
-        $('#ts_sex').selectpicker('val',($(obj).attr('data_sex')));
-
+        $("input[name=ts_sex][value="+$(obj).attr('data_sex')+"]").attr('checked','true');
         layer.open({
             type: 1,
             title: '修改推送性别类型',
             shadeClose: true,
             shade: 0.8,
-            area: ['60%', '60%'],
+            area: ['35%', '30%'],
             content: $('#updateSex'),
             btn: ['确定', '取消'], // 按钮
             yes: function(index, layero){
@@ -598,9 +600,11 @@
                     time: 0 //不自动关闭
                     ,btn: ['确定', '取消']
                     ,yes: function(index){
+                        let ts_sex = $("input[name='ts_sex']:checked").val();
+
                         requestData.data = {
                             'id' : $(obj).attr('data_id'),
-                            'sex': $("#ts_sex").selectpicker('val')
+                            'sex': ts_sex
                         };
                         ajaxGo('admin/wechat_msg_url/updateSex');
                         if(requestCode === 0){
