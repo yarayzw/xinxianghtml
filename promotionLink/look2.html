@@ -92,7 +92,7 @@
         $('#gzczb').text(requestData.data.total_.gzczb+'%');
         $('#fsdj').text(requestData.data.total_.fsdj+' 元');
         $('#drcc').text(requestData.data.total_.drcc+' 元');
-        $('#dz').text(requestData.data.total_.dz+'%');
+        $('#dz').text(parseFloat(requestData.data.total_.dz).toFixed(2)+'%');
         $('#cz_').text(requestData.data.total_.cz_+' 元');
         columns = [
             {
