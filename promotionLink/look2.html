@@ -18,6 +18,7 @@
         background-color: #FFEC8B;
     }
 
+
     .td_1 {
         background-color: #0099cc;
         border: solid 1px #ccc;
@@ -122,6 +123,9 @@
                     let html = '<div>'+value+'%</div>';
                     return html;
                 },
+                cellStyle: function (value, row, index) {
+                    return {css: {"background-color": "#BDD7EE"}};
+                }
             },
             {
                 field: '3',
