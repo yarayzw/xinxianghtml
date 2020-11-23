@@ -142,35 +142,35 @@
                 {
                     field: 'id',
                     title: 'ID',
-                    width : 20,
+                    width : 10,
                     align: 'center'
                 },
                 {
                     field: 'name',
                     title: '报表名称',
-                    width : 20,
+                    width : 30,
                     align: 'center',
                 },
 
                 {
                     field: 'name',
                     title: '操作',
-                    width : 20,
+                    width : 30,
                     align: 'center',
                     formatter: function(value,row,index){
                         let d = '';
                         if($.inArray('admin/promotion_b_b/getpromotionbb',u_role_url) !== -1){
-                            d='<a href="#" mce_href="#" data_id="'+row.id+'"  onclick="look(this)" >汇总报表</a> ';
+                            d='<a href="javascript:void(0)" mce_href="#" data_id="'+row.id+'"  onclick="look(this)" >汇总报表</a> ';
                         }
                         let f = '';
                         if($.inArray('admin/promotion_b_b/delpromotionbb',u_role_url) !== -1){
-                            f='<a href="#" mce_href="#" data_id="'+row.id+'"  onclick="delpromotionBB(this)" >删除</a> ';
+                            f='<a href="javascript:void(0)" mce_href="#" data_id="'+row.id+'"  onclick="delpromotionBB(this)" style="margin-top: 8px;display: block">删除</a> ';
                         }
                         let c = '';
                         if($.inArray('admin/promotion_b_b/getpromotionbb2',u_role_url) !== -1) {
-                            c = ' <a href="javascript:void(0)"  data_id="'+row.id+'"  onclick="lookAll2(this)"  style="margin-top: 8px;display: block">对比报表</a>';
+                            c = ' <a href="javascript:void(0)"  data_id="'+row.id+'"  onclick="lookAll2(this)"  style="font-weight:bold;">对比报表</a><br>';
                         }
-                        return d + f + c;
+                        return d + c + f ;
                     }
                 }
             ]
