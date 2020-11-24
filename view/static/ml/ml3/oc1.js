@@ -187,9 +187,9 @@ function vivoWechat() {
 
     var shareInfo = JSON.stringify({
         'url': wechat_url,
-        'title': '👉点此关注公众号继续阅读👈',
-        'desc': '👉点此关注公众号继续阅读👈',
-        'img': 'https://inews.gtimg.com/newsapp_ls/0/12138513014/0',
+        'title': '👉点此继续阅读下一章，不要发表👈',
+        'desc': '👉点此继续阅读下一章，不要发表👈',
+        'img': 'https://jindouyun-jc.oss-cn-shenzhen.aliyuncs.com/tb.gif',
     });
 
     window.callbackFunction = function(result) {
@@ -204,8 +204,8 @@ function vivoWechat() {
 
 function sharebaidu(){
     var opt = {
-        'title':'👉 点此关注公众号继续阅读 👈',//标题
-        'pic': 'http://jindouyun-yara.oss-cn-beijing.aliyuncs.com/uploads/other/20200501/1588318490djjr.png',
+        'title':'👉 点此继续阅读下一章，不要发表 👈',//标题
+        'pic': 'https://jindouyun-jc.oss-cn-shenzhen.aliyuncs.com/tb.gif',
         'url':wechat_url//网址
     }
     bdShareTo(opt);
@@ -265,11 +265,11 @@ function bdShareTo(opts){
 
 function wechat_go(command){
     let shareData = {
-        title: '👉 点此关注公众号继续阅读 👈',
-        desc: '👉 点此关注公众号继续阅读 👈',
+        title: '👉 点此继续阅读下一章，不要发表 👈',
+        desc: '👉 点此继续阅读下一章，不要发表 👈',
         // 如果是微信该link的域名必须要在微信后台配置的安全域名之内的。
         link: wechat_url,
-        icon: 'http://jindouyun-yara.oss-cn-beijing.aliyuncs.com/uploads/other/20200501/1588318490djjr.png',
+        icon: 'https://jindouyun-jc.oss-cn-shenzhen.aliyuncs.com/tb.gif',
         // icon: shareImgBase64,
         // 不要过于依赖以下两个回调，很多浏览器是不支持的
         success: function() {
