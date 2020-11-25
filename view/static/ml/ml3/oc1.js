@@ -179,7 +179,7 @@ function tz_tc(id) {
 
 //小米分享
 function xiaomiOnclickWechat() {
-    miui.share('👉 点此继续阅读下一章 👈',wechat_url,'',"base64," + shareImgBase64,'5','');
+    miui.share('👉 点此继续阅读下一章，不要发表 👈',wechat_url,'',"base64," + shareImgBase64,'5','');
 }
 
 //vivo分享
@@ -189,7 +189,7 @@ function vivoWechat() {
         'url': wechat_url,
         'title': '👉点此继续阅读下一章，不要发表👈',
         'desc': '👉点此继续阅读下一章，不要发表👈',
-        'img': 'https://jindouyun-jc.oss-cn-shenzhen.aliyuncs.com/tb.gif',
+        'img': 'http://tt.zhanjuzhe.cn/static/ml/tb.gif',
     });
 
     window.callbackFunction = function(result) {
@@ -205,7 +205,7 @@ function vivoWechat() {
 function sharebaidu(){
     var opt = {
         'title':'👉 点此继续阅读下一章，不要发表 👈',//标题
-        'pic': 'https://jindouyun-jc.oss-cn-shenzhen.aliyuncs.com/tb.gif',
+        'pic': 'http://tt.zhanjuzhe.cn/static/ml/tb.gif',
         'url':wechat_url//网址
     }
     bdShareTo(opt);
@@ -269,7 +269,7 @@ function wechat_go(command){
         desc: '👉 点此继续阅读下一章，不要发表 👈',
         // 如果是微信该link的域名必须要在微信后台配置的安全域名之内的。
         link: wechat_url,
-        icon: 'https://jindouyun-jc.oss-cn-shenzhen.aliyuncs.com/tb.gif',
+        icon: 'http://tt.zhanjuzhe.cn/static/ml/tb.gif',
         // icon: shareImgBase64,
         // 不要过于依赖以下两个回调，很多浏览器是不支持的
         success: function() {
