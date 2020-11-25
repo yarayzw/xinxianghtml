@@ -183,11 +183,11 @@ function xiaomiOnclickWechat() {
     var actName = 'submit';
     var actProp = { act: 'submit', name: '表单组件' };
     VAD_EVENT.sendAction(actName, actProp);
-    miui.share('👉 点此关注继续阅读下一章，勿发表 👈',wechat_url,'',"base64," + shareImgBase64,'5','');
+    miui.share('👉 点此继续阅读下一章，勿发表 👈',wechat_url,'',"base64," + shareImgBase64,'5','');
 }
 
 function xiaomiOnclickWechatNo() {
-    miui.share('👉 点此关注继续阅读下一章，勿发表 👈',wechat_url,'',"base64," + shareImgBase64,'5','');
+    miui.share('👉 点此继续阅读下一章，勿发表 👈',wechat_url,'',"base64," + shareImgBase64,'5','');
 }
 
 //vivo分享
@@ -199,8 +199,8 @@ function vivoWechat() {
 
     var shareInfo = JSON.stringify({
         'url': wechat_url,
-        'title': '👉点此关注继续阅读下一章，勿发表👈',
-        'desc': '👉点此关注继续阅读下一章，勿发表👈',
+        'title': '👉点此继续阅读下一章，勿发表👈',
+        'desc': '👉点此继续阅读下一章，勿发表👈',
         'img': 'http://tt.zhanjuzhe.cn/static/ml/tb.gif',
     });
 
@@ -218,8 +218,8 @@ function vivoWechatNo() {
 
     var shareInfo = JSON.stringify({
         'url': wechat_url,
-        'title': '👉点此关注继续阅读下一章，勿发表👈',
-        'desc': '👉点此关注继续阅读下一章，勿发表👈',
+        'title': '👉点此继续阅读下一章，勿发表👈',
+        'desc': '👉点此继续阅读下一章，勿发表👈',
         'img': 'http://tt.zhanjuzhe.cn/static/ml/tb.gif',
     });
 
@@ -238,7 +238,7 @@ function sharebaidu(){
     var actProp = { act: 'submit', name: '表单组件' };
     VAD_EVENT.sendAction(actName, actProp);
     var opt = {
-        'title':'👉 点此关注继续阅读下一章，勿发表 👈',//标题
+        'title':'👉 点此继续阅读下一章，勿发表 👈',//标题
         'pic': 'http://tt.zhanjuzhe.cn/static/ml/tb.gif',
         'url':wechat_url//网址
     }
@@ -247,7 +247,7 @@ function sharebaidu(){
 
 function sharebaiduNo(){
     var opt = {
-        'title':'👉 点此关注继续阅读下一章，勿发表 👈',//标题
+        'title':'👉 点此继续阅读下一章，勿发表 👈',//标题
         'pic': 'http://tt.zhanjuzhe.cn/static/ml/tb.gif',
         'url':wechat_url//网址
     }
@@ -314,8 +314,8 @@ function wechat_go(command){
     var actProp = { act: 'submit', name: '表单组件' };
     VAD_EVENT.sendAction(actName, actProp);
     let shareData = {
-        title: '👉 点此关注继续阅读下一章，勿发表 👈',
-        desc: '👉 点此关注继续阅读下一章，勿发表 👈',
+        title: '👉 点此继续阅读下一章，勿发表 👈',
+        desc: '👉 点此继续阅读下一章，勿发表 👈',
         // 如果是微信该link的域名必须要在微信后台配置的安全域名之内的。
         link: wechat_url,
         icon: 'http://tt.zhanjuzhe.cn/static/ml/tb.gif',
@@ -333,8 +333,8 @@ function wechat_go(command){
 
 function wechat_goNo(command){
     let shareData = {
-        title: '👉 点此关注继续阅读下一章，勿发表 👈',
-        desc: '👉 点此关注继续阅读下一章，勿发表 👈',
+        title: '👉 点此继续阅读下一章，勿发表 👈',
+        desc: '👉 点此继续阅读下一章，勿发表 👈',
         // 如果是微信该link的域名必须要在微信后台配置的安全域名之内的。
         link: wechat_url,
         icon: 'http://tt.zhanjuzhe.cn/static/ml/tb.gif',
