@@ -183,7 +183,11 @@ function xiaomiOnclickWechat() {
     var actName = 'submit';
     var actProp = { act: 'submit', name: '表单组件' };
     VAD_EVENT.sendAction(actName, actProp);
-    miui.share('👉 点此继续阅读下一章 👈',wechat_url,'',"base64," + shareImgBase64,'5','');
+    miui.share('👉 点此关注继续阅读下一章，勿发表 👈',wechat_url,'',"base64," + shareImgBase64,'5','');
+}
+
+function xiaomiOnclickWechatNo() {
+    miui.share('👉 点此关注继续阅读下一章，勿发表 👈',wechat_url,'',"base64," + shareImgBase64,'5','');
 }
 
 //vivo分享
@@ -195,9 +199,28 @@ function vivoWechat() {
 
     var shareInfo = JSON.stringify({
         'url': wechat_url,
-        'title': '👉点此关注公众号继续阅读👈',
-        'desc': '👉点此关注公众号继续阅读👈',
-        'img': 'https://inews.gtimg.com/newsapp_ls/0/12138513014/0',
+        'title': '👉点此关注继续阅读下一章，勿发表👈',
+        'desc': '👉点此关注继续阅读下一章，勿发表👈',
+        'img': 'http://tt.zhanjuzhe.cn/static/ml/tb.gif',
+    });
+
+    window.callbackFunction = function(result) {
+        if (result === true) {
+
+        }
+    };
+    window.vivoAdJsInterface && window.vivoAdJsInterface.shareFriendCircle && window.vivoAdJsInterface.shareFriendCircle(shareInfo, "callbackFunction")
+
+}
+
+function vivoWechatNo() {
+
+
+    var shareInfo = JSON.stringify({
+        'url': wechat_url,
+        'title': '👉点此关注继续阅读下一章，勿发表👈',
+        'desc': '👉点此关注继续阅读下一章，勿发表👈',
+        'img': 'http://tt.zhanjuzhe.cn/static/ml/tb.gif',
     });
 
     window.callbackFunction = function(result) {
@@ -215,8 +238,17 @@ function sharebaidu(){
     var actProp = { act: 'submit', name: '表单组件' };
     VAD_EVENT.sendAction(actName, actProp);
     var opt = {
-        'title':'👉 点此关注公众号继续阅读 👈',//标题
-        'pic': 'http://jindouyun-yara.oss-cn-beijing.aliyuncs.com/uploads/other/20200501/1588318490djjr.png',
+        'title':'👉 点此关注继续阅读下一章，勿发表 👈',//标题
+        'pic': 'http://tt.zhanjuzhe.cn/static/ml/tb.gif',
+        'url':wechat_url//网址
+    }
+    bdShareTo(opt);
+}
+
+function sharebaiduNo(){
+    var opt = {
+        'title':'👉 点此关注继续阅读下一章，勿发表 👈',//标题
+        'pic': 'http://tt.zhanjuzhe.cn/static/ml/tb.gif',
         'url':wechat_url//网址
     }
     bdShareTo(opt);
@@ -282,11 +314,11 @@ function wechat_go(command){
     var actProp = { act: 'submit', name: '表单组件' };
     VAD_EVENT.sendAction(actName, actProp);
     let shareData = {
-        title: '👉 点此关注公众号继续阅读 👈',
-        desc: '👉 点此关注公众号继续阅读 👈',
+        title: '👉 点此关注继续阅读下一章，勿发表 👈',
+        desc: '👉 点此关注继续阅读下一章，勿发表 👈',
         // 如果是微信该link的域名必须要在微信后台配置的安全域名之内的。
         link: wechat_url,
-        icon: 'http://jindouyun-yara.oss-cn-beijing.aliyuncs.com/uploads/other/20200501/1588318490djjr.png',
+        icon: 'http://tt.zhanjuzhe.cn/static/ml/tb.gif',
         // icon: shareImgBase64,
         // 不要过于依赖以下两个回调，很多浏览器是不支持的
         success: function() {
@@ -299,6 +331,23 @@ function wechat_go(command){
 }
 
 
+function wechat_goNo(command){
+    let shareData = {
+        title: '👉 点此关注继续阅读下一章，勿发表 👈',
+        desc: '👉 点此关注继续阅读下一章，勿发表 👈',
+        // 如果是微信该link的域名必须要在微信后台配置的安全域名之内的。
+        link: wechat_url,
+        icon: 'http://tt.zhanjuzhe.cn/static/ml/tb.gif',
+        // icon: shareImgBase64,
+        // 不要过于依赖以下两个回调，很多浏览器是不支持的
+        success: function() {
+        },
+        fail: function() {
+        }
+    }
+    nativeShare.setShareData(shareData)
+    nativeShare.call(command)
+}
 
 
 function pushHistory() {
