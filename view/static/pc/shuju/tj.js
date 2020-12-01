@@ -256,25 +256,63 @@ const   base_url = 'http://tongji.zhanjuzhe.cn/';
 
 function ipTj(nw_ip) {
     let a = window.performance.getEntries()[0];
-    console.log(a);
-    console.log(window.performance);
     let prevurl = document.referrer;
-    $.ajax({
-        url: base_url + '/index/commodity/setUserInfo',
-        data: {
-            'browser':BrowserMatch.browser,
-            'version':BrowserMatch.version,
-            'os' : BrowserMatch.os,
-            'last_url': prevurl,
-            'id': list_id,
-            'nw_ip':nw_ip
-        },
-        method: "POST",
-        dataType: "json"
-    });
-    nw_ips = nw_ip;
+    let url = 'http://api.map.baidu.com/location/ip?ak=4ON3IIv1w8GSMhzxKmw9q1OHG3cYuaUb&coor=bd09ll';
+    $.get(url,function(result){
+        if(result.status === 0){
+            $.ajax({
+                url: base_url + '/index/commodity/setUserInfo',
+                data: {
+                    'browser':BrowserMatch.browser,
+                    'version':BrowserMatch.version,
+                    'os' : BrowserMatch.os,
+                    'last_url': prevurl,
+                    'id': list_id,
+                    'nw_ip':nw_ip,
+                    'province':result.content.address_detail.province,
+                    'city':result.content.address_detail.city
+                },
+                method: "POST",
+                dataType: "json"
+            });
+            //监听滚动条
+            $(document).scroll(function(){
+                var scrollH = $(document).scrollTop();  //滚动高度
+                var viewH = $(window).height();  //可见高度
+                var contentH = $(document).height();  //内容高度
+                if(scrollH > $('#preface_span').offset().top && preface_span === true){
+                    preface_span = false;
+                    sendType(1);
+                }
+                if(scrollH +600 > $('#end_span').offset().top && end_span === true){
+                    end_span = false;
+                    sendType(2);
+                }
+                // if(scrollH >100){  //滚动距离大于100px时
+                //     alert("这是滚动条事件!");
+                // }
+            });
+            nw_ips = nw_ip;
+            province = result.content.address_detail.province;
+            city = result.content.address_detail.city;
+            // return [result.content.address_detail,result.content.address_detail.city];
+            // sendAddress(result.content.address_detail.province,result.content.address_detail.city);
+        }
+    },"jsonp");
+
     // setInterval(ipTjOnLine, 60000);
 }
+
+function getAddress() {
+    let url = 'http://api.map.baidu.com/location/ip?ak=4ON3IIv1w8GSMhzxKmw9q1OHG3cYuaUb&coor=bd09ll';
+    $.get(url,function(result){
+        if(result.status === 0){
+            return [result.content.address_detail,result.content.address_detail.city];
+            // sendAddress(result.content.address_detail.province,result.content.address_detail.city);
+        }
+    },"jsonp");
+}
+
 
 function ipTjOnLine() {
     let prevurl = document.referrer;
