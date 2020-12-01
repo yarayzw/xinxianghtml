@@ -8,21 +8,21 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="format-detection" content="telephone=no">
     <title>{{title}}</title>
-    <link rel="stylesheet" href="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/index.css">
-    <link rel="stylesheet" href="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/topcss.css">
-    <link rel="stylesheet" href="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/font.css">
-    <link rel="stylesheet" href="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/text.css">
+    <link rel="stylesheet" href="/static/pc/pc/index.css">
+    <link rel="stylesheet" href="/static/pc/pc/topcss.css">
+    <link rel="stylesheet" href="/static/pc/pc/font.css">
+    <link rel="stylesheet" href="/static/pc/pc/text.css">
     <link rel="shortcut icon" href="https://p5.ssl.qhimg.com/t013ed96d9c4cf74064.png" type="image/x-icon">
     <link rel="shortcut icon" type="image/ico" href="https://video.eastday.com/assets/img/favicon.ico">
-    <link rel="stylesheet" type="text/css" href="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/config.css">
-    <link rel="stylesheet" type="text/css" href="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/video.css">
-    <link rel="stylesheet" href="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/newdetail.css">
+    <link rel="stylesheet" type="text/css" href="/static/pc/pc/config.css">
+    <link rel="stylesheet" type="text/css" href="/static/pc/pc/video.css">
+    <link rel="stylesheet" href="/static/pc/pc/newdetail.css">
 </head>
-<script type="text/javascript" src="/static/pc/jquery.min.js"></script>
+<script type="text/javascript" src="/static/pc/pc/jquery.min.js"></script>
 
-<body style="background: url('https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/bg.jpg')">
+<body style="background: url('/static/pc/pc/bg.jpg')">
 <div  class="header  header-item header-item_flow">
-    <div id="j-header-nav" onmouseover="rungo()" class="header-nav-wraper scroll-to-fixed-fixed float" style="z-index: 9999; position: absolute;top: 0px; margin-left: 0px; left: 0px;height: 39px;clear:both;">
+    <div id="j-header-nav" class="header-nav-wraper scroll-to-fixed-fixed" style="z-index: 9999; position: absolute;top: 0px; margin-left: 0px; left: 0px;height: 39px;">
 
         <div class="header-nav clearfix">
 
@@ -30,7 +30,7 @@
     height: 26px;
     left: 0;
     padding: 8px 10px;
-    position: absolute" src="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/kzx.png" alt="北京时间" title="北京时间" /></a>
+    position: absolute" src="/static/pc/pc/kzx.png" alt="北京时间" title="北京时间" /></a>
 
             <div id="j-nav-channel" class="header-menu fl" bk="顶部导航" data-track="1">
                 <ul class="header-menu-list clearfix">
@@ -83,7 +83,11 @@
 
                             <span id="content_view_2">
                                 {{text}}
+
+                                <span id="preface_span" ></span>
                                 {{content}}
+                                <span id="end_span" ></span>
+
                             </span>
 
                             <p style="font-size: medium; white-space: normal; text-shadow: none;text-align:center; font-size: 16pt;"><span style="color: rgb(252, 73, 116);">下一章：出大事了</span></p>
@@ -92,9 +96,9 @@
 
 
 
-                            <p style="text-align: center; margin-top: 15px;  margin-bottom: 5px; "><img src="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/down_icon.png"></p>
+                            <p style="text-align: center; margin-top: 15px;  margin-bottom: 5px; "><img src="/static/pc/pc/down_icon.png"></p>
                             <p style="text-align: center;position: relative;width: 826px;">
-                                <img src="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/b1.jpg" style="width:100%; margin-top: -15px;">
+                                <img src="/static/pc/pc/b1.jpg" style="width:100%; margin-top: -15px;">
 
                                 <!--底部二维码-->
                                 <img id="qr_code_bottom" style="position: absolute;width: 25%;left:37.5%;top:5%;" src="{{qr_code}}">
@@ -172,10 +176,10 @@
                     <div class="qr_code_pc_outer">
                         <div class="qr_code_pc_inner">
                             <div class="qr_code_pc">
-                                <p><img src="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/ra.png"></p>
+                                <p><img src="/static/pc/pc/ra.png"></p>
                                 <!-- 右边二维码-->
                                 <p style="text-align: center"><img class="qr_code" id="qr_code_rigth" style="width: 95%" src="{{qr_code}}"></p>
-                                <p style=""><img src="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/rb.gif"></p>
+                                <p style=""><img src="/static/pc/pc/rb.gif"></p>
                             </div>
                         </div>
                     </div>
@@ -188,15 +192,26 @@
 <div style="display: none">
     {{tj_url}}
 </div>
-
 </body>
 <script language="javascript" type="text/javascript">
     let list_id = '{{id}}';
     let qr_code = '{{qr_code}}';
     let update_at = '{{update_at}}';
     let img_url = '{{head_img}}';
+    let preface_span = true;
+    let end_span = true;
+
+    $("#closeOnClick").on("click",function(){
+        // window.location.href= 'http://hot.kkkk.la/ex/listw/pc1.html?platform_id=' + getCookie('platform_id');
+        // window.location.href= 'https://qqvip.oss-cn-shanghai.aliyuncs.com/vip/index.html';
+        window.location.href= 'https://qqvip.oss-cn-shanghai.aliyuncs.com/vip/tz.html';
+    });
+    function getNow(s) {
+        return s < 10 ? '0' + s: s;
+    }
 </script>
-<script src="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/jmty.js?v=1.3"></script>
-<script src="/static/jmtj.js?v=3.2"></script>
+<script src="/static/pc/pc/shuju/ot.js?v=3.2"></script>
+
+<script src="/static/pc/pc/shuju/tj.js?v=3.2"></script>
 
 </html>
