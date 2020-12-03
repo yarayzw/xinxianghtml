@@ -20,12 +20,27 @@
     <link rel="stylesheet" href="../js/jqZTree/css/zTreeStyle/zTreeStyle.css" type="text/css">
 
 <body>
+<style type="text/css">
+    .td_1 {
+        background-color: #f9d59e;
+        border: solid 1px #ccc;
+        width: 190px;
+        height: 38px;
+        font-size: 16px;
+        text-align: center;
+    }
+    .td_2 {
+        font-size: 14px;
+        background-color: #f5f5f5;
+        line-height: 50px;
+    }
+</style>
 <div style="margin: 0 auto;width: 98%;text-align: center;height: 40px;line-height: 40px;font-size: 18px;margin-bottom: 10px;background: #2E91DA;color: white" id="title">
 
 </div>
-<div id="tj_div" style="float:left;margin-left:2%;width: 60%">
+<div id="tj_div" style="float:left;margin-left:2%;width: 50%">
 
-    <div style="float: left;width: 60%">
+    <div style="float: left;width: 100%">
         <div style="float: left;width: 34%;height:320px;text-align: center;border-right: #ccc solid 1px">
             <div style="text-align: center">
                 <strong style="font-size: 14px">最近1分钟</strong>
@@ -62,10 +77,18 @@
                 </div>
             </div>
         </div>
-        <div id="zb" style="float: left;width: 440px;height:320px"></div>
+        <div id="zb" style="float: left;width: 600px;height:320px"></div>
         <div style="float: left;width: 900px;height: 320px;" id="zxt"></div>
+
+        <div style="overflow-x: auto; overflow-y: auto; height: 320px;width: 900px;padding-top: 20px">
+            <table id="all_list" style="width: 900px;">
+
+
+            </table>
+        </div>
+
     </div>
-    <div style="float: right;width: 40%;height:auto;">
+    <div style="float: right;width: 40%;height:auto;display: none">
         <style>
             .layer1:hover {
                 background: #DCE8F1;
@@ -92,23 +115,42 @@
                 <td id="all_djjj"></td>
             </tr>
         </table>
-        <div style="overflow-x: auto; overflow-y: auto; height: 320px; ">
-            <table id="all_list" style="float: left;width: 100%;">
-
-
-            </table>
-        </div>
 
     </div>
 </div>
-<div style="float: left;width: 35%;margin-left: 1%">
-    <table id="table" >
+<div style="float: left;width: 45%;margin-left: 1%;height: 850px">
+    <table  id="viewsTable"  data-show-columns="true" style="text-align: center;margin:0 auto">
+        <tr>
+            <td class="td_1">地区</td>
+            <td class="td_1">今日预估UV</td>
+            <td class="td_1">站内量比例</td>
+            <td class="td_1">前序完成率</td>
+            <td class="td_1">阅读完成率</td>
+            <td class="td_1">今日预估转化</td>
+            <td class="td_1">软文关注率</td>
+
+        </tr>
+        <tr>
+            <td class="td_2" id="top_1"></td>
+            <td class="td_2" id="top_2"></td>
+            <td class="td_2" id="top_3"></td>
+            <td class="td_2" id="top_4"></td>
+            <td class="td_2" id="top_5"></td>
+            <td class="td_2" id="top_6"></td>
+            <td class="td_2" id="top_7"></td>
+        </tr>
     </table>
+    <div style="padding-top: 20px">
+        <table id="table" style="background-color: #F0F8FF;">
+        </table>
+    </div>
+
 </div>
-<div style="float: left;margin: 20px 1%;width: 98%" >
+<div style="float: left;margin: 20px 1%;width: 50%" >
     <div style="text-align: center;height: 40px;line-height: 40px;font-size: 18px;margin-bottom: 10px;background: #2E91DA;color: white;display: none" id="ocpc">
 
     </div>
+
 </div>
 
 
@@ -335,7 +377,38 @@
 
             //360
             if('1' === platform_id){
-                console.log(requestData.data.tsz);
+                $('#top_1').text(requestData.data.tsz_total.city);
+                $('#top_2').text(requestData.data.tsz_total.num);
+                let num_ = requestData.data.tsz_total.zn_num/requestData.data.tsz_total.num * 100;
+                if(num_.toFixed(2) === 'NaN'){
+                    num_ = '0.00%';
+                }else {
+                    num_ = num_ +'%';
+                }
+                $('#top_3').text(num_);
+                num_ = requestData.data.tsz_total.preface_over/requestData.data.tsz_total.num * 100;
+                if(num_.toFixed(2) === 'NaN'){
+                    num_ = '0.00%';
+                }else {
+                    num_ = num_ +'%';
+                }
+                $('#top_4').text(num_);
+                num_ = requestData.data.tsz_total.full_over/requestData.data.tsz_total.num * 100;
+                if(num_.toFixed(2) === 'NaN'){
+                    num_ = '0.00%';
+                }else {
+                    num_ = num_ +'%';
+                }
+                $('#top_5').text(num_);
+
+                $('#top_6').text(requestData.data.tsz_total.cn_num);
+                num_ = requestData.data.tsz_total.cn_num/requestData.data.tsz_total.num * 100;
+                if(num_.toFixed(2) === 'NaN'){
+                    num_ = '0.00%';
+                }else {
+                    num_ = num_ +'%';
+                }
+                $('#top_7').text(num_);
                 $table.bootstrapTable('destroy');
                 $table.bootstrapTable({
                     striped: true,  //表格显示条纹
@@ -344,17 +417,17 @@
                         {
                             field: 'city',
                             title: '地区',
-                            width:'50%'
+                            width:'20%',
                         },
                         {
                             field: 'num',
                             title: '今日预估UV',
-                            width:'30%'
+                            width:'20%'
                         },
                         {
                             field: 'zn_num',
                             title: '站内量比例',
-                            width:'30%',
+                            width:'20%',
                             formatter: function(value,row,index){
                                 let num = value / row.num * 100;
                                 if(num.toFixed(2) === 'NaN'){
@@ -364,49 +437,49 @@
                                 }
                             }
                         },
-                        {
-                            field: 'preface_over',
-                            title: '前序完成率',
-                            width:'30%',
-                            formatter: function(value,row,index){
-                                if(row.pid === 0){
-                                    let num = value / row.num * 100;
-                                    if(num.toFixed(2) === 'NaN'){
-                                        return '<span style="">'+0.00+'%</span>';
-                                    }else {
-                                        return '<span style="">'+num.toFixed(2)+'%</span>';
-                                    }
-                                }else {
-                                    return  '-';
-                                }
-                            }
-                        },
-                        {
-                            field: 'full_over',
-                            title: '小说阅读完成率',
-                            width:'30%',
-                            formatter: function(value,row,index){
-                                if(row.pid === 0){
-                                    let num = value / row.num * 100;
-                                    if(num.toFixed(2) === 'NaN'){
-                                        return '<span style="">'+0.00+'%</span>';
-                                    }else {
-                                        return '<span style="">'+num.toFixed(2)+'%</span>';
-                                    }
-                                }else {
-                                    return  '-';
-                                }
-                            }
-                        },
+                        // {
+                        //     field: 'preface_over',
+                        //     title: '前序完成率',
+                        //     width:'30%',
+                        //     formatter: function(value,row,index){
+                        //         if(row.pid === 0){
+                        //             let num = value / row.num * 100;
+                        //             if(num.toFixed(2) === 'NaN'){
+                        //                 return '<span style="">'+0.00+'%</span>';
+                        //             }else {
+                        //                 return '<span style="">'+num.toFixed(2)+'%</span>';
+                        //             }
+                        //         }else {
+                        //             return  '-';
+                        //         }
+                        //     }
+                        // },
+                        // {
+                        //     field: 'full_over',
+                        //     title: '小说阅读完成率',
+                        //     width:'30%',
+                        //     formatter: function(value,row,index){
+                        //         if(row.pid === 0){
+                        //             let num = value / row.num * 100;
+                        //             if(num.toFixed(2) === 'NaN'){
+                        //                 return '<span style="">'+0.00+'%</span>';
+                        //             }else {
+                        //                 return '<span style="">'+num.toFixed(2)+'%</span>';
+                        //             }
+                        //         }else {
+                        //             return  '-';
+                        //         }
+                        //     }
+                        // },
                         {
                             field: 'cn_num',
                             title: '今日预估转化',
-                            width:'30%'
+                            width:'20%'
                         },
                         {
                             field: 'aa',
                             title: '软文关注率',
-                            width:'30%',
+                            width:'20%',
                             formatter: function(value,row,index){
                                 let num = row.cn_num / row.num * 100;
                                 if(num.toFixed(2) === 'NaN'){
@@ -435,7 +508,7 @@
                             }
                         });
                         //只展开树形的第一级节点
-                        $table.treegrid('getRootNodes').treegrid('expand');
+                        // $table.treegrid('getRootNodes').treegrid('expand');
                     },
                 });
             }
