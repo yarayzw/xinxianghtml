@@ -87,7 +87,7 @@ function sendType(type) {
 // },50000);
 setTimeout(function () {
     sendType(3);
-},60000);
+},120000);
 // setTimeout(function () {
 //     ipTjTime(7);
 // },70000);

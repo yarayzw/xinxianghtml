@@ -284,7 +284,7 @@ function ipTj(nw_ip) {
                     preface_span = false;
                     sendType(1);
                 }
-                if(scrollH +600 > $('#end_span').offset().top && end_span === true){
+                if(scrollH  > (contentH / 2) && end_span === true){
                     end_span = false;
                     sendType(2);
                 }
