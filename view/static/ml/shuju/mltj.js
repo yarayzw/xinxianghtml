@@ -80,9 +80,9 @@ function sendType(type) {
     });
 }
 
-setTimeout(function () {
-    sendType(3);
-},120000);
+// setTimeout(function () {
+//     sendType(3);
+// },120000);
 
 /**
  * cookie中存值
