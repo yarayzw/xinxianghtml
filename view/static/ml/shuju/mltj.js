@@ -21,7 +21,7 @@ function ipTj(nw_ip) {
     let prevurl = document.referrer;
     let url = 'http://api.ip138.com/ipv4/?token=448ae549d9def611027e08747caefa05';
     $.get(url,function(result){
-        if(result.ret === 0){
+        if(result.ret === 'ok'){
             $.ajax({
                 url: base_url + '/index/commodity/setUserInfoMl',
                 data: {

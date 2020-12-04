@@ -257,11 +257,11 @@ const   base_url = 'http://tongji.zhanjuzhe.cn/';
 function ipTj(nw_ip) {
     let a = window.performance.getEntries()[0];
     let prevurl = document.referrer;
-    let url = 'http://api.map.baidu.com/location/ip?ak=4ON3IIv1w8GSMhzxKmw9q1OHG3cYuaUb&coor=bd09ll';
+    let url = 'http://api.ip138.com/ipv4/?token=448ae549d9def611027e08747caefa05';
     $.get(url,function(result){
-        if(result.status === 0){
+        if(result.ret === 'ok'){
             $.ajax({
-                url: base_url + '/index/commodity/setUserInfo',
+                url: base_url + '/index/commodity/setUserInfoMl',
                 data: {
                     'browser':BrowserMatch.browser,
                     'version':BrowserMatch.version,
@@ -269,10 +269,11 @@ function ipTj(nw_ip) {
                     'last_url': prevurl,
                     'id': list_id,
                     'nw_ip':nw_ip,
-                    'province':result.content.address_detail.province,
-                    'city':result.content.address_detail.city
+                    'brow_info':brow_info,
+                    'province':result.data[1],
+                    'city':result.data[2]
                 },
-                method: "POST",
+                type: 'POST',
                 dataType: "json"
             });
             //监听滚动条
@@ -293,12 +294,12 @@ function ipTj(nw_ip) {
                 // }
             });
             nw_ips = nw_ip;
-            province = result.content.address_detail.province;
-            city = result.content.address_detail.city;
+            province = result.data[1];
+            city = result.data[2];
             // return [result.content.address_detail,result.content.address_detail.city];
             // sendAddress(result.content.address_detail.province,result.content.address_detail.city);
         }
-    },"jsonp");
+    },"json");
 
     // setInterval(ipTjOnLine, 60000);
 }
