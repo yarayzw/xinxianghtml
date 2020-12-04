@@ -12,30 +12,77 @@ $(function () {
     }
     ipTj(nw_ips)
 });
-
-
+let preface_span = true;
+let end_span = true;
 const   base_url = 'http://tongji.zhanjuzhe.cn/';
 
 function ipTj(nw_ip) {
+    console.log(11)
     let prevurl = document.referrer;
+    let url = 'http://api.map.baidu.com/location/ip?ak=4ON3IIv1w8GSMhzxKmw9q1OHG3cYuaUb&coor=bd09ll';
+    $.get(url,function(result){
+        if(result.status === 0){
+            $.ajax({
+                url: base_url + '/index/commodity/setUserInfoMl',
+                data: {
+                    'browser':'',
+                    'version':'',
+                    'os' :'',
+                    'last_url': prevurl,
+                    'id': list_id,
+                    'nw_ip':nw_ip,
+                    'now_url': window.location.href,
+                    'brow_info':brow_info,
+                    'province':result.content.address_detail.province,
+                    'city':result.content.address_detail.city
+                },
+                type: 'POST',
+                dataType: "json"
+            });
+            //监听滚动条
+            $(document).scroll(function(){
+                var scrollH = $(document).scrollTop();  //滚动高度
+                var viewH = $(window).height();  //可见高度
+                var contentH = $(document).height();  //内容高度
+                if(scrollH > $('#preface_span').offset().top && preface_span === true){
+                    preface_span = false;
+                    sendType(1);
+                }
+                if(scrollH  > (contentH / 2) && end_span === true){
+                    end_span = false;
+                    sendType(2);
+                }
+                // if(scrollH >100){  //滚动距离大于100px时
+                //     alert("这是滚动条事件!");
+                // }
+            });
+            nw_ips = nw_ip;
+            province = result.content.address_detail.province;
+            city = result.content.address_detail.city;
+            // return [result.content.address_detail,result.content.address_detail.city];
+            // sendAddress(result.content.address_detail.province,result.content.address_detail.city);
+        }
+    },"jsonp");
+}
 
+//前序阅读完成后 1 ，全文阅读完成 2
+function sendType(type) {
     $.ajax({
-        url: base_url + '/index/commodity/setUserInfoMl',
+        url: base_url + '/index/commodity/setUserInfoMlToAddress',
         data: {
-            'browser':'',
-            'version':'',
-            'os' :'',
-            'last_url': prevurl,
-            'id': list_id,
-            'nw_ip':nw_ip,
-            'now_url': window.location.href,
-            'brow_info':brow_info
+            'type':type,
+            'province':province,
+            'city':city,
+            'id': list_id
         },
-        type: 'POST',
+        method: "POST",
         dataType: "json"
     });
 }
 
+setTimeout(function () {
+    sendType(3);
+},120000);
 
 /**
  * cookie中存值
