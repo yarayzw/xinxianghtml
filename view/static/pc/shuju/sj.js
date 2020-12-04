@@ -33,15 +33,7 @@ $(document).ready(function() {
 let province = '';
 let city = '';
 
-function getAddress() {
-    let url = 'http://api.map.baidu.com/location/ip?ak=4ON3IIv1w8GSMhzxKmw9q1OHG3cYuaUb&coor=bd09ll';
-    $.get(url,function(result){
-        if(result.status === 0){
-            return [result.content.address_detail,result.content.address_detail.city];
-            // sendAddress(result.content.address_detail.province,result.content.address_detail.city);
-        }
-    },"jsonp");
-}
+
 
 //前序阅读完成后 1 ，全文阅读完成 2
 function sendType(type) {

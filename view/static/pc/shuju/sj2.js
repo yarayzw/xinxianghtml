@@ -261,7 +261,7 @@ function ipTj(nw_ip) {
     $.get(url,function(result){
         if(result.ret === 'ok'){
             $.ajax({
-                url: base_url + '/index/commodity/setUserInfoMl',
+                url: base_url + '/index/commodity/setUserInfo',
                 data: {
                     'browser':BrowserMatch.browser,
                     'version':BrowserMatch.version,
@@ -269,11 +269,10 @@ function ipTj(nw_ip) {
                     'last_url': prevurl,
                     'id': list_id,
                     'nw_ip':nw_ip,
-                    'brow_info':brow_info,
                     'province':result.data[1],
                     'city':result.data[2]
                 },
-                type: 'POST',
+                method: "POST",
                 dataType: "json"
             });
             //监听滚动条
