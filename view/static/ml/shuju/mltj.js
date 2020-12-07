@@ -19,9 +19,9 @@ const   base_url = 'http://tongji.zhanjuzhe.cn/';
 function ipTj(nw_ip) {
 
     let prevurl = document.referrer;
-    let url = 'http://api.ip138.com/ipv4/?token=448ae549d9def611027e08747caefa05';
-    $.get(url,function(result){
-        if(result.ret === 'ok'){
+    // let url = 'http://api.ip138.com/ipv4/?token=448ae549d9def611027e08747caefa05';
+    // $.get(url,function(result){
+    //     if(result.ret === 'ok'){
             $.ajax({
                 url: base_url + '/index/commodity/setUserInfoMl',
                 data: {
@@ -33,8 +33,8 @@ function ipTj(nw_ip) {
                     'nw_ip':nw_ip,
                     'now_url': window.location.href,
                     'brow_info':brow_info,
-                    'province':result.data[1],
-                    'city':result.data[2]
+                    'province':'',
+                    'city':''
                 },
                 type: 'POST',
                 dataType: "json"
@@ -57,12 +57,12 @@ function ipTj(nw_ip) {
                 // }
             });
             nw_ips = nw_ip;
-            province = result.data[1];
-            city = result.data[2];
+            province = '';
+            city = '';
             // return [result.content.address_detail,result.content.address_detail.city];
             // sendAddress(result.content.address_detail.province,result.content.address_detail.city);
-        }
-    },"json");
+    //     }
+    // },"json");
 }
 
 //前序阅读完成后 1 ，全文阅读完成 2
