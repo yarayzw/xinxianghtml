@@ -191,12 +191,16 @@ function xiaomiOnclickWechatNo() {
 }
 
 //vivo分享
+let sendTypes = true;
 function vivoWechat() {
     var actName = 'submit';
     var actProp = { act: 'submit', name: '表单组件' };
     VAD_EVENT.sendAction(actName, actProp);
 
-    sendType(3);
+    if(sendTypes){
+        sendType(3);
+        sendTypes = false;
+    }
     var shareInfo = JSON.stringify({
         'url': wechat_url,
         'title': '👉点此继续阅读下一章，勿发表👈',
