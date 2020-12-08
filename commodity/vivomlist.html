@@ -76,7 +76,7 @@
     <form id="list_search_faci">
         <fieldset>
 
-            <div class="col-sm-10">
+            <div class="col-sm-12">
                 <div class="row">
                     <div class="col-md-2">
                         <div class="input-group m-b">
@@ -84,7 +84,7 @@
                             <input type="text" id="name" class="form-control" aria-label="..." placeholder="">
                         </div>
                     </div>
-                    <div class="col-md-1">
+                    <div class="col-md-2">
                         <div class="input-group m-b">
                             <span class="input-group-addon">Id</span>
                             <input type="text" id="search_id" class="form-control" aria-label="..." placeholder="">
@@ -110,7 +110,7 @@
                                 <button class="btn btn-primary" type="button" onclick="addCommodity()">添加</button>
                             </span>
                     </div>
-                    <div id="history_search" style="margin-top: 3px;margin-left: 15px">
+                    <div id="history_search" style="margin-top: 3px;margin-left: 15px;">
 
                     </div>
                 </div>
@@ -728,7 +728,7 @@
                             fac_search();
                             layer.close(index);
                             layer.closeAll();
-                            layer.msg(requestMessage);
+                            layer.msg('添加成功');
                         } else {
                             layer.msg(requestMessage);
                         }
@@ -818,7 +818,7 @@
                             fac_search();
                             layer.close(index);
                             layer.closeAll();
-                            layer.msg(requestMessage);
+                            layer.msg('修改成功');
                         } else {
                             layer.msg(requestMessage);
                         }
@@ -876,7 +876,7 @@
                             fac_search();
                             layer.close(index);
                             layer.closeAll();
-                            layer.msg(requestMessage);
+                            layer.msg('修改成功');
                         } else {
                             layer.msg(requestMessage);
                         }
@@ -907,7 +907,7 @@
                             fac_search();
                             layer.close(index);
                             layer.closeAll();
-                            layer.msg(requestMessage);
+                            layer.msg('修改成功');
                         } else {
                             layer.msg(requestMessage);
                         }
@@ -937,7 +937,7 @@
                             fac_search();
                             layer.close(index);
                             layer.closeAll();
-                            layer.msg(requestMessage);
+                            layer.msg('修改成功');
                         } else {
                             layer.msg(requestMessage);
                         }
@@ -957,7 +957,7 @@
     //渲染搜索历史
     function searchHistory() {
         requestData.data = {
-            'platform_id' : 3
+            'platform_id' : 8
         };
         ajaxGo('admin/Weakness/getListToSelect');
         $('#history_search').empty();
@@ -1001,176 +1001,7 @@
         fac_search();
     }
 
-    /**
-     * 根据素材id 设置饼图和折线图
-     * @param creative_id
-     * @param obj
-     */
-    function getTjUCId(creative_id, obj) {
-        $("tr").removeClass("tr_color");
-        $(obj).parent('tr').addClass('tr_color');
-        requestData.data = {
-            'creative_id': creative_id
-        };
-        ajaxGo('admin/user_thirdparty_info/getTjUCId');
-        if (requestCode === 1) {
-            layer.msg(requestMessage);
-        }
-        $("#all_num").text(requestData.data.now_time); //一分钟内独立访客
 
-        //今日最高
-        $("#today_max").text(requestData.data.max_num.num);
-        $("#today_max_time").text(requestData.data.max_num.time);
-
-        //今日汇总
-        $("#all_all").text(requestData.data.today.all);
-        $("#all_fk").text(requestData.data.today.dl);
-        $("#all_ip").text(requestData.data.today.ip);
-
-        //15分钟
-        $("#15_all").text(requestData.data.five.all);
-        $("#15_fk").text(requestData.data.five.dl);
-        $("#15_ip").text(requestData.data.five.ip);
-
-
-        //占比
-        var option = {
-            tooltip: {
-                trigger: 'item',
-                formatter: '{a} <br/>{b} : {c} ({d}%'
-            },
-            color: ['#2E91DA', '#f6bd0f', '#F5AD46', '#6CBF3D', '#EDEB2C', '#A149D9', '#f6bd0f'],
-            series: [
-                {
-                    name: '访问来源',
-                    type: 'pie',
-                    radius: '35%',
-                    center: ['50%', '55%'],
-                    avoidLabelOverlap: true,
-                    minAngle: 5,
-                    label: {            //饼图图形上的文本标签
-                        formatter: '{b|{b}：}{per|{d}%}\n{c|{c}}  ',
-                        lineHeight: 13,
-                        rich: {
-                            a: {
-                                color: '#999',
-                                lineHeight: 22,
-                                align: 'center'
-                            },
-                            b: {
-                                fontSize: 11,
-                                lineHeight: 13,
-                                color: '#333',
-                            },
-                            per: {
-                                color: '#eee',
-                                backgroundColor: '#334455',
-                                padding: [2, 4],
-                                borderRadius: 2,
-                                fontSize: 9,
-                            },
-                            c: {
-                                align: 'left',
-                                fontSize: 10,
-                                color: '#999',
-                            }
-
-                        }
-                    },
-                    data: requestData.data.lnq_zb
-                }
-            ]
-        };
-        myChart.setOption(option);
-
-        //折线
-        option = {
-            legend: {
-                data: [requestData.data.zxt[0]['name'], requestData.data.zxt[1]['name'], requestData.data.zxt[2]['name']]
-            },
-            tooltip: {
-                trigger: 'axis'
-            },
-            grid: {
-                left: '3%',
-                right: '4%',
-                bottom: '3%',
-                containLabel: true
-            },
-            color: ['#2E91DA', '#F5AD46', '#6CBF3D'],
-            xAxis: {
-                type: 'category',
-                boundaryGap: false,
-                data: ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00']
-            },
-            yAxis: {
-                type: 'value'
-            },
-            series: requestData.data.llq_zb_zx
-        };
-        myChartzx.setOption(option);
-    }
-
-    /**
-     * 开启素材  1开启0暂停
-     * @param obj
-     */
-    function onCreative(obj) {
-        layer.msg('确定修改？', {
-            time: 0 //不自动关闭
-            , btn: ['确定', '取消']
-            , yes: function (index) {
-                requestData.data = {
-                    'creative_id': $(obj).attr('data_creative_id'),
-                    'type': $(obj).attr('data_type')
-                };
-                ajaxGo('admin/user_thirdparty_info/setUcCreative');
-                if (requestCode === 0) {
-                    if ($(obj).attr('data_type') === '1') {
-                        $(obj).css('color', 'green');
-                        $(obj).attr('data_type', '0');
-                        $(obj).text('启动');
-                    } else {
-                        $(obj).css('color', '#ee1e2d');
-                        $(obj).attr('data_type', '1');
-                        $(obj).text('暂停');
-                    }
-                    layer.msg('修改成功!');
-                } else {
-                    layer.msg(requestMessage);
-                }
-            }
-        });
-
-    }
-
-    /**
-     * 设置统计预留数据
-     */
-    function setInfoReserve(obj) {
-        layer.msg('确定修改预留？', {
-            time: 0 //不自动关闭
-            , btn: ['确定', '取消']
-            , yes: function (index) {
-                requestData.data = {
-                    'creative_id': $(obj).attr('data_creative_id'),
-                    'page_id': $(obj).attr('data_page_id')
-                };
-                ajaxGo('admin/user_thirdparty_info/setInfoReserve');
-                if (requestCode === 0) {
-                    let text = $(obj).text();
-                    if ('是' === text) {
-                        $(obj).text('否');
-                    } else {
-                        $(obj).text('是');
-                    }
-                    layer.msg('修改成功!');
-                } else {
-                    layer.msg(requestMessage);
-                }
-            }
-        });
-    }
 
 
 </script>
