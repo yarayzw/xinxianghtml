@@ -40,10 +40,10 @@
 </div>
 <div id="tj_div" style="float:left;width: 50%">
 
-    <div style="float: left;width: 100%">
-        <div style="margin-left:2%;float: left;width: 350px;height:320px;text-align: center;border-right: #ccc solid 1px">
+    <div style="float: left;width: 100%;">
+        <div style="margin-left:2%;float: left;width: 350px;height:320px;text-align: center;border-right: #ccc solid 1px;padding-bottom: 40px">
             <div style="text-align: center">
-                <strong style="font-size: 14px">最近1分钟</strong>
+                <strong style="font-size: 14px">最近1分钟</strong> <span style="position: relative;left: 120px;color: red;width: 10px" id="djs"></span>
                 <br>
                 <span style="font-size: 12px;line-height: 50px;">
                     您网站上有 <span style="color: red; font-size: 40px" id="all_num">0</span> 独立访客
@@ -55,7 +55,7 @@
             </div>
             <br>
             <div >
-                <div style="float: left; line-height: 26px; font-weight:bold;  width: 49%;text-align: left;padding-left:10px;">
+                <div style="float: left; line-height: 30px; font-weight:bold;  width: 49%;text-align: left;padding-left:10px;">
                     <strong style="font-size: 12px">今日汇总</strong>
                     <br>
                     <span style="font-size: 14px; color: #2e91da">浏览次数: <span style="font-size: 20px"
@@ -65,7 +65,7 @@
                     <span style="font-size: 14px; color: #6cbf3d">独立IP数: <span style="font-size: 20px"
                                                                                id="all_ip">0</span></span>
                 </div>
-                <div style="float: left; line-height: 26px; font-weight:bold; width: 49%;text-align: left;padding-left:2%;">
+                <div style="float: left; line-height: 30px; font-weight:bold; width: 49%;text-align: left;padding-left:2%;">
                     <strong style="font-size: 12px">最近15分钟</strong>
                     <br>
                     <span style="font-size: 14px; color: #2e91da">浏览次数: <span style="font-size: 20px"
@@ -77,7 +77,7 @@
                 </div>
             </div>
         </div>
-        <div style="float: left;width: 550px;height: 320px;" id="zxt_num"></div>
+        <div style="float: left;width: 550px;height: 320px;padding-top: 5px;padding-bottom: 40px" id="zxt_num"></div>
 
         <div style="overflow-x: auto; overflow-y: auto; height: 320px;width: 900px;padding-top: 20px;display: none">
             <table id="all_list" style="width: 900px;">
@@ -87,8 +87,8 @@
         </div>
     </div>
     <hr>
-    <div id="zb" style="float: left;width: 350px;height:320px;margin-left: 2%;border-right: #ccc solid 1px;border-top: #ccc solid 1px"></div>
-    <div style="float: left;width: 550px;height: 320px;border-top: #ccc solid 1px" id="zxt"></div>
+    <div id="zb" style="float: left;width: 350px;height:320px;margin-left: 2%;border-right: #ccc solid 1px;border-top: #333 solid 10px;padding-top: 25px"></div>
+    <div style="float: left;width: 550px;height: 320px;border-top: #333 solid 10px;padding-top: 35px;" id="zxt"></div>
 
     <div style="float: right;width: 40%;height:auto;display: none">
         <style>
@@ -534,9 +534,13 @@
 
     }
 
-    setTimeout(function () {
-        window.location.reload();
-    },60000);
-
+    let djs = 60;
+    setInterval(function () {
+       $('#djs').text(djs+'s');
+       djs = djs-1;
+       if(djs===1){
+           window.location.reload();
+       }
+    }, 1000);
 </script>
 </html>
