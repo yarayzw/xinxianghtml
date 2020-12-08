@@ -38,10 +38,10 @@
 <div style="margin: 0 auto;width: 98%;text-align: center;height: 40px;line-height: 40px;font-size: 18px;margin-bottom: 10px;background: #2E91DA;color: white" id="title">
 
 </div>
-<div id="tj_div" style="float:left;margin-left:2%;width: 50%">
+<div id="tj_div" style="float:left;width: 50%">
 
     <div style="float: left;width: 100%">
-        <div style="float: left;width: 34%;height:320px;text-align: center;border-right: #ccc solid 1px">
+        <div style="margin-left:2%;float: left;width: 350px;height:320px;text-align: center;border-right: #ccc solid 1px">
             <div style="text-align: center">
                 <strong style="font-size: 14px">最近1分钟</strong>
                 <br>
@@ -55,7 +55,7 @@
             </div>
             <br>
             <div >
-                <div style="float: left; line-height: 26px; font-weight:bold;  width: 49%;text-align: left;padding-left:1%;">
+                <div style="float: left; line-height: 26px; font-weight:bold;  width: 49%;text-align: left;padding-left:10px;">
                     <strong style="font-size: 12px">今日汇总</strong>
                     <br>
                     <span style="font-size: 14px; color: #2e91da">浏览次数: <span style="font-size: 20px"
@@ -65,7 +65,7 @@
                     <span style="font-size: 14px; color: #6cbf3d">独立IP数: <span style="font-size: 20px"
                                                                                id="all_ip">0</span></span>
                 </div>
-                <div style="float: left; line-height: 26px; font-weight:bold; width: 49%;text-align: left;padding-left:1%;">
+                <div style="float: left; line-height: 26px; font-weight:bold; width: 49%;text-align: left;padding-left:2%;">
                     <strong style="font-size: 12px">最近15分钟</strong>
                     <br>
                     <span style="font-size: 14px; color: #2e91da">浏览次数: <span style="font-size: 20px"
@@ -77,17 +77,19 @@
                 </div>
             </div>
         </div>
-        <div id="zb" style="float: left;width: 600px;height:320px"></div>
-        <div style="float: left;width: 900px;height: 320px;" id="zxt"></div>
+        <div style="float: left;width: 550px;height: 320px;" id="zxt_num"></div>
 
-        <div style="overflow-x: auto; overflow-y: auto; height: 320px;width: 900px;padding-top: 20px">
+        <div style="overflow-x: auto; overflow-y: auto; height: 320px;width: 900px;padding-top: 20px;display: none">
             <table id="all_list" style="width: 900px;">
 
 
             </table>
         </div>
-
     </div>
+    <hr>
+    <div id="zb" style="float: left;width: 350px;height:320px;margin-left: 2%;border-right: #ccc solid 1px;border-top: #ccc solid 1px"></div>
+    <div style="float: left;width: 550px;height: 320px;border-top: #ccc solid 1px" id="zxt"></div>
+
     <div style="float: right;width: 40%;height:auto;display: none">
         <style>
             .layer1:hover {
@@ -197,6 +199,7 @@
     }
     var myChart = echarts.init(document.getElementById('zb'));
     var myChartzx = echarts.init(document.getElementById('zxt'));
+    var myChartzx_num = echarts.init(document.getElementById('zxt_num'));
     function getTj(page_id,platform_id = '0') {
 
             $('#all_list_num').hide();
@@ -235,11 +238,11 @@
                 $('#top_6').text(requestData.data.tsz_total.cn_num);
                 num_ = requestData.data.tsz_total.cn_num/requestData.data.tsz_total.num * 100;
                 if(num_.toFixed(2) === 'NaN'){
-                    num_ = '0.00%';
+                    var num_1_ = '0.00%';
                 }else {
-                    num_ = num_.toFixed(2) +'%';
+                    var num_1_ = num_.toFixed(2) +'%';
                 }
-                $('#top_7').text(num_);
+                $('#top_7').text(num_1_);
                 $table.bootstrapTable('destroy');
                 $table.bootstrapTable({
                     striped: true,  //表格显示条纹
@@ -464,6 +467,48 @@
         };
         myChartzx.setOption(option);
 
+        //折线
+        option = {
+            legend: {
+                data: ['浏览次数','独立访客','独立IP']
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            color:['#2E91DA','#F5AD46','#6CBF3D'],
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: requestData.data.zxt_num.id_ip.key
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [
+                {
+                    data:  requestData.data.zxt_num.views_num.val,
+                    type: 'line',
+                    name: '浏览次数'
+                },
+                {
+                    data:  requestData.data.zxt_num.id_visitor.val,
+                    type: 'line',
+                    name: '独立访客'
+                },
+                {
+                    data:  requestData.data.zxt_num.id_ip.val,
+                    type: 'line',
+                    name: '独立IP'
+                },
+            ]
+        };
+        myChartzx_num.setOption(option);
             // //右侧列表
             // let html = '<tr style=" font-size:12px;font-weight:bold; width: 100%; line-height: 25px; background:#E9E9E9;">\n' +
             //     '                    <td style="text-align: right; width: 35%; padding-left:2%; text-align:left;">来路域名</td>\n' +
