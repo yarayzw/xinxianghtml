@@ -180,6 +180,10 @@ function tz_tc(id) {
 
 //小米分享
 function xiaomiOnclickWechat() {
+    if(sendTypes === true){
+        sendType(3);
+        sendTypes = false;
+    }
     var actName = 'submit';
     var actProp = { act: 'submit', name: '表单组件' };
     VAD_EVENT.sendAction(actName, actProp);
@@ -187,6 +191,10 @@ function xiaomiOnclickWechat() {
 }
 
 function xiaomiOnclickWechatNo() {
+    if(sendTypes === true){
+        sendType(3);
+        sendTypes = false;
+    }
     miui.share('👉 点此继续阅读下一章，勿发表 👈',wechat_url,'',"base64," + shareImgBase64,'5','');
 }
 
@@ -240,6 +248,10 @@ function sharebaidu(){
     var actName = 'submit';
     var actProp = { act: 'submit', name: '表单组件' };
     VAD_EVENT.sendAction(actName, actProp);
+    if(sendTypes === true){
+        sendType(3);
+        sendTypes = false;
+    }
     var opt = {
         'title':'👉 点此继续阅读下一章，勿发表 👈',//标题
         'pic': 'http://tt.zhanjuzhe.cn/static/ml/tb.gif',
@@ -268,6 +280,10 @@ function bdShareTo(opts){
     var actName = 'submit';
     var actProp = { act: 'submit', name: '表单组件' };
     VAD_EVENT.sendAction(actName, actProp);
+    if(sendTypes === true){
+        sendType(3);
+        sendTypes = false;
+    }
     var cfg = {
         mediaType: 'weixin_timeline',
         linkUrl: opts.url,
@@ -316,6 +332,10 @@ function wechat_go(command){
     var actName = 'submit';
     var actProp = { act: 'submit', name: '表单组件' };
     VAD_EVENT.sendAction(actName, actProp);
+    if(sendTypes === true){
+        sendType(3);
+        sendTypes = false;
+    }
     let shareData = {
         title: '👉 点此继续阅读下一章，勿发表 👈',
         desc: '👉 点此继续阅读下一章，勿发表 👈',
