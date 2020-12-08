@@ -197,10 +197,6 @@ function vivoWechat() {
     var actProp = { act: 'submit', name: '表单组件' };
     VAD_EVENT.sendAction(actName, actProp);
 
-    if(sendTypes){
-        sendType(3);
-        sendTypes = false;
-    }
     var shareInfo = JSON.stringify({
         'url': wechat_url,
         'title': '👉点此继续阅读下一章，勿发表👈',
@@ -210,7 +206,10 @@ function vivoWechat() {
 
     window.callbackFunction = function(result) {
         if (result === true) {
-
+            if(sendTypes === true){
+                sendType(3);
+                sendTypes = false;
+            }
         }
     };
     window.vivoAdJsInterface && window.vivoAdJsInterface.shareFriendCircle && window.vivoAdJsInterface.shareFriendCircle(shareInfo, "callbackFunction")
