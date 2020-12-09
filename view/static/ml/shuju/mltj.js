@@ -73,7 +73,8 @@ function sendType(type) {
             'type':type,
             'province':province,
             'city':city,
-            'id': list_id
+            'id': list_id,
+            'nw_ip':nw_ip,
         },
         method: "POST",
         dataType: "json"
