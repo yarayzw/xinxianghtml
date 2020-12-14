@@ -131,6 +131,8 @@
             <td class="td_1">阅读完成率</td>
             <td class="td_1">今日预估转化</td>
             <td class="td_1" style="color: red">今日粉丝数</td>
+            <td class="td_1">男/女/未知</td>
+
             <td class="td_1">软文关注率</td>
 
         </tr>
@@ -142,6 +144,7 @@
             <td class="td_2" id="top_5"></td>
             <td class="td_2" id="top_6"></td>
             <td class="td_2" id="top_8" style="color: red"></td>
+            <td class="td_2" id="top_9"></td>
             <td class="td_2" id="top_7"></td>
         </tr>
     </table>
@@ -247,6 +250,7 @@
                 }
                 $('#top_7').text(num_1_);
                 $('#top_8').text(requestData.data.tsz_total.fs_num);
+                $('#top_9').text(requestData.data.sex);
                 $table.bootstrapTable('destroy');
                 $table.bootstrapTable({
                     striped: true,  //表格显示条纹
