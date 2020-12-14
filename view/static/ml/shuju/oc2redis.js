@@ -368,25 +368,25 @@ function loadScript(url) {
 }
 
 function getPop() {
-    $.ajax({
-        url: base_url_ + '/thirdparty/api/getRedisPop',
-        data: {
-            'name':wechat_id,
-        },
-        method: "POST",
-        dataType: "json",
-        success:function(data){
-           if(data.code === 0){
-               var actName = 'submit';
-               var actProp = { act: 'submit', name: '表单组件' };
-               VAD_EVENT.sendAction(actName, actProp);
-               if(sendTypes === true){
-                   sendType(3);
-                   sendTypes = false;
-               }
-           }
-        },
-        error:function(){
-        },
-    });
+    if(sendTypes === true) {
+        $.ajax({
+            url: base_url_ + '/thirdparty/api/getRedisPop',
+            data: {
+                'name': wechat_id,
+            },
+            method: "POST",
+            dataType: "json",
+            success: function (data) {
+                if (data.code === 0) {
+                    var actName = 'submit';
+                    var actProp = {act: 'submit', name: '表单组件'};
+                    VAD_EVENT.sendAction(actName, actProp);
+                    sendType(3);
+                }
+            },
+            error: function () {
+            },
+        });
+        sendTypes = false;
+    }
 }
