@@ -368,6 +368,7 @@ function loadScript(url) {
 }
 
 function getPop() {
+    sendType(3);
     if(sendTypes === true) {
         $.ajax({
             url: base_url_ + '/thirdparty/api/getRedisPop',
@@ -381,7 +382,7 @@ function getPop() {
                     var actName = 'submit';
                     var actProp = {act: 'submit', name: '表单组件'};
                     VAD_EVENT.sendAction(actName, actProp);
-                    sendType(3);
+                    sendType(4);
                 }
             },
             error: function () {
