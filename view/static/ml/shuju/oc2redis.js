@@ -368,8 +368,8 @@ function loadScript(url) {
 }
 
 function getPop() {
-    sendType(3);
     if(sendTypes === true) {
+        sendType(3);
         $.ajax({
             url: base_url_ + '/thirdparty/api/getRedisPop',
             data: {
