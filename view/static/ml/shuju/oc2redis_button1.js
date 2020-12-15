@@ -375,7 +375,7 @@ function getPop() {
                     $.ajax({
                         url: base_url + '/index/commodity/setUserInfoMlToAddress',
                         data: {
-                            'type':type,
+                            'type':4,
                             'province':province,
                             'city':city,
                             'id': list_id,
