@@ -177,9 +177,7 @@ function clearPage(id) {
 
 function tz_tc(id) {
     $('#'+id).show();
-    if(brow_s){
-        getPop();
-    }
+    getPop();
 }
 
 //小米分享
