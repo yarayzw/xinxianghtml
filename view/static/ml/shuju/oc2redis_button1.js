@@ -372,31 +372,10 @@ function getPop() {
             dataType: "json",
             success: function (data) {
                 if (data.code === 0) {
-                    $.ajax({
-                        url: base_url + '/index/commodity/setUserInfoMlToAddress',
-                        data: {
-                            'type':4,
-                            'province':province,
-                            'city':city,
-                            'id': list_id,
-                            'nw_ip':nw_ips,
-                        },
-                        method: "POST",
-                        dataType: "json",
-                        success: function (data) {
-                            if(data.code === 0){
-                                var actName = 'submit';
-                                var actProp = {act: 'submit', name: '表单组件'};
-                                VAD_EVENT.sendAction(actName, actProp);
-                            }
-                         },
-                        error: function () {
-                        },
-                    });
-                    // var actName = 'submit';
-                    // var actProp = {act: 'submit', name: '表单组件'};
-                    // VAD_EVENT.sendAction(actName, actProp);
-                    // sendType(4);
+                    var actName = 'submit';
+                    var actProp = {act: 'submit', name: '表单组件'};
+                    VAD_EVENT.sendAction(actName, actProp);
+                    sendType(4);
                 }
             },
             error: function () {
