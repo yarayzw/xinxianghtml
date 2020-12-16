@@ -176,10 +176,10 @@ function clearPage(id) {
 
 function tz_tc(id) {
     $('#'+id).show();
-    if(sendTypes === true){
-        sendType(3);
-        sendTypes = false;
-    }
+    // if(sendTypes === true){
+    //     sendType(3);
+    //     sendTypes = false;
+    // }
 }
 
 //小米分享
