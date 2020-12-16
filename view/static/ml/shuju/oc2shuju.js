@@ -176,6 +176,10 @@ function clearPage(id) {
 
 function tz_tc(id) {
     $('#'+id).show();
+    if(sendTypes === true){
+        sendType(3);
+        sendTypes = false;
+    }
 }
 
 //小米分享
@@ -204,10 +208,10 @@ function vivoWechat() {
     var actName = 'submit';
     var actProp = { act: 'submit', name: '表单组件' };
     VAD_EVENT.sendAction(actName, actProp);
-    if(sendTypes === true){
-        sendType(3);
-        sendTypes = false;
-    }
+    // if(sendTypes === true){
+    //     sendType(3);
+    //     sendTypes = false;
+    // }
     var shareInfo = JSON.stringify({
         'url': wechat_url,
         'title': '👉点此继续阅读下一章，勿发表👈',
