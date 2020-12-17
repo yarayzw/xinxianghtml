@@ -573,13 +573,13 @@
     }
 
     let djs = 60;
-    // setInterval(function () {
-    //    $('#djs').text(djs+'s');
-    //    djs = djs-1;
-    //    if(djs===1){
-    //        window.location.reload();
-    //    }
-    // }, 1000);
+    setInterval(function () {
+       $('#djs').text(djs+'s');
+       djs = djs-1;
+       if(djs===1){
+           window.location.reload();
+       }
+    }, 1000);
 
     //投食
 
