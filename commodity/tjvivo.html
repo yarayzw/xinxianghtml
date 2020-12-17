@@ -221,7 +221,7 @@
     $(document).ready(function () {
         id = getUrlParam('bb_id');
         platform_id = getUrlParam('platform_id');
-        getTj(id,platform_id);
+        // getTj(id,platform_id);
         getToushi();
     });
 
@@ -584,45 +584,74 @@
     //投食
 
     function getToushi() {
-        $.ajax({
-            url: __ROOT__ + 'admin/commodity/addRedisListLog',
-            data:{
-                'page_id' : id,
-            },
-            method:"POST",
-            dataType:"json",
-            success:function(data){
-                $('#table_sw').empty();
-                var html = '<tr>\n' +
-                    '                    <td  style="white-space:normal">\n' +
-                    '                        投食时间\n' +
-                    '                    </td>\n' +
-                    '                    <td  style="white-space:normal">\n' +
-                    '                        数量\n' +
-                    '                    </td>\n' +
-                    '                </tr>';
-                $('#table_sw').append(html);
+        requestData.data = {
+            'page_id' : id,
+            'num' : $('#add_redis_num').val()
+        };
+        ajaxGo('admin/commodity/addRedisListLog');
+        $('#table_sw').empty();
+        var html = '<tr>\n' +
+            '                    <td  style="white-space:normal">\n' +
+            '                        投食时间\n' +
+            '                    </td>\n' +
+            '                    <td  style="white-space:normal">\n' +
+            '                        数量\n' +
+            '                    </td>\n' +
+            '                </tr>';
+        $('#table_sw').append(html);
 
-                data.data.data.rows.forEach((item,index,array)=>{
-                    var html = '<tr>\n' +
-                        '                    <td  style="white-space:normal">\n' +
-                        '                        '+item.create_at+'\n' +
-                        '                    </td>\n' +
-                        '                    <td  style="white-space:normal">\n' +
-                        '                        '+item.num+'\n' +
-                        '                    </td>\n' +
-                        '                </tr>';
-                    //执行代码
-                    $('#table_sw').append(html);
-                });
-                $('#sysw').text(data.data.redis)
-            },
-            error:function(){
-            },
-            complete: function(){
-                isClick=false;
-            }
+        requestData.data.data.rows.forEach((item,index,array)=>{
+            var html = '<tr>\n' +
+                '                    <td  style="white-space:normal">\n' +
+                '                        '+item.create_at+'\n' +
+                '                    </td>\n' +
+                '                    <td  style="white-space:normal">\n' +
+                '                        '+item.num+'\n' +
+                '                    </td>\n' +
+                '                </tr>';
+            //执行代码
+            $('#table_sw').append(html);
         });
+        $('#sysw').text(data.data.redis)
+        // $.ajax({
+        //     url: __ROOT__ + 'admin/commodity/addRedisListLog',
+        //     data:{
+        //         'page_id' : id,
+        //     },
+        //     method:"POST",
+        //     dataType:"json",
+        //     success:function(data){
+        //         $('#table_sw').empty();
+        //         var html = '<tr>\n' +
+        //             '                    <td  style="white-space:normal">\n' +
+        //             '                        投食时间\n' +
+        //             '                    </td>\n' +
+        //             '                    <td  style="white-space:normal">\n' +
+        //             '                        数量\n' +
+        //             '                    </td>\n' +
+        //             '                </tr>';
+        //         $('#table_sw').append(html);
+        //
+        //         data.data.data.rows.forEach((item,index,array)=>{
+        //             var html = '<tr>\n' +
+        //                 '                    <td  style="white-space:normal">\n' +
+        //                 '                        '+item.create_at+'\n' +
+        //                 '                    </td>\n' +
+        //                 '                    <td  style="white-space:normal">\n' +
+        //                 '                        '+item.num+'\n' +
+        //                 '                    </td>\n' +
+        //                 '                </tr>';
+        //             //执行代码
+        //             $('#table_sw').append(html);
+        //         });
+        //         $('#sysw').text(data.data.redis)
+        //     },
+        //     error:function(){
+        //     },
+        //     complete: function(){
+        //         isClick=false;
+        //     }
+        // });
 
 
     }
@@ -648,7 +677,7 @@
                         };
                         ajaxGo('admin/commodity/addRedisListNum');
                         if(requestCode === 0){
-                            fac_search_redis();
+                            getToushi();
                             layer.close(index);
                             layer.closeAll();
                             layer.msg(requestMessage);
