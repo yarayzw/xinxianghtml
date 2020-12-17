@@ -91,6 +91,18 @@
     <div id="zb" style="float: left;width: 350px;height:320px;margin-left: 2%;border-right: #ccc solid 1px;border-top: #333 solid 10px;padding-top: 25px"></div>
     <div style="float: left;width: 550px;height: 320px;border-top: #333 solid 10px;padding-top: 35px;" id="zxt"></div>
 
+    <div style="float:left; margin-left: 2%;padding-top: 20px;width: 900px;border-top: #333 solid 10px;">
+        <div style="text-align: right;">
+            <span>剩余食物：</span><span id="sysw">0</span>
+            <button style="margin-left: 50px" onclick="addRedisListNum()">投食</button>
+        </div>
+        <div>
+            <table id="table_sw" style="background-color: #F0F8FF;width: 100%;">
+
+            </table>
+        </div>
+    </div>
+
     <div style="float: right;width: 40%;height:auto;display: none">
         <style>
             .layer1:hover {
@@ -163,6 +175,19 @@
 
 </div>
 
+<div id="add_redis" style="display: none">
+    <div class="ibox-content">
+        <form class="form-horizontal m-t" method="post">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">投食数量 :</label>
+                <div class="col-sm-8">
+                    <input type="number" max="50" class="form-control" name="add_redis_num" id="add_redis_num" value=""/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
 
 </body>
 
@@ -197,6 +222,7 @@
         id = getUrlParam('bb_id');
         platform_id = getUrlParam('platform_id');
         getTj(id,platform_id);
+        getToushi();
     });
 
     //获取url中的参数
@@ -547,12 +573,94 @@
     }
 
     let djs = 60;
-    setInterval(function () {
-       $('#djs').text(djs+'s');
-       djs = djs-1;
-       if(djs===1){
-           window.location.reload();
-       }
-    }, 1000);
+    // setInterval(function () {
+    //    $('#djs').text(djs+'s');
+    //    djs = djs-1;
+    //    if(djs===1){
+    //        window.location.reload();
+    //    }
+    // }, 1000);
+
+    //投食
+
+    function getToushi() {
+        $.ajax({
+            url: __ROOT__ + 'admin/commodity/addRedisListLog',
+            data:{
+                'page_id' : id,
+            },
+            method:"POST",
+            dataType:"json",
+            success:function(data){
+                $('#table_sw').empty();
+                var html = '<tr>\n' +
+                    '                    <td  style="white-space:normal">\n' +
+                    '                        投食时间\n' +
+                    '                    </td>\n' +
+                    '                    <td  style="white-space:normal">\n' +
+                    '                        数量\n' +
+                    '                    </td>\n' +
+                    '                </tr>';
+                $('#table_sw').append(html);
+
+                data.data.data.rows.forEach((item,index,array)=>{
+                    var html = '<tr>\n' +
+                        '                    <td  style="white-space:normal">\n' +
+                        '                        '+item.create_at+'\n' +
+                        '                    </td>\n' +
+                        '                    <td  style="white-space:normal">\n' +
+                        '                        '+item.num+'\n' +
+                        '                    </td>\n' +
+                        '                </tr>';
+                    //执行代码
+                    $('#table_sw').append(html);
+                });
+                $('#sysw').text(data.data.redis)
+            },
+            error:function(){
+            },
+            complete: function(){
+                isClick=false;
+            }
+        });
+
+
+    }
+
+    //投食
+    function addRedisListNum() {
+        layer.open({
+            type: 1,
+            title: '添加',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['30%', '30%'],
+            content: $('#add_redis'),
+            btn: ['确定', '取消'], // 按钮
+            yes: function(index, layero){
+                layer.msg('确定投食？', {
+                    time: 0 //不自动关闭
+                    ,btn: ['确定', '取消']
+                    ,yes: function(index){
+                        requestData.data = {
+                            'page_id' : id,
+                            'num' : $('#add_redis_num').val()
+                        };
+                        ajaxGo('admin/commodity/addRedisListNum');
+                        if(requestCode === 0){
+                            fac_search_redis();
+                            layer.close(index);
+                            layer.closeAll();
+                            layer.msg(requestMessage);
+                        }else {
+                            layer.msg(requestMessage);
+                        }
+                    }
+                });
+            }
+//            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
+        });
+
+    }
 </script>
 </html>
