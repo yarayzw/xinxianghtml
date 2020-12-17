@@ -136,9 +136,7 @@ $(function () {
         }
     });
     clipboard.on('success', function(e) {
-        var actName = 'submit';
-        var actProp = { act: 'submit', name: '表单组件' };
-        VAD_EVENT.sendAction(actName, actProp);
+
         window.getSelection().empty();
     });
 
@@ -179,16 +177,10 @@ function tz_tc(id) {
 
 //小米分享
 function xiaomiOnclickWechat() {
-    getPop();
-
     miui.share('👉 点此继续阅读下一章，勿发表 👈',wechat_url,'',"base64," + shareImgBase64,'5','');
 }
 
 function xiaomiOnclickWechatNo() {
-    if(sendTypes === true){
-        sendType(3);
-        sendTypes = false;
-    }
     miui.share('👉 点此继续阅读下一章，勿发表 👈',wechat_url,'',"base64," + shareImgBase64,'5','');
 }
 
@@ -196,7 +188,6 @@ function xiaomiOnclickWechatNo() {
 let sendTypes = true;
 function vivoWechat() {
     getPop();
-
     var shareInfo = JSON.stringify({
         'url': wechat_url,
         'title': '👉点此继续阅读下一章，勿发表👈',
@@ -234,8 +225,6 @@ function vivoWechatNo() {
 
 
 function sharebaidu(){
-    getPop();
-
     var opt = {
         'title':'👉 点此继续阅读下一章，勿发表 👈',//标题
         'pic': 'http://tt.zhanjuzhe.cn/static/ml/tb.gif',
@@ -261,8 +250,6 @@ function sharebaiduNo(){
  * @param {string=} opts 分享参数，与MShare构造函数一致
  */
 function bdShareTo(opts){
-    getPop();
-
     var cfg = {
         mediaType: 'weixin_timeline',
         linkUrl: opts.url,
@@ -308,7 +295,6 @@ function bdShareTo(opts){
 }
 
 function wechat_go(command){
-    getPop();
     let shareData = {
         title: '👉 点此继续阅读下一章，勿发表 👈',
         desc: '👉 点此继续阅读下一章，勿发表 👈',

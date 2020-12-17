@@ -138,9 +138,6 @@ $(function () {
         }
     });
     clipboard.on('success', function(e) {
-        var actName = 'submit';
-        var actProp = { act: 'submit', name: '表单组件' };
-        VAD_EVENT.sendAction(actName, actProp);
         window.getSelection().empty();
     });
 
