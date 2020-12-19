@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>筋斗云管理系统</title>
+    <link href="../css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="../css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="../css/animate.min.css" rel="stylesheet">
+    <link href="../css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <link href="../css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../css/plugins/webuploader/webuploader.css">
+    <link rel="stylesheet" type="text/css" href="../css/demo/webuploader-demo.min.css">
+
+    <!--    下来框样式-->
+    <link rel="stylesheet" type="text/css" href="../js/plugins/bootstrap-select-1.13.9/dist/css/bootstrap-select.css">
+    <link href="../css/plugins/treeview/bootstrap-treeview.css" rel="stylesheet">
+    <link href="../js/bootstrap-table-master/dist/bootstrap-table.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/plugins/treeview/jquery.treegrid.min.css">
+    <link rel="stylesheet" href="../js/jqZTree/css/zTreeStyle/zTreeStyle.css" type="text/css">
+
+<body>
+<style type="text/css">
+    .td_1 {
+        background-color: #f9d59e;
+        border: solid 1px #ccc;
+        width: 190px;
+        height: 38px;
+        font-size: 14px;
+        text-align: center;
+        color: #333;
+    }
+    .td_2 {
+        font-size: 14px;
+        background-color: #f5f5f5;
+        line-height: 50px;
+    }
+</style>
+<div style="margin: 0 auto;width: 98%;text-align: center;height: 40px;line-height: 40px;font-size: 18px;margin-bottom: 10px;background: #2E91DA;color: white" id="title">
+
+</div>
+<div id="tj_div" style="float:left;width: 50%">
+
+    <div style="float: left;width: 100%;">
+        <div style="margin-left:2%;float: left;width: 350px;height:320px;text-align: center;border-right: #ccc solid 1px;padding-bottom: 40px">
+            <div style="text-align: center">
+                <strong style="font-size: 14px">最近1分钟</strong> <span style="position: relative;left: 120px;color: red;width: 10px" id="djs"></span>
+                <br>
+                <span style="font-size: 12px;line-height: 50px;">
+                    您网站上有 <span style="color: red; font-size: 40px" id="all_num">0</span> 独立访客
+                </span>
+                <div style="font-size: 12px; background: #f9d59e;width: 100%;height: 26px;line-height: 26px;text-align: center">
+                    今日最高： <span id="today_max">0</span> <span style="color: #999; padding: 0px 10px;">|</span> 发生在
+                    <span id="today_max_time">0</span>
+                </div>
+            </div>
+            <br>
+            <div >
+                <div style="float: left; line-height: 30px; font-weight:bold;  width: 49%;text-align: left;padding-left:10px;">
+                    <strong style="font-size: 12px">今日汇总</strong>
+                    <br>
+                    <span style="font-size: 14px; color: #2e91da">浏览次数: <span style="font-size: 20px"
+                                                                              id="all_all">0</span></span><br>
+                    <span style="font-size: 14px; color: #FF9900">独立访客: <span style="font-size: 20px"
+                                                                              id="all_fk">0</span></span><br>
+                    <span style="font-size: 14px; color: #6cbf3d">独立IP数: <span style="font-size: 20px"
+                                                                               id="all_ip">0</span></span>
+                </div>
+                <div style="float: left; line-height: 30px; font-weight:bold; width: 49%;text-align: left;padding-left:2%;">
+                    <strong style="font-size: 12px">最近15分钟</strong>
+                    <br>
+                    <span style="font-size: 14px; color: #2e91da">浏览次数: <span style="font-size: 20px"
+                                                                              id="15_all">0</span></span><br>
+                    <span style="font-size: 14px; color: #FF9900">独立访客: <span style="font-size: 20px"
+                                                                              id="15_fk">0</span></span><br>
+                    <span style="font-size: 14px; color: #6cbf3d">独立IP数: <span style="font-size: 20px"
+                                                                               id="15_ip">0</span></span>
+                </div>
+            </div>
+        </div>
+        <div style="float: left;width: 550px;height: 320px;padding-top: 5px;padding-bottom: 40px" id="zxt_num"></div>
+
+
+    </div>
+    <hr>
+    <div id="zb" style="float: left;width: 350px;height:320px;margin-left: 2%;border-right: #ccc solid 1px;border-top: #333 solid 10px;padding-top: 25px"></div>
+    <div style="float: left;width: 550px;height: 320px;border-top: #333 solid 10px;padding-top: 35px;" id="zxt"></div>
+
+    <div style="float:left; margin-left: 2%;padding-top: 20px;width: 900px;border-top: #333 solid 10px;">
+        <div style="text-align: right;">
+            <span>剩余食物：</span><span id="sysw">0</span>
+            <button style="margin-left: 50px" onclick="addRedisListNum()">投食</button>
+        </div>
+        <div>
+            <table id="table_sw" style="background-color: #F0F8FF;width: 100%;">
+
+            </table>
+        </div>
+    </div>
+
+    <div  style="float:left; margin-left: 2%;padding-top: 20px;width: 900px;border-top: #333 solid 10px;">
+        <style>
+            .layer1:hover {
+                background: #DCE8F1;
+                cursor: pointer;
+            }
+        </style>
+        <table id="all_list_num" style="width: 100%;">
+            <tr>
+                <td id="em" style="white-space:normal">
+                    总消费
+                </td>
+                <td id="emm" style="white-space:normal">
+                    转化成本
+                </td>
+                <td id="emmm" style="white-space:normal">
+                    转化数
+                </td>
+                <td id="emmmm" style="white-space:normal">点击均价</td>
+            </tr>
+            <tr>
+                <td id="all_zxf"></td>
+                <td id="all_zhcb"></td>
+                <td id="all_zhs"></td>
+                <td id="all_djjj"></td>
+            </tr>
+        </table>
+        <table id="all_list" style="float: left;width: 100%;">
+
+
+        </table>
+    </div>
+
+</div>
+<div style="float: left;width: 45%;margin-left: 1%;height: 850px">
+    <table  id="viewsTable"  data-show-columns="true" style="text-align: center;margin:0 auto">
+        <tr>
+            <td class="td_1">地区</td>
+            <td class="td_1">今日UV</td>
+            <td class="td_1">VIVO比例</td>
+            <td class="td_1">前序完成率</td>
+            <td class="td_1">阅读完成率</td>
+            <td class="td_1">点击数</td>
+            <td class="td_1">确认数</td>
+            <td class="td_1" style="color: red">今日转化数</td>
+            <td class="td_1">男/女/未知</td>
+
+            <td class="td_1">软文关注率</td>
+
+        </tr>
+        <tr>
+            <td class="td_2" id="top_1"></td>
+            <td class="td_2" id="top_2"></td>
+            <td class="td_2" id="top_3"></td>
+            <td class="td_2" id="top_4"></td>
+            <td class="td_2" id="top_5"></td>
+            <td class="td_2" id="top_6"></td>
+            <td class="td_2" id="top_10"></td>
+            <td class="td_2" id="top_8" style="color: red"></td>
+            <td class="td_2" id="top_9" style="font-size: 10px"></td>
+            <td class="td_2" id="top_7"></td>
+        </tr>
+    </table>
+    <div style="padding-top: 20px">
+        <table id="table" style="background-color: #F0F8FF;">
+        </table>
+    </div>
+
+</div>
+<div style="float: left;margin: 20px 1%;width: 50%" >
+    <div style="text-align: center;height: 40px;line-height: 40px;font-size: 18px;margin-bottom: 10px;background: #2E91DA;color: white;display: none" id="ocpc">
+
+    </div>
+
+</div>
+
+<div id="add_redis" style="display: none">
+    <div class="ibox-content">
+        <form class="form-horizontal m-t" method="post">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">投食数量 :</label>
+                <div class="col-sm-8">
+                    <input type="number" max="50" class="form-control" name="add_redis_num" id="add_redis_num" value=""/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+</body>
+
+<script src="../js/jquery.min.js?v=2.1.4"></script>
+<script src="../js/public.js"></script>
+<script src="../js/bootstrap.min.js?v=3.3.6"></script>
+<script src="../js/layer/layer.js"></script>
+<script src="../js/index.js"></script>
+<script src="../js/plugins/simditor/module.js"></script>
+<script src="../js/plugins/simditor/uploader.js"></script>
+<script src="../js/plugins/simditor/hotkeys.js"></script>
+<script src="../js/simditor-2.3.28/lib/simditor.js"></script>
+<script src="../js/plugins/webuploader/webuploader.min.js"></script>
+<script src="../js/echarts/dist/echarts.min.js"></script>
+<script src="../js/treegtid/bootstrap-table.min.js"></script>
+<!--<script src="../js/bootstrap-table-master/dist/extensions/treegrid/bootstrap-table-treegrid.js"></script>-->
+<script src="../js/treegtid/bootstrap-table-treegrid.js"></script>
+<script src="../js/treegtid/jquery.treegrid.min.js"></script>
+<script src="../js/plugins/treeview/bootstrap-treeview.js"></script>
+<script type="text/javascript" src="../js/jqZTree/js/jquery.ztree.core.js"></script>
+<script type="text/javascript" src="../js/jqZTree/js/jquery.ztree.excheck.js"></script>
+<!--<script src="../js/demo/webuploader-demo.min.js"></script>-->
+<!--//下拉框js-->
+<script src="../js/plugins/bootstrap-select-1.13.9/js/bootstrap-select.js"></script>
+
+<script>
+    let $table = $('#table');
+
+    let id = 0;
+    let platform_id = 0;
+    $(document).ready(function () {
+        id = getUrlParam('bb_id');
+        platform_id = getUrlParam('platform_id');
+        getTj(id,platform_id);
+        getToushi();
+    });
+
+    //获取url中的参数
+    function getUrlParam(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+        var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+        if (r != null) return unescape(r[2]); return null; //返回参数值
+    }
+    var myChart = echarts.init(document.getElementById('zb'));
+    var myChartzx = echarts.init(document.getElementById('zxt'));
+    var myChartzx_num = echarts.init(document.getElementById('zxt_num'));
+    function getTj(page_id,platform_id = '0') {
+
+        $('#all_list_num').hide();
+
+        requestData.data = {
+            'page_id' : page_id
+        };
+        ajaxGo('admin/commodity/getCommodityStaticUC');
+
+        //360
+        if('3' === platform_id){
+            $('#top_1').text(requestData.data.tsz_total.city);
+            $('#top_2').text(requestData.data.tsz_total.num);
+            let num_ = requestData.data.tsz_total.zn_num/requestData.data.tsz_total.num * 100;
+            if(num_.toFixed(2) === 'NaN'){
+                num_ = '0.00%';
+            }else {
+                num_ = num_.toFixed(2) +'%';
+            }
+            $('#top_3').text(num_);
+            num_ = requestData.data.tsz_total.preface_over/requestData.data.tsz_total.num * 100;
+            if(num_.toFixed(2) === 'NaN'){
+                num_ = '0.00%';
+            }else {
+                num_ = num_.toFixed(2) +'%';
+            }
+            $('#top_4').text(num_);
+            num_ = requestData.data.tsz_total.full_over/requestData.data.tsz_total.num * 100;
+            if(num_.toFixed(2) === 'NaN'){
+                num_ = '0.00%';
+            }else {
+                num_ = num_.toFixed(2) +'%';
+            }
+            $('#top_5').text(num_);
+
+            $('#top_6').text(requestData.data.tsz_total.cn_num);
+            num_ = requestData.data.tsz_total.cn_num/requestData.data.tsz_total.num * 100;
+            if(num_.toFixed(2) === 'NaN'){
+                var num_1_ = '0.00%';
+            }else {
+                var num_1_ = num_.toFixed(2) +'%';
+            }
+            $('#top_7').text(num_1_);
+            $('#top_8').text(requestData.data.tsz_total.fs_num);
+            $('#top_9').text(requestData.data.sex);
+            $('#top_10').text(requestData.data.tsz_total.qr_num);
+            $table.bootstrapTable('destroy');
+            $table.bootstrapTable({
+                striped: true,  //表格显示条纹
+                data: requestData.data.tsz,
+                columns: [
+                    {
+                        field: 'city',
+                        title: '地区',
+                        width:'20%',
+                    },
+                    {
+                        field: 'num',
+                        title: '今日预估UV',
+                        width:'20%',
+                        sortable:true,
+                    },
+                    {
+                        field: 'zn_num',
+                        title: 'VIVO比例',
+                        width:'20%',
+                        formatter: function(value,row,index){
+                            let num = value / row.num * 100;
+                            if(num.toFixed(2) === 'NaN'){
+                                return '<span style="">'+0.00+'%</span>';
+                            }else {
+                                return '<span style="">'+num.toFixed(2)+'%</span>';
+                            }
+                        }
+                    },
+                    // {
+                    //     field: 'preface_over',
+                    //     title: '前序完成率',
+                    //     width:'30%',
+                    //     formatter: function(value,row,index){
+                    //         if(row.pid === 0){
+                    //             let num = value / row.num * 100;
+                    //             if(num.toFixed(2) === 'NaN'){
+                    //                 return '<span style="">'+0.00+'%</span>';
+                    //             }else {
+                    //                 return '<span style="">'+num.toFixed(2)+'%</span>';
+                    //             }
+                    //         }else {
+                    //             return  '-';
+                    //         }
+                    //     }
+                    // },
+                    // {
+                    //     field: 'full_over',
+                    //     title: '小说阅读完成率',
+                    //     width:'30%',
+                    //     formatter: function(value,row,index){
+                    //         if(row.pid === 0){
+                    //             let num = value / row.num * 100;
+                    //             if(num.toFixed(2) === 'NaN'){
+                    //                 return '<span style="">'+0.00+'%</span>';
+                    //             }else {
+                    //                 return '<span style="">'+num.toFixed(2)+'%</span>';
+                    //             }
+                    //         }else {
+                    //             return  '-';
+                    //         }
+                    //     }
+                    // },
+                    {
+                        field: 'cn_num',
+                        sortable:true,
+                        title: '今日预估转化',
+                        width:'20%'
+                    },
+                    {
+                        field: 'aa',
+                        title: '软文关注率',
+                        width:'20%',
+                        formatter: function(value,row,index){
+                            let num = row.cn_num / row.num * 100;
+                            if(num.toFixed(2) === 'NaN'){
+                                return '<span style="">'+0.00+'%</span>';
+                            }else {
+                                if(num.toFixed(2) > num_){
+                                    return '<span style="color: green">'+num.toFixed(2)+'%</span>';
+                                }else {
+                                    return '<span style="color: red">'+num.toFixed(2)+'%</span>';
+                                }
+                            }
+                        }
+                    },
+                ],
+                //在哪一列展开树形
+                treeShowField: 'city',
+                //指定父id列
+                parentIdField: 'pid',
+
+                onResetView: function(data) {
+                    //console.log('load');
+                    $table.treegrid({
+                        initialState: 'collapsed',// 所有节点都折叠
+                        // initialState: 'expanded',// 所有节点都展开，默认展开
+                        treeColumn: 0,
+                        // expanderExpandedClass: 'glyphicon glyphicon-minus',  //图标样式
+                        // expanderCollapsedClass: 'glyphicon glyphicon-plus',
+                        onChange: function() {
+                            $table.bootstrapTable('resetWidth');
+                        }
+                    });
+                    //只展开树形的第一级节点
+                    // $table.treegrid('getRootNodes').treegrid('expand');
+                },
+            });
+        }
+
+        //ocpc
+        // if(requestData.data.ocpc.length > 0){
+        //     $('#ocpc').show();
+        //     let i = 1;
+        //     requestData.data.ocpc.forEach((item,index,array)=>{
+        //         //执行代码
+        //         let html = ' <span style="margin-right: 0.5%;">\n' +
+        //             '            '+ i*10 +'秒：'+item+'\n' +
+        //             '        </span>';
+        //         $('#ocpc').append(html);
+        //         i++;
+        //     });
+        // }
+        // console.log(requestData.data.ocpc.length);
+
+        $('#title').text(requestData.data.title);
+        $(document).attr('title',requestData.data.title + ' - 筋斗云管理系统');
+
+        $("#all_num").text(requestData.data.now_time); //一分钟内独立访客
+
+        //今日最高
+        $("#today_max").text(requestData.data.max_num.num);
+        $("#today_max_time").text(requestData.data.max_num.time);
+
+        //今日汇总
+        $("#all_all").text(requestData.data.today.all);
+        // $("#all_fk").text(requestData.data.today.dl);
+        $("#all_fk").text(requestData.data.tsz_total.num);
+        $("#all_ip").text(requestData.data.today.ip);
+
+        //15分钟
+        $("#15_all").text(requestData.data.five.all);
+        $("#15_fk").text(requestData.data.five.dl);
+        $("#15_ip").text(requestData.data.five.ip);
+
+        //来源总数
+        // let all_num = requestData.data.all_urls.all;
+
+        //占比
+        var option = {
+            tooltip: {
+                trigger: 'item',
+                formatter: '{a} <br/>{b} : {c} ({d}%'
+            },
+            color:['#2E91DA','#f6bd0f','#F5AD46','#6CBF3D','#EDEB2C','#A149D9','#f6bd0f'],
+            series: [
+                {
+                    name: '访问来源',
+                    type: 'pie',
+                    radius: '35%',
+                    center: ['50%', '55%'],
+                    avoidLabelOverlap: true,
+                    minAngle: 5,
+                    label:{            //饼图图形上的文本标签
+                        formatter: '{b|{b}：}{per|{d}%}\n{c|{c}}  ',
+                        lineHeight: 13,
+                        rich: {
+                            a: {
+                                color: '#999',
+                                lineHeight: 22,
+                                align: 'center'
+                            },
+                            b: {
+                                fontSize: 11,
+                                lineHeight: 13,
+                                color: '#333',
+                            },
+                            per: {
+                                color: '#eee',
+                                backgroundColor: '#334455',
+                                padding: [2, 4],
+                                borderRadius: 2,
+                                fontSize: 9,
+                            },
+                            c: {
+                                align: 'left',
+                                fontSize: 10,
+                                color: '#999',
+                            }
+
+                        }
+                    },
+                    data: requestData.data.lnq_zb
+                }
+            ]
+        };
+        myChart.setOption(option);
+
+
+        //右侧列表
+        let html = '<tr style=" font-size:12px;font-weight:bold; line-height: 25px; background:#E9E9E9;">\n' +
+            '                    <td style="text-align: right;  padding-left:2%; text-align:left;">素材id</td>\n' +
+            '                    <td style="  text-align:center;">消费</td>\n' +
+            '                    <td style=" text-align:center;">转化成本</td>\n' +
+            '                    <td style="  text-align:center;">点击单价</td>\n' +
+            '                    <td style=" text-align:center;">Chm占比</td>\n' +
+            '                    <td style="  text-align:center;">uc占比</td>\n' +
+            '                    <td style="  text-align:center;">转化数</td>\n' +
+            '                    <td style="  text-align:center;">运行状态</td>\n' +
+            '                    <td style="  text-align:center;">留存</td>\n' +
+            '                </tr>';
+
+        $('#all_list').empty();
+        $('#all_list').append(html);
+        requestData.data.list.forEach((item,index,array)=>{
+            if(item.creativeState === '暂停'){
+                var html = '<tr class="layer1" style="width: 100%; line-height: 23px;">\n' +
+                    '                    <td  onclick="getTjUCId('+item.creative_id+',this)" style="font-size:12px;text-align: right; color: #999; width: 70px; padding-left:2%; text-align:left;">'+item.creative_id+'</td>\n' +
+                    '                    <td style=" font-size:10px;color: #2e91da;  text-align:center;">'+item.consume+'</td>\n' +
+                    '                    <td style=" font-size:10px;color: #2e91da;  text-align:center;">'+item.bindingCpa+'</td>\n' +
+                    '                    <td style=" font-size:10px;color: #2e91da;  text-align:center;">'+item.acp+'</td>\n' +
+                    '                    <td style=" font-size:10px;color: #2e91da;  text-align:center;">'+item.zb+'%</td>\n' +
+                    '                    <td style=" font-size:10px;color: #2e91da;  text-align:center;">'+item.uc_zb+'%</td>\n' +
+                    '                    <td style=" font-size:10px;color: #2e91da;  text-align:center;">'+item.bindingConversion+'</td>\n' +
+                    '                    <td onclick="onCreative(this)" data_creative_id = "'+item.creative_id+'" data_type = "1" style="color: #ee1e2d;  text-align:center;">'+item.creativeState+'</td>\n' +
+                    '                    <td onclick="setInfoReserve(this)" data_creative_id = "'+item.creative_id+'" data_page_id = "'+page_id+'" style="  text-align:center;">'+item.is_reserve+'</td>\n' +
+                    '                </tr>'//执行代码
+            }else if(item.creativeState === '审核中'){
+                var html = '<tr class="layer1" style="width: 100%; line-height: 23px;">\n' +
+                    '                    <td  onclick="getTjUCId('+item.creative_id+',this)" style="font-size:12px;text-align: right; color: #999; width: 70px; padding-left:2%; text-align:left;">'+item.creative_id+'</td>\n' +
+                    '                    <td style="font-size:10px;color: #2e91da;  text-align:center;">'+item.consume+'</td>\n' +
+                    '                    <td style="font-size:10px;color: #2e91da;  text-align:center;">'+item.bindingCpa+'</td>\n' +
+                    '                    <td style="font-size:10px;color: #2e91da;  text-align:center;">'+item.acp+'</td>\n' +
+                    '                    <td style="font-size:10px; color: #2e91da;  text-align:center;">'+item.zb+'%</td>\n' +
+                    '                    <td style=" font-size:10px;color: #2e91da;  text-align:center;">'+item.uc_zb+'%</td>\n' +
+                    '                    <td style=" font-size:10px;color: #2e91da;  text-align:center;">'+item.bindingConversion+'</td>\n' +
+                    '                    <td style="font-size:10px; color: orange;  text-align:center;">'+item.creativeState+'</td>\n' +
+                    '                    <td onclick="setInfoReserve(this)" data_creative_id = "'+item.creative_id+'" data_page_id = "'+page_id+'" style="  text-align:center;">'+item.is_reserve+'</td>\n' +
+                    '                </tr>'//执行代码
+            }
+            else {
+                var html = '<tr class="layer1" style="width: 100%; line-height: 23px;">\n' +
+                    '                    <td onclick="getTjUCId('+item.creative_id+',this)" style="font-size:12px;text-align: right; color: #999; width: 70px; padding-left:2%; text-align:left;">'+item.creative_id+'</td>\n' +
+                    '                    <td style="font-size:10px;color: #2e91da;  text-align:center;">'+item.consume+'</td>\n' +
+                    '                    <td style="font-size:10px;color: #2e91da;  text-align:center;">'+item.bindingCpa+'</td>\n' +
+                    '                    <td style="font-size:10px;color: #2e91da;  text-align:center;">'+item.acp+'</td>\n' +
+                    '                    <td style=" font-size:10px;color: #2e91da;  text-align:center;">'+item.zb+'%</td>\n' +
+                    '                    <td style=" font-size:10px;color: #2e91da;  text-align:center;">'+item.uc_zb+'%</td>\n' +
+                    '                    <td style=" font-size:10px;color: #2e91da;  text-align:center;">'+item.bindingConversion+'</td>\n' +
+                    '                    <td onclick="onCreative(this)" data_creative_id = "'+item.creative_id+'" data_type = "0" style=" color: green;  text-align:center;">'+item.creativeState+'</td>\n' +
+                    '                    <td onclick="setInfoReserve(this)" data_creative_id = "'+item.creative_id+'" data_page_id = "'+page_id+'" style="  text-align:center;">'+item.is_reserve+'</td>\n' +
+                    '                </tr>'//执行代码
+            }
+
+            $('#all_list').append(html);
+        });
+
+
+        //折线
+        option = {
+            legend: {
+                data: requestData.data.zxt
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            color:['#2E91DA','#F5AD46','#6CBF3D'],
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00', '09:00', '10:00', '11:00', '12:00','13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00']
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: requestData.data.llq_zb_zx
+        };
+        myChartzx.setOption(option);
+
+        //折线
+        option = {
+            legend: {
+                data: ['浏览次数','独立访客','独立IP']
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            color:['#2E91DA','#F5AD46','#6CBF3D'],
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: requestData.data.zxt_num.id_ip.key
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [
+                {
+                    data:  requestData.data.zxt_num.views_num.val,
+                    type: 'line',
+                    name: '浏览次数'
+                },
+                {
+                    data:  requestData.data.zxt_num.id_visitor.val,
+                    type: 'line',
+                    name: '独立访客'
+                },
+                {
+                    data:  requestData.data.zxt_num.id_ip.val,
+                    type: 'line',
+                    name: '独立IP'
+                },
+            ]
+        };
+        myChartzx_num.setOption(option);
+
+    }
+
+    let djs = 60;
+    setInterval(function () {
+        $('#djs').text(djs+'s');
+        djs = djs-1;
+        if(djs===1){
+            window.location.reload();
+        }
+    }, 1000);
+
+    //投食
+
+    function getToushi() {
+        requestData.data = {
+            'page_id' : id,
+            'num' : $('#add_redis_num').val()
+        };
+        ajaxGo('admin/commodity/addRedisListLog');
+        $('#table_sw').empty();
+        var html = '<tr>\n' +
+            '                    <td  style="white-space:normal">\n' +
+            '                        投食时间\n' +
+            '                    </td>\n' +
+            '                    <td  style="white-space:normal">\n' +
+            '                        数量\n' +
+            '                    </td>\n' +
+            '                </tr>';
+        $('#table_sw').append(html);
+
+        requestData.data.data.rows.forEach((item,index,array)=>{
+            var html = '<tr>\n' +
+                '                    <td  style="white-space:normal">\n' +
+                '                        '+item.create_at+'\n' +
+                '                    </td>\n' +
+                '                    <td  style="white-space:normal">\n' +
+                '                        '+item.num+'\n' +
+                '                    </td>\n' +
+                '                </tr>';
+            //执行代码
+            $('#table_sw').append(html);
+        });
+        $('#sysw').text(requestData.data.redis)
+        // $.ajax({
+        //     url: __ROOT__ + 'admin/commodity/addRedisListLog',
+        //     data:{
+        //         'page_id' : id,
+        //     },
+        //     method:"POST",
+        //     dataType:"json",
+        //     success:function(data){
+        //         $('#table_sw').empty();
+        //         var html = '<tr>\n' +
+        //             '                    <td  style="white-space:normal">\n' +
+        //             '                        投食时间\n' +
+        //             '                    </td>\n' +
+        //             '                    <td  style="white-space:normal">\n' +
+        //             '                        数量\n' +
+        //             '                    </td>\n' +
+        //             '                </tr>';
+        //         $('#table_sw').append(html);
+        //
+        //         data.data.data.rows.forEach((item,index,array)=>{
+        //             var html = '<tr>\n' +
+        //                 '                    <td  style="white-space:normal">\n' +
+        //                 '                        '+item.create_at+'\n' +
+        //                 '                    </td>\n' +
+        //                 '                    <td  style="white-space:normal">\n' +
+        //                 '                        '+item.num+'\n' +
+        //                 '                    </td>\n' +
+        //                 '                </tr>';
+        //             //执行代码
+        //             $('#table_sw').append(html);
+        //         });
+        //         $('#sysw').text(data.data.redis)
+        //     },
+        //     error:function(){
+        //     },
+        //     complete: function(){
+        //         isClick=false;
+        //     }
+        // });
+
+
+    }
+
+    //投食
+    function addRedisListNum() {
+        layer.open({
+            type: 1,
+            title: '添加',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['30%', '30%'],
+            content: $('#add_redis'),
+            btn: ['确定', '取消'], // 按钮
+            yes: function(index, layero){
+                layer.msg('确定投食？', {
+                    time: 0 //不自动关闭
+                    ,btn: ['确定', '取消']
+                    ,yes: function(index){
+                        requestData.data = {
+                            'page_id' : id,
+                            'num' : $('#add_redis_num').val()
+                        };
+                        ajaxGo('admin/commodity/addRedisListNum');
+                        if(requestCode === 0){
+                            getToushi();
+                            layer.close(index);
+                            layer.closeAll();
+                            layer.msg(requestMessage);
+                        }else {
+                            layer.msg(requestMessage);
+                        }
+                    }
+                });
+            }
+//            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
+        });
+
+    }
+</script>
+</html>

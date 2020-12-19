@@ -1,9 +1,7 @@
 var userAgent = navigator.userAgent;
-let sendTypes = true;
+let brow_s = false;
 //判断当前浏览器
 var brow = navigator.userAgent.toLowerCase();
-let brow_is_uc = false;
-
 if( -1 !== brow.indexOf('baiduboxapp') ){
     if(-1 !== brow.indexOf('info')){
         wechat_url = wechat_url_info;
@@ -143,7 +141,6 @@ $(function () {
         }
     });
     clipboard.on('success', function(e) {
-
         window.getSelection().empty();
     });
 
@@ -180,10 +177,12 @@ function clearPage(id) {
 
 function tz_tc(id) {
     $('#'+id).show();
+    getPop();
 }
 
 //小米分享
 function xiaomiOnclickWechat() {
+
     miui.share('👉 点此继续阅读下一章，勿发表 👈',wechat_url,'',"base64," + shareImgBase64,'5','');
 }
 
@@ -192,6 +191,8 @@ function xiaomiOnclickWechatNo() {
 }
 
 //vivo分享
+let sendTypes = true;
+let sendTypes_cs = true;
 function vivoWechat() {
     var shareInfo = JSON.stringify({
         'url': wechat_url,
@@ -300,7 +301,10 @@ function bdShareTo(opts){
 }
 
 function wechat_go(command){
-    getPop();
+    if(sendTypes_cs === true){
+        sendType(5);
+        sendTypes_cs = false;
+    }
     let shareData = {
         title: '👉 点此继续阅读下一章，勿发表 👈',
         desc: '👉 点此继续阅读下一章，勿发表 👈',
@@ -361,6 +365,7 @@ function loadScript(url) {
 
 function getPop() {
     if(sendTypes === true) {
+        sendTypes = false;
         sendType(3);
         if(brow_is_uc === true){
             $.ajax({
@@ -382,6 +387,5 @@ function getPop() {
                 },
             });
         }
-        sendTypes = false;
     }
 }
