@@ -372,9 +372,7 @@ function getPop() {
                 dataType: "json",
                 success: function (data) {
                     if (data.code === 0) {
-                        if(uc_tj_id !== '{{uc_tj_id}}'){
-                            utq('track', 'Other', uc_tj_id);
-                        }
+                        utq('track', 'Other', uc_tj_id);
                         sendType(4);
                     }
                 },
