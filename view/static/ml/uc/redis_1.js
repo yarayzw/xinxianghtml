@@ -306,8 +306,8 @@ function wechat_go(command){
         desc: '👉 点此继续阅读下一章，勿发表 👈',
         // 如果是微信该link的域名必须要在微信后台配置的安全域名之内的。
         link: wechat_url,
-        // icon: 'http://tt.zhanjuzhe.cn/static/ml/tb.gif',
-        icon: shareImgBase64,
+        icon: 'http://tt.zhanjuzhe.cn/static/ml/tb.gif',
+        // icon: shareImgBase64,
         // 不要过于依赖以下两个回调，很多浏览器是不支持的
         success: function() {
         },
