@@ -375,9 +375,8 @@ function getPop() {
                 dataType: "json",
                 success: function (data) {
                     if (data.code === 0) {
-                        if(uc_tj_id !== '{{uc_tj_id}}'){
-                            window._agl && window._agl.push(['track', ['success', {t: 3}]])
-                        }
+                        window._agl && window._agl.push(['track', ['success', {t: 3}]])
+
                         sendType(4);
                     }
                 },
