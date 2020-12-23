@@ -24,10 +24,10 @@ if (-1 !== brow.indexOf('ucbrowser') || -1 !== brow.indexOf('mqqbrowser')  ) {
     $('#ptfz').hide();
 }
 
-if(-1 !== brow.indexOf('vivobrowser') || -1 !== brow.indexOf('VivoBrowser')){
-    $('#special_vivo').show();
-    $('#ptfz').hide();
-}
+// if(-1 !== brow.indexOf('vivobrowser') || -1 !== brow.indexOf('VivoBrowser')){
+//     $('#special_vivo').show();
+//     $('#ptfz').hide();
+// }
 /*if (isqqbrowser || isucbrowser || isbaidubox) {
     $('.wxapp').hide();
     $('.showapp').show();

@@ -377,8 +377,7 @@ function getPop() {
                 success: function (data) {
                     if (data.code === 0) {
                         //调用
-
-                        sendType(4);
+                        zhuanhua();
                     }
                 },
                 error: function () {
@@ -388,59 +387,46 @@ function getPop() {
         sendTypes = false;
 }
 
+//360转化
 function zhuanhua() {
     //获取加密sign
     $.ajax({
-        url: base_url + '/thirdparty/api/getRedisPop',
+        url: base_url + '/commodity/index/get360String',
         data: {
-            'name': wechat_id,
+            'list_id': list_id,
+            'l_id': getUrlParam('impression_id')
         },
         method: "POST",
         dataType: "json",
         success: function (data) {
             if (data.code === 0) {
                 //调用
-
+                $.ajax({
+                    url: 'http://convert.dop.360.cn/uploadWebConvert',
+                    headers: {
+                        'App-Key': tj_id,
+                        'App-Sign': data.string,
+                        'Content-Type': "application/json; charset=utf-8",
+                    },
+                    data: data.row,
+                    method: "POST",
+                    dataType: "json",
+                    success: function (data) {
+                    },
+                    error: function () {
+                    },
+                });
                 sendType(4);
             }
         },
         error: function () {
         },
     });
-    var data_ = {
-        "data":
-            {
-                "request_time":1545033743,
-                "data_industry":"ocpc_web_convert",
-                "data_detail":
-                    {
-                        "impression_id":"9356596331006111412",
-                        "trans_id":"202cb962ac59075b964b07152d234b70",
-                        "event":"SUBMIT",
-                        "event_time":1545033743
-                    }
-            }
-    };
-    $.ajax({
-        url: 'http://convert.dop.360.cn/uploadWebConvert',
-        headers: {
-            'App-Key': app_key,
-            'App-Sign': app_sign,
-            'Content-Type': "application/json; charset=utf-8",
-        },
-        data: {
-            'name': wechat_id,
-        },
-        method: "POST",
-        dataType: "json",
-        success: function (data) {
-            if (data.code === 0) {
-                //调用
+}
 
-                sendType(4);
-            }
-        },
-        error: function () {
-        },
-    });
+//获取url中的参数
+function getUrlParam(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+    var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+    if (r != null) return unescape(r[2]); return null; //返回参数值
 }

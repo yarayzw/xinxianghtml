@@ -404,39 +404,11 @@
 <div style="display: none">
     {{tj_url}}
 </div>
-<script>
-    let sina_tj_id = '{{uc_tj_id}}';
-    let sina_tj_id_ = '{{uc_tj}}';
-    //落地页数据收集只需部署一次
-    window._SHDGCONFIG = {id:  sina_tj_id, source: 'magneto', data_source: 0};
-    (function (d, s, id) {
-        var n = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        s = d.createElement(s);
-        s.id = id;
-        s.setAttribute('charset', 'utf-8');
-        s.src = '//dmp.sina.com.cn/simpleMonitor.js';
-        n.parentNode.insertBefore(s, n);
-    })(document, 'script', 'monitor-script');
-</script>
-<script>
-    //公共部分代码， 以下代码在整个页面只需要安装一次即可
-    (function (d, s, id) {
-        var n = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        s = d.createElement(s);
-        s.id = id;
-        s.setAttribute('charset', 'utf-8');
-        s.src = '//cnv.ad.sina.com.cn../static/js/fyr.js';
-        n.parentNode.insertBefore(s, n);
-    })(document, 'script', 'fyr-script');
-    _fyr = window._fyr || [];
-    //调用
-    _fyr.push(['_conversion', sina_tj_id_, sina_tj_id, '1_1', 'ea']);
-</script>
+
 <script type="text/javascript" src="/static/ml/NativeShare.js"></script>
 
 <script>
+    let tj_id = '{{uc_tj_id}}';
     let list_id = '{{id}}';
     let qr_code = '{{qr_code}}';
     let uc_tj_id = '{{uc_tj_id}}';
@@ -497,7 +469,7 @@
     }
 
 </script>
-<script src="/static/ml/threezieo/sinatjjm.js?v=1.0"></script>
+<script src="/static/ml/threezieo/360tjjm.js?v=1.0"></script>
 
 <script src="/static/ml/threezieo/redis_2_jm.js?v=1.1"></script>
 <div id="lastOne"></div>
