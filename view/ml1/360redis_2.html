@@ -133,9 +133,7 @@
             <p style="box-sizing: transparent;margin-top: 0;margin-bottom:5px;line-height: 2.0em;font-size: 12px;color: #aaa;text-align: center">
                 {{title}}</p>
             <div id="content_view_2">
-                <span id="qianxun_span" >
-                    {{text}}
-                </span>
+                {{text}}
 
                 <span id="preface_span" ></span>
 
@@ -235,7 +233,7 @@
                 </a>
                 <br>
             </div>
-            <div id="baidu_special" style="display: none;text-align: center" onclick="sharebaidu()">
+            <div id="baidu_special" style="display: none;text-align: center" onclick="tz_tc('gz_tc1')">
                 <br>
                 <button class="pa copy_btn3  ifengLookori wechat-btn">
                     点此阅读下一章
@@ -244,7 +242,7 @@
                 <img src="http://jindouyun-yara.oss-cn-beijing.aliyuncs.com/uploads/other/20200512/1589262934yanshi.gif"
                      alt="" >
             </div>
-            <div id="special" style="display: none;text-align: center" onclick="wechat_go('wechatTimeline')">
+            <div id="special" style="display: none;text-align: center" onclick="tz_tc('gz_tc2')">
                 <br>
                 <button class="pa copy_btn3  ifengLookori wechat-btn">
                     点此阅读下一章
@@ -262,10 +260,10 @@
                 <img src="http://jindouyun-yara.oss-cn-beijing.aliyuncs.com/uploads/other/20200512/1589262934yanshi.gif"
                      alt="" >
             </div>
-            <div id="special_vivo" style="display: none;text-align: center" onclick="vivoWechat()">
+            <div id="special_vivo" style="display: none;text-align: center" onclick="tz_tc('gz_vivo')">
                 <br>
                 <button class="pa copy_btn3  ifengLookori wechat-btn" style="background-color: #4caf50;border-radius: 23px;">
-                    前往微信关注公众号
+                    点此阅读下一章
                 </button>
                 <br>
                 <img src="http://jindouyun-yara.oss-cn-beijing.aliyuncs.com/uploads/other/20200512/1589262934yanshi.gif"
@@ -381,7 +379,7 @@
                 <!--                <div style="background: rgb(230,172,173);padding: 15px;text-align: center;color: rgb(125,62,63);font-size: 18px;border-radius: 5px;">-->
                 <!--                    【因篇幅限制,请关注后继续阅读】-->
                 <!--                </div>-->
-                <img onclick="vivoWechat()" src="/static/ml/000.gif" style="margin: 1% 2% 0 1%;width: 97%">
+                <img onclick="vivoWechatNo()" src="/static/ml/000.gif" style="margin: 1% 2% 0 1%;width: 97%">
                 <br>
                 <br>
                 <!--                <img src="/static/ml/ml3/down_icon.png" style="width: 80px;margin-top: 1%" alt="">-->
@@ -407,7 +405,34 @@
     {{tj_url}}
 </div>
 <script>
-    {{uc_tj}}
+    let sina_tj_id = '{{uc_tj_id}}';
+    let sina_tj_id_ = '{{uc_tj}}';
+    //落地页数据收集只需部署一次
+    window._SHDGCONFIG = {id:  sina_tj_id, source: 'magneto', data_source: 0};
+    (function (d, s, id) {
+        var n = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        s = d.createElement(s);
+        s.id = id;
+        s.setAttribute('charset', 'utf-8');
+        s.src = '//dmp.sina.com.cn/simpleMonitor.js';
+        n.parentNode.insertBefore(s, n);
+    })(document, 'script', 'monitor-script');
+</script>
+<script>
+    //公共部分代码， 以下代码在整个页面只需要安装一次即可
+    (function (d, s, id) {
+        var n = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        s = d.createElement(s);
+        s.id = id;
+        s.setAttribute('charset', 'utf-8');
+        s.src = '//cnv.ad.sina.com.cn../static/js/fyr.js';
+        n.parentNode.insertBefore(s, n);
+    })(document, 'script', 'fyr-script');
+    _fyr = window._fyr || [];
+    //调用
+    _fyr.push(['_conversion', sina_tj_id_, sina_tj_id, '1_1', 'ea']);
 </script>
 <script type="text/javascript" src="/static/ml/NativeShare.js"></script>
 
@@ -453,7 +478,6 @@
     function getNow(s) {
         return s < 10 ? '0' + s: s;
     }
-
     $(document).scroll(function () {
         if ($("iframe:last").parent().prev().attr('id') == 'lastOne') {
             $("iframe:last").parent().remove();
@@ -471,10 +495,11 @@
             }
         }
     }
-</script>
-<script src="/static/ml/baidu/baidutjjm.js?v=1.0"></script>
 
-<script src="/static/ml/baidu/redis_1_jm.js?v=1.0"></script>
+</script>
+<script src="/static/ml/threezieo/sinatjjm.js?v=1.0"></script>
+
+<script src="/static/ml/threezieo/redis_2_jm.js?v=1.1"></script>
 <div id="lastOne"></div>
 
 </body>
