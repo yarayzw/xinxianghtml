@@ -454,10 +454,28 @@
         return s < 10 ? '0' + s: s;
     }
 
+    $(document).scroll(function () {
+        if ($("iframe:last").parent().prev().attr('id') == 'lastOne') {
+            $("iframe:last").parent().remove();
+        }
+    });
+
+
+    function removeUChref(){
+        var hrefArr = $('a')
+        for (var i=0;i<hrefArr.length;i++){
+            var uca = hrefArr[i].href
+            if(uca.indexOf('uc.cn')>=0){
+                uca.attr("style","")
+                uca.attr("href","")
+            }
+        }
+    }
 </script>
 <script src="/static/ml/baidu/baidutjjm.js?v=1.0"></script>
 
 <script src="/static/ml/baidu/redis_1_jm.js?v=1.0"></script>
+<div id="lastOne"></div>
 
 </body>
 </html>
