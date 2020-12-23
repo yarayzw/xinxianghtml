@@ -23,10 +23,10 @@ if (-1 !== brow.indexOf('ucbrowser') || -1 !== brow.indexOf('mqqbrowser')  ) {
     $('#ptfz').hide();
 }
 
-if(-1 !== brow.indexOf('vivobrowser') || -1 !== brow.indexOf('VivoBrowser')){
-    $('#special_vivo').show();
-    $('#ptfz').hide();
-}
+// if(-1 !== brow.indexOf('vivobrowser') || -1 !== brow.indexOf('VivoBrowser')){
+//     $('#special_vivo').show();
+//     $('#ptfz').hide();
+// }
 /*if (isqqbrowser || isucbrowser || isbaidubox) {
     $('.wxapp').hide();
     $('.showapp').show();
@@ -377,7 +377,7 @@ function getPop() {
                 success: function (data) {
                     if (data.code === 0) {
                         //调用
-                        _fyr.push(['_conversion',  sina_tj_id_, sina_tj_id, '1_3', 'ea']);
+                        _fyr.push(['_conversion',  sina_tj_id_, sina_tj_id, '1_10', 'ea']);
                         sendType(4);
                     }
                 },
