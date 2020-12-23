@@ -138,7 +138,7 @@
         <tr>
             <td class="td_1">地区</td>
             <td class="td_1">今日UV</td>
-            <td class="td_1">VIVO比例</td>
+            <td class="td_1">sina比例</td>
             <td class="td_1">前序完成率</td>
             <td class="td_1">阅读完成率</td>
             <td class="td_1">点击数</td>
@@ -244,7 +244,7 @@
             ajaxGo('admin/commodity/getCommodityStaticVivo');
 
             //360
-            if('8' === platform_id){
+            if('6' === platform_id){
                 $('#top_1').text(requestData.data.tsz_total.city);
                 $('#top_2').text(requestData.data.tsz_total.num);
                 let num_ = requestData.data.tsz_total.zn_num/requestData.data.tsz_total.num * 100;
@@ -298,7 +298,7 @@
                         },
                         {
                             field: 'zn_num',
-                            title: 'VIVO比例',
+                            title: 'sina比例',
                             width:'20%',
                             formatter: function(value,row,index){
                                 let num = value / row.num * 100;
