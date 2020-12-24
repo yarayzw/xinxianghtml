@@ -389,7 +389,7 @@ function getPop() {
 function zhuanhua() {
     //获取加密sign
     $.ajax({
-        url: base_url + '/commodity/index/get360String',
+        url: base_url + '/index/commodity/get360String',
         data: {
             'list_id': list_id,
             'l_id': getUrlParam('impression_id')

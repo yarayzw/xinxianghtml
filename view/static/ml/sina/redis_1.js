@@ -199,7 +199,7 @@ function vivoWechat() {
         'url': wechat_url,
         'title': '👉点此继续阅读下一章，勿发表👈',
         'desc': '👉点此继续阅读下一章，勿发表👈',
-        'img': 'http://tt.zhanjuzhe.cn/static/ml/tb.gif',
+        'img': 'http://www.zhanjuzhe.cn/tb.gif',
     });
 
     window.callbackFunction = function(result) {
@@ -218,7 +218,7 @@ function vivoWechatNo() {
         'url': wechat_url,
         'title': '👉点此继续阅读下一章，勿发表👈',
         'desc': '👉点此继续阅读下一章，勿发表👈',
-        'img': 'http://tt.zhanjuzhe.cn/static/ml/tb.gif',
+        'img': 'http://www.zhanjuzhe.cn/tb.gif',
     });
 
     window.callbackFunction = function(result) {
@@ -236,7 +236,7 @@ function sharebaidu(){
 
     var opt = {
         'title':'👉 点此继续阅读下一章，勿发表 👈',//标题
-        'pic': 'http://tt.zhanjuzhe.cn/static/ml/tb.gif',
+        'pic': 'http://www.zhanjuzhe.cn/tb.gif',
         'url':wechat_url//网址
     }
     bdShareTo(opt);
@@ -246,7 +246,7 @@ function sharebaiduNo(){
 
     var opt = {
         'title':'👉 点此继续阅读下一章，勿发表 👈',//标题
-        'pic': 'http://tt.zhanjuzhe.cn/static/ml/tb.gif',
+        'pic': 'http://www.zhanjuzhe.cn/tb.gif',
         'url':wechat_url//网址
     }
     bdShareTo(opt);
@@ -311,7 +311,7 @@ function wechat_go(command){
         desc: '👉 点此继续阅读下一章，勿发表 👈',
         // 如果是微信该link的域名必须要在微信后台配置的安全域名之内的。
         link: wechat_url,
-        icon: 'http://tt.zhanjuzhe.cn/static/ml/tb.gif',
+        icon: 'http://www.zhanjuzhe.cn/tb.gif',
         // icon: shareImgBase64,
         // 不要过于依赖以下两个回调，很多浏览器是不支持的
         success: function() {
@@ -330,7 +330,7 @@ function wechat_goNo(command){
         desc: '👉 点此继续阅读下一章，勿发表 👈',
         // 如果是微信该link的域名必须要在微信后台配置的安全域名之内的。
         link: wechat_url,
-        icon: 'http://tt.zhanjuzhe.cn/static/ml/tb.gif',
+        icon: 'http://www.zhanjuzhe.cn/tb.gif',
         // icon: shareImgBase64,
         // 不要过于依赖以下两个回调，很多浏览器是不支持的
         success: function() {
