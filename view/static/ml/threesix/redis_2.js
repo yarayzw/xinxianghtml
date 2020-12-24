@@ -410,6 +410,18 @@ function zhuanhua() {
                     method: "POST",
                     dataType: "json",
                     success: function (data) {
+                        //360转化报错
+                        if(data.errno > 0){
+                            $.ajax({
+                                url: base_url + '/index/commodity/get360StringError',
+                                data: {
+                                    'code': data.errno,
+                                    'msg': data.error
+                                },
+                                method: "POST",
+                                dataType: "json",
+                            });
+                        }
                     },
                     error: function () {
                     },
