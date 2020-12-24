@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{{title}}</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="/static/ml/ml3/main.css">
+    <link rel="shortcut icon" href="/static/ml/ml3/favicon.ico">
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/1.10.0/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/layer/3.1.1/layer.min.js"></script>
+    <script src="https://sspstatic.vivo.com.cn/ssp/js/vadevent.1.0.0.js"></script>
+
+</head>
+<body>
+<!--tit-->
+<style type="text/css">
+    html, body {
+        max-width: 750px;
+        margin: auto;
+    }
+    .acTit .slSS {
+        height: 45px;
+        float: left;
+        position: relative;
+        line-height: 45px;
+    }
+
+    .acTit .slSS a {
+        text-decoration: none;
+        color: #fff;
+        font-size: 18px;
+    }
+
+    .acTit > div {
+        -webkit-box-pack: start;
+    }
+
+    .ifengLookori {
+        width: 92%;
+        background: #4caf50;
+        border-radius: .133333rem;
+        margin: 0px auto 15px;
+        margin-left: 4%;
+        text-align: center;
+        line-height: 44px;
+        font-size: 20px;
+        margin-bottom: 10px;
+        border: none;
+        color: #FFF;
+    }
+
+    .ifengLookori a {
+        display: block;
+        height: 44px;
+        color: #fff;
+    }
+    #content_view_2 p{
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+        margin-top: 16px;
+        line-height: 2em;
+        font-size: 20px;
+        text-indent: 2em;
+        color: #333;
+    }
+    .layui-layer{
+        border-radius: 4px;
+        overflow: hidden;
+    }
+
+    @media(min-width: 300px){
+        #qr_code_bottom{
+            top: -3%;
+        }
+    }
+    @media(min-width: 400px){
+        #qr_code_bottom{
+            top: -2%;
+        }
+    }
+    @media(min-width: 450px){
+        #qr_code_bottom{
+            top: -1%;
+        }
+    }
+    @media(min-width: 500px){
+        #qr_code_bottom{
+            top: 1%;
+        }
+    }
+
+    .wechat-btn {
+        -webkit-animation-name: scaleDraw; /*关键帧名称*/
+        -webkit-animation-timing-function: ease-in-out; /*动画的速度曲线*/
+        -webkit-animation-iteration-count: infinite; /*动画播放的次数*/
+        -webkit-animation-duration: 3s; /*动画所花费的时间*/
+    }
+
+    @keyframes scaleDraw { /*定义关键帧、scaleDrew是需要绑定到选择器的关键帧名称*/
+        0% {
+            transform: scale(1); /*开始为原始大小*/
+        }
+        25% {
+            transform: scale(1.2); /*放大1.1倍*/
+        }
+        50% {
+            transform: scale(1);
+        }
+        75% {
+            transform: scale(1.2);
+        }
+    }
+</style>
+<div class="main" id="main" style="/*background:#f4fbf4;*/background: #eef6fc;">
+    <!--广告end-->
+    <div class="acTxt wrap_w100">
+        <!--acTxtTit-->
+        <!--        <p style="box-sizing: transparent;margin-top: 10px;line-height: 2.0em;font-size: 20px;">-->
+        <!--            <strong>{{title}}</strong></p>-->
+
+
+        <!--160728a begin-->
+        <div class="acTx" id="whole_content">
+            <!--acTxtTip-->
+            <div id="artical_real" class="js_img_share_area">
+
+            </div>
+            <img id="head_img"
+                 style="width:100%;height:200px;display:none;">
+            <p style="box-sizing: transparent;margin-top: 0;margin-bottom:5px;line-height: 2.0em;font-size: 12px;color: #aaa;text-align: center">
+                {{title}}</p>
+            <div id="content_view_2">
+                {{text}}
+
+                <span id="preface_span" ></span>
+
+                {{content}}
+                <span id="end_span" ></span>
+            </div>
+            <p><span id="wxh"></span></p>
+            <p style="font-size: medium;white-space: normal;text-shadow: none;text-align:center;line-height: 200%;font-size: 16px;font-weight: bold;">
+                <span style="font-size:18px;line-height:1;">因篇幅限制，后续更加精彩</span></p>
+            <p class="wxapp"
+               style="font-size: medium; white-space: normal; text-shadow: none;margin-top: 0px;text-align:center;line-height: 1.2em;font-size:16px;">
+                <span id="wx-inner-tips" style="display: none;">
+                    <span style="color: rgb(252, 73, 116);"><br><strong>请</strong></span><strong><span
+                        style="color: rgb(64, 179, 230);">长按二维码识别</span><span
+                        style="color: rgb(252, 73, 116);">关注后继续阅读</span></strong>
+                </span>
+                <span id="wx-outer-tips" style="display: none;font-size:18px;line-height:1;">
+                    <span style=""><br><strong>按下方步骤</strong></span>
+                    <strong><span style="color:#ff0000;">关注公众号</span><span style="">继续免费阅读</span></strong>
+                </span>
+            </p>
+            <p class="wxapp" style="text-align: center;"><img src="/static/ml/ml3/down_icon.png" style="width: 90px;"></p>
+        </div>
+        <div class="fuzhi_tanc">
+        </div>
+        <div id="fuzhi_tanchuang" style="display: none;">
+            <div style="width: 350px;height: auto;background: white;">
+                <div style="background: rgb(230,172,173);padding: 12px;text-align: center;color: rgb(125,62,63);font-size: 18px;">
+                    【添加微信公众号图文教程】
+                </div>
+                <div>
+                    <img src="/static/ml/ml3/wx-attention-guide_.gif"
+                         alt=""
+                         style="width: 100%;margin: 0 auto;background: rgb(239,239,239);">
+                    <div style="margin-top: 30px;text-align: center;">
+                        <img src="/static/ml/ml3/down_icon.png" style="width: 80px;" alt="">
+                        <div style="margin-top: 20px;color: rgb(0,204,0);font-size: 14px;display: flex;align-items: center;justify-content: center;">
+                            <img src="/static/ml/ml3/dg.gif" style="margin-right: 3px;width: 14px;">已成功为您复制公众号
+                        </div>
+                    </div>
+                    <button type="button"
+                            onclick="toWx()"
+                            style="
+                background: rgb(14,136,235);
+                border: none;
+                border-radius: 3px;
+                color: white;
+                padding: 20px 0px;
+                display: block;
+                margin: 30px auto 20px auto;
+                width: 90%;
+                font-size: 18px;"
+                    >前往微信关注&nbsp;》</button>
+                </div>
+            </div>
+        </div>
+        <!--微信外-->
+        <div id="wx-outer" style="display: none;">
+            <style>
+                .ifengLookori {
+                    width: 72%;
+                    background: #f54343;
+                    border-radius: 3px;
+                    margin: 0px auto 15px;
+                    text-align: center;
+                    line-height: 44px;
+                    font-size: 20px;
+                    margin-bottom: 10px;
+                    border: none;
+                    color: #FFF;
+                }
+
+                .ifengLookori a {
+                    display: block;
+                    height: 44px;
+                    color: #fff;
+                }
+            </style>
+            <div id="ptfz" style="text-align: center">
+                <p class="wxapp"
+                   style="font-size: medium; white-space: normal; text-shadow: none;margin-top: 0px;text-align:center;line-height: 2.5em;font-size: 16px;">
+            <span style="color: #424242;"> 打开微信 <span style="color:#888;">→</span> 右上角“+”号 <span
+                    style="color:#888;">→</span> 添加朋友 <span style="color:#888;">→</span> 公众号<br> <span
+                    style="font-size:13px;color:#000">搜索</span>【<strong><span
+                    style="color: rgb(252, 73, 116); font-size:18px;" class="code-btn" id="codeNum">{{wechat_id}}</span><textarea id="fixspan" style="opacity: 0;position: absolute;"></textarea></strong>】<span
+                    style="font-size:13px;color:#000">← 点击左方一键复制</span><br> 关注" <span
+                    style="color: rgb(252, 73, 116);" class="code-btn">{{wechat_name}}</span> "后，继续免费阅读精彩内容！ </span>
+                </p>
+                <br>
+                <p class="showapp" style="text-align: center; display: none;"><img
+                        src="/static/ml/ml3/wx02.gif" width="100%"></p>
+                <a href="javascript:;">
+                    <button class="codeBtn pa copy_btn3 code-btn ifengLookori wxapp wechat-btn"
+                            data-clipboard-target="#fixspan">
+                        点此一键复制公众号
+                    </button>
+                </a>
+                <br>
+            </div>
+            <div id="baidu_special" style="display: none;text-align: center" onclick="sharebaidu()">
+                <br>
+                <button class="pa copy_btn3  ifengLookori wechat-btn">
+                    点此阅读下一章
+                </button>
+                <br>
+                <img src="http://jindouyun-yara.oss-cn-beijing.aliyuncs.com/uploads/other/20200512/1589262934yanshi.gif"
+                     alt="" >
+            </div>
+            <div id="special" style="display: none;text-align: center" onclick="wechat_go('wechatTimeline')">
+                <br>
+                <button class="pa copy_btn3  ifengLookori wechat-btn">
+                    点此阅读下一章
+                </button>
+                <br>
+                <img src="http://jindouyun-yara.oss-cn-beijing.aliyuncs.com/uploads/other/20200512/1589262934yanshi.gif"
+                     alt="" >
+            </div>
+            <div id="special_xiaomi" style="display: none;text-align: center" onclick="xiaomiOnclickWechat()">
+                <br>
+                <button class="pa copy_btn3  ifengLookori wechat-btn">
+                    点此阅读下一章
+                </button>
+                <br>
+                <img src="http://jindouyun-yara.oss-cn-beijing.aliyuncs.com/uploads/other/20200512/1589262934yanshi.gif"
+                     alt="" >
+            </div>
+            <div id="special_vivo" style="display: none;text-align: center" onclick="vivoWechat()">
+                <br>
+                <button class="pa copy_btn3  ifengLookori wechat-btn" style="background-color: #4caf50;border-radius: 23px;">
+                    前往微信关注公众号
+                </button>
+                <br>
+                <img src="http://jindouyun-yara.oss-cn-beijing.aliyuncs.com/uploads/other/20200512/1589262934yanshi.gif"
+                     alt="" style="margin-top: 1%">
+            </div>
+        </div>
+        <!--微信内-->
+        <div id="wx-inner" style="display: none;">
+            <p style="text-align: center;position: relative;width: 100%;margin-top: 30px;">
+                <img src="/static/ml/ml3/bg.png" style="width:100%; margin-top: -15px;">
+
+                <!--底部二维码-->
+                <img id="qr_code_bottom" style="position: absolute;width: 32%;left:34.4%;" src="{{qr_code}}">
+            </p>
+        </div>
+
+
+        <div style="text-align: center; color: rgb(140, 140, 140); margin-bottom: 5px;">
+            {{bottom_name}}
+        </div>
+        <br>
+        <br>
+        <br>
+        <div class="fixfot"
+             style="width:100%; max-width:750px; background:white;padding: 10px 5px 30px 5px; border:none; position:fixed; bottom:-6px; z-index:1000;display: none;">
+            <div style="display: flex;align-items:center;justify-content:center;width: 90%;margin: 0 auto;">
+                <img src="/static/ml/ml3/wechat.png" style="width: 50px;background: #F2F2F2;" alt="">
+                <div style="flex:1;margin-left: 10px;">
+                    <div style="color: black;font-size: 16px;">{{wechat_name}}</div>
+                    <div style="color: grey;font-size: 14px;">关注公众号后继续阅读</div>
+                </div>
+                <div>
+                    <button type="button" style="background: rgb(24,144,255);color: white;border: none;border-radius: 3px;padding: 8px 20px;" onclick="fouceTanchuang()">关注</button>
+                </div>
+
+            </div>
+        </div>
+        <div id="mask-tips"
+             style="display: none;position: fixed;top: 0;left: 0;right: 0;bottom: 0;background: rgba(0,0,0,.9);z-index: 9999;">
+            <div style="position: absolute;top: 50%;left: 50%;transform: translate(-50%,-50%);background: white;padding: 15px;border-radius: 5px;width: 325px;">
+                <img id="showTips" src="/static/ml/ml3/tips.gif">
+                <div style="margin-top: 35px;">
+                    <a href="javascript:;" id="hideTips"
+                       style="display: inline-block;width: 30%;text-align: center;padding: 15px;box-shadow: 0 1px 3px #333;border-radius: 100px;margin-left: 5%;">取消</a>
+                    <a href="javascript:;" id="qr_url"
+                       style="display: inline-block;width: 30%;text-align: center;padding: 15px;box-shadow: 0 1px 3px #333;border-radius: 100px;margin-left: 10%;background: #4cb050;color: white;">前往关注</a>
+                </div>
+            </div>
+        </div>
+        <div id="gz_tc1"
+             style="display: none;position: fixed;top: 0;left: 0;right: 0;bottom: 0;background: rgba(0,0,0,.9);z-index: 9999;text-align: center">
+            <div style="position: absolute;top: 50%;left: 50%;transform: translate(-50%,-50%);background: white;padding-bottom: 25px;border-radius: 5px;width: 325px;">
+                <div style="background: rgb(230,172,173);padding: 15px;text-align: center;color: rgb(125,62,63);font-size: 18px;border-radius: 5px;">
+                    【因篇幅限制,请关注后继续阅读】
+                </div>
+                <img onclick="sharebaidu()" src="/static/ml/ml3/vivo/02.gif" style="margin: 0 2% 0 1%;width: 97%">
+                <br>
+                <br>
+                <img src="/static/ml/ml3/down_icon.png" style="width: 80px;margin-top: 1%" alt="">
+                <div style="margin-top: 20px;color: rgb(0,204,0);font-size: 14px;display: flex;align-items: center;justify-content: center;">
+                    <img src="/static/ml/ml3/dg.gif" style="margin-right: 3px;width: 14px;">
+                    恭喜您，获无删减高潮内容阅读名额
+                </div>
+                <div style="margin-top: 25px;">
+                    <a href="javascript:;" onclick="sharebaidu()"
+                       style="display: inline-block;width: 70%;text-align: center;padding: 15px;box-shadow: 0 1px 3px #333;border-radius: 5px;background: rgb(14,136,235);color: white;font-size: 18px">前往微信关注》</a>
+                </div>
+            </div>
+        </div>
+        <div id="gz_tc2"
+             style="display:none;position: fixed;top: 0;left: 0;right: 0;bottom: 0;background: rgba(0,0,0,.9);z-index: 9999;text-align: center">
+            <div style="position: absolute;top: 50%;left: 50%;transform: translate(-50%,-50%);background: white;padding-bottom: 25px;border-radius: 5px;width: 325px;">
+                <div style="background: rgb(230,172,173);padding: 15px;text-align: center;color: rgb(125,62,63);font-size: 18px;border-radius: 5px;">
+                    【因篇幅限制,请关注后继续阅读】
+                </div>
+                <img onclick="wechat_go('wechatTimeline')" src="/static/ml/ml3/vivo/02.gif" style="margin: 0 2% 0 1%;width: 97%">
+                <br>
+                <br>
+                <img src="/static/ml/ml3/down_icon.png" style="width: 80px;margin-top: 1%" alt="">
+                <div style="margin-top: 20px;color: rgb(0,204,0);font-size: 14px;display: flex;align-items: center;justify-content: center;">
+                    <img src="/static/ml/ml3/dg.gif" style="margin-right: 3px;width: 14px;">
+                    恭喜您，获无删减高潮内容阅读名额
+                </div>
+                <div style="margin-top: 25px;">
+                    <a href="javascript:;" onclick="wechat_go('wechatTimeline')"
+                       style="display: inline-block;width: 70%;text-align: center;padding: 15px;box-shadow: 0 1px 3px #333;border-radius: 5px;background: rgb(14,136,235);color: white;font-size: 18px">前往微信关注》</a>
+                </div>
+            </div>
+        </div>
+        <div id="gz_tc3"
+             style="display:none;position: fixed;top: 0;left: 0;right: 0;bottom: 0;background: rgba(0,0,0,.9);z-index: 9999;text-align: center">
+            <div style="position: absolute;top: 50%;left: 50%;transform: translate(-50%,-50%);background: white;padding-bottom: 25px;border-radius: 5px;width: 325px;">
+                <div style="background: rgb(230,172,173);padding: 15px;text-align: center;color: rgb(125,62,63);font-size: 18px;border-radius: 5px;">
+                    【因篇幅限制,请关注后继续阅读】
+                </div>
+                <img onclick="xiaomiOnclickWechat()" src="/static/ml/ml3/vivo/02.gif" style="margin: 0 2% 0 1%;width: 97%">
+                <br>
+                <br>
+                <img src="/static/ml/ml3/down_icon.png" style="width: 80px;margin-top: 1%" alt="">
+                <div style="margin-top: 20px;color: rgb(0,204,0);font-size: 14px;display: flex;align-items: center;justify-content: center;">
+                    <img src="/static/ml/ml3/dg.gif" style="margin-right: 3px;width: 14px;">
+                    恭喜您，获无删减高潮内容阅读名额
+                </div>
+                <div style="margin-top: 25px;">
+                    <a href="javascript:;" onclick="xiaomiOnclickWechat()"
+                       style="display: inline-block;width: 70%;text-align: center;padding: 15px;box-shadow: 0 1px 3px #333;border-radius: 5px;background: rgb(14,136,235);color: white;font-size: 18px">前往微信关注》</a>
+                </div>
+            </div>
+        </div>
+        <div id="gz_vivo"
+             style="display:none;position: fixed;top: 0;left: 0;right: 0;bottom: 0;background: rgba(0,0,0,.9);z-index: 9999;text-align: center">
+            <div style="position: absolute;top: 50%;left: 50%;transform: translate(-50%,-50%);background: white;padding-bottom: 25px;border-radius: 5px;width: 325px;">
+                <!--                <div style="background: rgb(230,172,173);padding: 15px;text-align: center;color: rgb(125,62,63);font-size: 18px;border-radius: 5px;">-->
+                <!--                    【因篇幅限制,请关注后继续阅读】-->
+                <!--                </div>-->
+                <img onclick="vivoWechat()" src="/static/ml/000.gif" style="margin: 1% 2% 0 1%;width: 97%">
+                <br>
+                <br>
+                <!--                <img src="/static/ml/ml3/down_icon.png" style="width: 80px;margin-top: 1%" alt="">-->
+                <!--                <div style="margin-top: 20px;color: rgb(0,204,0);font-size: 14px;display: flex;align-items: center;justify-content: center;">-->
+                <!--                    <img src="/static/ml/ml3/dg.gif" style="margin-right: 3px;width: 14px;">-->
+                <!--                    恭喜您，获无删减高潮内容阅读名额-->
+                <!--                </div>-->
+                <div style="margin-top: 25px;">
+                    <!--                    <div class="btn" id="querena" onclick="vivoWechat()" style="border-radius: 24px; font-size:18px;width:120px;background: #4caf50; color:#fff; border: 0;box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);">-->
+                    <!--                        前往关注-->
+                    <!--                    </div>-->
+                    <a href="javascript:;" onclick="vivoWechatNo()"
+                       style="display: inline-block;width: 30%;text-align: center;padding: 15px;box-shadow: 0 1px 3px #333;border-radius: 20px;color: #999999;font-size: 18px;margin-right: 8%">取消</a>
+                    <a class="wechat-btn" href="javascript:;" onclick="vivoWechat()"
+                       style="display: inline-block;width: 30%;text-align: center;padding: 15px;box-shadow: 0 1px 3px #333;border-radius: 20px;background: #4caf50;color: #fff;font-size: 18px">前往关注</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div style="display: none">
+    {{tj_url}}
+</div>
+
+<script type="text/javascript" src="/static/ml/NativeShare.js"></script>
+
+<script>
+    let tj_id = '{{uc_tj_id}}';
+    let list_id = '{{id}}';
+    let qr_code = '{{qr_code}}';
+    let update_at = '{{update_at}}';
+    let img_url = '{{head_img}}';
+    let wechat_id = '{{wechat_id}}';
+    var nativeShare = new NativeShare();
+    let wechat_url_info = '{{wechat_url_info}}';
+    let wechat_url = '{{wechat_url}}';
+    let shareImgBase64 = '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';
+
+    $(document).ready(function() {
+        $('#head_img_div').hide();
+        $('#head_img').attr('src',img_url);
+        $('#head_img').show();
+
+        let myDate = new Date();
+        let qr_code_s = qr_code.split('@@@');
+        let update_at_c = (new Date(update_at)).getTime() / 1000;
+
+        let year=myDate.getFullYear();        //获取当前年
+        let month=myDate.getMonth()+1;   //获取当前月
+        let date=myDate.getDate();            //获取当前日
+
+
+        let h=myDate.getHours();              //获取当前小时数(0-23)
+        let m=myDate.getMinutes();          //获取当前分钟数(0-59)
+        let s=myDate.getSeconds();
+        let now = year+'-'+getNow(month)+"-"+getNow(date);
+        let now_c = (new Date(now)).getTime() / 1000;
+
+        let time = (now_c - update_at_c) / 24/3600;
+
+        if (time >= qr_code_s.length) {
+            time = time % qr_code_s.length;
+        }
+        $('#qr_code_bottom').attr('src',qr_code_s[time]);
+    });
+    function getNow(s) {
+        return s < 10 ? '0' + s: s;
+    }
+
+    $(document).scroll(function () {
+        if ($("iframe:last").parent().prev().attr('id') == 'lastOne') {
+            $("iframe:last").parent().remove();
+        }
+    });
+
+
+    function removeUChref(){
+        var hrefArr = $('a')
+        for (var i=0;i<hrefArr.length;i++){
+            var uca = hrefArr[i].href
+            if(uca.indexOf('uc.cn')>=0){
+                uca.attr("style","")
+                uca.attr("href","")
+            }
+        }
+    }
+</script>
+<script src="/static/ml/threezieo/360tjjm.js?v=1.0"></script>
+
+<script src="/static/ml/threezieo/redis_1_jm.js?v=1.1"></script>
+<div id="lastOne"></div>
+
+</body>
+</html>
