@@ -632,7 +632,7 @@
                     formatter: function (value, row, index) {
                         var html = '<input type="text" style="opacity:0;position: absolute;\n' +
                             '  left: 3000px;\n' +
-                            '  top: 2000px;" id="copy_'+row.id+'" value="' + row.url + '/' + row.ml_url + '"> <span style="color: #1654cc" onclick="copyUrl('+row.id+')">复制链接</span>';
+                            '  top: 2000px;" id="copy_'+row.id+'" value="' + row.url + '/' + row.ml_url + '?impression_id=__impression_id__"> <span style="color: #1654cc" onclick="copyUrl('+row.id+')">复制链接</span>';
                         return html;
                     }
                 },
@@ -675,7 +675,7 @@
                         }
                         let e = '';
                         if($.inArray('admin/commodity/yulan',u_role_url) !== -1) {
-                            e = '<a mce_href="#" " data_url="' + row.url + '/' + row.ml_url + '"  onclick="preview(this)" >手机版</a> ';
+                            e = '<a mce_href="#" " data_url="' + row.url + '/' + row.ml_url + '?impression_id=__impression_id__"  onclick="preview(this)" >手机版</a> ';
                         }
                         let f = '';
                         if($.inArray('admin/commodity/delcommodity',u_role_url) !== -1) {
