@@ -766,7 +766,7 @@
         let head_img = requestData.data.head_img.split('@@@');
         $('#upload-list-head').empty();
         head_img.forEach((item, index, array) => {
-            var html = '<div style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"  onclick="delImg(this)" ><img name="head_img" data_name="' + item + '" src="' + item + '"></div>';
+            var html = '<div style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"  onclick="delImg(this)" ><img name="head_img" style="width: 70%;height: 70%" data_name="' + item + '" src="' + item + '"></div>';
             //执行代码
             $('#upload-list-head').append(html);
         });
@@ -1331,7 +1331,7 @@
     function checkedImg(id) {
         $('#upload-list-head').empty();
         let img_url = $('#m_d_' + id).val();
-        var html = '<div  onclick="delImg(this)" ><img name="head_img" data_name="' + __IMG__ + img_url + '" src="' + __IMG__ + img_url + '"></div>';
+        var html = '<div  onclick="delImg(this)" ><img name="head_img" style="width: 70%;height: 70%" data_name="' + __IMG__ + img_url + '" src="' + __IMG__ + img_url + '"></div>';
         $('#upload-list-head').append(html);
         layer.msg('插入成功');
     }
