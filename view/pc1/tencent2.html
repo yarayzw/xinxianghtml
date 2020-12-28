@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0,viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="/static/tencent/css/index.css">
+    <link rel="stylesheet" href="/static/tencent/css/top.css">
+    <script src="/static/pc/jquery.min.js"></script>
+    <style type="text/css">
+        .share-bar-btn1 span {
+            float: left;
+            display: block;
+            width: 40px;
+            height: 30px;
+            margin: 0;
+            padding: 0;
+        }
+
+    </style>
+</head>
+<body id="activity-detail" class="zh_CN mm_appmsg appmsg_skin_default appmsg_style_default not_in_mm" rlt="1">
+<div class="tabu" id="tabu" style="width: 100%;z-index: 9999999">
+    <div class="h_mainNavNew cDGray h_mainNav" id="f-header" style="margin: 0 auto;width: 85%;padding-bottom: 1%">
+        <img src="/static/tencent/hot.png" alt="" style="position: absolute;left:-1%;top:5%;width: 2%">
+        <div style="font-size: 22px;
+       overflow: hidden;
+        text-overflow: ellipsis;
+        -o-text-overflow: ellipsis;
+        white-space:nowrap;
+        width:75%;
+        display:block;float: left">
+            正在阅读：{{title}}
+        </div>
+        <div style="color: red;font-size: 22px;float: left">(第 ② 页)</div>
+        <div style="color: #cccccc;text-align: right;font-size: 22px;float: left;margin-left: 1%" id="time_span"></div>
+        <!--        <div class="login" style="text-align: center">-->
+        <!--           -->
+        <!--        </div>-->
+    </div>
+</div>
+<div class="main">
+    <div id="artical_sth" class="clearfix">
+        <span class="rich_media_meta rich_media_meta_nickname" id="profileBt"></span>
+        <div class="share" style="z-index:1000;">
+            <div class="share-bar-btn1">
+                <span class="bds_tsina"></span>
+                <span class="bds_qzone"></span>
+                <span class="bds_twx"></span>
+            </div>
+        </div>
+        <div class="box03" id="js_comment_box03" style="display: block;">
+
+            <h5 class="cmt js_commentCount" id="js_commentCount_top">
+            </h5>
+
+        </div>
+
+        <div class="line01"></div>
+
+    </div>
+
+</div>
+
+
+<div id="js_article" class="rich_media preview_appmsg">
+    <div class="rich_media_inner" id="app">
+        <div id="page-content" class="rich_media_area_primary">
+            <div class="rich_media_area_primary_inner">
+                <div id="img-content">
+                    <img src="{{head_img}}" style="width:100%;height:100%;display:block;margin-bottom: 1%">
+
+                    <div style="margin: 0 auto;
+                        position: relative;
+                        background-color: #e5eaee;
+                        padding-top: 6px;">
+                        <div class="rich_media_content " id="js_content"
+                             style="background: #f8f8f8;margin: 15px;margin-top: 1%;padding-bottom: 12px;padding-right: 12px;padding-left: 12px;padding-top: 10px;box-shadow: #a5a5a5 0 0 12.8px 0;">
+
+
+                            <div style="box-sizing: transparent;margin-top: 16px;line-height: 2.0em;font-size: 20px;text-indent: 2em">
+                                {{text}}
+                                {{content}}
+                            </div>
+
+
+                            <p style="font-size: medium; white-space: normal; text-shadow: none;text-align:center; margin-top: 18px;line-height: 1.8em;font-size: 20px;">
+                                <span style="color: rgb(252, 73, 116);">未完待续......</span></p>
+
+                            <p style="font-size: medium; white-space: normal; text-shadow: none;margin-top: 18px;line-height: 1.8em;font-size: 20px;font-weight:bold;">
+                                <span style="color: rgb(252, 73, 116);">因内容尺度限制，请您</span><span
+                                    style="color: rgb(64, 179, 230);">【手机微信扫一扫】</span><span
+                                    style="color: rgb(252, 73, 116);">关注后继续免费阅读下一页</span></p>
+
+                            <p style="text-align: center; padding: 15px 0;">
+                                <img src="/static/pc/down_icon.png">
+                            </p>
+
+                            <p style="text-align: center;position: relative;width: 826px;">
+                                <img src="/static/tencent/123.jpg" style="width:100%; margin-top: -15px;">
+
+                                <!--底部二维码-->
+                                <img id="qr_code_bottom" style="position: absolute;width: 25%;left:10%;top:5%;"
+                                     src="{{qr_code}}">
+                            </p>
+
+
+
+                                <style>
+                                    .t1_comment{
+                                        display: block;
+                                    }
+                                    .t1_caption {
+                                        display: block;
+                                        height: 2.66rem;
+                                        border-bottom: 1px solid #e5e5e5;
+                                    }
+                                    .t1_comment_warp {
+                                        display: block;
+                                        padding-top: 3px;
+                                    }
+                                    .t1_cmodel {
+                                        width: 100%;
+                                        padding: 10px 0;
+                                        position: relative;
+                                        margin-bottom: 10px;
+                                    }
+                                    .t1_head {
+                                        display: block;
+                                        border-radius: 50%;
+                                        overflow: hidden;
+                                        position: absolute;
+                                        top: 6px;
+                                        left: 0;
+                                    }
+                                    .t1_head img {
+                                        width: 32px;
+                                        height: 32px;
+                                        border-radius: 50%;
+                                    }
+                                    .t1_cmcont {
+                                        display: block;
+                                        margin-left: 42px;
+                                        min-height: 42px;
+                                    }
+                                    .t1_nickname {
+                                        display: block;
+                                        font-size: 1.4rem;
+                                        padding-top: 3px;
+                                        color: #999;
+                                        overflow: hidden;
+                                    }
+                                    .t1_cnt {
+                                        line-height: 1.7rem;
+                                        font-size: 13px;
+                                        color: #666;
+                                        padding: 8px 0 0;
+                                        overflow: hidden;
+                                        text-overflow: ellipsis;
+                                        display: -webkit-box;
+                                        -webkit-line-clamp: 2;
+                                        -webkit-box-orient: vertical;
+                                        margin-bottom: 10px;
+                                        letter-spacing: 0.5px;
+                                    }
+                                    .t1_tmw {
+                                        overflow: hidden;
+                                    }
+                                    .t1_st_w {
+                                        display: block;
+                                        float: right;
+                                        overflow: hidden;
+                                        height: 16px;
+                                    }
+                                    .t1_st {
+                                        display: inline-block;
+                                        float: right;
+                                        overflow: hidden;
+                                        height: 16px;
+                                        margin-left: 13px;
+                                    }
+                                    .t1_ic {
+                                        display: inline-block;
+                                        width: 16px;
+                                        height: 16px;
+                                        padding-top: 1px;
+                                    }
+                                    .t1_in {
+                                        display: inline-block;
+                                        float: right;
+                                        padding: 0 3px;
+                                        line-height: 16px;
+                                        color: #999;
+                                    }
+                                    .t1_c_tt {
+                                        display: inline-block;
+                                        height: 100%;
+                                        line-height: 2.66rem;
+                                        color: #333;
+                                        font-size: 16px;
+                                        font-weight: bold;
+                                        border-bottom: 1px solid #508cee;
+                                    }
+                                    .t1_nn {
+                                        font-size: 11px;
+                                        font-style: normal;
+                                        display: inline-block;
+                                        height: 1.58rem;
+                                        line-height: 1.58rem;
+                                        float: left;
+                                    }
+                                    .t1_more_com {
+                                        display: block;
+                                        height: 40px;
+                                        line-height: 40px;
+                                        text-align: center;
+                                    //border-top: 1px solid #ddd;
+                                        color: #508cee;
+                                        background: #eaeaea;
+                                        font-size: 15px;
+                                        margin-bottom: 20px;
+                                    }
+                                </style>
+
+                                <div class="t1_comment click_area" id="commentwarp" data-click-type="109" style="    font-size: 62.5%;
+    font-family: sans-serif;">
+                                    <div class="t1_caption">
+                                        <span class="t1_c_tt">热门评论</span>
+                                    </div>
+                                    <div class="t1_comment_warp">
+                                        <div class="t1_cmodel">
+                                            <div class="t1_head">
+                                                <img src="/static/tencent/1.gif">
+                                            </div>
+                                            <div class="t1_cmcont">
+                                                <div class="t1_nickname">
+                                                    <i class="t1_nn">你说是谁e999</i>
+                                                </div>
+                                                <div class="t1_cnt">这小说不错，支持一下；</div>
+                                                <div class="t1_tmw">
+                                                    <div class="t1_st_w">
+                        <span class="t1_st">
+                            <b class="t1_ic">
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2955" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16"><path d="M595.2 959.808c-8.192 0-16.384-3.136-22.656-9.344-12.48-12.48-12.48-32.768 0-45.248l194.176-194.176c6.016-6.016 14.144-9.344 22.656-9.344l83.2 0c12.928 0 23.424-10.56 23.424-23.488L896 234.432c0-12.992-10.496-23.488-23.424-23.488L151.488 210.944C138.56 210.88 128 221.44 128 234.432l0 443.776c0 12.928 10.56 23.488 23.488 23.488l388.224 0c17.664 0 32 14.336 32 32s-14.336 32-32 32L151.488 765.696C103.232 765.632 64 726.4 64 678.144L64 234.432c0-48.256 39.232-87.488 87.488-87.488l721.088 0C920.768 146.88 960 186.176 960 234.432l0 443.776c0 48.192-39.232 87.488-87.424 87.488l-69.952 0L617.792 950.4C611.584 956.672 603.392 959.808 595.2 959.808z" p-id="2956" fill="#707070"></path><path d="M514.688 451.776m-48 0a0.75 0.75 0 1 0 96 0 0.75 0.75 0 1 0-96 0Z" p-id="2957" fill="#707070"></path><path d="M706.688 451.776m-48 0a0.75 0.75 0 1 0 96 0 0.75 0.75 0 1 0-96 0Z" p-id="2958" fill="#707070"></path><path d="M317.376 451.776m-48 0a0.75 0.75 0 1 0 96 0 0.75 0.75 0 1 0-96 0Z" p-id="2959" fill="#707070"></path></svg>
+                            </b>
+                            <span class="t1_in">2937</span>
+                      </span>
+                                                        <span class="t1_st">
+
+                                <b class="t1_ic">
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16"><path d="M510.510247 882.765258c-26.958901 0-53.985378-11.807446-80.738477-38.563617L132.351513 543.499832c-35.613803-44.414098-69.227958-86.377014-69.227959-167.770778 0-131.562097 107.041067-238.60726 238.606236-238.60726 49.478234 0 96.933271 15.000944 137.28664 43.427073 13.449758 9.48425 16.702641 28.095413 7.187675 41.576911-9.480154 13.451805-28.037052 16.702641-41.57384 7.188699-30.185163-21.295791-65.801014-32.542147-102.900475-32.542148-98.691283 0-178.953653 80.263394-178.953653 178.956725 0 57.234166 18.905019 83.989313 55.144416 129.266546l294.146895 297.151999c14.880125 14.880125 26.899515 20.789992 38.442799 20.968148 11.84021 0.176108 23.236054-5.756283 38.564641-21.091014L844.233382 503.85704c24.247652-26.273921 54.011999-70.625562 54.011999-128.127986 0-98.69333-80.259299-178.956725-178.95263-178.956725-44.801126 0-87.689635 16.642232-120.73451 46.858112L473.587918 368.630457c-11.66103 11.660006-30.515878 11.660006-42.175884 0-11.660006-11.663078-11.660006-30.51383 0-42.175884l125.924584-125.953253c45.03662-41.189883 102.214472-63.379525 161.956133-63.379526 131.560049 0 238.605212 107.045163 238.605212 238.60726 0 76.769898-38.35372 134.48529-70.539555 169.348585L591.365447 844.080823c-26.842178 26.87699-53.864559 38.684435-80.8552 38.684435z" fill="#707070" p-id="3735"></path></svg>
+                                </b>
+                                <span class="t1_in">521</span>
+                        </span>
+                                                    </div>
+                                                    <div class="t1_tm">11-03 21:31</div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="t1_cmodel">
+                                            <div class="t1_head">
+                                                <img src="/static/tencent/2.png">
+                                            </div>
+                                            <div class="t1_cmcont">
+                                                <div class="t1_nickname">
+                                                    <i class="t1_nn">微笑的宁静</i>
+                                                </div>
+                                                <div class="t1_cnt">作者不像有些书，刚开始还不错，后来越来越差，而是每篇都写的很有质量，坚持到现在不容易</div>
+                                                <div class="t1_tmw">
+                                                    <div class="t1_st_w">
+                        <span class="t1_st">
+                            <b class="t1_ic">
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2955" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16"><path d="M595.2 959.808c-8.192 0-16.384-3.136-22.656-9.344-12.48-12.48-12.48-32.768 0-45.248l194.176-194.176c6.016-6.016 14.144-9.344 22.656-9.344l83.2 0c12.928 0 23.424-10.56 23.424-23.488L896 234.432c0-12.992-10.496-23.488-23.424-23.488L151.488 210.944C138.56 210.88 128 221.44 128 234.432l0 443.776c0 12.928 10.56 23.488 23.488 23.488l388.224 0c17.664 0 32 14.336 32 32s-14.336 32-32 32L151.488 765.696C103.232 765.632 64 726.4 64 678.144L64 234.432c0-48.256 39.232-87.488 87.488-87.488l721.088 0C920.768 146.88 960 186.176 960 234.432l0 443.776c0 48.192-39.232 87.488-87.424 87.488l-69.952 0L617.792 950.4C611.584 956.672 603.392 959.808 595.2 959.808z" p-id="2956" fill="#707070"></path><path d="M514.688 451.776m-48 0a0.75 0.75 0 1 0 96 0 0.75 0.75 0 1 0-96 0Z" p-id="2957" fill="#707070"></path><path d="M706.688 451.776m-48 0a0.75 0.75 0 1 0 96 0 0.75 0.75 0 1 0-96 0Z" p-id="2958" fill="#707070"></path><path d="M317.376 451.776m-48 0a0.75 0.75 0 1 0 96 0 0.75 0.75 0 1 0-96 0Z" p-id="2959" fill="#707070"></path></svg>
+                            </b>
+                            <span class="t1_in">1878</span>
+                      </span>
+                                                        <span class="t1_st">
+
+                                <b class="t1_ic">
+                                        <!--?xml version="1.0" standalone="no"?--><svg viewBox="0 0 1024 1024"
+                                                                                       version="1.1"
+                                                                                       xmlns="http://www.w3.org/2000/svg"
+                                                                                       xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                                                       width="16" height="16"><path
+                                        d="M510.510247 882.765258c-26.958901 0-53.985378-11.807446-80.738477-38.563617L132.351513 543.499832c-35.613803-44.414098-69.227958-86.377014-69.227959-167.770778 0-131.562097 107.041067-238.60726 238.606236-238.60726 49.478234 0 96.933271 15.000944 137.28664 43.427073 13.449758 9.48425 16.702641 28.095413 7.187675 41.576911-9.480154 13.451805-28.037052 16.702641-41.57384 7.188699-30.185163-21.295791-65.801014-32.542147-102.900475-32.542148-98.691283 0-178.953653 80.263394-178.953653 178.956725 0 57.234166 18.905019 83.989313 55.144416 129.266546l294.146895 297.151999c14.880125 14.880125 26.899515 20.789992 38.442799 20.968148 11.84021 0.176108 23.236054-5.756283 38.564641-21.091014L844.233382 503.85704c24.247652-26.273921 54.011999-70.625562 54.011999-128.127986 0-98.69333-80.259299-178.956725-178.95263-178.956725-44.801126 0-87.689635 16.642232-120.73451 46.858112L473.587918 368.630457c-11.66103 11.660006-30.515878 11.660006-42.175884 0-11.660006-11.663078-11.660006-30.51383 0-42.175884l125.924584-125.953253c45.03662-41.189883 102.214472-63.379525 161.956133-63.379526 131.560049 0 238.605212 107.045163 238.605212 238.60726 0 76.769898-38.35372 134.48529-70.539555 169.348585L591.365447 844.080823c-26.842178 26.87699-53.864559 38.684435-80.8552 38.684435z"
+                                        fill="#707070" p-id="3735"></path></svg>
+                                </b>
+                                <span class="t1_in">567</span>
+                        </span>
+                                                    </div>
+                                                    <div class="t1_tm">01-03 13:17</div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="t1_cmodel">
+                                            <div class="t1_head">
+                                                <img src="/static/tencent/3.png">
+                                            </div>
+                                            <div class="t1_cmcont">
+                                                <div class="t1_nickname">
+                                                    <i class="t1_nn">入世行者</i>
+                                                </div>
+                                                <div class="t1_cnt">读的我是心花怒放。</div>
+                                                <div class="t1_tmw">
+                                                    <div class="t1_st_w">
+                        <span class="t1_st">
+                            <b class="t1_ic">
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2955" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16"><path d="M595.2 959.808c-8.192 0-16.384-3.136-22.656-9.344-12.48-12.48-12.48-32.768 0-45.248l194.176-194.176c6.016-6.016 14.144-9.344 22.656-9.344l83.2 0c12.928 0 23.424-10.56 23.424-23.488L896 234.432c0-12.992-10.496-23.488-23.424-23.488L151.488 210.944C138.56 210.88 128 221.44 128 234.432l0 443.776c0 12.928 10.56 23.488 23.488 23.488l388.224 0c17.664 0 32 14.336 32 32s-14.336 32-32 32L151.488 765.696C103.232 765.632 64 726.4 64 678.144L64 234.432c0-48.256 39.232-87.488 87.488-87.488l721.088 0C920.768 146.88 960 186.176 960 234.432l0 443.776c0 48.192-39.232 87.488-87.424 87.488l-69.952 0L617.792 950.4C611.584 956.672 603.392 959.808 595.2 959.808z" p-id="2956" fill="#707070"></path><path d="M514.688 451.776m-48 0a0.75 0.75 0 1 0 96 0 0.75 0.75 0 1 0-96 0Z" p-id="2957" fill="#707070"></path><path d="M706.688 451.776m-48 0a0.75 0.75 0 1 0 96 0 0.75 0.75 0 1 0-96 0Z" p-id="2958" fill="#707070"></path><path d="M317.376 451.776m-48 0a0.75 0.75 0 1 0 96 0 0.75 0.75 0 1 0-96 0Z" p-id="2959" fill="#707070"></path></svg>
+                            </b>
+                            <span class="t1_in">1091</span>
+                      </span>
+                                                        <span class="t1_st">
+
+                                <b class="t1_ic">
+<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16"><path d="M510.510247 882.765258c-26.958901 0-53.985378-11.807446-80.738477-38.563617L132.351513 543.499832c-35.613803-44.414098-69.227958-86.377014-69.227959-167.770778 0-131.562097 107.041067-238.60726 238.606236-238.60726 49.478234 0 96.933271 15.000944 137.28664 43.427073 13.449758 9.48425 16.702641 28.095413 7.187675 41.576911-9.480154 13.451805-28.037052 16.702641-41.57384 7.188699-30.185163-21.295791-65.801014-32.542147-102.900475-32.542148-98.691283 0-178.953653 80.263394-178.953653 178.956725 0 57.234166 18.905019 83.989313 55.144416 129.266546l294.146895 297.151999c14.880125 14.880125 26.899515 20.789992 38.442799 20.968148 11.84021 0.176108 23.236054-5.756283 38.564641-21.091014L844.233382 503.85704c24.247652-26.273921 54.011999-70.625562 54.011999-128.127986 0-98.69333-80.259299-178.956725-178.95263-178.956725-44.801126 0-87.689635 16.642232-120.73451 46.858112L473.587918 368.630457c-11.66103 11.660006-30.515878 11.660006-42.175884 0-11.660006-11.663078-11.660006-30.51383 0-42.175884l125.924584-125.953253c45.03662-41.189883 102.214472-63.379525 161.956133-63.379526 131.560049 0 238.605212 107.045163 238.605212 238.60726 0 76.769898-38.35372 134.48529-70.539555 169.348585L591.365447 844.080823c-26.842178 26.87699-53.864559 38.684435-80.8552 38.684435z" fill="#707070" p-id="3735"></path></svg>
+                                </b>
+                                <span class="t1_in">818</span>
+                        </span>
+                                                    </div>
+                                                    <div class="t1_tm">12-06 22:45</div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="t1_more_com wifi_download_btn" data-click-type="110">
+                                        点击下载查看更多精彩评论&gt;
+                                    </div>
+                                </div>
+
+                                <div style="clear: both;"></div>
+
+
+                                <br>
+
+                                <p style="text-align: center;">
+                                    <span style="font-size: 10px; color: #ccc">{{bottom_name}}</span>
+                                </p></div>
+                        </div>
+                    </div>
+                    <div class="qr_code_pc_outer">
+                        <div class="qr_code_pc_inner">
+                            <div class="qr_code_pc">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div style="display: none">
+    {{tj_url}}
+</div>
+
+<script>
+    let list_id = '{{id}}';
+    let qr_code = '{{qr_code}}';
+    let update_at = '{{update_at}}';
+    let img_url = '{{head_img}}';
+    $(document).ready(function () {
+        $('#head_img_div').hide();
+        $('#head_img').attr('src', img_url);
+        $('#head_img').show();
+
+        let myDate = new Date();
+        let qr_code_s = qr_code.split('@@@');
+        let update_at_c = (new Date(update_at)).getTime() / 1000;
+
+        let year = myDate.getFullYear();        //获取当前年
+        let month = myDate.getMonth() + 1;   //获取当前月
+        let date = myDate.getDate();            //获取当前日
+
+
+        let h = myDate.getHours();              //获取当前小时数(0-23)
+        let m = myDate.getMinutes();          //获取当前分钟数(0-59)
+        let s = myDate.getSeconds();
+        let now = year + '-' + getNow(month) + "-" + getNow(date);
+        let now_c = (new Date(now)).getTime() / 1000;
+
+        let time = (now_c - update_at_c) / 24 / 3600;
+
+        if (time >= qr_code_s.length) {
+            time = time % qr_code_s.length;
+        }
+        $('#qr_code_bottom').attr('src', qr_code_s[time]);
+        $('#time_span').text('时间：' + year + '-' + month + '-' + date);
+    });
+
+    function getNow(s) {
+        return s < 10 ? '0' + s : s;
+    }
+
+    $.fn.smartFloat = function () {
+        var position = function (element) {
+            var top = element.position().top, pos = element.css("position");
+            $(window).scroll(function () {
+                var scrolls = $(this).scrollTop();
+                if (scrolls > top) {
+                    if (window.XMLHttpRequest) {
+                        element.css({
+                            position: "fixed",
+                            top: 0
+                        });
+                    } else {
+                        element.css({
+                            top: scrolls
+                        });
+                    }
+                } else {
+                    element.css({
+                        position: pos,
+                        top: top
+                    });
+                }
+            });
+        };
+        return $(this).each(function () {
+            position($(this));
+        });
+    };
+    //绑定
+    $("#tabu").smartFloat();
+</script>
+<script src="/static/jmtj.js?v=3.2"></script>
+
+</body>
+</html>
