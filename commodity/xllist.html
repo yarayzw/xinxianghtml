@@ -1238,7 +1238,7 @@
 
     //选择素材插入
     function checkedImg(id) {
-        $('#upload-list-head').empty();
+        // $('#upload-list-head').empty();
         let img_url = $('#m_d_' + id).val();
         var html = '<div  onclick="delImg(this)" ><img name="head_img" style="width: 70%;height: 70%" data_name="' + __IMG__ + img_url + '" src="' + __IMG__ + img_url + '"></div>';
         $('#upload-list-head').append(html);

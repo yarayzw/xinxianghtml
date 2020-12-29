@@ -1,4 +1,4 @@
-const   base_url = 'http://tongji.zhanjuzhe.cn/';
+const   base_url_ = 'http://tongji.zhanjuzhe.cn/';
 
 $("#closeOnClick").on("click",function(){
     // window.location.href= 'http://hot.kkkk.la/ex/listw/pc1.html?platform_id=' + getCookie('platform_id');
@@ -50,7 +50,7 @@ function getNow(s) {
 
 function getAddress() {
     $.ajax({
-        url: base_url + '/thirdparty/api/getAs',
+        url: base_url_ + '/thirdparty/api/getAs',
         data: {
             'url': document.referrer
         },
