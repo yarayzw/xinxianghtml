@@ -628,7 +628,7 @@
                     title: '标题',
                     width: '25%',
                     formatter: function (value, row, index) {
-                        let head_img = requestData.data.head_img.split('@@@');
+                        let head_img = row.head_img.split('@@@');
                         var html = '<div style="float: left"><img style="width: 120px;height: 40px" src="' + head_img[0] + '"' +
                             ' alt="" data_url="' + row.url + '/' + row.ml_url + '"  onclick="preview(this)"></div><div>' +
                             '<span data_url="' + row.url + '/' + row.ml_url + '"  onclick="preview(this)">' + value + '</span> </div>';
