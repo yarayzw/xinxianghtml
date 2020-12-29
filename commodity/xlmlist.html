@@ -1196,14 +1196,14 @@
 
     //选择素材插入
     function checkedImg(id) {
-        var head_img_num=[];
+        let head_img_num=0;
         $("*[name='head_img']").each(function(index,el){
-            head_img_num[index] = $(el).attr('data_name')
+            head_img_num ++;
         });
-        if(head_img_num.length()>2){
+        if(head_img_num > 2){
             layer.msg('请删除图片!');
         }else {
-            if(head_img_num.length()>1){
+            if(head_img_num > 1){
                 let img_url = $('#m_d_' + id).val();
                 var html = '<div style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"' +
                     '  onclick="delImg(this)" >' +
