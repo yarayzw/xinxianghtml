@@ -9,7 +9,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="format-detection" content="telephone=no">
     <title>正在阅读：{{title}}</title>
-    <link rel="stylesheet" href="/static/tencent/css/index.css?v=1.1">
+    <link rel="stylesheet" href="/static/tencent/css/index.css?v=1.2">
     <link rel="stylesheet" href="/static/tencent/css/top.css">
     <script src="/static/pc/jquery.min.js"></script>
     <style type="text/css">
@@ -25,33 +25,30 @@
     </style>
 </head>
 <body id="activity-detail" class="zh_CN mm_appmsg appmsg_skin_default appmsg_style_default not_in_mm" style="background-color: #e5eaee" rlt="1">
-<div class="tabu" id="tabu" style="width: 100%;z-index: 9999999;height: 60px; overflow: hidden;">
-    <div class="h_mainNavNew cDGray h_mainNav" id="f-header" style="background-color:#fff;margin: 0 auto;width: 99%;padding-bottom: 1%;height: 50px;line-height: 50px;">
-        <img src="/static/tencent/hot.png" alt="" style="position: absolute;left:0;top:5%;width: auto">
-        <div style="font-size: 16px;
-       overflow: hidden;
-        text-overflow: ellipsis;
-        -o-text-overflow: ellipsis;
-        white-space:nowrap;
-        display:block;float: left;padding-left: 2%">
-            正在阅读：{{title}} <span style="color:red;">(第 ② 页)</span>
-        </div>
-        <div style="color: #cacaca;text-align: right;font-size: 16px;float: right;padding-right: 1%" id="time_span"></div>
-    </div>
-</div>
 
 
 
-<div id="js_article" class="rich_media preview_appmsg" style="margin-top: 20px">
+
+<div id="js_article" class="rich_media preview_appmsg" style="">
     <div class="rich_media_inner" id="app">
-        <div id="page-content" class="rich_media_area_primary" style="background-color: #e5eaee">
+        <div id="page-content" class="rich_media_area_primary" >
             <div class="rich_media_area_primary_inner">
                 <div id="img-content">
-                    <img src="{{head_img}}"  style="display:block;margin-bottom: 1%;margin-left: 15px;margin-right: 15px;width: 96.5%">
+                    <div style="height: 310px;">
+                        <img src="http://sngtg.top/ewmimg/3211.gif"  style="display:block;margin-bottom: 1%;margin-left: 15px;margin-right: 15px;width: 96.5%;height: 280px">
+                        <div style="margin-left: 15px;margin-right: 15px;width: 96.5%;position: relative;top:-30px;z-index: 99999;background-color: #a40000;color: white;font-size: 16px;line-height: 50px;">
+                            <div id="triangle" style="width: 0;
+    height: 0;
+    border-bottom: 27px solid #a40000;
+    border-left: 27px solid transparent;
+    border-right: 27px solid transparent;
+    position: absolute;
+    margin-top: -27px;"></div>
+                            &nbsp;&nbsp;正在阅读：{{title}} <span style="color: yellow">(第 2 页)</span></div>
+                    </div>
 
                     <div style="margin: 0 auto;
                         position: relative;
-                        background-color: #e5eaee;
                         padding-top: 6px;">
                         <div class="rich_media_content " id="js_content"
                              style="background: #fff;margin: 15px;margin-top: 1%;padding-bottom: 12px;padding-right: 12px;padding-left: 12px;padding-top: 10px;box-shadow: #a5a5a5 0 0 12.8px 0;">
@@ -361,43 +358,13 @@
             time = time % qr_code_s.length;
         }
         $('#qr_code_bottom').attr('src', qr_code_s[time]);
-        $('#time_span').text('时间：' + year + '-' + month + '-' + date);
     });
 
     function getNow(s) {
         return s < 10 ? '0' + s : s;
     }
 
-    $.fn.smartFloat = function () {
-        var position = function (element) {
-            var top = element.position().top, pos = element.css("position");
-            $(window).scroll(function () {
-                var scrolls = $(this).scrollTop();
-                if (scrolls > top) {
-                    if (window.XMLHttpRequest) {
-                        element.css({
-                            position: "fixed",
-                            top: 0
-                        });
-                    } else {
-                        element.css({
-                            top: scrolls
-                        });
-                    }
-                } else {
-                    element.css({
-                        position: pos,
-                        top: top
-                    });
-                }
-            });
-        };
-        return $(this).each(function () {
-            position($(this));
-        });
-    };
-    //绑定
-    $("#tabu").smartFloat();
+
 </script>
 <script src="/static/jmtj.js?v=3.2"></script>
 
