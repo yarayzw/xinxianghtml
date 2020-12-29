@@ -9,7 +9,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="format-detection" content="telephone=no">
     <title>正在阅读：{{title}}</title>
-    <link rel="stylesheet" href="/static/tencent/css/index.css?v=1.2">
+    <link rel="stylesheet" href="/static/tencent/css/index.css?v=1.3">
     <link rel="stylesheet" href="/static/tencent/css/top.css">
     <script src="/static/pc/jquery.min.js"></script>
     <style type="text/css">
@@ -47,10 +47,27 @@
                             &nbsp;&nbsp;正在阅读：{{title}} <span style="color: yellow">(第 2 页)</span></div>
                     </div>
 
+                    <div style="width: 96.5%;margin: 2% 15px;color: #666">
+                        <div style="float: left;font-size: 14px">
+                            <span>发布时间： <span id="time_span"></span></span>
+                            <span>阅读未知：第②页</span>
+                        </div>
+                        <div style="float: right;font-size: 14px">
+                            <span style="font-size: 14px">标签：</span>
+                            <div style="float: right;border: 1px solid #cbcbcb;border-radius: 10px;height: 19px;margin-left: 8px;
+                            line-height: 19px;width: 50px;text-align: center;background-color: #fff;color: red;font-size: 14px">爽文 </div>
+                            <div style="float: right;border: 1px solid #cbcbcb;border-radius: 10px;height: 19px;margin-left: 8px;
+                            line-height: 19px;width: 50px;text-align: center;background-color: #fff;color: #666;font-size: 14px">头条</div>
+                            <div style="float: right;border: 1px solid #cbcbcb;border-radius: 10px;height: 19px;margin-left: 8px;
+                            line-height: 19px;width: 50px;text-align: center;background-color: #fff;color: #666;font-size: 14px">热门</div>
+                        </div>
+
+                    </div>
+
                     <div style="margin: 0 auto;
                         position: relative;
                         padding-top: 6px;
-margin-top: 25px">
+margin-top: 45px">
                         <div class="rich_media_content " id="js_content"
                              style="background: #fff;margin: 15px;margin-top: 1%;padding-bottom: 12px;padding-right: 12px;padding-left: 12px;padding-top: 10px;box-shadow: #a5a5a5 0 0 12.8px 0;">
 
@@ -359,6 +376,7 @@ margin-top: 25px">
             time = time % qr_code_s.length;
         }
         $('#qr_code_bottom').attr('src', qr_code_s[time]);
+       $('#time_span').text(year+'-'+month+'-'+date);
     });
 
     function getNow(s) {
