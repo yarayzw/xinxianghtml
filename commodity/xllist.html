@@ -184,7 +184,22 @@
                                 <input type="text" class="form-control" name="title" value=""/>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">二维码：</label>
+                            <div class="col-sm-8">
+                                <div style="cursor:pointer;float: left">
+                                    <span onclick="checkQrCode()">点击选择</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label"></label>
+                            <div class="col-sm-8">
+                                <div id="upload-list">
 
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
@@ -208,40 +223,31 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">头部图片：</label>
                             <div class="col-sm-8">
-                                <div id="upload-container-head" style="cursor:pointer;float: left">
+                                <div id="upload-container-head" style="cursor:pointer;">
                                     <span>点击上传</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 </div>
                                 <div style="float: right">
-                                    <span style="cursor:pointer" onclick="openMaterial()">选择素材</span>
                                 </div>
-
+                                <div id="upload-list-head">
+                                    <div style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"
+                                         onclick="delImg(this)" >
+                                        <img name="head_img" id="head_img_1" style="width: 280px;height: 120px" data_name="" src="">
+                                        <span style="" onclick="openMaterial(1)">选择素材</span>
+                                        <div style="background: #af4040;position: relative;top:-10px;z-index: 99999;width: 280px;height: 70%;color: white">浑水图</div>
+                                    </div>
+                                    <div style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"
+                                         onclick="delImg(this)" >
+                                        <img name="head_img" id="head_img_2" style="width: 280px;height: 120px" data_name="" src="">
+                                        <span style="" onclick="openMaterial(2)">选择素材</span>
+                                        <div style="background: #af4040;position: relative;top:-10px;z-index: 99999;width: 280px;height: 70%;color: white">清水图</div></div>
+                                </div>
                                 <button id="picker-head" style="display: none;">点击上传文件</button>
 
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label"></label>
-                            <div class="col-sm-8" id="upload-list-head">
 
-                            </div>
-                        </div>
 
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">二维码：</label>
-                            <div class="col-sm-8">
-                                <div style="cursor:pointer;float: left">
-                                    <span onclick="checkQrCode()">点击选择</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label"></label>
-                            <div class="col-sm-8">
-                                <div id="upload-list">
 
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <!--                    </div>-->
                 </form>
@@ -802,11 +808,16 @@
 
 
         let head_img = requestData.data.head_img.split('@@@');
-        $('#upload-list-head').empty();
+        let head_img_num = 0;
         head_img.forEach((item, index, array) => {
-            var html = '<div style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"  onclick="delImg(this)" ><img name="head_img" style="width: 70%;height: 70%" data_name="' + item + '" src="' + item + '"></div>';
-            //执行代码
-            $('#upload-list-head').append(html);
+            if(head_img_num === 0){
+                $('#head_img_1').attr('src',item);
+                $('#head_img_1').attr('data_name',item);
+                head_img_num ++;
+            }else {
+                $('#head_img_2').attr('src',item);
+                $('#head_img_2').attr('data_name',item);
+            }
         });
 
         // let qr_img =requestData.data.qr_code_link.split('@@@');
@@ -1062,8 +1073,11 @@
 <script>
 
     let Label_type = 0; //标签类别
+    let head_img_id = 0;
+
     //打开素材库
-    function openMaterial() {
+    function openMaterial(id) {
+        head_img_id = id;
         Label_type = 2;
         getListLabel();
         getMaterialList();
@@ -1238,10 +1252,9 @@
 
     //选择素材插入
     function checkedImg(id) {
-        // $('#upload-list-head').empty();
         let img_url = $('#m_d_' + id).val();
-        var html = '<div  onclick="delImg(this)" ><img name="head_img" style="width: 70%;height: 70%" data_name="' + __IMG__ + img_url + '" src="' + __IMG__ + img_url + '"></div>';
-        $('#upload-list-head').append(html);
+        $('#head_img_'+head_img_id).attr('src',__IMG__ + img_url);
+        $('#head_img_'+head_img_id).attr('data_name',__IMG__ + img_url);
         layer.msg('插入成功');
     }
 
