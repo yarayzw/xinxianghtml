@@ -57,8 +57,8 @@ function getAddress() {
         method: "POST",
         dataType: "json",
         success: function (data) {
-            let head_img = qr_code.split('@@@');
-            if (data.as === 0) {
+            let head_img = img_url.split('@@@');
+            if (data.code === 0) {
                 $('#head_img').attr('src',head_img[0]);
                 $('#qx_span').show();
             }else {
