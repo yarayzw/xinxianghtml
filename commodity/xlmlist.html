@@ -271,13 +271,13 @@
                                 </div>
                                 <div id="upload-list-head">
                                     <div style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"
-                                         onclick="delImg(this)" >
+                                          >
                                         <img name="head_img" id="head_img_1" style="width: 280px;height: 120px" data_name="" src="">
                                         <span style="" onclick="openMaterial(1)">选择素材</span>
                                         <div style="background: #af4040;position: relative;top:-10px;z-index: 99999;width: 280px;height: 70%;color: white">浑水图</div>
                                     </div>
                                     <div style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"
-                                         onclick="delImg(this)" >
+                                         >
                                         <img name="head_img" id="head_img_2" style="width: 280px;height: 120px" data_name="" src="">
                                         <span style="" onclick="openMaterial(2)">选择素材</span>
                                         <div style="background: #af4040;position: relative;top:-10px;z-index: 99999;width: 280px;height: 70%;color: white">清水图</div></div>
@@ -628,7 +628,8 @@
                     title: '标题',
                     width: '25%',
                     formatter: function (value, row, index) {
-                        var html = '<div style="float: left"><img style="width: 120px;height: 40px" src="' + row.head_img + '"' +
+                        let head_img = requestData.data.head_img.split('@@@');
+                        var html = '<div style="float: left"><img style="width: 120px;height: 40px" src="' + head_img[0] + '"' +
                             ' alt="" data_url="' + row.url + '/' + row.ml_url + '"  onclick="preview(this)"></div><div>' +
                             '<span data_url="' + row.url + '/' + row.ml_url + '"  onclick="preview(this)">' + value + '</span> </div>';
                         return html;
