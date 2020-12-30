@@ -199,20 +199,20 @@
                                 <input type="text" class="form-control" name="title" value=""/>
                             </div>
                         </div>
+
+                        <div class="form-group" style="text-align: center;padding: 0 auto">
+                            OCPC代码
+                        </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">头部图片：</label>
+                            <label class="col-sm-3 control-label">代码id :</label>
                             <div class="col-sm-8">
-                                <div id="upload-container-head" style="cursor:pointer;float: left">
-                                    <span>点击上传</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                </div>
-                                <div style="float: right">
-                                    <span style="cursor:pointer" onclick="openMaterial()">选择素材</span>
-                                </div>
-                                <div id="upload-list-head">
-
-                                </div>
-                                <button id="picker-head" style="display: none;">点击上传文件</button>
-
+                                <input type="text" class="form-control" name="uc_tj_id" value=""/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">代码内容 :</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="uc_tj">
                             </div>
                         </div>
 
@@ -263,22 +263,32 @@
                         <!--                            </select>-->
                         <!--                        </div>-->
                         <!--                    </div>-->
-                        <hr>
-                        <div class="form-group" style="text-align: center;padding: 0 auto">
-                            OCPC代码
-                        </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">代码id :</label>
+                            <label class="col-sm-3 control-label">头部图片：</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="uc_tj_id" value=""/>
+                                <div id="upload-container-head" style="cursor:pointer;">
+                                    <span>点击上传</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </div>
+                                <div style="float: right">
+                                </div>
+                                <div id="upload-list-head">
+                                    <div style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"
+                                    >
+                                        <img name="head_img" id="head_img_1" style="width: 280px;height: 120px" data_name="" src="">
+                                        <span style="" onclick="openMaterial(1)">选择素材</span>
+                                        <div style="background: #af4040;position: relative;top:-10px;z-index: 99999;width: 280px;height: 70%;color: white">浑水图</div>
+                                    </div>
+                                    <div style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"
+                                    >
+                                        <img name="head_img" id="head_img_2" style="width: 280px;height: 120px" data_name="" src="">
+                                        <span style="" onclick="openMaterial(2)">选择素材</span>
+                                        <div style="background: #af4040;position: relative;top:-10px;z-index: 99999;width: 280px;height: 70%;color: white">清水图</div></div>
+                                </div>
+                                <button id="picker-head" style="display: none;">点击上传文件</button>
+
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">代码内容 :</label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control" name="uc_tj">
-                            </div>
-                        </div>
+
                     </div>
                 </form>
             </div>
@@ -622,7 +632,8 @@
                     title: '标题',
                     width: '25%',
                     formatter: function (value, row, index) {
-                        var html = '<div style="float: left"><img style="width: 120px;height: 40px" src="' + row.head_img + '"' +
+                        let head_img = row.head_img.split('@@@');
+                        var html = '<div style="float: left"><img style="width: 120px;height: 40px" src="' + head_img[0] + '"' +
                             ' alt="" data_url="' + row.url + '/' + row.ml_url + '"  onclick="preview(this)"></div><div>' +
                             '<span data_url="' + row.url + '/' + row.ml_url + '"  onclick="preview(this)">' + value + '</span> </div>';
                         return html;
@@ -764,11 +775,16 @@
 
 
         let head_img = requestData.data.head_img.split('@@@');
-        $('#upload-list-head').empty();
+        let head_img_num = 0;
         head_img.forEach((item, index, array) => {
-            var html = '<div style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"  onclick="delImg(this)" ><img name="head_img" style="width: 70%;height: 70%" data_name="' + item + '" src="' + item + '"></div>';
-            //执行代码
-            $('#upload-list-head').append(html);
+            if(head_img_num === 0){
+                $('#head_img_1').attr('src',item);
+                $('#head_img_1').attr('data_name',item);
+                head_img_num ++;
+            }else {
+                $('#head_img_2').attr('src',item);
+                $('#head_img_2').attr('data_name',item);
+            }
         });
 
         // let qr_img =requestData.data.qr_code_link.split('@@@');
@@ -1153,8 +1169,10 @@
 <script>
 
     let Label_type = 0; //标签类别
+    let head_img_id = 0;
     //打开素材库
-    function openMaterial() {
+    function openMaterial(id) {
+        head_img_id = id;
         Label_type = 2;
         getListLabel();
         getMaterialList();
@@ -1329,10 +1347,9 @@
 
     //选择素材插入
     function checkedImg(id) {
-        $('#upload-list-head').empty();
         let img_url = $('#m_d_' + id).val();
-        var html = '<div  onclick="delImg(this)" ><img name="head_img" style="width: 70%;height: 70%" data_name="' + __IMG__ + img_url + '" src="' + __IMG__ + img_url + '"></div>';
-        $('#upload-list-head').append(html);
+        $('#head_img_'+head_img_id).attr('src',__IMG__ + img_url);
+        $('#head_img_'+head_img_id).attr('data_name',__IMG__ + img_url);
         layer.msg('插入成功');
     }
 

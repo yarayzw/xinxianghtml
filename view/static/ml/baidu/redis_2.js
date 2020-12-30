@@ -2,16 +2,35 @@ var userAgent = navigator.userAgent;
 let brow_s = false;
 //判断当前浏览器
 var brow = navigator.userAgent.toLowerCase();
+// if( -1 !== brow.indexOf('baiduboxapp') ){
+//     if(-1 !== brow.indexOf('info')){
+//         wechat_url = wechat_url_info;
+//     }
+//     brow_is_baidu = true;
+//     $('#qianxun_span').show();
+//     loadScript('//s.bdstatic.com/common/openjs/aio.js?v=' + new Date().getTime());
+//     $('#ptfz').hide();
+//     $('#baidu_special').show();
+// }
+
+let head_img = img_url.split('@@@');
+
 if( -1 !== brow.indexOf('baiduboxapp') ){
     if(-1 !== brow.indexOf('info')){
         wechat_url = wechat_url_info;
     }
-    brow_is_baidu = true;
     $('#qianxun_span').show();
+    //图片
+    $('#head_img').attr('src',head_img[0]);
+
+    brow_is_baidu = true;
     loadScript('//s.bdstatic.com/common/openjs/aio.js?v=' + new Date().getTime());
     $('#ptfz').hide();
     $('#baidu_special').show();
+}else {
+    $('#head_img').attr('src',head_img[1]);
 }
+
 if(-1 !== brow.indexOf('miuibrowser')){
     $('#special_xiaomi').show();
     $('#ptfz').hide();
