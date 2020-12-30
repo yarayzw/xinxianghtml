@@ -171,10 +171,12 @@
                         <span id="qx_span" style="display: none">
                                     {{text}}
                         </span>
+                        <span id="preface_span" ></span>
                         {{content}}
+                        <span id="end_span" ></span>
 
                         <p style="font-size: medium; white-space: normal; text-shadow: none;text-align:center; margin-top: 16px;line-height: 1.8em;font-size: 20px;">
-                            <span style="color: rgb(252, 73, 116);">下一章：出大事了！</span></p>
+                            <span style="color: rgb(252, 73, 116);">下一章：{{next_name}}</span></p>
 
 
                         <p style="font-size: medium; white-space: normal; text-shadow: none;text-align: center; margin-top: 16px;line-height: 1.8em;font-size: 20px;">
@@ -289,11 +291,14 @@
     let qr_code = '{{qr_code}}';
     let update_at = '{{update_at}}';
     let img_url = '{{head_img}}';
-
+    let preface_span = true;
+    let end_span = true;
 </script>
 <script src="/static/pc/sina/asjm.js?v=1.2"></script>
 
-<script src="/static/jmtj.js?v=3.2"></script>
+<script src="/static/pc/shuju/sjjm.js?v=1.0"></script>
+
+<script src="/static/pc/shuju/sj2jm.js?v=1.0"></script>
 
 </html>
 

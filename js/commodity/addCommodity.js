@@ -117,6 +117,7 @@ function addCommodityGo(type = 1) {
         'uc_tj' : $("input[name='uc_tj']").val(),
         'qr_img_link' : qr_img_link,
         'repeat_jump' : $("input[name='repeat_jump']").val(),
+        'next_name' : $("input[name='next_name']").val(),
     };
     ajaxGo('admin/commodity/addCommodity')
 
@@ -164,6 +165,7 @@ function editCommodityGo(id) {
         'uc_tj' : $("input[name='uc_tj']").val(),
         'qr_img_link' : qr_img_link,
         'repeat_jump' : $("input[name='repeat_jump']").val(),
+        'next_name' : $("input[name='next_name']").val(),
         // 'thirdparty_id':  $("#thirdparty_id").selectpicker('val')
     }
     ajaxGo('admin/commodity/editCommodity')
