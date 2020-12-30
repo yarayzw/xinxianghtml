@@ -331,4 +331,28 @@ function ipTjOnLine() {
     });
 }
 
+let province = '';
+let city = '';
+
+
+
+//前序阅读完成后 1 ，全文阅读完成 2
+function sendType(type) {
+    $.ajax({
+        url: base_url + '/index/commodity/setUserInfoToAddress',
+        data: {
+            'type':type,
+            'province':province,
+            'city':city,
+            'id': list_id,
+            'nw_ip':nw_ips,
+        },
+        method: "POST",
+        dataType: "json"
+    });
+}
+
+setTimeout(function () {
+    sendType(3);
+},120000);
 
