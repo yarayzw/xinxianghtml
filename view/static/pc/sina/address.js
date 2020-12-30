@@ -1,11 +1,11 @@
-const   base_url_ = 'http://tongji.zhanjuzhe.cn/';
+const   base_url_1 = 'http://tongji.zhanjuzhe.cn/';
 
 $("#closeOnClick").on("click",function(){
     // window.location.href= 'http://hot.kkkk.la/ex/listw/pc1.html?platform_id=' + getCookie('platform_id');
     // window.location.href= 'https://qqvip.oss-cn-shanghai.aliyuncs.com/vip/index.html';
     window.location.href= 'https://qqvip.oss-cn-shanghai.aliyuncs.com/vip/tz.html';
 });
-$(document).ready(function() {
+$(function () {
     $('#head_img_div').hide();
     getAddress();
 
@@ -44,13 +44,15 @@ $(document).ready(function() {
         }
     });
 });
+
+
 function getNow(s) {
     return s < 10 ? '0' + s: s;
 }
 
 function getAddress() {
     $.ajax({
-        url: base_url_ + '/thirdparty/api/getAs',
+        url: base_url_1 + '/thirdparty/api/getAs',
         data: {
             'url': document.referrer
         },
