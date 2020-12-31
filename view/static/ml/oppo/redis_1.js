@@ -34,6 +34,7 @@ $("#sxtt").click(function () {
     $('#mask-tips').show();
 });
 $(".code-btn").click(function () {
+    oatRptr.track(1, {clueId: uc_tj_id});
     copyLayer();
 });
 var flag = true;
