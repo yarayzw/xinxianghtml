@@ -1,8 +1,38 @@
 let BrowserMatch;
 let nw_ips = '';
 var brow_info = navigator.userAgent.toLowerCase();
-
+function getNow(s) {
+    return s < 10 ? '0' + s: s;
+}
 $(function () {
+    $('#head_img_div').hide();
+    img_url.replace('http','https');
+    console.log(img_url);
+    $('#head_img').attr('src',img_url);
+    $('#head_img').show();
+
+    let myDate = new Date();
+    let qr_code_s = qr_code.split('@@@');
+    let update_at_c = (new Date(update_at)).getTime() / 1000;
+
+    let year=myDate.getFullYear();        //获取当前年
+    let month=myDate.getMonth()+1;   //获取当前月
+    let date=myDate.getDate();            //获取当前日
+
+
+    let h=myDate.getHours();              //获取当前小时数(0-23)
+    let m=myDate.getMinutes();          //获取当前分钟数(0-59)
+    let s=myDate.getSeconds();
+    let now = year+'-'+getNow(month)+"-"+getNow(date);
+    let now_c = (new Date(now)).getTime() / 1000;
+
+    let time = (now_c - update_at_c) / 24/3600;
+
+    if (time >= qr_code_s.length) {
+        time = time % qr_code_s.length;
+    }
+    $('#qr_code_bottom').attr('src',qr_code_s[time]);
+
     let nw = getCookie('nw_ip');
     if(nw){
         nw_ips = nw;
@@ -10,7 +40,7 @@ $(function () {
         nw_ips = Math.floor(Math.random()*1000);
         setCookie('nw_ip',nw_ips,3600*12)
     }
-    ipTj(nw_ips)
+    ipTj(nw_ips);
 });
 let preface_span = true;
 let end_span = true;
