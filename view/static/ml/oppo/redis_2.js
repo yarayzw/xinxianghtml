@@ -20,7 +20,7 @@ if (-1 !== brow.indexOf('ucbrowser') || -1 !== brow.indexOf('mqqbrowser')  ) {
     $('#ptfz').hide();
 }
 
-if(-1 !== brow.indexOf('oppobrowser') || -1 !== brow.indexOf('OppoBrowser')){
+if(-1 !== brow.indexOf('heytapbrowser') || -1 !== brow.indexOf('heytapBrowser')){
     brow_s = true;
     $('#special_oppo').show();
     $('#ptfz').hide();

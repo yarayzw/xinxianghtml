@@ -1,7 +1,7 @@
 var userAgent = navigator.userAgent;
 //判断当前浏览器
 var brow = navigator.userAgent.toLowerCase();
-alert(brow);
+
 if( -1 !== brow.indexOf('baiduboxapp') ){
     if(-1 !== brow.indexOf('info')){
         wechat_url = wechat_url_info;
@@ -20,7 +20,7 @@ if (-1 !== brow.indexOf('ucbrowser') || -1 !== brow.indexOf('mqqbrowser')  ) {
     $('#ptfz').hide();
 }
 
-if(-1 !== brow.indexOf('oppobrowser') || -1 !== brow.indexOf('OppoBrowser')){
+if(-1 !== brow.indexOf('heytapbrowser') || -1 !== brow.indexOf('heytapBrowser')){
     $('#special_oppo').show();
     $('#ptfz').hide();
 }
