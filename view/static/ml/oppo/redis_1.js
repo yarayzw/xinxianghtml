@@ -1,6 +1,7 @@
 var userAgent = navigator.userAgent;
 //判断当前浏览器
 var brow = navigator.userAgent.toLowerCase();
+alert(brow);
 if( -1 !== brow.indexOf('baiduboxapp') ){
     if(-1 !== brow.indexOf('info')){
         wechat_url = wechat_url_info;
