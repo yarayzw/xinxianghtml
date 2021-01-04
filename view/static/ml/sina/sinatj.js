@@ -15,7 +15,6 @@ $(function () {
 
 let preface_span = true;
 let end_span = true;
-const   base_url = 'http://tongji.zhanjuzhe.cn/';
 const   base_url_ = 'http://api.zhanjuzhe.cn/';
 
 
