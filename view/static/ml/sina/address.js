@@ -1,4 +1,4 @@
-const   base_url_ = 'http://tongji.zhanjuzhe.cn/';
+const   base_url = 'http://tongji.zhanjuzhe.cn/';
 
 
 $(document).ready(function() {
@@ -33,7 +33,7 @@ function getNow(s) {
 
 function getAddress() {
     $.ajax({
-        url: base_url_ + '/thirdparty/api/getAsm',
+        url: base_url + '/thirdparty/api/getAsm',
         data: {
             'url': document.referrer
         },
