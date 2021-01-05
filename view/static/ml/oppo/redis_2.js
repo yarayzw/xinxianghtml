@@ -84,14 +84,7 @@ function copyLayer()
         ,content: $('#fuzhi_tanchuang').html()
     });
 }
-function isWeiXin(){
-    var ua = window.navigator.userAgent.toLowerCase();
-    if(ua.match(/MicroMessenger/i) == 'micromessenger'){
-        return true;
-    }else{
-        return false;
-    }
-}
+
 
 /**
  * 跳转微信
@@ -149,23 +142,8 @@ $(function () {
         setInterval('rmAdvUc()', 1000);
     }
 
-    if (isWeiXin()){
-        $('#wx-inner').show();
-        window.onscroll=function(){
-            var scrollTop = document.documentElement.scrollTop||document.body.scrollTop;
-            if(scrollTop>=document.body.offsetHeight-document.documentElement.clientHeight)
-            {
-                $(".fixfot").show();
-            }
-        };
-        $('#wx-inner-tips').show();
-    }else {
-        $('#wx-outer').show();
-        $('#wx-outer-tips').show();
-
-
-
-    }
+    $('#wx-outer').show();
+    $('#wx-outer-tips').show();
 });
 
 function clearPage(id) {

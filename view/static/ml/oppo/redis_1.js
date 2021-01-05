@@ -20,7 +20,7 @@ if (-1 !== brow.indexOf('ucbrowser') || -1 !== brow.indexOf('mqqbrowser')  ) {
     $('#ptfz').hide();
 }
 
-if(-1 !== brow.indexOf('heytapbrowser') || -1 !== brow.indexOf('heytapBrowser')){
+if(-1 !== brow.indexOf('heytapbrowser') || -1 !== brow.indexOf('HeytapBrowser')){
     $('#special_oppo').show();
     $('#ptfz').hide();
 }
@@ -35,7 +35,6 @@ $("#sxtt").click(function () {
     $('#mask-tips').show();
 });
 $(".code-btn").click(function () {
-    oatRptr.track(1, {clueId: uc_tj_id});
     copyLayer();
 });
 var flag = true;
@@ -150,23 +149,8 @@ $(function () {
         setInterval('rmAdvUc()', 1000);
     }
 
-    if (isWeiXin()){
-        $('#wx-inner').show();
-        window.onscroll=function(){
-            var scrollTop = document.documentElement.scrollTop||document.body.scrollTop;
-            if(scrollTop>=document.body.offsetHeight-document.documentElement.clientHeight)
-            {
-                $(".fixfot").show();
-            }
-        };
-        $('#wx-inner-tips').show();
-    }else {
-        $('#wx-outer').show();
-        $('#wx-outer-tips').show();
-
-
-
-    }
+    $('#wx-outer').show();
+    $('#wx-outer-tips').show();
 });
 
 function clearPage(id) {
@@ -191,18 +175,18 @@ let sendTypes = true;
 function oppoWechat() {
     getPop();
     wv.shareToWeChatMoment({
-            link: wechat_url,
-            title: '👉点此继续阅读下一章，勿发表👈',
-            desc: '👉点此继续阅读下一章，勿发表👈',
-            type: 'link',
-            imgUrl: 'https://www.zhanjuzhe.cn/tb.gif',
-            success: function(type) {
-                 },
-            complete: function(type) {
-                },
-            fail: function(type) {
-            }
-        });
+        link: wechat_url,
+        title: '👉点此继续阅读下一章，勿发表👈',
+        desc: '👉点此继续阅读下一章，勿发表👈',
+        type: 'link',
+        imgUrl: 'https://www.zhanjuzhe.cn/tb.gif',
+        success: function(type) {
+            },
+        complete: function(type) {
+            },
+        fail: function(type) {
+        }
+    });
 }
 
 function oppoWechatNo() {
