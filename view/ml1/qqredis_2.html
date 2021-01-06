@@ -112,7 +112,6 @@
         }
     }
     .dd {
-        border: solid 1px gray;
         width: 45%;
         course: hand;
         overflow: hidden;
@@ -138,10 +137,10 @@
         <!--160728a begin-->
         <div class="acTx" id="whole_content" style="background-color: #F6F1E7">
             <!--acTxtTip-->
-            <div>
+            <div >
                 <img id="head_img" style="width:100%;height:200px;">
 
-                <div style="width: 100%;position: relative;top:-30px;z-index: 99999;background-color: #ED5C23;color: white;font-size: 14px;line-height: 40px;">
+                <div style="width: 100%;height:40px;position: relative;top:-30px;z-index: 99999;background-color: #ED5C23;color: white;font-size: 14px;line-height: 40px;">
                     <div id="triangle" style="width: 0;
     height: 0;
     border-bottom: 27px solid #ED5C23;
@@ -149,11 +148,15 @@
     border-right: 27px solid transparent;
     position: absolute;
     margin-top: -27px;"></div>
-                    <div style="float:left;">&nbsp;&nbsp;正在阅读：</div><span class="dd">{{title}}{{title}}{{title}}{{title}}{{title}}{{title}}{{title}}{{title}}{{title}}{{title}}{{title}}</span> <span style="color: yellow;margin-left: 10px">(第 2 页)</span></div>
+                    <div style="float:left;">&nbsp;&nbsp;正在阅读：</div>
+                    <span class="dd">{{title}}</span>
+                    <div style="float: left;color: yellow;margin-left: 10px">(第 2 页)</div>
+                </div>
             </div>
-            <div style="padding-left: 15px;padding-right:15px;color: #999;margin: 0 auto;margin-top: -5%;">
+
+            <div style="padding-left: 15px;padding-right:15px;color: #999;margin: 0 auto;margin-top: -6%;position: relative;top:-20px;">
                 <div style="float: left;font-size: 15px">
-                    <span><span id="time_span"></span></span>
+                    <span><span id="time_span">2020-1-6</span></span>
                     <!--                    <span style="margin-left: 10px">阅读: 第②页</span>-->
                 </div>
                 <div style="float: right;font-size: 12px">
