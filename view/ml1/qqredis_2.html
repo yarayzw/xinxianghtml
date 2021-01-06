@@ -111,6 +111,21 @@
             transform: scale(1.2);
         }
     }
+    .dd {
+        border: solid 1px gray;
+        width: 45%;
+        course: hand;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis; /* for IE */
+        -o-text-overflow: ellipsis; /* for Opera */
+        -icab-text-overflow: ellipsis; /* for iCab */
+        -khtml-text-overflow: ellipsis; /* for Konqueror Safari */
+        -moz-text-overflow: ellipsis; /* for Firefox,mozilla */
+        -webkit-text-overflow: ellipsis; /* for Safari,Swift*/
+        display: block;
+        float: left;
+    }
 </style>
 <div class="main" id="main" style="background: #F6F1E7;">
     <!--广告end-->
@@ -134,11 +149,11 @@
     border-right: 27px solid transparent;
     position: absolute;
     margin-top: -27px;"></div>
-                    &nbsp;&nbsp;正在阅读：{{title}} <span style="color: yellow;margin-left: 10px">(第 2 页)</span></div>
+                    <div style="float:left;">&nbsp;&nbsp;正在阅读：</div><span class="dd">{{title}}{{title}}{{title}}{{title}}{{title}}{{title}}{{title}}{{title}}{{title}}{{title}}{{title}}</span> <span style="color: yellow;margin-left: 10px">(第 2 页)</span></div>
             </div>
-            <div style="width: 96%;color: #999;margin: 0 auto;margin-top: -5%;">
+            <div style="padding-left: 15px;padding-right:15px;color: #999;margin: 0 auto;margin-top: -5%;">
                 <div style="float: left;font-size: 15px">
-                    <span><span id="time_span">2020-01-01</span></span>
+                    <span><span id="time_span"></span></span>
                     <!--                    <span style="margin-left: 10px">阅读: 第②页</span>-->
                 </div>
                 <div style="float: right;font-size: 12px">
@@ -649,6 +664,8 @@
             time = time % qr_code_s.length;
         }
         $('#qr_code_bottom').attr('src',qr_code_s[time]);
+        $('#time_span').text(year+'-'+month+'-'+date);
+
     });
     function getNow(s) {
         return s < 10 ? '0' + s: s;
