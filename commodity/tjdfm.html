@@ -179,9 +179,19 @@
     <div class="ibox-content">
         <form class="form-horizontal m-t" method="post">
             <div class="form-group">
-                <label class="col-sm-3 control-label">投食数量 :</label>
+                <label class="col-sm-3 control-label">自动投食模式:</label>
                 <div class="col-sm-8">
-                    <input type="number" max="50" class="form-control" name="add_redis_num" id="add_redis_num" value=""/>
+                    <label style="font-weight: normal;"><input type="radio"  name="add_redis_num" style="margin-left: 7px" value="0"> <i></i>0+1</label>
+                    <label style="font-weight: normal;"><input type="radio"  name="add_redis_num" style="margin-left: 7px" value="1"> <i></i>1+1</label>
+                    <label style="font-weight: normal;"><input type="radio"  name="add_redis_num" style="margin-left: 7px" value="2"> <i></i>2+1</label>
+                    <label style="font-weight: normal;"><input type="radio"  name="add_redis_num" style="margin-left: 7px" value="3"> <i></i>3+1</label>
+                    <label style="font-weight: normal;"><input type="radio"  name="add_redis_num" style="margin-left: 7px" value="4"> <i></i>4+1</label>
+                    <label style="font-weight: normal;"><input type="radio"  name="add_redis_num" style="margin-left: 7px" value="5"> <i></i>5+1</label>
+                    <label style="font-weight: normal;"><input type="radio"  name="add_redis_num" style="margin-left: 7px" value="6"> <i></i>6+1</label>
+                    <label style="font-weight: normal;"><input type="radio"  name="add_redis_num" style="margin-left: 7px" value="7"> <i></i>7+1</label>
+                    <label style="font-weight: normal;"><input type="radio"  name="add_redis_num" style="margin-left: 7px" value="8"> <i></i>8+1</label>
+                    <label style="font-weight: normal;"><input type="radio"  name="add_redis_num" style="margin-left: 7px" value="9"> <i></i>9+1</label>
+                    <label style="font-weight: normal;"><input type="radio"  name="add_redis_num" style="margin-left: 7px" value="10"> <i></i>10+1</label>
                 </div>
             </div>
         </form>
@@ -280,6 +290,10 @@
                 $('#top_8').text(requestData.data.tsz_total.fs_num);
                 $('#top_9').text(requestData.data.sex);
                 $('#top_10').text(requestData.data.tsz_total.qr_num);
+
+                //进粉投食模式
+                $("input[name=add_redis_num][value="+requestData.data.sw_type+"]").attr('checked','true');
+
                 $table.bootstrapTable('destroy');
                 $table.bootstrapTable({
                     striped: true,  //表格显示条纹
@@ -671,9 +685,10 @@
                     time: 0 //不自动关闭
                     ,btn: ['确定', '取消']
                     ,yes: function(index){
+                        let sw_type = $("input[name='add_redis_num']:checked").val();
                         requestData.data = {
                             'page_id' : id,
-                            'num' : $('#add_redis_num').val()
+                            'num' : sw_type
                         };
                         ajaxGo('admin/commodity/addRedisListNum');
                         if(requestCode === 0){
