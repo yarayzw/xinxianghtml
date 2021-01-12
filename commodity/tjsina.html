@@ -93,6 +93,8 @@
 
     <div style="float:left; margin-left: 2%;padding-top: 20px;width: 900px;border-top: #333 solid 10px;">
         <div style="text-align: right;">
+            <span>当前模式：</span><span id="dqms">0</span> |
+            <span>虚拟投食：</span><span id="xnts">0</span> |
             <span>剩余食物：</span><span id="sysw">0</span>
             <button style="margin-left: 50px" onclick="addRedisListNum()">投食</button>
         </div>
@@ -625,7 +627,9 @@
             //执行代码
             $('#table_sw').append(html);
         });
-        $('#sysw').text(requestData.data.redis)
+        $('#sysw').text(requestData.data.redis);
+        $('#dqms').text(requestData.data.sw_type + ' + 1');
+        $('#snts').text(requestData.data.snts_num);
         // $.ajax({
         //     url: __ROOT__ + 'admin/commodity/addRedisListLog',
         //     data:{
