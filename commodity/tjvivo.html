@@ -233,8 +233,8 @@
     $(document).ready(function () {
         id = getUrlParam('bb_id');
         platform_id = getUrlParam('platform_id');
-        getTj(id,platform_id);
         getToushi();
+        getTj(id,platform_id);
     });
 
     //获取url中的参数
@@ -629,7 +629,7 @@
         // });
         $('#sysw').text(requestData.data.redis);
         if(requestData.data.sw_type === 0){
-            $('#dqms').text('0 + '+ requestData.data.sw_type);
+            $('#dqms').text('1 + '+ requestData.data.sw_type);
         }else {
             $('#dqms').text(requestData.data.sw_type + ' + 1');
         }
