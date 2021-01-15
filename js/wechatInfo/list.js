@@ -168,6 +168,18 @@ function initTable() {
                 }
             },
             {
+                field: 'msg_type',
+                title: '客服消息',
+                formatter: function(value,row,index){
+                    switch (value) {
+                        case 0:
+                            return '文字';
+                        case 1:
+                            return '图文';
+                    }
+                }
+            },
+            {
                 field: 'operate',
                 title: '操作',
                 width : '10%',
@@ -253,6 +265,7 @@ function editView(obj) {
 
     $("input[type=radio][name=channel_config_id][value='"+requestData.data.channel_config_id+"']").prop("checked",'checked');
     $("input[name=status][value='"+requestData.data.status+"']").prop("checked",'checked');
+    $("input[name=msg_type][value='"+requestData.data.msg_type+"']").prop("checked",'checked');
 
 
     layer.open({

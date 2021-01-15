@@ -17,6 +17,7 @@ function addViewGo() {
         'channel_password' : $("input[name='channel_password']").val(),
         'channel_config_id':  $("input[type=radio][name=channel_config_id]:checked").val(),
         'status':  $("input[type=radio][name=status]:checked").val(),
+        'msg_type':  $("input[type=radio][name=msg_type]:checked").val(),
     };
     ajaxGo('admin/wechat_config/addWechatConfig')
 }
@@ -39,6 +40,7 @@ function editViewGo(id) {
         'channel_password' : $("input[name='channel_password']").val(),
         'channel_config_id':  $("input[type=radio][name=channel_config_id]:checked").val(),
         'status':  $("input[type=radio][name=status]:checked").val(),
+        'msg_type':  $("input[type=radio][name=msg_type]:checked").val(),
     }
     ajaxGo('admin/wechat_config/editWechatConfig')
 
