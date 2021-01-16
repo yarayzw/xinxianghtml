@@ -290,14 +290,14 @@
                     align: 'center',
                     formatter: function (value, row, index) {
                         let a = '';
-                        if ($.inArray('admin/wechat_msg_pic/editpic', u_role_url) !== -1) {
+                        // if ($.inArray('admin/wechat_msg_pic/editpic', u_role_url) !== -1) {
                             a = '<a mce_href="#"  onclick="editPic('+row.wechat_config_id+','+row.msg_view_id+')" >编辑</a> ';
-                        }
+                        // }
                         let b = '';
 
-                        if ($.inArray('admin/wechat_msg_pic/sendpic', u_role_url) !== -1) {
+                        // if ($.inArray('admin/wechat_msg_pic/sendpic', u_role_url) !== -1) {
                             b = '<a mce_href="#"  onclick="sendPic('+row.wechat_config_id+','+row.msg_view_id+')" >测试发送</a> ';
-                        }
+                        // }
                         return a+b ;
                     }
                 }
@@ -342,6 +342,7 @@
 
     //搜索
     function fac_search() {
+        searchHistory();
         $('#linkTable').bootstrapTable('refresh');
     }
 
