@@ -364,8 +364,15 @@
         requestData.data = {
             'wechat_config_id':wechat_config_id,
             'msg_view_id' : msg_view_id
-        }
+        };
         ajaxGo('admin/wechat_msg_pic/getInfo');
+        $("input[name='title']").val(requestData.data.title);
+        $("input[name='description']").val(requestData.data.description);
+        $("input[name='url']").val(requestData.data.url);
+        $("input[name='memo']").val(requestData.data.memo);
+        $('#upload-list-head').empty();
+        var html = '<div  onclick="delImg(this)" style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"><img name="head_img" data_name="'+requestData.data.pic_url+'" src="'+requestData.data.pic_url+'"></div>';
+        $('#upload-list-head').append(html);
         layer.open({
             type: 1,
             title: '编辑',
