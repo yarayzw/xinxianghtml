@@ -308,6 +308,12 @@
             },
             columns: [
                 {
+                    field: 'bind_user_name',
+                    title: '绑定账户',
+                    width : 10,
+                    align: 'center'
+                },
+                {
                     field: 'wechat_name',
                     title: '公众号名称',
                     width : 15,
@@ -334,8 +340,16 @@
                 {
                     field: 'url',
                     title: '跳转链接',
-                    width: 45,
-                    align: 'center'
+                    width: 48,
+                    align: 'center',
+                    formatter: function (value, row, index) {
+                        if(row.msg_config_id !== 29){
+                            var html = value+'<br>'+row.start_time+' 到 '+row.start_time;
+                        }else {
+                            var html = value;
+                        }
+                        return html;
+                    }
                 },
                 {
                     field: 'memo',
