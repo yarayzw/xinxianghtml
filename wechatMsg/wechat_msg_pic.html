@@ -252,7 +252,7 @@
                 {
                     field: 'wechat_name',
                     title: '公众号名称',
-                    width : 20,
+                    width : 15,
                     align: 'center'
                 },
                 {
@@ -280,9 +280,15 @@
                     align: 'center'
                 },
                 {
+                    field: 'memo',
+                    title: '备注',
+                    width: 40,
+                    align: 'center'
+                },
+                {
                     field: 'pic_url',
                     title: '图片',
-                    width: 20,
+                    width: 15,
                     align: 'center',
                     formatter: function (value, row, index) {
                         var html = '<img style="width: 50px;height: 50px" src="' + value + '"' +
@@ -291,15 +297,9 @@
                     }
                 },
                 {
-                    field: 'memo',
-                    title: '备注',
-                    width: 40,
-                    align: 'center'
-                },
-                {
                     field: 'operate',
                     title: '操作',
-                    width: '12%',
+                    width: 15,
                     align: 'center',
                     formatter: function (value, row, index) {
                         let a = '';
