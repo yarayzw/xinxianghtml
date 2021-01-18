@@ -45,7 +45,10 @@
         <form id="list_search_faci">
             <div class="col-sm-10">
                 <div class="row">
-                    <div class="col-md-2">
+                    <div id="zz_gzh" style="margin-top: 3px;margin-bottom: 10px">
+                    </div>
+                    <br>
+                    <div class="col-md-2" >
                         <div class="input-group m-b">
                             <select id="wechat_config_s" class="selectpicker" data-live-search="true">
                             </select>
@@ -54,6 +57,11 @@
                     <div class="col-md-1">
                          <span class="input-group-btn">
                             <button class="btn btn-default" type="button" onclick="fac_search()">搜索</button>
+                        </span>
+                    </div>
+                    <div class="col-md-1">
+                         <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" onclick="addWechatZZ()">添加种子</button>
                         </span>
                     </div>
                     <div class="col-md-1">
@@ -88,7 +96,7 @@
                     <!--                            required="" aria-required="false"-->
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" id="tzlj">
                 <label class="col-sm-3 control-label">跳转链接 :</label>
                 <div class="col-sm-8">
                     <input type="text" class="form-control" name="url" id="url" value=""/>
@@ -132,6 +140,24 @@
                     </label>
                     <div class="col-sm-8" >
                         <select id="wechat_config_b" class="selectpicker" data-live-search="true">
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row" id="zz" style="display: none">
+    <div class="ibox-content">
+        <form class="form-horizontal m-t" method="post">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">
+                        公众号 :<br/><br/>
+                    </label>
+                    <div class="col-sm-8" >
+                        <select id="wechat_config_zz" class="selectpicker" data-live-search="true">
                         </select>
                     </div>
                 </div>
@@ -194,9 +220,17 @@
         searchHistory();
         initTable();
     });
-
+//getZZList
     function setMaterial() {
-        ajaxGo('admin/wechat_config/getListToSelect')
+        $('#wechat_config_s').empty();
+        $('#wechat_config_zz').empty();
+        $('#wechat_config_b').empty();
+        $('#zz_gzh').empty();
+
+        requestData.data = {
+            'type':1,
+        };
+        ajaxGo('admin/wechat_msg_pic/getZZList');
         requestData.data.forEach((item,index,array)=>{
             //执行代码
             var html = "<option value='"+item.id+"'>"+item.wechat_name+"</option>";
@@ -204,8 +238,32 @@
             $('#wechat_config_b').append(html);
         });
         $('#wechat_config_s').selectpicker('refresh');
-        $('#wechat_config_b').selectpicker('refresh');
 
+        //渲染种子公众号
+        let html = ' <div style="float: left;margin-left: 15px"> 种子公众号： </div>';
+        $('#zz_gzh').append(html);
+
+        requestData.data.forEach((item, index, array) => {
+            var html = '<div style="float: left;margin-right: 15px;margin-left: 5px">\n' +
+                '                    <span style="cursor:pointer" onclick="delWechatZZ(this)" data_id = "' + item.id + '">' + item.wechat_name +'</span>\n' +
+                '                    ' +
+                '                </div>';
+            //执行代码
+            $('#zz_gzh').append(html);
+        });
+
+        requestData.data = {
+            'type':0,
+        };
+        ajaxGo('admin/wechat_msg_pic/getZZList');
+        requestData.data.forEach((item,index,array)=>{
+            //执行代码
+            var html = "<option value='"+item.id+"'>"+item.wechat_name+"</option>";
+            $('#wechat_config_b').append(html);
+            $('#wechat_config_zz').append(html);
+        });
+        $('#wechat_config_b').selectpicker('refresh');
+        $('#wechat_config_zz').selectpicker('refresh');
     }
 
 
@@ -361,6 +419,11 @@
 
 
     function editPic(wechat_config_id,msg_view_id) {
+        if(msg_view_id !== 29){
+            $('#tzlj').hide();
+        }else {
+            $('#tzlj').show();
+        }
         requestData.data = {
             'wechat_config_id':wechat_config_id,
             'msg_view_id' : msg_view_id
@@ -546,6 +609,63 @@
         });
     }
 
+
+    //删除种子公众号
+    function delWechatZZ(obj) {
+        layer.msg('确定删除？', {
+            time: 0 //不自动关闭
+            , btn: ['确定', '取消']
+            , yes: function (index) {
+                requestData.data = {
+                    'type': 0,
+                    'wechat_config_id': $(obj).attr('data_id'),
+                };
+                ajaxGo('admin/wechat_msg_pic/editZZ');
+                if (requestCode === 0) {
+                    setMaterial();
+                    layer.msg('删除成功!');
+                } else {
+                    layer.msg('删除失败');
+                }
+            }
+        });
+    }
+
+    //添加种子公众号
+    function addWechatZZ() {
+        layer.open({
+            type: 1,
+            title: '添加',
+            shadeClose: true,
+            shade: 0.8,
+            maxmin: true,
+            area: ['50%', '40%'],
+            content: $('#zz'),
+            btn: ['确定', '取消'], // 按钮
+            yes: function (index, layero) {
+                layer.msg('确定添加？', {
+                    time: 0 //不自动关闭
+                    , btn: ['确定', '取消']
+                    , yes: function (index) {
+                        requestData.data = {
+                            'type':1,
+                            'wechat_config_id': $("#wechat_config_zz").selectpicker('val'),
+                        };
+                        ajaxGo('admin/wechat_msg_pic/editZZ');
+                        if (requestCode === 0) {
+                            setMaterial();
+                            layer.close(index);
+                            layer.closeAll();
+                            layer.msg('添加成功');
+                        } else {
+                            layer.msg('添加失败');
+                        }
+                    }
+                });
+            }
+//            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
+        });
+    }
 </script>
 
 
