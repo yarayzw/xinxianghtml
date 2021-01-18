@@ -422,8 +422,12 @@
         $("#picker-head").find('input').click();
     });
     setTimeout(function(){
-        // var uploader_head_obj = new WebUploader;
-        var uploader_head =  WebUploader.create(
+        uploader();
+    },3000);
+
+    let uploader_head;
+    function uploader() {
+        uploader_head =  WebUploader.create(
             {
                 auto: true,// 选完文件后，是否自动上传。
                 // swf: 'https://cdn.bootcss.com/webuploader/0.1.1/Uploader.swf',// swf文件路径
@@ -437,13 +441,18 @@
                 fileSizeLimit: 1024*1024*100*100, //验证文件总大小是否超出限制, 超出则不允许加入队列。
                 fileSingleSizeLimit: 1024*1024*100, //验证单个文件大小是否超出限制, 超出则不允许加入队列。
                 fileVal:'upload', // [默认值：'file'] 设置文件上传域的name。
+                duplicate :true
             }
         );
         uploader_head.on("uploadSuccess", function(file, response) {
             var html = '<div  onclick="delImg(this)" style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"><img name="head_img" data_name="'+IMG_+ response.path[0]+'" src="'+IMG_+ response.path[0]+'"></div>';
             $('#upload-list-head').append(html);
         });
-    },3000);
+        // uploader_head.on("uploadFinished", function () {
+        //     uploader_head.destroy();
+        //     uploader();
+        // });
+    }
 
     function delImg(i) {
         layer.msg('确定删除？', {
