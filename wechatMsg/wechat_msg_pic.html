@@ -347,7 +347,13 @@
                         if(row.msg_view_id === 19 || row.msg_view_id === 27 || row.msg_view_id === 14 || row.msg_view_id === 24
                             || row.msg_view_id === 26 || row.msg_view_id === 9 || row.msg_view_id === 3){
                             var html = value+'<br> 到期日期 '+row.end_time;
-                        }else {
+                        }else if(row.msg_view_id === 29){
+                            var html = '';
+                            row.url_arr.forEach((item, index, array) => {
+                                 html += item.name+': '+item.url+'<br>';
+                            });
+                        }
+                        else {
                             var html = value;
                         }
                         return html;
@@ -490,14 +496,14 @@
                             'pic_url' : head_img,
                         };
                         ajaxGo('admin/wechat_msg_pic/editPic');
-                        // if (requestCode === 0) {
-                        //     fac_search();
-                        //     layer.close(index);
-                        //     layer.closeAll();
-                        //     layer.msg(requestMessage);
-                        // } else {
-                        //     layer.msg(requestMessage);
-                        // }
+                        if (requestCode === 0) {
+                            fac_search();
+                            layer.close(index);
+                            layer.closeAll();
+                            layer.msg(requestMessage);
+                        } else {
+                            layer.msg(requestMessage);
+                        }
                     }
                 });
             }
