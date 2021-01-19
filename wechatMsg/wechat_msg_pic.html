@@ -66,6 +66,11 @@
                     </div>
                     <div class="col-md-1">
                          <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" onclick="createMenu()">生成菜单</button>
+                        </span>
+                    </div>
+                    <div class="col-md-1">
+                         <span class="input-group-btn">
                             <button class="btn btn-default" type="button" onclick="addWechatB()">绑定</button>
                         </span>
                     </div>
@@ -693,6 +698,26 @@
                 });
             }
 //            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
+        });
+    }
+    
+    //生成公众号菜单
+    function createMenu() {
+        layer.msg('确定生成？', {
+            time: 0 //不自动关闭
+            , btn: ['确定', '取消']
+            , yes: function (index) {
+                requestData.data = {
+                    'wechat_config_id': $("#wechat_config_s").selectpicker('val'),
+                };
+                ajaxGo('admin/wechat_msg_pic/createMenu');
+                if (requestCode === 0) {
+                    layer.closeAll();
+                    layer.msg('生成成功');
+                } else {
+                    layer.msg('生成失败');
+                }
+            }
         });
     }
 </script>
