@@ -145,6 +145,12 @@
     <div class="ibox-content">
         <form class="form-horizontal m-t" id="commentForm" method="post">
             <div class="form-group">
+                <label class="col-sm-3 control-label">新增关注 :</label>
+                <div class="col-sm-8">
+                    <input type="number" class="form-control" name="follow_num" value=""  />
+                </div>
+            </div>
+            <div class="form-group">
                 <label class="col-sm-3 control-label">广告费 :</label>
                 <div class="col-sm-8">
                     <input type="number" class="form-control" name="consum" value=""  />
@@ -534,7 +540,7 @@
                         formatter: function(value,row,index){
                             let e = '';
                             if($.inArray('admin/promotion_link/editconsum',u_role_url) !== -1){
-                                e='<a href="javascript:void(0)"  onclick="editConsum('+row.id+','+row.consum+',\''+row.link_create_time+'\')" >'+value+'</a>';
+                                e='<a href="javascript:void(0)"  onclick="editConsum('+row.id+','+row.consum+','+row.consum+',\''+row.follow_num+'\')" >'+value+'</a>';
                             }
                             return e;
                         }
@@ -717,7 +723,7 @@
                         formatter: function(value,row,index){
                             let e = '';
                             if($.inArray('admin/promotion_link/editconsum',u_role_url) !== -1){
-                                e='<a href="javascript:void(0)"  onclick="editConsum('+row.id+','+row.consum+',\''+row.link_create_time+'\')" >'+value+'</a>';
+                                e='<a href="javascript:void(0)"  onclick="editConsum('+row.id+','+row.consum+','+row.follow_num+',\''+row.link_create_time+'\')" >'+value+'</a>';
                             }
                             return e;
 
@@ -984,8 +990,9 @@
     }
 
     //修改推广链接的广告费
-    function editConsum(id,consum,link_create_time) {
+    function editConsum(id,consum,follow_num,link_create_time) {
         $("input[name='consum']").val(consum);
+        $("input[name='follow_num']").val(follow_num);
         let new_time = new Date(link_create_time);
         $("input[name='link_create_time']").val(new_time.Format("yyyy-MM-dd"));
         layer.open({
@@ -1005,6 +1012,7 @@
                             'id' : id,
                             'link_create_time' :  $("input[name='link_create_time']").val(),
                             'consum' :  $("input[name='consum']").val(),
+                            'follow_num': $("input[name='follow_num']").val(),
                         }
                         ajaxGo('admin/promotion_link/editConsum');
                         if(requestCode === 0){
