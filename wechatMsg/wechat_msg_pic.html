@@ -456,9 +456,11 @@
         // $("input[name='url']").val(requestData.data.url);
         $("input[name='memo']").val(requestData.data.memo);
         if(msg_view_id === 29){
-            requestData.data.url_arr.forEach((item, index, array) => {
-                $('#tzlj_'+item.id).val(item.url);
-            });
+            if(requestData.data.url_arr){
+                requestData.data.url_arr.forEach((item, index, array) => {
+                    $('#tzlj_'+item.id).val(item.url);
+                });
+            }
         }
         $('#upload-list-head').empty();
         var html = '<div  onclick="delImg(this)" style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"><img name="head_img" data_name="'+requestData.data.pic_url+'" src="'+requestData.data.pic_url+'"></div>';

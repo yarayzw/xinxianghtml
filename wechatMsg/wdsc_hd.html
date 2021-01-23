@@ -21,25 +21,86 @@
     <div class="ibox-content">
         <div class="row row-lg">
             <div class="col-sm-12">
-                <div class="btn-group hidden-xs" id="zzyNTToolbar" role="group">
+                <div class="btn-group hidden-xs" id="zzyHDToolbar" role="group">
                     <form class="form-horizontal m-t" id="list_search_faci" method="post">
                         <div class="col-sm-12">
-                            <label class="col-sm-2 control-label">小说名称 :</label>
-                            <div class="col-sm-3">
+                            <label class="col-sm-2 control-label">活动名称 :</label>
+                            <div class="col-sm-4">
                                 <input type="text" class="form-control" name="name" value=""  />
-
-                            </div>
-                            <label class="col-sm-2 control-label">小说id :</label>
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control" name="thirdparty_m_id" value=""  />
                             </div>
                         </div>
                         <div class="form-group">
                         </div>
                         <div class="col-sm-12">
-                            <label class="col-sm-2 control-label">推广章节 :</label>
+                            <label class="col-sm-2 control-label">活动金额 :</label>
+                            <div class="col-sm-8">
+                                <label style="font-weight: normal;"><input type="radio" checked="checked"  name="type" style="margin-left: 7px" value="69"  > <i></i>充15送15</label>
+                                <label style="font-weight: normal;"><input type="radio"  name="type" style="margin-left: 7px" value="70"  > <i></i>充19送20</label>
+                                <label style="font-weight: normal;"><input type="radio"  name="type" style="margin-left: 7px" value="71"  > <i></i>充28送28</label>
+                                <label style="font-weight: normal;"><input type="radio"  name="type" style="margin-left: 7px" value="72"  > <i></i>充88送100</label>
+                                <label style="font-weight: normal;"><input type="radio"  name="type" style="margin-left: 7px" value="73"  > <i></i>充50送20</label>
+                                <label style="font-weight: normal;"><input type="radio"  name="type" style="margin-left: 7px" value="74"  > <i></i>充66送66</label>
+                                <label style="font-weight: normal;"><input type="radio"  name="type" style="margin-left: 7px" value="75" > <i></i>充36送36</label>
+                                <label style="font-weight: normal;"><input type="radio"  name="type" style="margin-left: 7px" value="76" > <i></i>充18送8</label>
+                                <label style="font-weight: normal;"><input type="radio"  name="type" style="margin-left: 7px" value="77"  > <i></i>充9.9送9.9</label>
+                                <label style="font-weight: normal;"><input type="radio"  name="type" style="margin-left: 7px" value="78"  > <i></i>充12送12</label>
+                                <label style="font-weight: normal;"><input type="radio"  name="type" style="margin-left: 7px" value="79"  > <i></i>充5送5</label>
+                                <label style="font-weight: normal;"><input type="radio"  name="type" style="margin-left: 7px" value="80"  > <i></i>充9送9</label>
+                                <label style="font-weight: normal;"><input type="radio"  name="type" style="margin-left: 7px" value="105" > <i></i>充15送10</label>
+                                <label style="font-weight: normal;"><input type="radio"  name="type" style="margin-left: 7px" value="106"  > <i></i>充30送8</label>
+                                <label style="font-weight: normal;"><input type="radio"  name="type" style="margin-left: 7px" value="107"  > <i></i>充11送11</label>
+                                <label style="font-weight: normal;"><input type="radio"  name="type" style="margin-left: 7px" value="108"  > <i></i>充19送10</label>
+                                <label style="font-weight: normal;"><input type="radio"  name="type" style="margin-left: 7px" value="109"  > <i></i>充28送22</label>
+                                <label style="font-weight: normal;"><input type="radio"  name="type" style="margin-left: 7px" value="110"  > <i></i>充25送15</label>
+                                <label style="font-weight: normal;"><input type="radio"  name="type" style="margin-left: 7px" value="111"  > <i></i>充48送52</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                        </div>
+                        <div class="col-sm-12">
+                            <label class="col-sm-2 control-label">活动时间 :</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="laydate-icon form-control layer-date" name="start_time" id="start_time" value=""  />
+                            </div>
+                            <div class="col-sm-1" style="text-align: center;width: 50px">
+                                至
+                            </div>
+                            <div class="col-sm-2">
+                                <input type="text" class="laydate-icon form-control layer-date" name="end_time" id="end_time" value=""  />
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                        </div>
+                        <div class="col-sm-12">
+                            <label class="col-sm-2 control-label">限购次数 :</label>
                             <div class="col-sm-3">
-                                <input type="text" class="form-control" name="chapter" value=""  />
+                                <select id="per_user_limit" class="selectpicker" data-live-search="true">
+                                    <option value="1">1次</option>
+                                    <option value="2">2次</option>
+                                    <option value="3">3次</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                        </div>
+                        <div class="col-sm-12">
+                            <label class="col-sm-2 control-label">用户属性 :</label>
+                            <div class="col-sm-3">
+                                <label style="font-weight: normal;"><input type="radio"  name="user_type" style="margin-left: 7px" value="0"  onclick="checkedRK(0)" checked="checked"> <i></i>不限</label>
+                                <label style="font-weight: normal;"><input type="radio"  name="user_type" style="margin-left: 7px" value="1" onclick="checkedRK(1)"> <i></i>已充值</label>
+                                <label style="font-weight: normal;"><input type="radio"  name="user_type" style="margin-left: 7px" value="2" onclick="checkedRK(1)"> <i></i>未充值</label>
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+
+                        </div>
+                        <div class="col-sm-12">
+                            <label class="col-sm-2 control-label">促销文案 :</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" name="promotion_text" value=""  />
                             </div>
                         </div>
                         <div class="form-group">
@@ -69,19 +130,7 @@
                         <div class="form-group">
 
                         </div>
-                        <div class="col-sm-12" id="div_config2">
-                            <label class="col-sm-2 control-label">推送性别类型 :</label>
-                            <div class="col-sm-3">
-                                <select id="ts_sex" class="selectpicker" data-live-search="true">
-                                    <option value="3">通用</option>
-                                    <option value="1">男</option>
-                                    <option value="2">女</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
 
-                        </div>
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">
@@ -119,7 +168,7 @@
 
                     </form>
                 </div>
-                <table id="zzyNTTable" style="width: 1400px;margin: 0 auto">
+                <table id="zzyHDTable" style="width: 1400px;margin: 0 auto">
                 </table>
             </div>
         </div>
@@ -157,11 +206,9 @@
         if(type === 0){
             $('#div_config').show();
             $('#div_config1').show();
-            $('#div_config2').show();
         }else {
             $('#div_config').hide();
             $('#div_config1').hide();
-            $('#div_config2').hide();
         }
     }
 
@@ -247,10 +294,10 @@
 
 
     function initTable() {
-        $('#zzyNTTable').bootstrapTable('destroy');
+        $('#zzyHDTable').bootstrapTable('destroy');
         // $('#wechatDayToolbar').css("height", 300);
-        $("#zzyNTTable").bootstrapTable({
-            url: __ROOT__ + 'admin/wechat_msg_config_n_t/getZZYLinkNtList', //获取数据的Servlet地址
+        $("#zzyHDTable").bootstrapTable({
+            url: __ROOT__ + 'admin/wechat_msg_config_h_d/getZZYLinkHDList', //获取数据的Servlet地址
             striped: true,  //表格显示条纹
             pagination: true, //启动分页
             sortName: 'id',
@@ -280,7 +327,6 @@
                     head : {'token' : getCookie('token')},
                     name : $('#name').val(),
                     channel_config_id : 12
-
                 };
 
                 return params;
@@ -297,31 +343,116 @@
                     field: 'id',
                     align: 'center',
                     valign: 'middle',
-                    width : 20,
+                    width : 10,
                 },
                 {
                     field: 'wechat_name',
                     title: '公众号名称',
                     width : 20,
-                    align: 'center'
+                    align: 'center',
                 },
                 {
-                    field: 'novel_name',
-                    title: '小说名称',
+                    field: 'name',
+                    title: '活动名称',
                     width : 20,
-                    align: 'center'
+                    align: 'center',
+                    formatter: function(value,row,index){
+                        return '<div style="color: #393939">'+row.name + '</div>'+
+                            '<div style="color: #777;margin-top: 6px;">'+row.promotion+'</div>';
+                    }
                 },
                 {
-                    field: 'chapter',
-                    title: '章节',
-                    width : 20,
-                    align: 'center'
+                    field: 'start_time',
+                    title: '活动时间',
+                    width : 40,
+                    align: 'center',
+                    formatter: function(value,row,index){
+                        return value + ' <br>' + row.end_time;
+                    }
                 },
                 {
-                    field: 'description',
-                    title: '链接备注',
+                    field: 'user_type',
+                    title: '用户属性',
                     width : 20,
-                    align: 'center'
+                    align: 'center',
+                    formatter: function(value,row,index){
+                        if(value === 0){
+                            return '不限';
+                        }else if(value === 1){
+                            return '已充值';
+                        }else {
+                            return '未充值';
+                        }
+                    }
+                },
+                {
+                    field: 'type',
+                    title: '充值金额',
+                    width : 40,
+                    align: 'center',
+                    formatter: function(value,row,index){
+                        let a = '';
+                        switch (value.toString()) {
+                            case '69':
+                                a = '充15送15';
+                                break;
+                            case '70':
+                                a = '充19送20';
+                                break;
+                            case '71':
+                                a = '充28送28';
+                                break;
+                            case '72':
+                                a = '充88送100';
+                                break;
+                            case '73':
+                                a = '充50送20';
+                                break;
+                            case '74':
+                                a = '充66送66';
+                                break;
+                            case '75':
+                                a = '充36送36';
+                                break;
+                            case '76':
+                                a = '充18送8';
+                                break;
+                            case '77':
+                                a = '充9.9送9.9';
+                                break;
+                            case '78':
+                                a = '充12送12';
+                                break;
+                            case '79':
+                                a = '充5送5';
+                                break;
+                            case '80':
+                                a = '充9送9';
+                                break;
+                            case '105':
+                                a = '充15送10';
+                                break;
+                            case '106':
+                                a = '充30送8';
+                                break;
+                            case '107':
+                                a = '充11送11';
+                                break;
+                            case '108':
+                                a = '充19送10';
+                                break;
+                            case '109':
+                                a = '充28送22';
+                                break;
+                            case '110':
+                                a = '充25送15';
+                                break;
+                            case '111':
+                                a = '充48送52';
+                                break;
+                        }
+                        return a + ' (限充'+row.restrictions_num+'次)';
+                    }
                 },
                 {
                     field: 'msg_config_id',
@@ -339,13 +470,19 @@
                 {
                     field: 'url',
                     title: '链接',
-                    width : 50,
+                    width : 60,
                     align: 'center',
                     formatter: function(value,row,index){
                         return '<a href="javascript:void(0)">'+value+'</a>';
                     }
                 },
 
+                {
+                    field: 'over_time',
+                    title: '到期时间',
+                    width : 20,
+                    align: 'center'
+                },
                 {
                     field: 'is_active',
                     title: '复制',
@@ -364,7 +501,7 @@
 
     //搜索
     function fac_search() {
-        $('#zzyNTTable').bootstrapTable('refresh');
+        $('#zzyHDTable').bootstrapTable('refresh');
     }
 
     //添加
@@ -376,29 +513,23 @@
         if(wechat_ids.length === 0){
             layer.msg('请选择公众号')
         }else {
-            let msg_config_id = 0;
-            let ts_sex = -1;
-            let is_rk = $("input[type=radio][name=is_rk]:checked").val();
-            if(is_rk.toString() === '0'){
-                msg_config_id = $("#wechat_msg_config").selectpicker('val');
-                ts_sex = $("#ts_sex").selectpicker('val');
-            }
             layer.msg('确定生成？', {
                 time: 0 //不自动关闭
                 ,btn: ['确定', '取消']
                 ,yes: function(index){
-
                     requestData.data = {
                         'name' : $("input[name='name']").val(),
                         'text_info' : $("input[name='text_info']").val(),
-                        'thirdparty_m_id': $("input[name='thirdparty_m_id']").val(),
-                        'chapter' : $("input[name='chapter']").val(),
-                        'is_rk': $("input[type=radio][name=is_rk]:checked").val(),
-                        'wechat_config_id' : msg_config_id,
-                        'wechat_ids':wechat_ids,
-                        'ts_sex' : ts_sex
+                        'template_ids': $("input[type=radio][name=type]:checked").val(),
+                        'start_time' : $("input[name='start_time']").val(),
+                        'end_time' : $("input[name='end_time']").val(),
+                        'per_user_limit' : $("#per_user_limit").selectpicker('val'),
+                        'user_type' : $("input[type=radio][name=user_type]:checked").val(),
+                        'promotion_text': $("input[name='promotion_text']").val(),
+                        'msg_config_id' : $("#wechat_msg_config").selectpicker('val'),
+                        'wechat_ids':wechat_ids
                     };
-                    ajaxGo('admin/wechat_msg_config_n_t/addZZYLinkNt');
+                    ajaxGo('admin/wechat_msg_config_h_d/addZZYLinkHD');
                     if(requestCode === 0){
                         fac_search();
                         layer.close(index);
@@ -420,5 +551,23 @@
         layer.msg('复制成功!')
     }
 </script>
-
+<script src="../js/moment.min.js"></script>
+<script>
+    $(function () {
+        laydate.render({
+            elem: 'input[name="start_time"]',
+            type: 'datetime',
+            min: moment().format('YYYY-MM-DD HH:mm:ss'),
+            value: moment().format('YYYY-MM-DD HH:mm:ss'),
+            format: 'yyyy-MM-dd HH:mm:ss'
+        });
+        laydate.render({
+            elem: 'input[name="end_time"]',
+            type: 'datetime',
+            min: moment().format('YYYY-MM-DD HH:mm:ss'),
+            value: moment().format('YYYY-MM-DD HH:mm:ss'),
+            format: 'yyyy-MM-dd HH:mm:ss'
+        });
+    })
+</script>
 
