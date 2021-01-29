@@ -3,268 +3,1074 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0,viewport-fit=cover">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0,viewport-fit=cover">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="format-detection" content="telephone=no">
     <title>{{title}}</title>
-    <link rel="stylesheet" href="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/index.css">
-    <link rel="stylesheet" href="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/topcss.css">
-    <link rel="stylesheet" href="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/font.css">
-    <link rel="stylesheet" href="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/text.css">
+    <link rel="stylesheet" href="/static/pc/index.css">
+    <link rel="stylesheet" href="/static/pc/topcss.css">
+    <link rel="stylesheet" href="/static/pc/font.css">
+    <link rel="stylesheet" href="/static/pc/text.css">
     <link rel="shortcut icon" href="https://p5.ssl.qhimg.com/t013ed96d9c4cf74064.png" type="image/x-icon">
     <link rel="shortcut icon" type="image/ico" href="https://video.eastday.com/assets/img/favicon.ico">
-    <link rel="stylesheet" type="text/css" href="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/config.css">
-    <link rel="stylesheet" type="text/css" href="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/video.css">
-    <link rel="stylesheet" href="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/newdetail.css">
+    <link rel="stylesheet" type="text/css" href="/static/pc/config.css">
+    <link rel="stylesheet" type="text/css" href="/static/pc/video.css">
+    <link rel="stylesheet" href="/static/pc/newdetail.css">
 </head>
 <script type="text/javascript" src="/static/pc/jquery.min.js"></script>
 
 <body>
-<div id="view_3"  class="detail">
-    <div class="bg_header">
-        <div class="header_main por">
-            <div class="left_header fl">
-                <a href="#" pdata="detail1|nav|1|0" target="_blank">
-                    <div class="logo newslogo iblock fl">
-                        <img src="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/newlogo.png" alt="Logo">
-                    </div>
-                    <!-- <h1 class="iblock fs_20 fl"><span>头条视频</span></h1> -->
-                </a>
-                <p class="iblock fl">
-                    <a class="hover_red" href="#" pdata="detail1|nav|1|0" target="_blank">首页</a>
-                    <a class="hover_red" href="#" pdata="detail1|nav|2|0" target="_blank">搞笑</a>
-                    <a class="hover_red" href="#" pdata="detail1|nav|3|0" target="_blank">资讯</a>
-                    <a class="hover_red" href="#" pdata="detail1|nav|4|0" target="_blank">娱乐</a>
-                </p>
-                <div class="toggle_nav iblock por">
-                    <p class="poa boxborder">
-                        <span></span>
+<style>
+    dl, dt, dd, ul, li {
+        margin: 0;
+        padding: 0;
+    }
 
-                    </p>
-                </div>
+    .clearfix {
+        *zoom: 1
+    }
+
+    .clearfix:after {
+        content: "\20";
+        clear: both;
+        height: 0;
+        display: block;
+        overflow: hidden;
+    }
+
+    .nb-none {
+        display: none;
+    }
+
+    .navibar .nb-arrow,
+    .nb-tit-user .nb-msgtip,
+    .nb-menulist .nb-ml-arrow,
+    .nb-menulist .nb-ml-ic,
+    .navibar .nb-tit-icon,
+    .nb-tit-message .msg-icon {
+        background: url(//www1.pcauto.com.cn/header/images/navbar.png) no-repeat;
+    }
+
+    .navibar {
+        min-width: 1000px;
+        text-align: left;
+        position: relative;
+        z-index: 555;
+        height: 28px;
+        border-bottom: 1px solid #ececec;
+        background-color: #f8f8f8;
+        color: #666;
+        font: 12px/28px "微软雅黑", "宋体";
+    }
+
+    .navibar-wap {
+        width: 1000px;
+        margin: 0 auto;
+    }
+
+    .navibar-la {
+        float: left;
+        display: inline;
+    }
+
+    .navibar-lb {
+        float: right;
+        display: inline;
+    }
+
+    .navibar a {
+        color: #666;
+    }
+
+    .navibar a:hover {
+        color: #f70;
+    }
+
+    .navibar .nb-info,
+    .navibar .nb-tit {
+        display: inline;
+        float: left;
+    }
+
+    .navibar .nb-tit {
+        position: relative;
+        line-height: 28px;
+        margin-right: 13px;
+    }
+
+    .navibar .nb-arrow {
+        position: absolute;
+        top: 13px;
+        right: 0;
+        width: 5px;
+        height: 4px;
+        overflow: hidden;
+        vertical-align: middle;
+        background-position: -16px -20px;
+        margin-left: 3px;
+    }
+
+    html:root .navibar .nb-arrow {
+        background-position: -16px -20px;
+        transition: .25s;
+        -moz-transition: .25s; /* Firefox 4 */
+        -webkit-transition: .25s; /* Safari 和 Chrome */
+        -o-transition: .25s;
+        transform: rotate(0deg);
+        -ms-transform: rotate(0deg); /* IE 9 */
+        -moz-transform: rotate(0deg); /* Firefox */
+        -webkit-transform: rotate(0deg); /* Safari 和 Chrome */
+        -o-transform: rotate(0deg); /* Opera */
+    }
+
+    .navibar .nb-tit-hover .nb-arrow {
+        background-position: -16px -8px;
+    }
+
+    html:root .navibar .nb-tit-hover .nb-arrow {
+        background-position: -16px -20px;
+        transition: .25s;
+        -moz-transition: .25s; /* Firefox 4 */
+        -webkit-transition: .25s; /* Safari 和 Chrome */
+        -o-transition: .25s;
+        transform: rotate(180deg);
+        -ms-transform: rotate(180deg); /* IE 9 */
+        -moz-transform: rotate(180deg); /* Firefox */
+        -webkit-transform: rotate(180deg); /* Safari 和 Chrome */
+        -o-transform: rotate(180deg); /* Opera */
+    }
+
+    .navibar .nb-menu {
+        position: relative;
+        padding-right: 8px;
+    }
+
+    .navibar .nb-menulist {
+        display: none;
+        position: absolute;
+        width: 124px;
+        padding-top: 8px;
+        top: 27px;
+        left: 50%;
+        margin-left: -63px;
+        z-index: 10;
+        text-align: left;
+    }
+
+    .navibar .nb-tit-hover .nb-menulist {
+        display: block;
+    }
+
+    .navibar .nb-menulist-inner {
+        display: block;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        position: relative;
+        border: 1px solid #ccc;
+        border-radius: 2px;
+        background: #fff;
+        zoom: 1;
+    }
+
+    .nb-menulist .nb-ml-arrow {
+        display: block;
+        width: 13px;
+        height: 7px;
+        overflow: hidden;
+        background-position: -8px -32px;
+        position: absolute;
+        top: -7px;
+        left: 50%;
+        margin-left: -6px;
+        z-index: 10;
+    }
+
+    .nb-menulist .nb-ml-item {
+        display: block;
+        position: relative;
+        height: 30px;
+        line-height: 30px;
+        padding: 0 10px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        text-overflow: clip;
+    }
+
+    .nb-menulist .nb-ml-ic {
+        display: inline;
+        float: left;
+        width: 21px;
+        margin-right: 6px;
+        _overflow: hidden;
+    }
+
+    .nb-tit-sites .nb-menulist {
+        width: 70px;
+        text-align: center;
+        margin-left: -35px;
+    }
+
+    /*论坛*/
+    .nb-ml-bbs {
+        color: #aaa;
+    }
+
+    .nb-ml-bbs dt {
+        font-weight: bold;
+        height: 30px;
+        line-height: 30px;
+        margin-bottom: -5px;
+        padding: 0 15px;
+    }
+
+    .nb-ml-bbs .nb-mlbs-sp {
+        border-top: 1px dashed #ececec;
+    }
+
+    .nb-ml-bbs .nb-bbs-favb {
+        display: none;
+    }
+
+    /*登录*/
+    .navibar .nb-tit-login {
+        margin-right: 0;
+    }
+
+    .nb-ml-pc {
+        border-bottom: 1px dashed #ececec;
+    }
+
+    .nb-ml-pc .nb-ml-ic {
+        height: 19px;
+        background-position: -5px -122px;
+        margin-top: 7px;
+    }
+
+    .nb-ml-qq .nb-ml-ic {
+        height: 16px;
+        background-position: -5px -154px;
+        margin-top: 9px;
+    }
+
+    .nb-ml-weibo .nb-ml-ic {
+        height: 17px;
+        background-position: 0 -183px;
+        margin-top: 8px;
+    }
+
+    /*个人中心*/
+    .navibar .nb-tit-user {
+        padding-left: 25px;
+    }
+
+    .navibar .user-link:hover {
+        text-decoration: none;
+    }
+
+    .nb-tit-user .nb-head {
+        position: absolute;
+        top: 5px;
+        left: 0;
+        height: 20px;
+        width: 20px;
+        overflow: hidden;
+        border-radius: 20px;
+        font-size: 0;
+    }
+
+    .nb-tit-user .nb-head img {
+        vertical-align: top;
+    }
+
+    .navibar .nb-ml-user {
+        width: 254px;
+        left: 0;
+        margin-left: 0;
+    }
+
+    .nb-ml-user .nb-ml-arrow {
+        margin-left: -80px;
+    }
+
+    .nb-ml-user .nb-menuList-con {
+        padding: 12px 12px 0;
+    }
+
+    .navibar .nb-pt-pic {
+        float: left;
+        margin-right: 10px;
+    }
+
+    .navibar .nb-picTxt dt {
+        font-size: 14px;
+        line-height: 1.3;
+    }
+
+    .navibar .nb-picTxt dd {
+        line-height: 2;
+        color: #777;
+    }
+
+    .navibar .nb-picTxt dd a {
+        color: #225599;
+    }
+
+    .navibar .nb-picTxt dd a:hover {
+        color: #f70;
+    }
+
+    .nb-user-info dt a {
+        color: #333;
+    }
+
+    .nb-user-info dt a:hover {
+        color: #f70;
+    }
+
+    .nb-user-info dd {
+        margin-top: 3px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .nb-user-info .apply-rz {
+        float: right;
+    }
+
+    .navibar .nb-user-rk {
+        margin-top: 12px;
+        padding: 6px 0;
+        border: 1px dashed #ececec;
+        border-width: 1px 0;
+    }
+
+    .nb-user-rk .nb-ml-item {
+        padding: 0 5px;
+        float: left;
+        width: 104px;
+    }
+
+    .navibar .nb-user-cyh {
+        margin-top: 12px;
+    }
+
+    .nb-user-cyh dt {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .nb-user-cyh dt a {
+        color: #777;
+    }
+
+    .nb-user-cyh dt a:hover {
+        color: #f70;
+    }
+
+    .nb-user-cyh dd {
+        margin-top: 8px;
+    }
+
+    .nb-user-cyh .nb-pt-pic img {
+        border: 1px solid #e5e5e5;
+    }
+
+    .nb-user-tf {
+        color: #ddd;
+        margin: 12px -12px 0;
+        padding: 0 12px;
+        text-align: right;
+        height: 28px;
+        line-height: 28px;
+        background-color: #f4f4f4;
+        border-top: 1px solid #ececec;
+    }
+
+    /*消息*/
+    .navibar .nb-tit-nomsg {
+        padding-right: 0;
+    }
+
+    .nb-tit-message {
+        width: 16px;
+        height: 28px;
+    }
+
+    .nb-tit-message .msg-icon {
+        position: absolute;
+        top: 8px;
+        left: 0;
+        height: 13px;
+        width: 16px;
+        overflow: hidden;
+        line-height: 999em;
+        background-position: -5px -44px;
+        padding: 0;
+    }
+
+    .navibar .nb-message-num {
+        position: absolute;
+        top: 2px;
+        right: 0;
+        background: #f44;
+        color: #fff;
+        border-radius: 2px;
+        padding: 0 2px;
+        line-height: 14px;
+        height: 14px;
+    }
+
+    .nb-tit-message .nb-menulist {
+        width: 132px;
+    }
+
+    .navibar .nb-message-none {
+        display: none !important;
+    }
+
+    .nb-menuList-con .nb-message-num {
+        top: 8px;
+        right: 15px;
+    }
+
+    .nb-ml-mybbs .nb-ml-ic {
+        height: 13px;
+        background-position: 0 -251px;
+        margin-top: 8px;
+    }
+
+    .nb-ml-mycar .nb-ml-ic {
+        height: 12px;
+        background-position: 0 -265px;
+        margin-top: 9px;
+    }
+
+    .nb-ml-mycollect .nb-ml-ic {
+        height: 14px;
+        background-position: 0 -280px;
+        margin-top: 8px;
+    }
+
+    .nb-ml-mycmt .nb-ml-ic {
+        height: 15px;
+        background-position: 0 -296px;
+        margin-top: 7px;
+    }
+
+    .nb-ml-mycontribute .nb-ml-ic {
+        height: 15px;
+        background-position: 0 -326px;
+        margin-top: 7px;
+    }
+
+    .nb-ml-mycy .nb-ml-ic {
+        height: 12px;
+        background-position: 0 -312px;
+        margin-top: 9px;
+    }
+
+    .nb-ml-mymoney .nb-ml-ic {
+        background-position: 0 -350px;
+        height: 15px;
+        margin-top: 7px;
+    }
+
+    .nb-tit-wap .nb-menulist {
+        width: 96px;
+        margin-left: -48px;
+    }
+
+    .navibar-lc {
+        float: left;
+        padding-left: 10px;
+    }
+
+    .navibar-lc a {
+        margin: 0 6px;
+    }
+
+    .navibar-lc em {
+        color: #E9E9E9;
+    }
+
+    .navibar-lc .navibar-lc-all {
+        color: #B099B0;
+    }
+
+    .navibar-lc .navibar-lc-all:hover {
+        color: #f70;
+    }
+
+    #JuserName {
+        display: block;
+        max-width: 160px;
+        _width: 100px;
+        height: 28px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .nb-ml-weixin .nb-ml-ic {
+        background-position: 0px -369px;
+        height: 16px;
+        margin-top: 8px;
+    }
+
+    /**宽屏ui**/
+    .b-webWideScreen .navibar {
+        background: #f8f8f8;
+        border-color: #ececec;
+    }
+
+    .b-webWideScreen .navibar-wap {
+        width: 1120px;
+    }
+
+    .b-webWideScreen .navibar .nb-tit-wap {
+        margin-right: 0;
+    }
+
+    /**隐藏入口**/
+    #turnToMeReplyCount {
+        display: none;
+    }
+
+    .nb-user-rk .nb-ml-mycollect, .nb-user-rk .nb-ml-mycar, .nb-user-rk .nb-ml-mymoney {
+        display: none;
+    }
+
+    /*20190102 露出车友会入口*/
+    .nb-user-rk .nb-ml-mycontribute .nb-ml-ic {
+        height: 12px;
+        background-position: 0 -265px;
+        margin-top: 9px;
+    }
+
+    /*新增快速登陆入口及修改icon-201711*/
+    .nb-menulist .nb-ml-loginway .nb-ml-ic {
+        background: url(//www1.pcauto.com.cn/header/images/nb-menuList-icon.png) no-repeat;
+    }
+
+    .nb-menulist .nb-ml-loginway .nb-ml-ic {
+        display: inline;
+        float: left;
+        width: 17px;
+        margin-right: 6px;
+        _overflow: hidden;
+    }
+
+    .nb-ml-loginway .nb-ml-fast .nb-ml-ic {
+        height: 12px;
+        background-position: 0px 0px;
+        margin-top: 10px;
+    }
+
+    .nb-ml-loginway .nb-ml-pc .nb-ml-ic {
+        height: 15px;
+        background-position: 0px -14px;
+        margin-top: 8px;
+    }
+
+    .nb-ml-loginway .nb-ml-qq .nb-ml-ic {
+        height: 15px;
+        background-position: 0px -31px;
+        margin-top: 9px;
+    }
+
+    .nb-ml-loginway .nb-ml-weibo .nb-ml-ic {
+        height: 14px;
+        background-position: 0px -48px;
+        margin-top: 8px;
+    }
+
+    .nb-ml-loginway .nb-ml-weixin .nb-ml-ic {
+        background-position: 0px -64px;
+        height: 13px;
+        margin-top: 8px;
+    }
+
+    .position {
+        height: 38px;
+        line-height: 38px;
+        overflow: hidden;
+        padding: 10px 0 0;
+        overflow: inherit;
+    }
+
+    .pos-mark {
+        float: left;
+        font-size: 14px;
+        color: #9A989B;
+        white-space: nowrap;
+    }
+
+    .position a {
+        color: #333;
+    }
+
+    .position a:hover {
+        color: #f60;
+    }
+
+    .pos-mark {
+        float: left;
+        font-size: 14px;
+        color: #999;
+        max-width: 732px;
+        height: 38px;
+        overflow: hidden;
+    }
+
+    .search {
+        float: right;
+        display: inline;
+        line-height: 30px;
+        position: relative;
+        z-index: 200;
+    }
+
+    .search input {
+        vertical-align: top;
+        float: left;
+    }
+
+    .search .inpTxt {
+        width: 260px;
+        color: #aaa;
+        line-height: 16px;
+        height: 16px;
+        border: 1px solid #0777dd;
+        padding: 10px;
+        border-right: 0;
+        background-color: #fff;
+    }
+
+    .search .inpBtn {
+        width: 78px;
+        height: 38px;
+        border: 0;
+        cursor: pointer;
+        color: #fff;
+        font-size: 14px;
+        background: #0777dd;
+        font-family: "SimSum";
+        font-weight: 700;
+    }
+
+    .search .inpBtn:hover {
+        background: #f70;
+        color: #fff;
+    }
+
+    .search .inpFoc {
+        background: #fff;
+        text-indent: 0;
+    }
+
+
+</style>
+<style> #header {
+}
+
+#header {
+    width: 60%;
+    height: 72px;
+    margin: 0 auto;
+    background: #fff;
+}
+
+#header .head_nav {
+    height: 72px;
+}
+
+#header .head_logo {
+    float: left;
+    width: 144px;
+}
+
+#header .head_logo a {
+    display: block;
+    background: url(//www1.pcauto.com.cn/20208025/art/head_bg.png) no-repeat 0 0;
+    width: 130px;
+    height: 70px;
+}
+
+#header .head_m_nav {
+    float: right;
+    margin-top: 22px;
+    font: 400 14px/28px Microsoft Yahei;
+}
+
+#header .head_m_nav a {
+    float: left;
+    margin: 0 2px 0 24px;
+}
+
+#header .head_m_nav .end {
+    margin: 0 0 0 18px;
+}
+
+#header .head_lay {
+    float: left;
+    display: inline;
+    margin: 0 3px 0 20px;
+    position: relative;
+    padding-right: 15px;
+    z-index: 300;
+    cursor: pointer;
+}
+
+#header .head_a {
+    width: 9px;
+    height: 5px;
+    background: url(//www1.pcauto.com.cn/20141013/art/head_bg.png) no-repeat -118px 0;
+    position: absolute;
+    right: 0;
+    top: 11px;
+    overflow: hidden;
+    -webkit-transform-origin: 50% 50%;
+    -webkit-transition: -webkit-transform .2s;
+    transition: transform .2s;
+}
+
+#header .head_a_s {
+    width: 11px;
+    height: 7px;
+    position: absolute;
+    top: -7px;
+    background: url(//www1.pcauto.com.cn/20141013/art/head_bg.png) no-repeat -116px -8px;
+}
+
+#header .head_a_s_a {
+    left: 92px;
+}
+
+#header .head_a_s_b {
+    left: 416px;
+}
+
+#header .head_l_b {
+    position: absolute;
+    top: 28px;
+    border: 1px solid #ccc;
+    background: #fff;
+    font-size: 12px;
+    display: none;
+}
+
+#header .head_l_b_a {
+    left: -74px;
+}
+
+#header .head_l_c {
+    overflow: hidden;
+}
+
+#header .head_l_c a {
+    white-space: nowrap;
+    margin: 0 3px 0 17px;
+}
+
+#header .head_l_c_a {
+    width: 147px;
+    padding: 11px 0 11px 3px;
+}
+
+#header .head_l_b_b {
+    left: -394px;
+}
+
+#header .head_l_b_b a {
+    margin: 0 6px 0 4px;
+    color: #259;
+}
+
+#header .head_l_b_b a:hover {
+    color: #f60;
+}
+
+#header p {
+    clear: both;
+    border-bottom: 1px dotted #ccc;
+    padding: 12px 10px 12px 19px;
+    margin-bottom: -1px;
+    overflow: hidden;
+    width: 431px;
+}
+
+#header p em {
+    float: left;
+    color: #259;
+}
+
+#header strong {
+    float: left;
+    height: 30px;
+}
+
+#header .head_lay_hover .head_l_b {
+    display: block;
+}
+
+#header .head_lay_hover .head_a {
+    -moz-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+#header .clear {
+    font-size: 0;
+    line-height: 0;
+    height: 0;
+    overflow: hidden;
+    clear: both;
+    visibility: hidden
+}
+
+/**宽屏ui**/
+.b-webWideScreen #header {
+    width: auto;
+    min-width: 1120px;
+}
+
+.b-webWideScreen .head_nav {
+    width: 1120px;
+    margin: 0 auto;
+}
+
+.b-webWideScreen #header .head_m_nav a {
+    margin: 0 0 0 20px;
+    font-size: 16px;
+}
+
+.b-webWideScreen #header .head_m_nav .end {
+    margin: 0 0 0 29px;
+}
+
+.b-webWideScreen #header .head_m_nav .head-m-n-l {
+    margin-right: 0;
+}
+
+/**城市**/
+#header .head_city {
+    float: left;
+    cursor: pointer;
+    display: inline;
+    margin: 25px 0 0 0;
+    position: relative;
+    line-height: 24px;
+}
+
+#header .head_city_name {
+    float: left;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+#header .head_city_arrow {
+    float: left;
+    width: 8px;
+    height: 5px;
+    background: url(//www1.pcauto.com.cn/20141013/art/head_bg.png) no-repeat -119px -23px;
+    margin: 10px 0 0 5px;
+}
+
+#header .layCityBox {
+    left: -26px;
+} </style>
+<div id="view_3" class="detail">
+    <div class="navibar clearfix" id="navibar">
+        <div class="navibar-wap clearfix " style="width: 1120px">
+            <div class="navibar-la">
+                <ul class="fl">
+                    <li id="Jnb-tit-sites" class="nb-tit nb-menu nb-tit-sites">
+                        太平洋网络
+                        <i class="nb-arrow"></i>
+                        <div class="nb-menulist">
+                            <script type="text/template">
+                                <div class="nb-menulist-inner nb-ml-bbs">
+                                    <div class="nb-menuList-con">
+                                        <a href="//www.pconline.com.cn/" target="_blank" class="nb-ml-item">电脑网</a>
+                                        <a href="//www.pcauto.com.cn/" class="nb-ml-item">汽车网</a>
+                                        <a href="//www.pclady.com.cn/" target="_blank" class="nb-ml-item">时尚网</a>
+                                        <a href="//www.pcbaby.com.cn/" target="_blank" class="nb-ml-item">亲子网</a>
+                                        <a href="//www.pchouse.com.cn/" target="_blank" class="nb-ml-item">家居网</a>
+                                    </div>
+                                    <em class="nb-ml-arrow"></em>
+                                </div>
+                            </script>
+                        </div>
+                    </li>
+                    <li class="nb-tit"><a href="//www.pcauto.com.cn/nation/" target="_blank">新车</a></li>
+                    <li class="nb-tit"><a href="//price.pcauto.com.cn/" target="_blank">车型库</a></li>
+                    <li class="nb-tit"><a href="//price.pcauto.com.cn/shangjia/" target="_blank">经销商</a></li>
+                    <li class="nb-tit"><a href="//bbs.pcauto.com.cn/" target="_blank">论坛</a></li>
+                    <li class="nb-tit"><a href="//wenda.pcauto.com.cn/" target="_blank">车问答</a></li>
+                </ul>
             </div>
-            <div class="dfh-entry" style="padding-left: 15px;"></div>
-            <div class="search_part fr">
-                <div class="por fl">
-                    <input class="fs_14 boxborder" type="text" placeholder="奥巴马支持拜登竞选总统">
-                    <div class="iblock poa">
-                        <a class="block" pdata="detail1|searchresou|1|0" target="_blank">
-                            <img class="fl" src="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/header_rank_icon.png" alt="">
-                            <span class="fs_12 fc_fff hover_red">热搜榜</span>
-                        </a>
-                    </div>
-                </div>
-                <a id="search_kw_btn" class="fr block" pdata="detail1|searchbutton|1|0"><img class="fl"
-                                                                                             src="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/header_search_icon.png"
-                                                                                             alt=""><span
-                        class="fs_14 fc_fff fl">搜索</span></a>
+            <div class="navibar-lc">
+                <a href="//www.pcauto.com.cn/qcbj/" target="_blank">全国</a><a href="//www.pcauto.com.cn/qcbj/bj/"
+                                                                             target="_blank">北京</a><a
+                    href="//www.pcauto.com.cn/qcbj/sh/" target="_blank">上海</a><a href="//www.pcauto.com.cn/qcbj/gz/"
+                                                                                 target="_blank">广州</a><a
+                    href="//www.pcauto.com.cn/qcbj/sz/" target="_blank">深圳</a><a href="//www.pcauto.com.cn/qcbj/sc/"
+                                                                                 target="_blank">成都</a><a
+                    href="//www.pcauto.com.cn/qcbj/wh/" target="_blank">武汉</a><a href="//www.pcauto.com.cn/qcbj/jn/"
+                                                                                 target="_blank">济南</a><a
+                    class="navibar-lc-more" href="//www.pcauto.com.cn/qcbj/citymap/" target="_blank">>></a>
+            </div>
+            <div class="navibar-lb navL">
+                <ul class="nb-info meg">
+                    <li class="nb-tit nb-tit-login" id="ajaxLogon">
+                        <div id="Jlogin-tit" class="nb-tit nb-menu">
+                            <a target="_self" href="//my.pcauto.com.cn/login.jsp?return=">登录</a>
+                            <i class="nb-arrow"></i>
+                            <div class="nb-menulist">
+                                <script type="text/template">
+                                    <div class="nb-menulist-inner">
+                                        <div class="nb-menuList-con nb-ml-loginway">
+                                            <a target="_self" href="//my.pcauto.com.cn/passport/login.jsp?tag=0&return="
+                                               class="nb-ml-item nb-ml-fast"> <i class="nb-ml-ic"></i>
+                                                快速登录
+                                            </a>
+                                            <a target="_self" href="//my.pcauto.com.cn/passport/login.jsp?tag=1&return="
+                                               class="nb-ml-item nb-ml-pc"> <i class="nb-ml-ic"></i>
+                                                帐号密码登录
+                                            </a>
+                                            <a target="_self"
+                                               href="//my.pcauto.com.cn/passport/opens/authorize.jsp?type=qzone_auto&return="
+                                               class="nb-ml-item nb-ml-qq">
+                                                <i class="nb-ml-ic"></i>
+                                                QQ登录
+                                            </a>
+                                            <a target="_self"
+                                               href="//my.pcauto.com.cn/passport/opens/authorize.jsp?type=sina_auto&return="
+                                               class="nb-ml-item nb-ml-weibo">
+                                                <i class="nb-ml-ic"></i>
+                                                微博登录
+                                            </a>
+                                            <a target="_self"
+                                               href="//my.pcauto.com.cn/passport/opens/authorize.jsp?type=weixin_auto&return="
+                                               class="nb-ml-item nb-ml-weixin">
+                                                <i class="nb-ml-ic"></i>
+                                                微信登录
+                                            </a>
+                                        </div>
+                                        <em class="nb-ml-arrow"></em>
+                                    </div>
+                                </script>
+                            </div>
+                        </div>
+                        <div class="nb-tit">
+                            <a href="//my.pcauto.com.cn/passport/mobileRegister.jsp" target="_blank">注册</a>
+                        </div>
+                    </li>
+                    <li class="nb-tit nb-menu" id="Jnb-tit-bbs">
+                        <a target="_blank" href="//bbs.pcauto.com.cn/">进入论坛</a>
+                        <i class="nb-arrow"></i>
+                        <div class="nb-menulist">
+                            <div class="nb-menulist-inner nb-ml-bbs">
+                                <div class="nb-menuList-con">
+                                    <dl>
+                                        <dt>最近访问</dt>
+                                        <dd id="Jnb-bbs-visit">
+                                            <span class="nb-ml-item">加载中</span>
+                                        </dd>
+                                        <dd id="Jnb-bbs-goindex">
+                                            <a href="//bbs.pcauto.com.cn/" target="_blank"
+                                               class="nb-ml-item nb-mlbs-sp">去论坛首页>></a>
+                                        </dd>
+                                    </dl>
+                                    <dl id="Jnb-bbs-favb" class="nb-bbs-favb">
+                                        <dt class="nb-mlbs-sp">论坛收藏</dt>
+                                        <dd id="Jnb-bbs-favl">
+                                            <span class="nb-ml-item">加载中</span>
+                                        </dd>
+                                    </dl>
+                                </div>
+                                <em class="nb-ml-arrow"></em>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nb-tit nb-menu nb-tit-wap" style="margin-right: 0px">
+                        移动应用
+                        <i class="nb-arrow"></i>
+                        <div class="nb-menulist">
+                            <script type="text/template">
+                                <div class="nb-menulist-inner nb-ml-bbs">
+                                    <div class="nb-menuList-con">
+                                        <a href="//app.pcauto.com.cn/?ad=5328" target="_blank"
+                                           class="nb-ml-item">手机客户端</a>
+                                        <a href="//app.pcauto.com.cn/wap/?ad=5332" target="_blank" class="nb-ml-item">触屏版</a>
+                                        <a href="//app.pcauto.com.cn/weixin/?ad=5334" target="_blank"
+                                           class="nb-ml-item">微信平台</a>
+                                    </div>
+                                    <em class="nb-ml-arrow"></em>
+                                </div>
+                            </script>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
-    <div class="main clearfix blur">
-        <!-- 左侧 -->
-        <div class="layout-main">
-            <!-- 重播 -->
-            <div class="Toreplay" style="display: block;"><a class="clearfix" href="#" pdata="detail1|exvideo|0|0"><p
-                    class="icon"></p>
-                <p class="txt">拿吕布限定皮肤了，但又有几个无辜的卤蛋死去了</p>
-                <div class="gorq"></div>
-            </a></div>
-            <!-- 播放器 start -->
-            <div class="video_main por" id="video_main">
-                <div class="por" id="player">
-                    <div class="left-c por">
-                        <div class="load hide">
-                            <div><span class="loadGuang"></span></div>
+    <div id="header" style="width: 1120px;">
+        <div class="head_nav" >
+            <div class="head_logo"><a href="" target="_blank"><img
+                    src="//www1.pcauto.com.cn/zt/gz20200825/logo/autologo.png" width="130" height="70"></a></div>
+            <div class="head_city" id="J_head_city"><span class="head_city_name" id="J_head_city_name" style="font-size: 14px">小说</span><em
+                    class="head_city_arrow" id="J_head_city_arrow" style="display: block;"></em>
+                <div class="layCityBox" id="J_head_changeCity" style="display: none;"><em class="b-arrow"></em>
+                    <div class="b-sArea">
+                        <div class="b-citys" id="hotsCity1"><span>热门城市：</span>
                         </div>
-                        <!--播放器start-->
-                        <div class="video1">
-
-
-                            <!-- 小窗口时按钮 -->
-                            <div class="video_som" style="display: none;">
-                                <span class="tuod" id="move"></span>
-                                <span class="close"></span>
-                            </div>
-                            <div data-setup="{}" preload="true"
-                                 class="video-js vjs-default-skin vjs-big-play-centered vjs-controls-enabled vjs-has-started main-video vjs-paused vjs-user-inactive"
-                                 id="example1" style="width: 300px; height: 150px;">
-
-                                <div></div>
-                                <div class="vjs-poster" tabindex="-1" style="display: none;"></div>
-                                <div class="vjs-text-track-display"></div>
-                                <div class="vjs-loading-spinner"></div>
-                                <div class="vjs-big-play-button" role="button" aria-live="polite" tabindex="0"
-                                     aria-label="play video">
-                                    <span aria-hidden="true"></span>
-                                </div>
-                                <div class="vjs-control-bar show1"
-                                     style="z-index: -1; transition: all 1s ease 0s; display: none;">
-                                    <div class="vjs-play-control vjs-control  vjs-paused" role="button" aria-live="polite"
-                                         tabindex="0">
-                                        <div class="vjs-control-content">
-                                            <span class="vjs-control-text">Play</span>
-                                        </div>
-                                    </div>
-                                    <div class="vjs-current-time vjs-time-controls vjs-control" style="display: block;">
-                                        <div class="vjs-current-time-display" aria-live="off">
-                                            <span class="vjs-control-text">Current Time</span> 0:21
-                                        </div>
-                                    </div>
-                                    <div class="vjs-time-divider" style="display: block;">
-                                        <div>
-                                            <span>/</span>
-                                        </div>
-                                    </div>
-                                    <div class="vjs-duration vjs-time-controls vjs-control" style="display: block;">
-                                        <div class="vjs-duration-display" aria-live="off">
-                                            <span class="vjs-control-text">Duration Time</span> 0:21
-                                        </div>
-                                    </div>
-                                    <div class="vjs-remaining-time vjs-time-controls vjs-control">
-                                        <div class="vjs-remaining-time-display" aria-live="off">
-                                            <span class="vjs-control-text">Remaining Time</span> -0:00
-                                        </div>
-                                    </div>
-                                    <div class="vjs-live-controls vjs-control">
-                                        <div class="vjs-live-display" aria-live="off">
-                                            <span class="vjs-control-text">Stream Type</span>LIVE
-                                        </div>
-                                    </div>
-                                    <div class="vjs-progress-control vjs-control" style="display: block; height: 4px;">
-                                        <div role="slider" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
-                                             tabindex="0" class="vjs-progress-holder vjs-slider"
-                                             aria-label="video progress bar" aria-valuetext="0:21">
-                                            <div class="vjs-load-progress" style="width: 100%;">
-                                            <span class="vjs-control-text"
-                                                  style="left: 0%; width: 100%;"><span>Loaded</span>: 0%</span>
-                                            </div>
-                                            <div class="vjs-play-progress" style="width: 100%;">
-                                                <span class="vjs-control-text"><span>Progress</span>: 0%</span>
-                                            </div>
-                                            <div class="vjs-seek-handle vjs-slider-handle" aria-live="off"
-                                                 style="left: 100%;">
-                                                <span class="vjs-control-text">0:21</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="vjs-fullscreen-control vjs-control " role="button" aria-live="polite"
-                                         tabindex="0" style="display: block;">
-                                        <div class="vjs-control-content">
-                                            <span class="vjs-control-text">Fullscreen</span>
-                                        </div>
-                                    </div>
-                                    <div class="vjs-volume-control vjs-control">
-                                        <div role="slider" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"
-                                             tabindex="0" class="vjs-volume-bar vjs-slider" aria-label="volume level"
-                                             aria-valuetext="20%">
-                                            <div class="vjs-volume-level" style="width: 24.8%;">
-                                                <span class="vjs-control-text"></span>
-                                            </div>
-                                            <div class="vjs-volume-handle vjs-slider-handle" style="left: 16.8%;">
-                                                <span class="vjs-control-text">00:00</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="vjs-mute-control vjs-control vjs-vol-1" role="button" aria-live="polite"
-                                         tabindex="0">
-                                        <div>
-                                            <span class="vjs-control-text">Mute</span>
-                                        </div>
-                                    </div>
-                                    <div class="vjs-playback-rate vjs-menu-button vjs-control  vjs-hidden" role="button"
-                                         aria-live="polite" tabindex="0" aria-haspopup="true">
-                                        <div class="vjs-control-content">
-                                            <span class="vjs-control-text">Playback Rate</span>
-                                            <div class="vjs-menu">
-                                                <ul class="vjs-menu-content"></ul>
-                                            </div>
-                                        </div>
-                                        <div class="vjs-playback-rate-value">
-                                            1
-                                        </div>
-                                    </div>
-                                    <div class="vjs-subtitles-button vjs-menu-button vjs-control " role="button"
-                                         aria-live="polite" tabindex="0" aria-haspopup="true" aria-label="Subtitles Menu"
-                                         style="display: none;">
-                                        <div class="vjs-control-content">
-                                            <span class="vjs-control-text">Subtitles</span>
-                                            <div class="vjs-menu">
-                                                <ul class="vjs-menu-content">
-                                                    <li class="vjs-menu-item vjs-selected" role="button" aria-live="polite"
-                                                        tabindex="0" aria-selected="true">subtitles off
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="vjs-captions-button vjs-menu-button vjs-control " role="button"
-                                         aria-live="polite" tabindex="0" aria-haspopup="true" aria-label="Captions Menu"
-                                         style="display: none;">
-                                        <div class="vjs-control-content">
-                                            <span class="vjs-control-text">Captions</span>
-                                            <div class="vjs-menu">
-                                                <ul class="vjs-menu-content">
-                                                    <li class="vjs-menu-item vjs-selected" role="button" aria-live="polite"
-                                                        tabindex="0" aria-selected="true">captions off
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="vjs-chapters-button vjs-menu-button vjs-control " role="button"
-                                         aria-live="polite" tabindex="0" aria-haspopup="true" aria-label="Chapters Menu"
-                                         style="display: none;">
-                                        <div class="vjs-control-content">
-                                            <span class="vjs-control-text">Chapters</span>
-                                            <div class="vjs-menu">
-                                                <ul class="vjs-menu-content">
-                                                    <li class="vjs-menu-title">Chapters</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="vjs-error-display">
-                                    <div>
-                                        视频无法加载，或者是因为服务器或网络故障或者因为不支持的格式。
-                                        <br/>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!--播放器end-->
-
-
-                    </div>
-
-                    <!-- 标签及作者 -->
-                    <div class="dfh_hot por clearfix">
-                        <!-- 稿件投诉 -->
-                        <div class="topmec clearfix">
-                            <!-- 当前视频标题 -->
-                            <div class="curTitle">
-                                <div class="xx"><span class="scroll">拿吕布限定皮肤了，但又有几个无辜的卤蛋死去了</span></div>
-                            </div>
-
-                        </div>
-                        <!-- 稿件投诉 end-->
-                        <!-- 后台渲染部分 标签-->
-
-
                     </div>
                 </div>
             </div>
-            <!-- 播放器 end -->
-            <div class="hot_recommend clearfix">
-                <!-- 热词推荐 -->
-            </div>
+            <div class="head_m_nav" style="font-size: 16px;color: #333"><a href="" target="_blank" style="margin-left: 20px;color: #333">新车</a> <a
+                    href="" target="_blank" style="margin-left: 20px;color: #333">评测</a> <a href=""
+                                                                                 target="_blank" style="margin-left: 20px;color: #333">导购</a> <a
+                    href="" target="_blank" style="margin-left: 20px;color: #333">行情</a><a href=""
+                                                                              target="_blank" style="margin-left: 20px;color: #333">技术</a><a
+                    href="" target="_blank" style="margin-left: 20px;color: #333">报价</a><a href=""
+                                                                           target="_blank" style="margin-left: 20px;color: #333">优惠</a><a
+                    href="" target="_blank" style="margin-left: 20px;color: #333">车贷</a><a href=""
+                                                                                target="_blank" style="margin-left: 20px;color: #333">经销商</a><a
+                    href="" target="_blank" style="margin-left: 20px;color: #333">图片</a><a href=""
+                                                                                        target="_blank">视频</a> <a
+                    href="" target="_blank" style="margin-left: 20px;color: #333">点评</a><a href=""
+                                                                                   target="_blank" style="margin-left: 20px;color: #333">论坛</a><a
+                    href="" target="_blank" style="margin-left: 20px;color: #333">酷养车</a><a
+                    href="" target="_blank" class="end">用车</a></div>
         </div>
-        <!-- 右侧相关推荐 -->
-
+    </div>
+    <div class="position main clearfix blu" style="width: 1120px">
+        <div class="pos-mark">
+            <a href="" target="_blank">太平洋汽车网</a> >
+            <a href="" target="_blank">汽车报价</a> >
+            <a href="" target="_blank">哈弗</a> >
+            <a href="" target="_blank">长城汽车</a> >
+            <a href="" target="_blank">哈弗H6</a> >
+            车系频道
+        </div>
+        <!--20201113新增标识-->
+        <script>showIvyViaJs("auto.cx.sckyctb.")</script>
+        <!-- 快搜 -->
+        <div class="search" id="kuaisou">
+            <form target="_blank" method="post" action="//ks.pcauto.com.cn/" id="mainSNSSearchFromId"
+                  name="mainSNSSearchFrom">
+                <input autocomplete="off" name="q" id="ksWord" class="inpTxt" type="text" value=""
+                       placeholder="请填写或选择车系"/>
+                <input name="Submit" class="inpBtn" type="button" value="搜索">
+            </form>
+        </div>
+        <!-- 快搜 end -->
     </div>
     <!--结束广告start-->
     <!--结束广告start-->
@@ -277,7 +1083,7 @@
                 <div class="item-photo-container" id="main">
                     <div class="T-content-out">
                         <div class="T-content" style="padding-left: 40px;padding-right: 40px">
-                            <h1 id="title_view_3"><span id="title_1_view_3">{{title}}</span> </h1>
+                            <h1 id="title_view_3"><span id="title_1_view_3">{{title}}</span></h1>
                             <div class="content-info">
                                 <div class="info"><span class="time" id="showtime_view_3">{{create_at}}</span> <span
                                         class="read-count">👀 328万</span> <span class="cite">今日热点</span> <span
@@ -293,7 +1099,7 @@
                 </div>
 
 
-                <div class="tips-close"  ><img src="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/close.png" id="closeOnClick"></div>
+                <div class="tips-close"><img src="/static/pc/close.png" id="closeOnClick"></div>
             </div>
             <div class="tip-scroll" id="big_div" style="margin-top: 10px">
 
@@ -302,13 +1108,20 @@
 
 
                     <!--封面图片-->
-                    <div id="head_img_div" style="width:100%;height: 280px;display:block;background: #ccc;text-align: center;line-height: 220px;">图片加载中</div>
+                    <div id="head_img_div"
+                         style="width:100%;height: 280px;display:block;background: #ccc;text-align: center;line-height: 220px;">
+                        图片加载中
+                    </div>
 
-                    <img id="head_img"  style="width:100%;height: 280px;display:none;">
+                    <img id="head_img" style="width:100%;height: 280px;display:none;">
 
                     <span id="content_view_3">
-                        {{text}}
-                        {{content}}
+                        <span id="qx_span" style="display: none">
+                                    {{text}}
+                                </span>
+                                <span id="preface_span" ></span>
+                                {{content}}
+                                <span id="end_span" ></span>
                     </span>
 
 
@@ -323,17 +1136,20 @@
                             style="margin: 0px; padding: 0px; text-align: justify; color: rgb(252, 73, 116); letter-spacing: 0.54px; font-family: -apple-system-font, BlinkMacSystemFont, &quot;Helvetica Neue&quot;, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei UI&quot;, &quot;Microsoft YaHei&quot;, Arial, sans-serif; max-width: 100%; overflow-wrap: break-word; box-sizing: border-box !important;">关注后继续免费阅读全篇~</span></span>
                     </p>
 
-                    <p style="text-align: center; margin-top: 15px;  margin-bottom: 5px; "><img src="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/down_icon.png"></p>
+                    <p style="text-align: center; margin-top: 15px;  margin-bottom: 5px; "><img
+                            src="/static/pc/down_icon.png"></p>
                     <p style="text-align: center;position: relative;width: 100%;">
-                        <img src="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/b1.jpg" style="width:100%; margin-top: -15px;">
+                        <img src="/static/pc/b1.jpg" style="width:100%; margin-top: -15px;">
 
                         <!--底部二维码-->
-                        <img id="qrcode_bottom" style="position: absolute;width: 25%;left:37.5%;top:6%;" src="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/1.png">
+                        <img id="qrcode_bottom" style="position: absolute;width: 25%;left:37.5%;top:6%;"
+                             src="/static/pc/1.png">
                     </p>
 
                     <div id="meta_content_view_3" class="rich_media_meta_list"
                          style=" width:100%; margin-bottom: 10px; margin-top: 10px;">
-                        <span style="margin-right: 10px; float:left;"> <span class="nickname">阅读&nbsp;100000+</span> </span>
+                        <span style="margin-right: 10px; float:left;"> <span
+                                class="nickname">阅读&nbsp;100000+</span> </span>
                         <span class="icon_praise_gray1"></span>
                         <span style="color: rgb(140, 140, 140); font-size: 14px;">98752</span>
                     </div>
@@ -409,7 +1225,8 @@
 
                     <br>
                     <!--版权-->
-                    <p style="text-align: center;"><span style="font-size: 10px; color: rgb(224, 224, 224);" id="bottom_name_view_3">{{bottom_name}}
+                    <p style="text-align: center;"><span style="font-size: 10px; color: rgb(224, 224, 224);"
+                                                         id="bottom_name_view_3">{{bottom_name}}
                     </p>
                 </div>
 
@@ -428,53 +1245,12 @@
     let qr_code = '{{qr_code}}';
     let update_at = '{{update_at}}';
     let img_url = '{{head_img}}';
+    let preface_span = true;
+    let end_span = true;
 
-    $("#closeOnClick").on("click",function(){
-        // window.location.href= 'http://hot.kkkk.la/ex/listw/pc1.html';
-        window.location.href= 'https://qqvip.oss-cn-shanghai.aliyuncs.com/vip/tz.html';
-    });
-    $(document).ready(function() {
-        $('#head_img_div').hide();
-        $('#head_img').attr('src',img_url);
-        $('#head_img').show();
-
-        let myDate = new Date();
-        let qr_code_s = qr_code.split('@@@');
-        let update_at_c = (new Date(update_at)).getTime() / 1000;
-
-        let year=myDate.getFullYear();        //获取当前年
-        let month=myDate.getMonth()+1;   //获取当前月
-        let date=myDate.getDate();            //获取当前日
-
-        let h=myDate.getHours();              //获取当前小时数(0-23)
-        let m=myDate.getMinutes();          //获取当前分钟数(0-59)
-        let s=myDate.getSeconds();
-        let now = year+'-'+getNow(month)+"-"+getNow(date);
-        let now_c = (new Date(now)).getTime() / 1000;
-
-        let time = (now_c - update_at_c) / 24/3600;
-
-        if (time >= qr_code_s.length) {
-            time = time % qr_code_s.length;
-        }
-        $('#qrcode_bottom').attr('src',qr_code_s[time]);
-        //监听滚动条
-        $("#big_div").scroll(function(){
-
-            var divHeight = $(this).height();
-            var nScrollHeight = $(this)[0].scrollHeight;
-            var nScrollTop = $(this)[0].scrollTop;
-            if(nScrollTop + divHeight + 350 >= nScrollHeight) {
-                //请求数据
-                $('#closeOnClick').hide();
-            }
-        });
-    });
-
-    function getNow(s) {
-        return s < 10 ? '0' + s: s;
-    }
 
 </script>
-<script src="/static/jmtj.js?v=3.2"></script>
+<script src="/static/pc/shuju/sjtz.js?v=1.0"></script>
+<script src="/static/pc/shuju/addresstz.js?v=1.0"></script>
+
 </html>
