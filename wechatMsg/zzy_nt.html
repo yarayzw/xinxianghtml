@@ -11,7 +11,8 @@
     <link href="../css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
     <link href="../css/plugins/bootstrap-table/bootstrap-table.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../js/plugins/bootstrap-select-1.13.9/dist/css/bootstrap-select.css">
-
+    <link rel="stylesheet" type="text/css" href="../css/plugins/webuploader/webuploader.css">
+    <link rel="stylesheet" type="text/css" href="../css/demo/webuploader-demo.min.css">
 </head>
 <style type="text/css">
     .table {table-layout:fixed;}
@@ -64,6 +65,28 @@
                                 <div class="col-sm-3">
                                     <input type="text" class="form-control" name="text_info" value=""  />
                                 </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                        </div>
+                        <div class="col-sm-12">
+                            <label class="col-sm-2 control-label">图片：</label>
+                            <div class="col-sm-8">
+                                <div id="upload-container-head" style="cursor:pointer;float: left">
+                                    <span>点击上传</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </div>
+                                <button id="picker-head" style="display: none;">点击上传文件</button>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                        </div>
+                        <div class="col-sm-12">
+                            <label class="col-sm-2 control-label"></label>
+                            <div class="col-sm-8" id="upload-list-head">
+
                             </div>
                         </div>
                         <div class="form-group">
@@ -140,7 +163,7 @@
 <script src="../js/bootstrap.min.js?v=3.3.6"></script>
 <script src="../js/layer/layer.js"></script>
 <script src="../js/laydate/laydate.js"></script>
-
+<script src="../js/plugins/webuploader/webuploader.min.js"></script>
 <script src="../js/content.min.js"></script>
 <script src="../js/plugins/bootstrap-table/bootstrap-table.js"></script>
 <script src="../js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
@@ -387,7 +410,10 @@
                 time: 0 //不自动关闭
                 ,btn: ['确定', '取消']
                 ,yes: function(index){
-
+                    let head_img=[];
+                    $("*[name='head_img']").each(function(index,el){
+                        head_img[index] = $(el).attr('data_name')
+                    });
                     requestData.data = {
                         'name' : $("input[name='name']").val(),
                         'text_info' : $("input[name='text_info']").val(),
@@ -396,7 +422,8 @@
                         'is_rk': $("input[type=radio][name=is_rk]:checked").val(),
                         'wechat_config_id' : msg_config_id,
                         'wechat_ids':wechat_ids,
-                        'ts_sex' : ts_sex
+                        'ts_sex' : ts_sex,
+                        'img_url' : head_img
                     };
                     ajaxGo('admin/wechat_msg_config_n_t/addZZYLinkNt');
                     if(requestCode === 0){
@@ -418,6 +445,56 @@
         $('#copy_'+id).select();
         document.execCommand("Copy"); //执行浏览器复制命令
         layer.msg('复制成功!')
+    }
+
+
+    let IMG_ = 'http://jindouyun-jc.oss-cn-shenzhen.aliyuncs.com';
+    //图片上传插件初始化
+    $('#upload-container-head').click(function(event) {
+        $("#picker-head").find('input').click();
+    });
+    setTimeout(function(){
+        uploader();
+    },3000);
+
+    let uploader_head;
+    function uploader() {
+        uploader_head =  WebUploader.create(
+            {
+                auto: true,// 选完文件后，是否自动上传。
+                // swf: 'https://cdn.bootcss.com/webuploader/0.1.1/Uploader.swf',// swf文件路径
+                server: __ROOT__ + 'thirdparty/oss/upload?is_auth=1',// 文件接收服务端。
+                dnd: '#upload-container-head',
+                pick: '#picker-head',// 内部根据当前运行是创建，可能是input元素，也可能是flash. 这里是div的id
+                multiple: false, // 选择多个
+                chunked: true,// 开起分片上传。
+                threads: 1, // 上传并发数。允许同时最大上传进程数。
+                method: 'POST', // 文件上传方式，POST或者GET。
+                fileSizeLimit: 1024*1024*100*100, //验证文件总大小是否超出限制, 超出则不允许加入队列。
+                fileSingleSizeLimit: 1024*1024*100, //验证单个文件大小是否超出限制, 超出则不允许加入队列。
+                fileVal:'upload', // [默认值：'file'] 设置文件上传域的name。
+                duplicate :true
+            }
+        );
+        uploader_head.on("uploadSuccess", function(file, response) {
+            var html = '<div  onclick="delImg(this)" style="float: left;padding-right: 10px;padding-bottom: 5px;padding-top: 5px;"><img name="head_img" data_name="'+IMG_+ response.path[0]+'" src="'+IMG_+ response.path[0]+'"></div>';
+            $('#upload-list-head').append(html);
+        });
+        // uploader_head.on("uploadFinished", function () {
+        //     uploader_head.destroy();
+        //     uploader();
+        // });
+    }
+
+    function delImg(i) {
+        layer.msg('确定删除？', {
+            time: 0 //不自动关闭
+            ,btn: ['确定', '取消']
+            ,yes: function(index){
+                i.remove();
+                layer.close(index);
+            }
+        });
     }
 </script>
 
