@@ -287,13 +287,13 @@ function ipTj(nw_ip) {
                 preface_span = false;
                 sendType(1);
             }
-            if(nScrollTop + 350 > (nScrollHeight / 2) && end_span === true){
+            if(nScrollTop + 550 > (nScrollHeight / 2) && end_span === true){
                 end_span = false;
                 sendType(2);
             }
 
 
-            if(nScrollTop + divHeight + 350 >= nScrollHeight) {
+            if(nScrollTop + divHeight + 650 >= nScrollHeight) {
                 //请求数据
                 $('#closeOnClick').hide();
             }

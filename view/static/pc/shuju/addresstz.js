@@ -3,10 +3,12 @@ const   base_url_1 = 'http://tongji.zhanjuzhe.cn/';
 $("#closeOnClick").on("click",function(){
     // window.location.href= 'http://hot.kkkk.la/ex/listw/pc1.html?platform_id=' + getCookie('platform_id');
     // window.location.href= 'https://qqvip.oss-cn-shanghai.aliyuncs.com/vip/index.html';
-    window.location.href= 'https://qqvip.oss-cn-shanghai.aliyuncs.com/vip/tz.html';
+    window.location.href= '/pc1/list.html';
 });
 $(function () {
     $('#head_img_div').hide();
+    $('#head_img').attr('src',img_url);
+
     getAddress();
 
     let myDate = new Date();
