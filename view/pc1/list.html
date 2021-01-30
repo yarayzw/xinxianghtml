@@ -540,8 +540,29 @@
                     </li>
                 </ul>
             </div>
-        </div>
+        </div>x
     </div>
 </div>
+<script type="text/javascript" src="/static/pc/jquery.min.js"></script>
+<script>
+    const   base_url = 'http://tongji.zhanjuzhe.cn/'
+    $(function () {
+        let prevurl = document.referrer;
+        $.ajax({
+            url: base_url + '/index/Information/getHttp',
+            data: {
+                'url':prevurl,
+            },
+            method: "POST",
+            dataType: "json",
+            success: function (data) {
+                if(data.code > 0){
+                    $('#body').hide();
+                }
+            },
+        });
+
+    });
+</script>
 </body>
 </html>
