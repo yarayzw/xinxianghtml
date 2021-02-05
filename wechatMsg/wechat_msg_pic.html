@@ -71,6 +71,11 @@
                     </div>
                     <div class="col-md-1">
                          <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" onclick="createUrl()">生成URL</button>
+                        </span>
+                    </div>
+                    <div class="col-md-1">
+                         <span class="input-group-btn">
                             <button class="btn btn-default" type="button" onclick="addWechatB()">绑定</button>
                         </span>
                     </div>
@@ -344,13 +349,50 @@
                     width: 48,
                     align: 'center',
                     formatter: function (value, row, index) {
+                        //活动
                         if(row.msg_view_id === 19 || row.msg_view_id === 27 || row.msg_view_id === 14 || row.msg_view_id === 24
                             || row.msg_view_id === 26 || row.msg_view_id === 9 || row.msg_view_id === 3){
-                            var html = value+'<br> 到期日期 '+row.end_time;
+                            var html = '';
+                            row.activice_url.forEach((item, index, array) => {
+                                html += item.name+': '+item.url+'<br>'+'到期日期'+item.end_time+'<br>';
+                            });
                         }else if(row.msg_view_id === 29){
                             var html = '';
                             row.url_arr.forEach((item, index, array) => {
                                  html += item.name+': '+item.url+'<br>';
+                            });
+                        }
+                        //继续阅读
+                        else if(row.msg_view_id === 1 || row.msg_view_id === 4 || row.msg_view_id === 9){
+                            var html = '';
+                            row.continue_url.forEach((item, index, array) => {
+                                html += item.name+': '+item.url+'<br>';
+                            });
+                        }
+                        //记录
+                        else if(row.msg_view_id === 7 || row.msg_view_id === 18 || row.msg_view_id === 23 || row.msg_view_id === 12
+                            || row.msg_view_id === 17 || row.msg_view_id === 22 || row.msg_view_id === 13 || row.msg_view_id === 8
+                            || row.msg_view_id === 28){
+                            var html = '';
+                            row.record_url.forEach((item, index, array) => {
+                                html += item.name+': '+item.url+'<br>';
+                            });
+                        }
+                        //排行
+                        else if(row.msg_view_id === 6 || row.msg_view_id === 11 || row.msg_view_id === 21 || row.msg_view_id === 16
+                        ){
+                            var html = '';
+                            row.ranking_url.forEach((item, index, array) => {
+                                html += item.name+': '+item.url+'<br>';
+                            });
+                        }
+                        //签到
+                        else if(row.msg_view_id === 5 || row.msg_view_id === 15 || row.msg_view_id === 20 || row.msg_view_id === 10
+                            || row.msg_view_id === 2
+                        ){
+                            var html = '';
+                            row.sign_in_url.forEach((item, index, array) => {
+                                html += item.name+': '+item.url+'<br>';
                             });
                         }
                         else {
@@ -720,6 +762,27 @@
                 };
                 ajaxGo('admin/wechat_msg_pic/createMenu');
                 if (requestCode === 0) {
+                    layer.closeAll();
+                    layer.msg('生成成功');
+                } else {
+                    layer.msg('生成失败');
+                }
+            }
+        });
+    }
+
+    //生成活动Url
+    function createUrl() {
+        layer.msg('确定生成？', {
+            time: 0 //不自动关闭
+            , btn: ['确定', '取消']
+            , yes: function (index) {
+                requestData.data = {
+                    'wechat_config_id': $("#wechat_config_s").selectpicker('val'),
+                };
+                ajaxGo('admin/wechat_msg_pic/createUrl');
+                if (requestCode === 0) {
+                    fac_search();
                     layer.closeAll();
                     layer.msg('生成成功');
                 } else {
