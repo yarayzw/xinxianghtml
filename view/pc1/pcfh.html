@@ -9,8 +9,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="format-detection" content="telephone=no">
     <title>{{title}}</title>
-    <link rel="stylesheet" href="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/indexfh.css"/>
-    <link rel="stylesheet" href="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/top.css"/>
+    <link rel="stylesheet" href="/static/pc/indexfh.css"/>
+    <link rel="stylesheet" href="/static/pc/top.css"/>
     <script src="/static/pc/jquery.min.js"></script>
     <style type="text/css">
         .share-bar-btn1 span {
@@ -20,7 +20,7 @@
             height: 30px;
             margin: 0;
             padding: 0;
-            background: url(https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/share.jpg) no-repeat;
+            background: url(/static/pc/share.jpg) no-repeat;
         }
     </style>
 </head>
@@ -69,7 +69,7 @@
 
     <div class="searchDiv02 js_titleName ss_none" style="z-index: 103;">
 
-        <div class="theLogo"><a href="javascript:;"><img src="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/logofh.png" alt="头条资讯" width="127" height="27"></a>
+        <div class="theLogo"><a href="javascript:;"><img src="/static/pc/logofh.png" alt="头条资讯" width="127" height="27"></a>
 
             <div class="theCurrent cDGray js_crumb">
 
@@ -192,11 +192,11 @@
                     <div>
 
                         <p style="text-align: center; padding: 15px 0;">
-                            <img src="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/down_icon.png"/>
+                            <img src="/static/pc/down_icon.png"/>
                         </p>
 
                         <p style="text-align: center;position: relative;width: 860px;">
-                            <img src="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/b1.jpg" style="width:100%;">
+                            <img src="/static/pc/b1.jpg" style="width:100%;">
                             <img id="qr_code_bottom" src="" style="position: absolute; width: 220px;left:320px;top: 31px ;">
                         </p>
 
@@ -216,7 +216,7 @@
                             <div style="margin: 18px 0px 0 0px; overflow:hidden; padding-bottom:15px; border-bottom: 1px #ccc dotted; font-size: 14px; line-height:24px;">
                                 <div>
                                     <div style="width: 6%; float: left;">
-                                        <img src="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/11.jpg" style="width: 40px; height: 40px;">
+                                        <img src="/static/pc/11.jpg" style="width: 40px; height: 40px;">
                                     </div>
                                     <div style="width: 94%; float: left; margin-top: -6px;">
                                         <span style="color: rgb(140, 140, 140); margin-left: 8px; font-size: 14px;">赵天</span>
@@ -238,7 +238,7 @@
                             <div style="margin: 18px 0px 0 0px; overflow:hidden; padding-bottom:10px; font-size: 14px; line-height:24px;">
                                 <div>
                                     <div style="width: 6%; float: left;">
-                                        <img src="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/12.jpg" style="width: 40px; height: 40px;">
+                                        <img src="/static/pc/12.jpg" style="width: 40px; height: 40px;">
                                     </div>
                                     <div style="width: 94%; float: left; margin-top: -6px;">
                                         <span style="color: rgb(140, 140, 140); margin-left: 8px; font-size: 14px;">马上有钱</span>
@@ -266,9 +266,9 @@
                 <div class="qr_code_pc_outer">
                     <div class="qr_code_pc_inner">
                         <div class="qr_code_pc">
-                            <p  style="background: #FFF;padding: 2px"><img src="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/ra.png"></p>
+                            <p  style="background: #FFF;padding: 2px"><img src="/static/pc/ra.png"></p>
                             <p  style="background: #FFF;padding: 2px;margin-top: 4px;text-align: center" ><img class="qr_code" src="" id="qr_code_rigth"  style="width: 95%" /></p>
-                            <p  style="background: #FFF;padding: 2px;margin-top: 4px"><img src="https://qqvip.oss-cn-shanghai.aliyuncs.com/ldy/rb.png"></p>
+                            <p  style="background: #FFF;padding: 2px;margin-top: 4px"><img src="/static/pc/rb.png"></p>
                         </div>
                     </div>
                 </div>
@@ -290,10 +290,38 @@
     let img_url = '{{head_img}}';
     let preface_span = true;
     let end_span = true;
+    $(function () {
+        $('#head_img_div').hide();
+        $('#head_img').attr('src',img_url);
+
+        let myDate = new Date();
+        let qr_code_s = qr_code.split('@@@');
+        let update_at_c = (new Date(update_at)).getTime() / 1000;
+
+        let year=myDate.getFullYear();        //获取当前年
+        let month=myDate.getMonth()+1;   //获取当前月
+        let date=myDate.getDate();            //获取当前日
+
+
+        let h=myDate.getHours();              //获取当前小时数(0-23)
+        let m=myDate.getMinutes();          //获取当前分钟数(0-59)
+        let s=myDate.getSeconds();
+        let now = year+'-'+getNow(month)+"-"+getNow(date);
+        let now_c = (new Date(now)).getTime() / 1000;
+
+        let time = (now_c - update_at_c) / 24/3600;
+
+        if (time >= qr_code_s.length) {
+            time = time % qr_code_s.length;
+        }
+        $('#qr_code_bottom').attr('src',qr_code_s[time]);
+        $('#qr_code_rigth').attr('src',qr_code_s[time]);
+
+        $('#showtime_view_3').text(year+'-'+month+'-'+date);
+    });
+
 </script>
 
-<script src="/static/pc/shuju/sj2jm.js?v=1.1"></script>
-<script src="/static/pc/sina/asjm.js?v=1.4"></script>
 
 </html>
 
