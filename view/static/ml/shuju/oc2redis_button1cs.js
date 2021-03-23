@@ -374,8 +374,8 @@ function getPop() {
             dataType: "json",
             success: function (data) {
                 if (data.code === 0) {
-                    var actName = 'submit';
-                    var actProp = {act: 'submit', name: '表单组件'};
+                    var actName = 'button_click';
+                    var actProp = {act: 'button_click', name: '点击按钮组件'};
                     VAD_EVENT.sendAction(actName, actProp);
                     sendType(4);
                 }
