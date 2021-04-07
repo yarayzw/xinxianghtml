@@ -118,6 +118,7 @@ function addCommodityGo(type = 1) {
         'qr_img_link' : qr_img_link,
         'repeat_jump' : $("input[name='repeat_jump']").val(),
         'next_name' : $("input[name='next_name']").val(),
+        'xcx_url' : $("input[name='xcx_url']").val(),
     };
     ajaxGo('admin/commodity/addCommodity')
 
@@ -166,6 +167,7 @@ function editCommodityGo(id) {
         'qr_img_link' : qr_img_link,
         'repeat_jump' : $("input[name='repeat_jump']").val(),
         'next_name' : $("input[name='next_name']").val(),
+        'xcx_url' : $("input[name='xcx_url']").val(),
         // 'thirdparty_id':  $("#thirdparty_id").selectpicker('val')
     }
     ajaxGo('admin/commodity/editCommodity')

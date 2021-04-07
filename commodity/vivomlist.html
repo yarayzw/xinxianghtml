@@ -218,7 +218,12 @@
 
                     </div>
                     <div class="col-sm-6">
-
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">小程序跳转链接 :</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="xcx_url" value=""/>
+                            </div>
+                        </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">公众号名称 :</label>
                             <div class="col-sm-8">
@@ -752,6 +757,7 @@
         $("input[name='url']").val(requestData.data.url);
         $("input[name='tj_url']").val(requestData.data.tj_url);
         $("input[name='bottom_name']").val(requestData.data.bottom_name);
+        $("input[name='xcx_url']").val(requestData.data.xcx_url);
 
         $("input[type=radio][name=material][value='" + requestData.data.material_id + "']").attr("checked", 'checked');
         $("input[type=radio][name=view][value='" + requestData.data.view_id + "']").attr("checked", 'checked');
