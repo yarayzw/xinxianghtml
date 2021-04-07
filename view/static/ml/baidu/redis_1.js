@@ -4,7 +4,7 @@ let sendTypes = true;
 var brow = navigator.userAgent.toLowerCase();
 let brow_is_baidu = false;
 let head_img = img_url.split('@@@');
-
+let is_xcx = 0;
 if( -1 !== brow.indexOf('baiduboxapp') ){
     if(-1 !== brow.indexOf('info')){
         wechat_url = wechat_url_info;
@@ -17,15 +17,25 @@ if( -1 !== brow.indexOf('baiduboxapp') ){
     loadScript('//s.bdstatic.com/common/openjs/aio.js?v=' + new Date().getTime());
     $('#ptfz').hide();
     $('#baidu_special').show();
+    $('#special_xcx').hide();
+    is_xcx = 1;
 }else {
     $('#head_img').attr('src',head_img[1]);
 }
 if(-1 !== brow.indexOf('miuibrowser')){
     $('#special_xiaomi').show();
     $('#ptfz').hide();
+    is_xcx = 1;
 }
 if (-1 !== brow.indexOf('ucbrowser') || -1 !== brow.indexOf('mqqbrowser')  ) {
     $('#special').show();
+    $('#focus-tanchuang').hide();
+    $('#ptfz').hide();
+    is_xcx = 1;
+}
+
+if(xcx_url !== '' && is_xcx === 0){
+    $('#special_xcx').show();
     $('#focus-tanchuang').hide();
     $('#ptfz').hide();
 }
@@ -184,6 +194,10 @@ function clearPage(id) {
 
 function tz_tc(id) {
     $('#'+id).show();
+}
+//小程序跳转
+function xcx() {
+    location.href = xcx_url;
 }
 
 //小米分享
