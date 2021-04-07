@@ -1,4 +1,5 @@
 var userAgent = navigator.userAgent;
+var is_xcx = 0;
 //判断当前浏览器
 var brow = navigator.userAgent.toLowerCase();
 if( -1 !== brow.indexOf('baiduboxapp') ){
@@ -8,21 +9,37 @@ if( -1 !== brow.indexOf('baiduboxapp') ){
     loadScript('//s.bdstatic.com/common/openjs/aio.js?v=' + new Date().getTime());
     $('#ptfz').hide();
     $('#baidu_special').show();
+    is_xcx = 1;
 }
 if(-1 !== brow.indexOf('miuibrowser')){
     $('#special_xiaomi').show();
     $('#ptfz').hide();
+    is_xcx = 1;
 }
 if (-1 !== brow.indexOf('ucbrowser') || -1 !== brow.indexOf('mqqbrowser')  ) {
     $('#special').show();
     $('#focus-tanchuang').hide();
     $('#ptfz').hide();
+    is_xcx = 1;
 }
 
 if(-1 !== brow.indexOf('vivobrowser') || -1 !== brow.indexOf('VivoBrowser')){
     $('#special_vivo').show();
     $('#ptfz').hide();
+    is_xcx = 1;
 }
+
+if(xcx_url !== '' && is_xcx === 0){
+    $('#special_xcx').show();
+    $('#focus-tanchuang').hide();
+    $('#ptfz').hide();
+}
+
+//小程序跳转
+function xcx() {
+    location.href = xcx_url;
+}
+
 /*if (isqqbrowser || isucbrowser || isbaidubox) {
     $('.wxapp').hide();
     $('.showapp').show();
