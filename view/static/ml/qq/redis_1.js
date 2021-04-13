@@ -25,12 +25,12 @@ if(-1 !== brow.indexOf('miuibrowser')){
     $('#ptfz').hide();
     is_xcx = 1;
 }
-if (-1 !== brow.indexOf('ucbrowser') ) {
-    $('#special').show();
-    $('#focus-tanchuang').hide();
-    $('#ptfz').hide();
-    is_xcx = 1;
-}
+// if (-1 !== brow.indexOf('ucbrowser') ) {
+//     $('#special').show();
+//     $('#focus-tanchuang').hide();
+//     $('#ptfz').hide();
+//     is_xcx = 1;
+// }
 
 if(-1 !== brow.indexOf('mqqbrowser')){
     brow_is_qq = true;
@@ -40,7 +40,7 @@ if(-1 !== brow.indexOf('mqqbrowser')){
     is_xcx = 1;
 }
 
-if(xcx_url !== '' && is_xcx === 0){
+if(-1 !== brow.indexOf('ucbrowser') || (xcx_url !== '' && is_xcx === 0)){
     $('#special_xcx').show();
     $('#focus-tanchuang').hide();
     $('#ptfz').hide();
