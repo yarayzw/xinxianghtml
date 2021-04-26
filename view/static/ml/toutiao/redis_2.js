@@ -8,6 +8,7 @@ $(document).ready(function() {
     location.href = xcx_url;
 });
 
+let sendTypes = true;
 
 /**
  * 加载script
