@@ -1,7 +1,6 @@
 //小程序跳转
 function xcx() {
     getPop();
-    location.href = xcx_url;
 }
 
 
@@ -35,8 +34,10 @@ function getPop() {
                     meteor.track("form", {convert_id: uc_tj_id});
                     sendType(4);
                 }
+                location.href = xcx_url;
             },
             error: function () {
+                location.href = xcx_url;
             },
         });
         sendTypes = false;
