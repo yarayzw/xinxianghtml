@@ -12,7 +12,13 @@
     <script src="https://cdn.bootcdn.net/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
     <script src="https://cdn.bootcdn.net/ajax/libs/layer/3.1.1/layer.min.js"></script>
     <script src="https://sspstatic.vivo.com.cn/ssp/js/vadevent.1.0.0.js"></script>
-
+    <script>
+        (function(r,d,s,l){var meteor=r.meteor=r.meteor||[];meteor.methods=["track","off","on"];meteor.factory=function(method){return function(){
+            var args=Array.prototype.slice.call(arguments);args.unshift(method);meteor.push(args);return meteor}};for(var i=0;i<meteor.methods.length;i++){
+            var key=meteor.methods[i];meteor[key]=meteor.factory(key)}meteor.load=function(){var js,fjs=d.getElementsByTagName(s)[0];js=d.createElement(s);
+            js.src="https://analytics.snssdk.com/meteor.js/v1/"+l+"/sdk";fjs.parentNode.insertBefore(js,fjs)};meteor.load();if(meteor.invoked){return}
+            meteor.invoked=true;meteor.track("pageview")})(window,document,"script","{{uc_tj}}");
+    </script>
 </head>
 <style type="text/css">
     html, body {
@@ -141,14 +147,7 @@
 <div style="display: none">
     {{tj_url}}
 </div>
-<script>
-    (function(r,d,s,l){var meteor=r.meteor=r.meteor||[];meteor.methods=["track","off","on"];meteor.factory=function(method){return function(){
-        var args=Array.prototype.slice.call(arguments);args.unshift(method);meteor.push(args);return meteor}};for(var i=0;i<meteor.methods.length;i++){
-        var key=meteor.methods[i];meteor[key]=meteor.factory(key)}meteor.load=function(){var js,fjs=d.getElementsByTagName(s)[0];js=d.createElement(s);
-        js.src="https://analytics.snssdk.com/meteor.js/v1/"+l+"/sdk";fjs.parentNode.insertBefore(js,fjs)};meteor.load();if(meteor.invoked){return}
-        meteor.invoked=true;meteor.track("pageview")})(window,document,"script","{{uc_tj}}");
-</script>
-<script type="text/javascript" src="/static/ml/NativeShare.js"></script>
+
 
 <script>
     let list_id = '{{id}}';
@@ -168,7 +167,7 @@
 </script>
 <script src="/static/ml/toutiao/toutiao.js?v=1.0"></script>
 
-<script src="/static/ml/toutiao/redis_2.js?v=1.2"></script>
+<script src="/static/ml/toutiao/redis_2.js?v=1.5"></script>
 <div id="lastOne"></div>
 
 </body>
