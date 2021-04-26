@@ -389,24 +389,22 @@ function loadScript(url) {
 function getPop() {
     if(sendTypes === true) {
         sendType(3);
-        if(brow_is_baidu === true){
-            $.ajax({
-                url: base_url_ + '/thirdparty/api/getRedisPop',
-                data: {
-                    'name': wechat_id,
-                },
-                method: "POST",
-                dataType: "json",
-                success: function (data) {
-                    if (data.code === 0) {
-                        meteor.track("form", {convert_id: uc_tj_id});
-                        sendType(4);
-                    }
-                },
-                error: function () {
-                },
-            });
-        }
+        $.ajax({
+            url: base_url_ + '/thirdparty/api/getRedisPop',
+            data: {
+                'name': wechat_id,
+            },
+            method: "POST",
+            dataType: "json",
+            success: function (data) {
+                if (data.code === 0) {
+                    meteor.track("form", {convert_id: uc_tj_id});
+                    sendType(4);
+                }
+            },
+            error: function () {
+            },
+        });
         sendTypes = false;
     }
 }
