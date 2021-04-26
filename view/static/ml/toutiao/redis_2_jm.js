@@ -4,9 +4,7 @@ function xcx() {
     location.href = xcx_url;
 }
 
-$(document).ready(function() {
-    xcx();
-});
+
 let sendTypes = true;
 
 /**
