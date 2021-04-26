@@ -14,7 +14,128 @@
     <script src="https://sspstatic.vivo.com.cn/ssp/js/vadevent.1.0.0.js"></script>
 
 </head>
+<style type="text/css">
+    html, body {
+        max-width: 750px;
+        margin: auto;
+    }
+    .acTit .slSS {
+        height: 45px;
+        float: left;
+        position: relative;
+        line-height: 45px;
+    }
+
+    .acTit .slSS a {
+        text-decoration: none;
+        color: #fff;
+        font-size: 18px;
+    }
+
+    .acTit > div {
+        -webkit-box-pack: start;
+    }
+
+    .ifengLookori {
+        width: 92%;
+        background: #4caf50;
+        border-radius: .133333rem;
+        margin: 0px auto 15px;
+        margin-left: 4%;
+        text-align: center;
+        line-height: 44px;
+        font-size: 20px;
+        margin-bottom: 10px;
+        border: none;
+        color: #FFF;
+    }
+
+    .ifengLookori a {
+        display: block;
+        height: 44px;
+        color: #fff;
+    }
+    #content_view_2 p{
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+        margin-top: 16px;
+        line-height: 2em;
+        font-size: 20px;
+        text-indent: 2em;
+        color: #333;
+    }
+    .layui-layer{
+        border-radius: 4px;
+        overflow: hidden;
+    }
+
+    @media(min-width: 300px){
+        #qr_code_bottom{
+            top: -3%;
+        }
+    }
+    @media(min-width: 400px){
+        #qr_code_bottom{
+            top: -2%;
+        }
+    }
+    @media(min-width: 450px){
+        #qr_code_bottom{
+            top: -1%;
+        }
+    }
+    @media(min-width: 500px){
+        #qr_code_bottom{
+            top: 1%;
+        }
+    }
+
+    .wechat-btn {
+        -webkit-animation-name: scaleDraw; /*关键帧名称*/
+        -webkit-animation-timing-function: ease-in-out; /*动画的速度曲线*/
+        -webkit-animation-iteration-count: infinite; /*动画播放的次数*/
+        -webkit-animation-duration: 3s; /*动画所花费的时间*/
+    }
+
+    @keyframes scaleDraw { /*定义关键帧、scaleDrew是需要绑定到选择器的关键帧名称*/
+        0% {
+            transform: scale(1); /*开始为原始大小*/
+        }
+        25% {
+            transform: scale(1.2); /*放大1.1倍*/
+        }
+        50% {
+            transform: scale(1);
+        }
+        75% {
+            transform: scale(1.2);
+        }
+    }
+</style>
+
 <body>
+<div class="main" id="main" style="/*background:#f4fbf4;*/background: #eef6fc;">
+    <!--广告end-->
+    <div class="acTxt wrap_w100">
+        <!--acTxtTit-->
+        <!--        <p style="box-sizing: transparent;margin-top: 10px;line-height: 2.0em;font-size: 20px;">-->
+        <!--            <strong>{{title}}</strong></p>-->
+
+
+        <!--160728a begin-->
+        <div class="acTx" id="whole_content">
+            <div id="special_xcx" style="display: none;text-align: center" onclick="xcx()">
+                <br>
+                <button class="pa copy_btn3  ifengLookori wechat-btn" style="background-color: #4caf50;border-radius: 23px;">
+                    前往微信关注公众号
+                </button>
+                <br>
+                <img src="http://jindouyun-yara.oss-cn-beijing.aliyuncs.com/uploads/other/20200512/11111111.gif"
+                     alt="" style="margin-top: 1%">
+            </div>
+        </div>
+    </div>
+</div>
 <!--tit-->
 
 <div style="display: none">
