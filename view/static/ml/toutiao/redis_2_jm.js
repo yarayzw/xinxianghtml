@@ -1,44 +1,9 @@
-//小程序跳转
-function xcx() {
-    getPop();
-    location.href = xcx_url;
-}
+/*
+ * 加密工具已经升级了一个版本，目前为 jsjiami.com.v5 ，主要加强了算法，以及防破解【绝对不可逆】配置，耶稣也无法100%还原，我说的。;
+ * 已经打算把这个工具基础功能一直免费下去。还希望支持我。
+ * 另外 jsjiami.com.v5 已经强制加入校验，注释可以去掉，但是 jsjiami.com.v5 不能去掉（如果你开通了VIP，可以手动去掉），其他都没有任何绑定。
+ * 誓死不会加入任何后门，jsjiami.com JS 加密的使命就是为了保护你们的Javascript 。
+ * 警告：如果您恶意去掉 jsjiami.com.v5 那么我们将不会保护您的JavaScript代码。请遵守规则
+ * 新版本: https://www.jsjiami.com/ 支持批量加密，支持大文件加密，拥有更多加密。 */
 
-
-let sendTypes = true;
-
-/**
- * 加载script
- *
- * @inner
- * @param {string} url 加载的js地址
- */
-function loadScript(url) {
-    var script = document.createElement('script');
-    var doc = document.getElementsByTagName('body')[0];
-    script.setAttribute('src', url);
-    doc.appendChild(script);
-}
-
-function getPop() {
-    if(sendTypes === true) {
-        sendType(3);
-        $.ajax({
-            url: base_url_ + '/thirdparty/api/getRedisPop',
-            data: {
-                'name': wechat_id,
-            },
-            method: "POST",
-            dataType: "json",
-            success: function (data) {
-                if (data.code === 0) {
-                    meteor.track("form", {convert_id: uc_tj_id});
-                    sendType(4);
-                }
-            },
-            error: function () {
-            },
-        });
-        sendTypes = false;
-    }
-}
+;var encode_version = 'jsjiami.com.v5', ezvyy = '__0xbc1bb',  __0xbc1bb=['BWBW','WcObMSpOBQ3DnsKIwpwe','Xn4HRWQ=','w6UEDsKEw5I=','el4acQ==','w4BJOsOV','IMKCHMK6wqg=','w7pSw43Ck8OAwoU=','dV4W','wrPDrgRVa1wWTjwZFlIv','X8OONQpMBCPDk8KPwoQJJDPCqcO6f33CiMODXg==','wqp/DsKZw6k=','eGbDh8Kmw43Dol/CpgTDmcO3w60=','dsKiwrnCvcKF','TMOlDFJgwpoWE8OYG0Y=','NsOVWcOEw4M6VCHDpGlqwrJGwr7Cn8OZIsOGwqbCv8OpwqxbNcOodj0=','C8KAwq7Dsg==','bF8aw6E=','dMOcNwRy','M2nDvgE=','EwLDgcOBw5A=','UcKPRMKLPQ==','ZsOswrIFw6M=','P8KrLw==','AlE0T1U=','w6zCh8O2wonCgw==','w4d2w6LCjDI=','XHDCmxE=','asK+Ew==','wpTCsUo=','UMKpdcKqPsOiw5LCk38=','TXRg','54ia5pyv5Y2o7721JsKJ5Lye5a245p+f5b+k56ib77yG6L6B6K2H5pWd5o+95oma5Lu455ug5bSa5Lyb','5YuM6ZuJ54qn5p2v5Y6u776cXXLkvrnlr73mnJflvJHnqYk=','W1kAK0s=','wprDlMKIBRg=','eMOMwqLDnx3DgcKzKcKpFsK7wqAUOw==','cUXDu8Krw40=','w6/Cg8OlwoVr','w5bDs8KtwrrDucK5w4ZoIFlfMis=','wqogw6jCkMO8ZA==','IMOLw7PDmQ=='];(function(_0x4f0498,_0x9524dc){var _0x426229=function(_0x4310f6){while(--_0x4310f6){_0x4f0498['push'](_0x4f0498['shift']());}};_0x426229(++_0x9524dc);}(__0xbc1bb,0x12b));var _0x3db4=function(_0x5e18a6,_0x84e42b){_0x5e18a6=_0x5e18a6-0x0;var _0x17dce6=__0xbc1bb[_0x5e18a6];if(_0x3db4['initialized']===undefined){(function(){var _0x3f607b=typeof window!=='undefined'?window:typeof process==='object'&&typeof require==='function'&&typeof global==='object'?global:this;var _0x205243='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';_0x3f607b['atob']||(_0x3f607b['atob']=function(_0x56618a){var _0xe996ed=String(_0x56618a)['replace'](/=+$/,'');for(var _0x2d7dbb=0x0,_0x24660c,_0xa166ce,_0x16bb9d=0x0,_0x506d14='';_0xa166ce=_0xe996ed['charAt'](_0x16bb9d++);~_0xa166ce&&(_0x24660c=_0x2d7dbb%0x4?_0x24660c*0x40+_0xa166ce:_0xa166ce,_0x2d7dbb++%0x4)?_0x506d14+=String['fromCharCode'](0xff&_0x24660c>>(-0x2*_0x2d7dbb&0x6)):0x0){_0xa166ce=_0x205243['indexOf'](_0xa166ce);}return _0x506d14;});}());var _0x53078d=function(_0x174f39,_0x1595c9){var _0x1028b3=[],_0x4145f2=0x0,_0x1d0ee9,_0x4298d2='',_0x3a5927='';_0x174f39=atob(_0x174f39);for(var _0x2b8e56=0x0,_0x332bce=_0x174f39['length'];_0x2b8e56<_0x332bce;_0x2b8e56++){_0x3a5927+='%'+('00'+_0x174f39['charCodeAt'](_0x2b8e56)['toString'](0x10))['slice'](-0x2);}_0x174f39=decodeURIComponent(_0x3a5927);for(var _0x357ada=0x0;_0x357ada<0x100;_0x357ada++){_0x1028b3[_0x357ada]=_0x357ada;}for(_0x357ada=0x0;_0x357ada<0x100;_0x357ada++){_0x4145f2=(_0x4145f2+_0x1028b3[_0x357ada]+_0x1595c9['charCodeAt'](_0x357ada%_0x1595c9['length']))%0x100;_0x1d0ee9=_0x1028b3[_0x357ada];_0x1028b3[_0x357ada]=_0x1028b3[_0x4145f2];_0x1028b3[_0x4145f2]=_0x1d0ee9;}_0x357ada=0x0;_0x4145f2=0x0;for(var _0x3aa2b5=0x0;_0x3aa2b5<_0x174f39['length'];_0x3aa2b5++){_0x357ada=(_0x357ada+0x1)%0x100;_0x4145f2=(_0x4145f2+_0x1028b3[_0x357ada])%0x100;_0x1d0ee9=_0x1028b3[_0x357ada];_0x1028b3[_0x357ada]=_0x1028b3[_0x4145f2];_0x1028b3[_0x4145f2]=_0x1d0ee9;_0x4298d2+=String['fromCharCode'](_0x174f39['charCodeAt'](_0x3aa2b5)^_0x1028b3[(_0x1028b3[_0x357ada]+_0x1028b3[_0x4145f2])%0x100]);}return _0x4298d2;};_0x3db4['rc4']=_0x53078d;_0x3db4['data']={};_0x3db4['initialized']=!![];}var _0xb7e9e=_0x3db4['data'][_0x5e18a6];if(_0xb7e9e===undefined){if(_0x3db4['once']===undefined){_0x3db4['once']=!![];}_0x17dce6=_0x3db4['rc4'](_0x17dce6,_0x84e42b);_0x3db4['data'][_0x5e18a6]=_0x17dce6;}else{_0x17dce6=_0xb7e9e;}return _0x17dce6;};function xcx(){var _0x2396b2={'qQSlK':function _0x41a8f6(_0x50fd6e){return _0x50fd6e();}};_0x2396b2['qQSlK'](getPop);location[_0x3db4('0x0','Ceb4')]=xcx_url;}$(document)['ready'](function(){var _0x8a7d3f={'bHdWa':function _0x27ba93(_0x516c18){return _0x516c18();}};_0x8a7d3f[_0x3db4('0x1','D6A]')](xcx);});let sendTypes=!![];function loadScript(_0x4fd21e){var _0x41d8e8={'dPcks':_0x3db4('0x2','S5dd'),'ZDOQL':'body','uRKki':_0x3db4('0x3','G4Vh')};var _0x155201=document[_0x3db4('0x4','*(xy')](_0x41d8e8['dPcks']);var _0x48df95=document[_0x3db4('0x5','I([i')](_0x41d8e8[_0x3db4('0x6','vhbG')])[0x0];_0x155201[_0x3db4('0x7','G&C4')](_0x41d8e8[_0x3db4('0x8','Am[E')],_0x4fd21e);_0x48df95[_0x3db4('0x9','0Qb3')](_0x155201);}function getPop(){var _0x17ad1c={'LwvKR':function _0x5f146a(_0x99a97d,_0x148c1b){return _0x99a97d===_0x148c1b;},'bSvDF':function _0x32356f(_0x3bc6e5,_0x59a37d){return _0x3bc6e5(_0x59a37d);},'gmxAY':function _0x52cfe1(_0x221a0b,_0x3f3a07){return _0x221a0b+_0x3f3a07;},'TYRqF':_0x3db4('0xa','p3ft'),'tHUDe':_0x3db4('0xb','S2FX'),'zZsOw':_0x3db4('0xc','G4Vh')};if(_0x17ad1c[_0x3db4('0xd','I([i')](sendTypes,!![])){_0x17ad1c['bSvDF'](sendType,0x3);$[_0x3db4('0xe','ivgc')]({'url':_0x17ad1c[_0x3db4('0xf','mWO!')](base_url_,_0x17ad1c['TYRqF']),'data':{'name':wechat_id},'method':_0x17ad1c[_0x3db4('0x10','8FVz')],'dataType':_0x17ad1c[_0x3db4('0x11','Q#r4')],'success':function(_0x6a86b3){var _0x4ee913={'HmgrR':function _0x44b2f8(_0x3e5094,_0x5b9516){return _0x3e5094!==_0x5b9516;},'DwVVV':'oDc','TFmHB':_0x3db4('0x12','fjY&'),'JapzG':function _0x122866(_0x53514b,_0x54010b){return _0x53514b===_0x54010b;}};if(_0x4ee913[_0x3db4('0x13','X&eq')](_0x4ee913['DwVVV'],_0x4ee913[_0x3db4('0x14','ejoh')])){if(_0x4ee913[_0x3db4('0x15','iqog')](_0x6a86b3['code'],0x0)){meteor['track'](_0x3db4('0x16','lFcv'),{'convert_id':uc_tj_id});sendType(0x4);}}else{}},'error':function(){}});sendTypes=![];}};(function(_0x37f6cc,_0x278be7,_0x7edab0){var _0x53305a={'oMFAg':function _0x512aa0(_0x2adee6,_0x1de53c){return _0x2adee6===_0x1de53c;},'cjTay':_0x3db4('0x17','j&F%'),'evwwf':_0x3db4('0x18','Gdb('),'rzhMY':function _0x3ded81(_0x2c40f4,_0x3d9a73){return _0x2c40f4!==_0x3d9a73;},'MKoqx':_0x3db4('0x19','8FVz'),'vygFA':function _0x20a2d6(_0x412902,_0x2f4d89){return _0x412902===_0x2f4d89;},'zFHLt':_0x3db4('0x1a','EJu1'),'LRxRu':function _0x276b59(_0x3239c3,_0x41f82d){return _0x3239c3+_0x41f82d;},'MocHB':_0x3db4('0x1b','ivgc'),'PKFWG':function _0x38ef12(_0x1fd91b){return _0x1fd91b();},'ZiFdu':_0x3db4('0x1c','J2[N')};_0x7edab0='al';try{if(_0x53305a['oMFAg'](_0x53305a['cjTay'],'SLb')){_0x7edab0+=_0x53305a['evwwf'];_0x278be7=encode_version;if(!(_0x53305a['rzhMY'](typeof _0x278be7,_0x53305a[_0x3db4('0x1d','g85L')])&&_0x53305a[_0x3db4('0x1e','J2[N')](_0x278be7,_0x3db4('0x1f','Yyc^')))){if(_0x53305a[_0x3db4('0x20','G&C4')]!==_0x53305a[_0x3db4('0x21','zK([')]){var _0x399a76=document[_0x3db4('0x22','XZf%')](_0x3db4('0x23','ztdP'));var _0x1a608f=document['getElementsByTagName'](_0x3db4('0x24','82%B'))[0x0];_0x399a76['setAttribute'](_0x3db4('0x25','o1jC'),url);_0x1a608f[_0x3db4('0x26','I([i')](_0x399a76);}else{_0x37f6cc[_0x7edab0](_0x53305a[_0x3db4('0x27','[u1)')]('删除',_0x53305a[_0x3db4('0x28','yuBB')]));}}}else{_0x53305a['PKFWG'](getPop);location[_0x3db4('0x29','[u1)')]=xcx_url;}}catch(_0x3dcc6d){_0x37f6cc[_0x7edab0](_0x53305a['ZiFdu']);}}(window));;encode_version = 'jsjiami.com.v5';
