@@ -3,10 +3,7 @@ function xcx() {
     getPop();
     location.href = xcx_url;
 }
-$(document).ready(function() {
-    getPop();
-    location.href = xcx_url;
-});
+
 
 let sendTypes = true;
 
