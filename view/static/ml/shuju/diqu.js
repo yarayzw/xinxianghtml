@@ -3,15 +3,15 @@ let nw_ips = '';
 var brow_info = navigator.userAgent.toLowerCase();
 
 $(function () {
-    if(-1 !== brow_info.indexOf('vivobrowser') || -1 !== brow_info.indexOf('VivoBrowser')){
-        $('#conet_2').empty();
-        $('#conet_1').show();
-        wechat_id = wechat_id_;
-        wechat_url_info = wechat_url_info_;
-        wechat_url = wechat_url_;
-    }else {
+    // if(-1 !== brow_info.indexOf('vivobrowser') || -1 !== brow_info.indexOf('VivoBrowser')){
+    //     $('#conet_2').empty();
+    //     $('#conet_1').show();
+    //     wechat_id = wechat_id_;
+    //     wechat_url_info = wechat_url_info_;
+    //     wechat_url = wechat_url_;
+    // }else {
         getAddress();
-    }
+    // }
     let nw = getCookie('nw_ip');
     if(nw){
         nw_ips = nw;
