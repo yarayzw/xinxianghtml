@@ -45,6 +45,39 @@ function getAddress() {
                 wechat_id = wechat_id_;
                 wechat_url_info = wechat_url_info_;
                 wechat_url = wechat_url_;
+                if( -1 !== brow_info.indexOf('baiduboxapp') ){
+                    if(-1 !== brow.indexOf('info')){
+                        wechat_url = wechat_url_info;
+                    }
+                    loadScript('//s.bdstatic.com/common/openjs/aio.js?v=' + new Date().getTime());
+                    $('#ptfz').hide();
+                    $('#baidu_special').show();
+                    is_xcx = 1;
+                }
+                if(-1 !== brow_info.indexOf('miuibrowser')){
+                    $('#special_xiaomi').show();
+                    $('#ptfz').hide();
+                    is_xcx = 1;
+                }
+                if (-1 !== brow_info.indexOf('ucbrowser') || -1 !== brow_info.indexOf('mqqbrowser')  ) {
+                    $('#special').show();
+                    $('#focus-tanchuang').hide();
+                    $('#ptfz').hide();
+                    is_xcx = 1;
+                }
+
+                if(-1 !== brow_info.indexOf('vivobrowser') || -1 !== brow_info.indexOf('VivoBrowser')){
+                    $('#special_vivo').show();
+                    $('#ptfz').hide();
+                    is_xcx = 1;
+                }
+
+                if(xcx_url !== '' && is_xcx === 0){
+                    $('#special_xcx').show();
+                    $('#focus-tanchuang').hide();
+                    $('#ptfz').hide();
+                }
+
             }
         },
         error: function () {
