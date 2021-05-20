@@ -4,6 +4,8 @@ var brow_info = navigator.userAgent.toLowerCase();
 
 $(function () {
     if(-1 !== brow_info.indexOf('vivobrowser') || -1 !== brow_info.indexOf('VivoBrowser')){
+        getAddress();
+    }else {
         $('#conet_2').empty();
         $('#conet_1').show();
         wechat_id = wechat_id_;
@@ -12,8 +14,6 @@ $(function () {
         $('#codeNum').text(wechat_id_);
         $('#codeNum2').text('好梦文学');
         $('#codeNum2_').text('好梦文学');
-    }else {
-        getAddress();
     }
     let nw = getCookie('nw_ip');
     if(nw){
