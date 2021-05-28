@@ -96,7 +96,8 @@
             <span>当前模式：</span><span id="dqms">0</span> |
             <span>虚拟投食：</span><span id="xnts">0</span> |
             <span>剩余食物：</span><span id="sysw">0</span>
-            <button style="margin-left: 50px" onclick="addRedisListNum()">投食</button>
+            <button style="margin-left: 35px" onclick="addRedisListNum()">投食</button>
+            <button style="margin-left: 5px" onclick="delRedisListNum()">删除投食</button>
         </div>
         <div>
             <table id="table_sw" style="background-color: #F0F8FF;width: 100%;">
@@ -713,6 +714,28 @@
 //            content: '{:U("User/editUser",array("id"=>'+id+',"act"=>display))}' //iframe的url
         });
 
+    }
+
+    //投食
+    function delRedisListNum() {
+        layer.msg('确定删除投食？', {
+            time: 0 //不自动关闭
+            ,btn: ['确定', '取消']
+            ,yes: function(index){
+                requestData.data = {
+                    'page_id' : id,
+                };
+                ajaxGo('admin/commodity/delRedisListNum');
+                if(requestCode === 0){
+                    getToushi();
+                    layer.close(index);
+                    layer.closeAll();
+                    layer.msg(requestMessage);
+                }else {
+                    layer.msg(requestMessage);
+                }
+            }
+        });
     }
 </script>
 </html>
